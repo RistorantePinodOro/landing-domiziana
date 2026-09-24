@@ -1,0 +1,3 @@
+Metti qui le due foto, con questi nomi esatti (JPEG o WebP, larghezza 1200 px, sotto i 150 KB):
+  tavolo-spiaggia-inverno.jpg   il tavolo apparecchiato sulla spiaggia d'inverno (in alto nella pagina)
+  spaghetto-ai-lupini.jpg       lo Spaghetto ai Lupini visto dall'alto, con luce naturale (blocco 3)
