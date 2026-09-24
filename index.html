@@ -90,6 +90,8 @@
     img { max-width: 100%; display: block; }
     strong { font-weight: 600; }
 
+    /* Sprite delle icone: presente nel DOM per gli <use>, ma senza occupare spazio */
+    .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
     .contenitore { width: min(var(--max), 100% - 2rem); margin-inline: auto; }
     .sezione { padding: 2.2rem 0; }
     .titolo-sezione { font-size: clamp(1.7rem, 5vw, 2.6rem); margin-bottom: .8rem; }
@@ -275,7 +277,7 @@
   </style>
 </head>
 <body>
-  <svg hidden aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
     <symbol id="i-spunta" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-valigetta" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 12h18" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
     <symbol id="i-auto" viewBox="0 0 24 24"><path d="M4 16v-4.5L6.2 6.8A1.5 1.5 0 0 1 7.6 6h8.8a1.5 1.5 0 0 1 1.4.8L20 11.5V16M4 11.5h16M4 16H3a1 1 0 0 1-1-1v-2.5M20 16h1a1 1 0 0 0 1-1v-2.5M6 16v2M18 16v2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7.5" cy="13.5" r="1" fill="currentColor"/><circle cx="16.5" cy="13.5" r="1" fill="currentColor"/></symbol>
