@@ -101,6 +101,12 @@ SU HOSTINGER (recensioni automatiche senza GitHub)
      .htaccess (README.md puo' restare: non e' scaricabile). Le cartelle .github e scripts servono solo a GitHub.
      Il sito esistente non cambia: la cartella e' indipendente, e le sue regole .htaccess valgono solo li' dentro
      (quelle del sito principale continuano a valere e non danno fastidio).
+     Se il sito e' WordPress: funziona allo stesso modo. WordPress gestisce solo gli indirizzi che non
+     corrispondono a file o cartelle reali, quindi public_html/domiziana/ viene servita direttamente,
+     senza tema, plugin o cache di WordPress. Due accortezze: non creare in WordPress una pagina con lo
+     stesso slug (es. "domiziana"), e metti la cartella nella radice del dominio (public_html, accanto a
+     wp-config.php), non dentro wp-content. Il file .htaccess della landing la isola dalle regole di
+     WordPress e imposta index.html come pagina di ingresso.
   2. Nel File Manager duplica config.example.php, rinomina la copia in config.php e compila:
        'api_key' => la chiave di Google Maps Platform (la stessa usata su GitHub, o una nuova);
        'token'   => una frase lunga e segreta a tua scelta.

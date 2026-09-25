@@ -1,5 +1,13 @@
 # Landing "Pranzo sulla Domiziana" - regole per hosting Apache/LiteSpeed (Hostinger). GitHub Pages le ignora.
 
+# La cartella e' indipendente dal resto del sito (anche se il sito e' WordPress): la pagina di ingresso e'
+# index.html e le regole di riscrittura del sito principale non si applicano qui dentro.
+DirectoryIndex index.html
+Options -Indexes
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+</IfModule>
+
 # File di lavoro e configurazione: mai scaricabili (config.php viene comunque eseguito, non mostrato).
 <FilesMatch "^(config\.php|config\.example\.php|README\.md|LICENSE|\.gitignore|\.nojekyll|\.ftp-deploy-sync-state\.json)$">
   <IfModule mod_authz_core.c>
