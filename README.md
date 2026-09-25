@@ -11,17 +11,21 @@ COSA C'E' IN QUESTO REPOSITORY
   foto/           qui vanno le due foto (vedi sotto)
   README.md       questo file
   recensioni.json valutazione, numero di recensioni e recensioni della scheda Google (aggiornato in automatico)
-  scripts/        lo script che scarica le recensioni da Google
-  .github/        i due automatismi: pubblicazione su GitHub Pages e aggiornamento delle recensioni
+  scripts/        lo script che scarica le recensioni da Google (versione per GitHub Actions)
+  aggiorna-recensioni.php   lo stesso aggiornamento in PHP, per Hostinger (vedi "SU HOSTINGER")
+  config.example.php        modello del file con la chiave, solo per Hostinger
+  .htaccess       regole di protezione per Hostinger (GitHub Pages le ignora)
+  .github/        gli automatismi: pubblicazione su GitHub Pages, aggiornamento delle recensioni, caricamento FTP facoltativo
   .nojekyll       serve solo a GitHub Pages (dice di pubblicare i file cosi' come sono)
 
 COME SI PUBBLICA
   Opzione 1 - GitHub Pages (gratis, senza hosting): Settings > Pages > Source "Deploy from a branch",
     branch main, cartella "/ (root)". La pagina sara' su https://NOMEUTENTE.github.io/landing-domiziana/
     e si puo' collegare a un dominio proprio dalla stessa schermata.
-  Opzione 2 - Qualsiasi hosting (Hostinger, Vercel, ...): carica il contenuto del repository,
-    cosi' com'e', dove vuoi che stia la pagina: nella radice di un dominio dedicato (public_html/)
-    oppure in una sottocartella (es. public_html/domiziana/). Nessuna configurazione da fare.
+  Opzione 2 - Hostinger (o altro hosting con PHP): carica il contenuto del repository, cosi' com'e',
+    dove vuoi che stia la pagina: nella radice di un dominio dedicato (public_html/) oppure in una
+    sottocartella (es. public_html/domiziana/). La pagina funziona subito; per le recensioni
+    automatiche segui la sezione "SU HOSTINGER" qui sotto.
 
 INDIRIZZI DA METTERE NEGLI ANNUNCI
   Gruppo 1 - Pranzo di lavoro:       https://TUODOMINIO/?g=lavoro
@@ -81,6 +85,34 @@ RECENSIONI GOOGLE AUTOMATICHE
      mostra le recensioni vere. Da li' in poi va da solo.
   Il Place ID trovato viene usato anche da "Portami li'" e "Leggi tutte le recensioni su Google",
   se CONFIG.googlePlaceId in index.html e' vuoto.
+
+SU HOSTINGER (recensioni automatiche senza GitHub)
+  Su un hosting PHP l'aggiornamento settimanale lo fa aggiorna-recensioni.php, con la stessa logica
+  dello script per GitHub, lanciato dal cron di hPanel. La pagina non cambia: legge recensioni.json.
+  1. Carica la cartella su Hostinger (File Manager o FTP), compreso .htaccess (nel File Manager
+     attiva "Mostra file nascosti"). Controlla che la cartella sia scrivibile (lo e' di norma).
+  2. Nel File Manager duplica config.example.php, rinomina la copia in config.php e compila:
+       'api_key' => la chiave di Google Maps Platform (la stessa usata su GitHub, o una nuova);
+       'token'   => una frase lunga e segreta a tua scelta.
+     config.php viene eseguito da PHP e non e' mai mostrato ai visitatori; .htaccess lo blocca anche
+     da download diretto.
+  3. hPanel > Avanzate > Cron Job: crea un cron settimanale, il lunedi' alle 7, con il comando
+       php /home/UTENTE/domains/TUODOMINIO/public_html/CARTELLA/aggiorna-recensioni.php
+     Il percorso esatto della cartella lo vedi in alto nel File Manager (inizia con /home/u...).
+     Con la pianificazione "Personalizzata": minuto 0, ora 7, giorno *, mese *, giorno della settimana 1.
+  4. Prova subito dal browser: https://TUODOMINIO/CARTELLA/aggiorna-recensioni.php?token=IL_TOKEN
+     Risponde con una riga ("Aggiornato recensioni.json: ..." oppure "Nessuna novita': ...").
+     Senza token, o con token sbagliato, risponde "Accesso negato".
+  5. Ricarica la pagina: nel blocco "La prova" compaiono voto, numero di recensioni e le tre recensioni.
+
+  Facoltativo - caricamento automatico da GitHub a Hostinger (per chi modifica la pagina su GitHub):
+  a ogni push, e dopo ogni aggiornamento delle recensioni, i workflow caricano la cartella via FTP.
+  Si attiva impostando nel repository (Settings > Secrets and variables > Actions):
+    Variables: HOSTINGER_FTP_HOST (es. ftp.tuodominio.it), HOSTINGER_FTP_DIR (es. public_html/domiziana/,
+               con la barra finale), HOSTINGER_FTP_PROTOCOL (ftps; mettere ftp solo se ftps non funziona)
+    Secrets:   HOSTINGER_FTP_USER, HOSTINGER_FTP_PASSWORD (hPanel > File > Account FTP)
+  Con questo attivo il cron su Hostinger non serve piu': le recensioni arrivano gia' aggiornate da GitHub.
+  Senza queste impostazioni il caricamento FTP non parte e non da' errori.
 
 GOOGLE ADS
   Crea cinque conversioni (Portami li', Chiama, WhatsApp Lavoro, WhatsApp Sosta, WhatsApp generico),

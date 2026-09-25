@@ -1,0 +1,19 @@
+# Landing "Pranzo sulla Domiziana" - regole per hosting Apache/LiteSpeed (Hostinger). GitHub Pages le ignora.
+
+# File di lavoro e configurazione: mai scaricabili (config.php viene comunque eseguito, non mostrato).
+<FilesMatch "^(config\.php|config\.example\.php|README\.md|LICENSE|\.gitignore|\.nojekyll|\.ftp-deploy-sync-state\.json)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Deny from all
+  </IfModule>
+</FilesMatch>
+RedirectMatch 404 /(\.github|\.git|scripts)(/|$)
+
+# Il browser ricontrolla sempre le recensioni (il file cambia una volta a settimana).
+<IfModule mod_headers.c>
+  <FilesMatch "^recensioni\.json$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
