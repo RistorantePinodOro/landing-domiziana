@@ -136,9 +136,8 @@
       background: linear-gradient(90deg, var(--oro-scuro), var(--oro) 50%, var(--oro-scuro));
       color: var(--bianco); text-align: center;
       font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 600;
-      line-height: 1.4; padding: .45rem 1rem; white-space: nowrap;
+      line-height: 1.5; padding: .4rem 1rem; white-space: nowrap;
     }
-    .striscia-extra { display: none; }
 
     /* Testata */
     .testata {
@@ -275,7 +274,6 @@
     }
 
     @media (min-width: 820px) {
-      .striscia-extra { display: inline; }
       .testata { height: 104px; }
       .testata img { height: 76px; }
       .sezione { padding: 3.2rem 0; }
@@ -309,8 +307,8 @@
     <symbol id="i-stella" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.3L12 17l-5.7 3.2 1.2-6.3L2.8 9.5l6.4-.8z" fill="currentColor"/></symbol>
   </svg>
 
-  <!-- Striscia con la data di oggi (automatica, fuso Europe/Rome) sopra la testata -->
-  <div class="striscia-data"><span id="data-striscia">Oggi</span><span class="striscia-extra"> · aperti a pranzo · <span data-orario>12:00-15:30</span></span></div>
+  <!-- Striscia sopra la testata: data di oggi (automatica, fuso Europe/Rome) e fascia oraria del pranzo (fissa, da CONFIG.orarioPranzo: nessun orologio) -->
+  <div class="striscia-data"><span id="data-striscia">Oggi</span> · <span data-orario>12:00-15:30</span></div>
 
   <header class="testata">
     <img src="logo.png" alt="Lido Pino d'Oro, ristorante sulla spiaggia" width="92" height="60">
