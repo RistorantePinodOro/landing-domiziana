@@ -131,6 +131,15 @@
     .btn-scuro { background: var(--oro-scuro); color: var(--bianco); box-shadow: 0 10px 26px rgba(165, 130, 26, .3); }
     .btn-largo { width: 100%; }
 
+    /* Striscia con la data sopra la testata */
+    .striscia-data {
+      background: linear-gradient(90deg, var(--oro-scuro), var(--oro) 50%, var(--oro-scuro));
+      color: var(--bianco); text-align: center;
+      font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 600;
+      line-height: 1.4; padding: .45rem 1rem; white-space: nowrap;
+    }
+    .striscia-extra { display: none; }
+
     /* Testata */
     .testata {
       height: 84px; display: flex; align-items: center; justify-content: center;
@@ -266,6 +275,7 @@
     }
 
     @media (min-width: 820px) {
+      .striscia-extra { display: inline; }
       .testata { height: 104px; }
       .testata img { height: 76px; }
       .sezione { padding: 3.2rem 0; }
@@ -298,6 +308,9 @@
     <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.9L3.5 20.5l4.2-1.1A8.5 8.5 0 1 0 12 3.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.3 8.6c.2-.4.5-.4.7-.4h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.5l-.5.6c-.1.1-.1.3 0 .4a6 6 0 0 0 2.8 2.7c.2.1.3 0 .4-.1l.6-.7c.1-.2.3-.2.5-.1l1.6.7c.2.1.3.3.3.5 0 .8-.6 1.6-1.4 1.8-.7.2-1.5.1-2.6-.5a9.7 9.7 0 0 1-3.9-3.9c-.5-1-.7-1.9-.5-2.6.1-.4.2-.7.4-.9z" fill="currentColor"/></symbol>
     <symbol id="i-stella" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.3L12 17l-5.7 3.2 1.2-6.3L2.8 9.5l6.4-.8z" fill="currentColor"/></symbol>
   </svg>
+
+  <!-- Striscia con la data di oggi (automatica, fuso Europe/Rome) sopra la testata -->
+  <div class="striscia-data"><span id="data-striscia">Oggi</span><span class="striscia-extra"> · aperti a pranzo · <span data-orario>12:00-15:30</span></span></div>
 
   <header class="testata">
     <img src="logo.png" alt="Lido Pino d'Oro, ristorante sulla spiaggia" width="92" height="60">
@@ -520,9 +533,12 @@
 
       // Data automatica nella riga sopra il titolo: "Oggi, giovedì 24 settembre, siamo aperti a pranzo".
       try {
-        var oggi = new Intl.DateTimeFormat("it-IT", { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Rome" }).format(new Date());
+        var adesso = new Date();
+        var oggi = new Intl.DateTimeFormat("it-IT", { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Rome" }).format(adesso);
         document.getElementById("data-oggi").textContent = ", " + oggi;
-      } catch (e) { /* senza Intl resta "Oggi, siamo aperti a pranzo" */ }
+        var completa = new Intl.DateTimeFormat("it-IT", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Rome" }).format(adesso);
+        document.getElementById("data-striscia").textContent = completa.charAt(0).toUpperCase() + completa.slice(1);
+      } catch (e) { /* senza Intl restano "Oggi, siamo aperti a pranzo" e "Oggi · aperti a pranzo" */ }
       Array.prototype.forEach.call(document.querySelectorAll("[data-orario]"), function (el) { el.textContent = CONFIG.orarioPranzo; });
 
       // Link dei pulsanti, costruiti da CONFIG.
