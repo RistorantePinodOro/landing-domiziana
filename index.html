@@ -38,11 +38,10 @@
     [ ] Pagamento con carta                     -> domande frequenti
     [ ] Cani ammessi si'/no                     -> domande frequenti
     [ ] Indirizzo e indicazione della svolta dalla Domiziana -> domande frequenti e chiusura
-    [ ] Recensioni Google: automatiche (recensioni.json, rigenerato ogni 6 ore dal workflow "Aggiorna le recensioni Google").
-        Servono il secret GOOGLE_PLACES_API_KEY e la variabile GOOGLE_PLACE_ID nel repository (vedi README.md).
-        Finche' mancano, nel blocco "La prova" restano i tre segnaposto.
+    [x] Recensioni Google: automatiche (recensioni.json, rigenerato ogni 6 ore dal workflow "Aggiorna le recensioni Google"
+        con il secret GOOGLE_PLACES_API_KEY del repository). I tre segnaposto qui sotto compaiono solo se il file e' vuoto.
     [ ] Foto dello Spaghetto ai Lupini (blocco 3) -> cartella foto/; facoltativa: il tavolo sulla spiaggia d'inverno (in alto)
-    [ ] Place ID della scheda Google            -> CONFIG.googlePlaceId ("Portami li'" e "Leggi tutte le recensioni")
+    [x] Place ID della scheda Google            -> CONFIG.googlePlaceId (scheda "Ristorante Pino D'Oro", Mondragone)
     [ ] ID Google Ads ed etichette di conversione -> CONFIG.googleAdsId e CONFIG.conversioni
 
     MISURAZIONE (foglio 4-MARKETING)
@@ -503,7 +502,7 @@
         // Place ID della scheda Google del Lido (Google Maps > scheda del Lido > condividi, oppure
         // https://developers.google.com/maps/documentation/places/web-service/place-id).
         // Con il Place ID, "Portami li'" apre direttamente la scheda e "Leggi tutte le recensioni" apre le recensioni.
-        googlePlaceId: "",
+        googlePlaceId: "ChIJcV_Xya3fOhMRWT5u9UL0X08",
         // Google Ads: ID del tag (es. "AW-123456789") ed etichetta di conversione di ogni pulsante
         // (Google Ads > Obiettivi > Conversioni: una conversione per pulsante). Vuoto = nessun tracciamento.
         googleAdsId: "",

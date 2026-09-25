@@ -12,7 +12,7 @@
 
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 
-const PLACE_ID_PREDEFINITO = ""; // Place ID della scheda del Lido (se vuoto, viene cercato con QUERY_PREDEFINITA)
+const PLACE_ID_PREDEFINITO = "ChIJcV_Xya3fOhMRWT5u9UL0X08"; // Place ID della scheda "Ristorante Pino D'Oro", Mondragone (se vuoto, viene cercato con QUERY_PREDEFINITA)
 const QUERY_PREDEFINITA = "Lido Pino d'Oro Mondragone"; // testo con cui cercare la scheda quando manca il Place ID
 const USCITA = new URL("../recensioni.json", import.meta.url);
 const CAMPI = "id,displayName,rating,userRatingCount,reviews,googleMapsUri";
