@@ -38,7 +38,9 @@
     [ ] Pagamento con carta                     -> domande frequenti
     [ ] Cani ammessi si'/no                     -> domande frequenti
     [ ] Indirizzo e indicazione della svolta dalla Domiziana -> domande frequenti e chiusura
-    [ ] 3 recensioni Google vere (lavoro/servizio, viaggio/famiglia, cibo) -> blocco "La prova"
+    [ ] Recensioni Google: automatiche (recensioni.json, rigenerato ogni 6 ore dal workflow "Aggiorna le recensioni Google").
+        Servono il secret GOOGLE_PLACES_API_KEY e la variabile GOOGLE_PLACE_ID nel repository (vedi README.md).
+        Finche' mancano, nel blocco "La prova" restano i tre segnaposto.
     [ ] Foto dello Spaghetto ai Lupini (blocco 3) -> cartella foto/; facoltativa: il tavolo sulla spiaggia d'inverno (in alto)
     [ ] Place ID della scheda Google            -> CONFIG.googlePlaceId ("Portami li'" e "Leggi tutte le recensioni")
     [ ] ID Google Ads ed etichette di conversione -> CONFIG.googleAdsId e CONFIG.conversioni
@@ -231,6 +233,7 @@
     .stelle svg { width: 1rem; height: 1rem; }
     .recensione p { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-style: italic; line-height: 1.35; margin: .5rem 0 .6rem; }
     .recensione cite { font-style: normal; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--oro-scuro); font-weight: 600; }
+    .recensione .leggi-tutto { font-family: 'Montserrat', sans-serif; font-style: normal; font-size: .78rem; font-weight: 600; color: var(--oro-scuro); border-bottom: 1px solid var(--oro); white-space: nowrap; }
     .link-oro {
       display: inline-flex; align-items: center; gap: .45rem; margin-top: 1.1rem;
       color: var(--oro-scuro); font-weight: 600; font-size: .85rem;
@@ -415,7 +418,9 @@
       <div class="contenitore">
         <span class="occhiello">La prova</span>
         <h2 class="titolo-sezione" id="titolo-prova">4,6 su Google, con 557 recensioni</h2>
-        <div class="recensioni">
+        <!-- Le tre recensioni qui sotto sono segnaposto: quando recensioni.json contiene dati (workflow "Aggiorna le recensioni Google"),
+             lo script in fondo alla pagina le sostituisce con le recensioni vere della scheda Google, e aggiorna anche il titolo. -->
+        <div class="recensioni" id="recensioni">
           <blockquote class="recensione">
             <div class="stelle" aria-label="Cinque stelle"><svg aria-hidden="true"><use href="#i-stella"/></svg><svg aria-hidden="true"><use href="#i-stella"/></svg><svg aria-hidden="true"><use href="#i-stella"/></svg><svg aria-hidden="true"><use href="#i-stella"/></svg><svg aria-hidden="true"><use href="#i-stella"/></svg></div>
             <p>"<span class="dc">[recensione vera: pranzo di lavoro, tempi o servizio]</span>"</p>
@@ -608,6 +613,55 @@
       Array.prototype.forEach.call(document.querySelectorAll("[data-link='recensioni']"), function (a) {
         a.setAttribute("href", urlRecensioni);
       });
+      // Se CONFIG.googlePlaceId e' vuoto ma recensioni.json contiene il Place ID della scheda, i link Google usano quello.
+      function impostaLinkGoogle(placeId) {
+        var maps = "https://www.google.com/maps/search/?api=1&query=" + nome + "&query_place_id=" + encodeURIComponent(placeId);
+        var rec = "https://search.google.com/local/reviews?placeid=" + encodeURIComponent(placeId);
+        Array.prototype.forEach.call(document.querySelectorAll("[data-azione='portami-li']"), function (a) { a.setAttribute("href", maps); });
+        Array.prototype.forEach.call(document.querySelectorAll("[data-link='recensioni']"), function (a) { a.setAttribute("href", rec); });
+      }
+
+      // Recensioni Google: lette da recensioni.json, che il workflow "Aggiorna le recensioni Google" rigenera
+      // ogni 6 ore dalla scheda Google (Places API). Finche' il file e' vuoto restano i tre segnaposto della pagina.
+      // I testi arrivano da Google: vengono inseriti come testo, mai come HTML.
+      function iconaStella() {
+        var NS = "http://www.w3.org/2000/svg";
+        var svg = document.createElementNS(NS, "svg"); svg.setAttribute("aria-hidden", "true");
+        var use = document.createElementNS(NS, "use"); use.setAttribute("href", "#i-stella"); use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#i-stella");
+        svg.appendChild(use); return svg;
+      }
+      function mostraRecensioni(dati) {
+        if (!dati || !dati.scelte || !dati.scelte.length) return;
+        if (typeof dati.valutazione === "number" && dati.numeroRecensioni) {
+          document.getElementById("titolo-prova").textContent =
+            dati.valutazione.toFixed(1).replace(".", ",") + " su Google, con " + dati.numeroRecensioni + " recensioni";
+        }
+        var contenitore = document.getElementById("recensioni");
+        contenitore.textContent = "";
+        dati.scelte.slice(0, 3).forEach(function (r) {
+          var scheda = document.createElement("blockquote"); scheda.className = "recensione";
+          var stelle = document.createElement("div"); stelle.className = "stelle";
+          var n = Math.max(1, Math.min(5, Math.round(Number(r.valutazione) || 5)));
+          stelle.setAttribute("aria-label", n + " stelle su 5");
+          for (var i = 0; i < n; i++) stelle.appendChild(iconaStella());
+          var p = document.createElement("p"); p.textContent = '"' + r.testo + '"';
+          if (r.troncata && r.link) {
+            var leggi = document.createElement("a"); leggi.className = "leggi-tutto";
+            leggi.href = r.link; leggi.target = "_blank"; leggi.rel = "noopener"; leggi.textContent = "Leggi tutto";
+            p.appendChild(document.createTextNode(" ")); p.appendChild(leggi);
+          }
+          var cite = document.createElement("cite"); cite.textContent = r.autore + (r.quando ? " · " + r.quando : "");
+          scheda.appendChild(stelle); scheda.appendChild(p); scheda.appendChild(cite);
+          contenitore.appendChild(scheda);
+        });
+        if (!CONFIG.googlePlaceId && dati.placeId) impostaLinkGoogle(dati.placeId);
+      }
+      if (window.fetch) {
+        fetch("recensioni.json", { cache: "no-cache" })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(mostraRecensioni)
+          .catch(function () { /* file assente o non raggiungibile: restano i segnaposto */ });
+      }
     })();
   </script>
 </body>

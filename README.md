@@ -10,6 +10,9 @@ COSA C'E' IN QUESTO REPOSITORY
   logo.png        il logo
   foto/           qui vanno le due foto (vedi sotto)
   README.md       questo file
+  recensioni.json valutazione, numero di recensioni e recensioni della scheda Google (aggiornato in automatico)
+  scripts/        lo script che scarica le recensioni da Google
+  .github/        i due automatismi: pubblicazione su GitHub Pages e aggiornamento delle recensioni
   .nojekyll       serve solo a GitHub Pages (dice di pubblicare i file cosi' come sono)
 
 COME SI PUBBLICA
@@ -51,6 +54,32 @@ FOTO
     terrazza-mare-*.jpg e terrazza-pergola-*.jpg   striscia "La terrazza" sotto il blocco 3
   Facoltativa: uno scatto invernale del tavolo sulla spiaggia al posto di tavolo-spiaggia.
   Se un file manca, al suo posto compare una cornice dorata con la didascalia.
+
+RECENSIONI GOOGLE AUTOMATICHE
+  Il blocco "La prova" (voto, numero di recensioni e tre recensioni) si aggiorna da solo dalla scheda
+  Google del Lido: ogni 6 ore un automatismo (Actions > "Aggiorna le recensioni Google") interroga
+  l'API ufficiale di Google Maps Platform (Places API), scrive recensioni.json e ripubblica la pagina.
+  Google espone al massimo 5 recensioni per scheda (le piu' rilevanti): lo script ne sceglie 3, con
+  almeno 4 stelle, una per categoria del documento (lavoro/servizio, viaggio/famiglia, cibo), copiate
+  parola per parola; oltre i 320 caratteri il testo viene accorciato e compare il link "Leggi tutto"
+  verso la recensione su Google. I nomi vengono abbreviati a nome e iniziale (es. "Marco R.").
+  Finche' l'automatismo non e' configurato, nella pagina restano i tre segnaposto.
+
+  Per attivarlo, una volta sola:
+  1. Su https://console.cloud.google.com crea un progetto, attiva "Places API (New)" e la fatturazione
+     (obbligatoria per Google Maps Platform; la quota gratuita mensile copre ampiamente le circa 120
+     chiamate al mese di questo automatismo; imposta comunque un avviso di budget).
+  2. Crea una chiave API (APIs & Services > Credentials) limitata alla sola "Places API (New)".
+  3. Nel repository: Settings > Secrets and variables > Actions.
+       Secrets   -> GOOGLE_PLACES_API_KEY = la chiave
+       Variables -> GOOGLE_PLACE_ID = il Place ID della scheda del Lido
+                    (si trova con https://developers.google.com/maps/documentation/places/web-service/place-id)
+                    In alternativa GOOGLE_PLACE_QUERY = "Lido Pino d'Oro <comune>": lo script cerca la scheda
+                    e stampa il Place ID nel log, da salvare poi in GOOGLE_PLACE_ID.
+  4. Actions > "Aggiorna le recensioni Google" > Run workflow: se tutto e' a posto, in un minuto la pagina
+     mostra le recensioni vere. Da li' in poi va da solo.
+  Il Place ID trovato viene usato anche da "Portami li'" e "Leggi tutte le recensioni su Google",
+  se CONFIG.googlePlaceId in index.html e' vuoto.
 
 GOOGLE ADS
   Crea cinque conversioni (Portami li', Chiama, WhatsApp Lavoro, WhatsApp Sosta, WhatsApp generico),
