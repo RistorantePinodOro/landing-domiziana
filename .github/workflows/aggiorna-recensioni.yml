@@ -1,12 +1,13 @@
-# Ogni 6 ore scarica le recensioni della scheda Google (Places API), aggiorna recensioni.json
-# se e' cambiato qualcosa e ripubblica la pagina. Si puo' lanciare a mano da Actions.
+# Ogni lunedi' mattina (05:23 UTC = 7:23 ora italiana d'estate, 6:23 d'inverno) scarica le recensioni
+# della scheda Google (Places API), aggiorna recensioni.json se e' cambiato qualcosa e ripubblica la
+# pagina. Si puo' lanciare a mano in qualsiasi momento da Actions > "Aggiorna le recensioni Google".
 # Prima di funzionare servono: il secret GOOGLE_PLACES_API_KEY e la variabile GOOGLE_PLACE_ID
 # (Settings > Secrets and variables > Actions). Vedi README.md, "Recensioni Google automatiche".
 name: Aggiorna le recensioni Google
 
 on:
   schedule:
-    - cron: "17 */6 * * *"
+    - cron: "23 5 * * 1"
   workflow_dispatch:
 
 permissions:

@@ -38,7 +38,7 @@
     [ ] Pagamento con carta                     -> domande frequenti
     [ ] Cani ammessi si'/no                     -> domande frequenti
     [ ] Indirizzo e indicazione della svolta dalla Domiziana -> domande frequenti e chiusura
-    [x] Recensioni Google: automatiche (recensioni.json, rigenerato ogni 6 ore dal workflow "Aggiorna le recensioni Google"
+    [x] Recensioni Google: automatiche (recensioni.json, rigenerato ogni lunedi' mattina dal workflow "Aggiorna le recensioni Google"
         con il secret GOOGLE_PLACES_API_KEY del repository). I tre segnaposto qui sotto compaiono solo se il file e' vuoto.
     [ ] Foto dello Spaghetto ai Lupini (blocco 3) -> cartella foto/; facoltativa: il tavolo sulla spiaggia d'inverno (in alto)
     [x] Place ID della scheda Google            -> CONFIG.googlePlaceId (scheda "Ristorante Pino D'Oro", Mondragone)
@@ -621,7 +621,7 @@
       }
 
       // Recensioni Google: lette da recensioni.json, che il workflow "Aggiorna le recensioni Google" rigenera
-      // ogni 6 ore dalla scheda Google (Places API). Finche' il file e' vuoto restano i tre segnaposto della pagina.
+      // ogni lunedi' mattina dalla scheda Google (Places API). Finche' il file e' vuoto restano i tre segnaposto della pagina.
       // I testi arrivano da Google: vengono inseriti come testo, mai come HTML.
       function iconaStella() {
         var NS = "http://www.w3.org/2000/svg";

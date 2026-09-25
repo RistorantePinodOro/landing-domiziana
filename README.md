@@ -57,7 +57,8 @@ FOTO
 
 RECENSIONI GOOGLE AUTOMATICHE
   Il blocco "La prova" (voto, numero di recensioni e tre recensioni) si aggiorna da solo dalla scheda
-  Google del Lido: ogni 6 ore un automatismo (Actions > "Aggiorna le recensioni Google") interroga
+  Google del Lido: ogni lunedi' mattina (7:23 ora italiana d'estate, 6:23 d'inverno) un automatismo
+  (Actions > "Aggiorna le recensioni Google", lanciabile anche a mano in qualsiasi momento) interroga
   l'API ufficiale di Google Maps Platform (Places API), scrive recensioni.json e ripubblica la pagina.
   Google espone al massimo 5 recensioni per scheda (le piu' rilevanti): lo script ne sceglie 3, con
   almeno 4 stelle, una per categoria del documento (lavoro/servizio, viaggio/famiglia, cibo), copiate
@@ -67,7 +68,7 @@ RECENSIONI GOOGLE AUTOMATICHE
 
   Per attivarlo, una volta sola:
   1. Su https://console.cloud.google.com crea un progetto, attiva "Places API (New)" e la fatturazione
-     (obbligatoria per Google Maps Platform; la quota gratuita mensile copre ampiamente le circa 120
+     (obbligatoria per Google Maps Platform; la quota gratuita mensile copre ampiamente le 4 o 5
      chiamate al mese di questo automatismo; imposta comunque un avviso di budget).
   2. Crea una chiave API (APIs & Services > Credentials) limitata alla sola "Places API (New)".
   3. Nel repository: Settings > Secrets and variables > Actions.
