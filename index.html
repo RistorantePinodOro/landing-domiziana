@@ -529,14 +529,33 @@
       // Titolo per gruppo di annunci (l'ordine delle schede e' gestito dal CSS tramite data-g).
       if (CONFIG.titoli[gruppo]) document.getElementById("titolo").textContent = CONFIG.titoli[gruppo];
 
-      // Data automatica nella riga sopra il titolo: "Oggi, giovedì 24 settembre, siamo aperti a pranzo".
-      try {
+      // Data di oggi, calcolata dal browser al momento della visita (fuso Europe/Rome) e ricontrollata
+      // ogni minuto: se la pagina resta aperta oltre la mezzanotte, la data cambia da sola.
+      // Riempie la striscia in alto ("Venerdì 25 settembre 2026") e la riga sopra il titolo
+      // ("Oggi, venerdì 25 settembre, siamo aperti a pranzo"). Nel file HTML c'e' solo la parola "Oggi".
+      var GIORNI = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"];
+      var MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
+      function dataOggi(conAnno) {
         var adesso = new Date();
-        var oggi = new Intl.DateTimeFormat("it-IT", { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Rome" }).format(adesso);
-        document.getElementById("data-oggi").textContent = ", " + oggi;
-        var completa = new Intl.DateTimeFormat("it-IT", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Rome" }).format(adesso);
+        try {
+          var opzioni = { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Rome" };
+          if (conAnno) opzioni.year = "numeric";
+          return new Intl.DateTimeFormat("it-IT", opzioni).format(adesso);
+        } catch (e) { // browser senza Intl: stessa data, composta a mano (ora locale del dispositivo)
+          return GIORNI[adesso.getDay()] + " " + adesso.getDate() + " " + MESI[adesso.getMonth()] + (conAnno ? " " + adesso.getFullYear() : "");
+        }
+      }
+      var ultimaData = "";
+      function aggiornaData() {
+        var breve = dataOggi(false);
+        if (breve === ultimaData) return;
+        ultimaData = breve;
+        document.getElementById("data-oggi").textContent = ", " + breve;
+        var completa = dataOggi(true);
         document.getElementById("data-striscia").textContent = completa.charAt(0).toUpperCase() + completa.slice(1);
-      } catch (e) { /* senza Intl restano "Oggi, siamo aperti a pranzo" e "Oggi · aperti a pranzo" */ }
+      }
+      aggiornaData();
+      setInterval(aggiornaData, 60000);
       Array.prototype.forEach.call(document.querySelectorAll("[data-orario]"), function (el) { el.textContent = CONFIG.orarioPranzo; });
 
       // Link dei pulsanti, costruiti da CONFIG.
