@@ -12,7 +12,8 @@
 
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 
-const PLACE_ID_PREDEFINITO = ""; // da compilare con il Place ID della scheda del Lido
+const PLACE_ID_PREDEFINITO = ""; // Place ID della scheda del Lido (se vuoto, viene cercato con QUERY_PREDEFINITA)
+const QUERY_PREDEFINITA = "Lido Pino d'Oro Mondragone"; // testo con cui cercare la scheda quando manca il Place ID
 const USCITA = new URL("../recensioni.json", import.meta.url);
 const CAMPI = "id,displayName,rating,userRatingCount,reviews,googleMapsUri";
 const TESTO_MAX = 320;      // caratteri mostrati per recensione (oltre: "..." e link "Leggi tutto")
@@ -29,7 +30,7 @@ const CATEGORIE = [
 const chiave = process.env.GOOGLE_PLACES_API_KEY || "";
 const fixture = process.env.PLACES_FIXTURE || "";
 let placeId = process.env.GOOGLE_PLACE_ID || PLACE_ID_PREDEFINITO;
-const query = process.env.GOOGLE_PLACE_QUERY || "";
+const query = process.env.GOOGLE_PLACE_QUERY || QUERY_PREDEFINITA;
 
 function avviso(msg) { console.log(`::warning::${msg}`); }
 
