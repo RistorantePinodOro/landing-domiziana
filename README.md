@@ -43,10 +43,14 @@ COSA COMPLETARE PRIMA DI ANDARE ONLINE
      (in giallo oro sulla pagina): sostituisci il testo e togli lo span.
 
 FOTO
-  Due file JPEG o WebP, larghezza 1200 px, sotto i 150 KB ciascuno, con questi nomi esatti:
-    foto/tavolo-spiaggia-inverno.jpg    in alto: il tavolo apparecchiato sulla spiaggia d'inverno
-    foto/spaghetto-ai-lupini.jpg        blocco 3: lo Spaghetto ai Lupini visto dall'alto, luce naturale
-  Finche' mancano, al loro posto compare una cornice dorata con la didascalia.
+  Nella cartella foto/, ogni foto in due larghezze (-1200.jpg per desktop, -720.jpg per telefono):
+    tavolo-spiaggia-*.jpg    in alto: il tavolo apparecchiato sulla sabbia
+    tavolo-terrazza-*.jpg    blocco 3, provvisoria: al suo posto va lo Spaghetto ai Lupini visto dall'alto
+                             (salvarlo come spaghetto-ai-lupini-1200.jpg e -720.jpg, poi cambiare src, srcset,
+                             alt e didascalia del blocco 3 in index.html)
+    terrazza-mare-*.jpg e terrazza-pergola-*.jpg   striscia "La terrazza" sotto il blocco 3
+  Facoltativa: uno scatto invernale del tavolo sulla spiaggia al posto di tavolo-spiaggia.
+  Se un file manca, al suo posto compare una cornice dorata con la didascalia.
 
 GOOGLE ADS
   Crea cinque conversioni (Portami li', Chiama, WhatsApp Lavoro, WhatsApp Sosta, WhatsApp generico),

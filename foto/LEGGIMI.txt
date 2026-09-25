@@ -1,3 +1,14 @@
-Metti qui le due foto, con questi nomi esatti (JPEG o WebP, larghezza 1200 px, sotto i 150 KB):
-  tavolo-spiaggia-inverno.jpg   il tavolo apparecchiato sulla spiaggia d'inverno (in alto nella pagina)
-  spaghetto-ai-lupini.jpg       lo Spaghetto ai Lupini visto dall'alto, con luce naturale (blocco 3)
+Foto della landing (JPEG, ogni foto in due larghezze: -1200.jpg per desktop e -720.jpg per telefono).
+
+Presenti:
+  tavolo-spiaggia-*.jpg    in alto: il tavolo apparecchiato sulla sabbia
+  tavolo-terrazza-*.jpg    blocco 3 (provvisoria, vedi sotto)
+  terrazza-mare-*.jpg      striscia "La terrazza"
+  terrazza-pergola-*.jpg   striscia "La terrazza"
+
+Ancora da fare:
+  spaghetto-ai-lupini-*.jpg   lo Spaghetto ai Lupini visto dall'alto, con luce naturale: va al posto di tavolo-terrazza nel blocco 3
+                              (in index.html cambiare src, srcset, alt e didascalia del blocco 3)
+  facoltativa: uno scatto invernale del tavolo sulla spiaggia, al posto di tavolo-spiaggia (e aggiungere "d'inverno" alla didascalia)
+
+Misure consigliate: larghezza 1200 px e 720 px, qualita' JPEG 75-82, sotto i 150 KB (1200) e 80 KB (720).

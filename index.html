@@ -22,10 +22,11 @@
        ID Google Ads ed etichette di conversione. Telefono e WhatsApp sono gia' impostati (388 787 7008).
     2. Nel testo, ogni dato mancante e' scritto tra parentesi quadre e avvolto in <span class="dc">...</span>
        (evidenziato in giallo oro). Sostituisci il testo e togli lo span.
-    3. Foto (JPEG o WebP, larghezza 1200 px, sotto i 150 KB ciascuna), con questi nomi esatti:
-         foto/tavolo-spiaggia-inverno.jpg   (in alto: tavolo apparecchiato sulla spiaggia d'inverno)
-         foto/spaghetto-ai-lupini.jpg       (blocco 3: Spaghetto ai Lupini visto dall'alto, luce naturale)
-       Finche' mancano, al loro posto compare una cornice dorata con la didascalia.
+    3. Foto, nella cartella foto/ (JPEG, ogni foto in due larghezze: -1200.jpg e -720.jpg):
+         tavolo-spiaggia-*.jpg     in alto: il tavolo apparecchiato sulla sabbia (c'e'; da sostituire con uno scatto invernale quando disponibile)
+         tavolo-terrazza-*.jpg     blocco 3, provvisoria: al suo posto va lo Spaghetto ai Lupini visto dall'alto (spaghetto-ai-lupini-*.jpg)
+         terrazza-mare-*.jpg e terrazza-pergola-*.jpg   striscia "La terrazza" sotto il blocco 3
+       Se un file manca, al suo posto compare una cornice dorata con la didascalia.
 
     DATI DA COMPLETARE PRIMA DELLA PUBBLICAZIONE
     [ ] Contenuto e prezzo del menu Smart        -> precompilato dal menu stampato (EUR 16,70): confermare
@@ -38,7 +39,7 @@
     [ ] Cani ammessi si'/no                     -> domande frequenti
     [ ] Indirizzo e indicazione della svolta dalla Domiziana -> domande frequenti e chiusura
     [ ] 3 recensioni Google vere (lavoro/servizio, viaggio/famiglia, cibo) -> blocco "La prova"
-    [ ] Foto: tavolo sulla spiaggia d'inverno, Spaghetto ai Lupini -> cartella foto/
+    [ ] Foto dello Spaghetto ai Lupini (blocco 3) -> cartella foto/; facoltativa: il tavolo sulla spiaggia d'inverno (in alto)
     [ ] Place ID della scheda Google            -> CONFIG.googlePlaceId ("Portami li'" e "Leggi tutte le recensioni")
     [ ] ID Google Ads ed etichette di conversione -> CONFIG.googleAdsId e CONFIG.conversioni
 
@@ -165,7 +166,8 @@
         radial-gradient(40% 40% at 5% 95%, rgba(201, 162, 39, .16), transparent 70%);
     }
     .apertura-griglia { display: grid; gap: 1rem; }
-    .foto-tavolo { height: clamp(120px, 30vw, 200px); }
+    .foto-tavolo { height: clamp(130px, 34vw, 220px); }
+    .foto-tavolo img { object-position: 50% 62%; }
     .oggi {
       display: flex; align-items: flex-start; gap: .55rem;
       font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; line-height: 1.5;
@@ -207,6 +209,12 @@
     .pregiudizio-griglia p + p { margin-top: .8rem; }
     .pregiudizio-griglia p { font-size: .97rem; color: var(--inchiostro-tenue); }
     .foto-lupini { aspect-ratio: 4 / 3; }
+
+    /* La terrazza - due foto affiancate */
+    .terrazza { padding: 0 0 2.2rem; }
+    .terrazza-griglia { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+    .foto-terrazza { aspect-ratio: 3 / 2; }
+    .foto-terrazza figcaption { display: none; }
 
     /* Blocco 4 - La prova */
     .recensioni { display: grid; gap: .9rem; }
@@ -269,6 +277,9 @@
       .strade-griglia { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
       .scheda { padding: 2rem 1.8rem 2rem; }
       .pregiudizio-griglia { grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+      .terrazza { padding-bottom: 3.2rem; }
+      .terrazza-griglia { gap: 1.5rem; }
+      .foto-terrazza figcaption { display: block; }
       .recensioni { grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
       .domande { grid-template-columns: 1fr 1fr; column-gap: 3rem; }
       .barra-interno { grid-template-columns: repeat(3, minmax(0, 230px)); justify-content: center; gap: .8rem; }
@@ -296,10 +307,10 @@
     <!-- ================= BLOCCO 1 - Prima schermata (deve bastare da sola) ================= -->
     <section class="apertura" aria-labelledby="titolo">
       <div class="contenitore apertura-griglia">
-        <!-- Foto: tavolo apparecchiato sulla spiaggia d'inverno -->
+        <!-- Foto in alto: il tavolo apparecchiato sulla spiaggia. Quando c'e' uno scatto invernale, sostituire i due file e aggiungere "d'inverno" alla didascalia. -->
         <figure class="foto foto-tavolo">
-          <img src="foto/tavolo-spiaggia-inverno.jpg" alt="Tavolo apparecchiato sulla spiaggia del Lido Pino d'Oro, d'inverno" width="1200" height="900" fetchpriority="high" decoding="async" onerror="this.parentNode.classList.add('senza-foto')">
-          <figcaption>Il tavolo sulla spiaggia, d'inverno</figcaption>
+          <img src="foto/tavolo-spiaggia-1200.jpg" srcset="foto/tavolo-spiaggia-720.jpg 720w, foto/tavolo-spiaggia-1200.jpg 1200w" sizes="(min-width: 820px) 45vw, 100vw" alt="Tavoli apparecchiati sulla sabbia del Lido Pino d'Oro, sotto la pergola" width="1200" height="899" fetchpriority="high" decoding="async" onerror="this.parentNode.classList.add('senza-foto')">
+          <figcaption>Il tavolo sulla spiaggia</figcaption>
         </figure>
         <div>
           <p class="oggi"><span>Oggi<span id="data-oggi"></span>, siamo aperti a pranzo · <span data-orario>12:00-15:30</span></span></p>
@@ -362,10 +373,25 @@
           <p>Abbiamo tolto le vongole veraci dal menù. Oggi sono quasi tutte d'allevamento e hanno perso il sapore di una volta. Al loro posto usiamo i lupini pescati nel nostro Tirreno.</p>
           <p>Lo Spaghetto ai Lupini lo ordina un cliente su quattro. Chiedi a Doriano di raccontarti perché.</p>
         </div>
-        <!-- Foto: lo Spaghetto ai Lupini visto dall'alto, con luce naturale -->
+        <!-- Foto del blocco 3: prevista lo Spaghetto ai Lupini visto dall'alto, con luce naturale. Finche' non c'e', mostriamo il tavolo apparecchiato.
+             Quando arriva: salvarla come foto/spaghetto-ai-lupini-1200.jpg e -720.jpg, poi cambiare src, srcset, alt e didascalia ("Lo Spaghetto ai Lupini"). -->
         <figure class="foto foto-lupini">
-          <img src="foto/spaghetto-ai-lupini.jpg" alt="Spaghetto ai Lupini del Lido Pino d'Oro, visto dall'alto" width="1200" height="900" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('senza-foto')">
-          <figcaption>Lo Spaghetto ai Lupini</figcaption>
+          <img src="foto/tavolo-terrazza-1200.jpg" srcset="foto/tavolo-terrazza-720.jpg 720w, foto/tavolo-terrazza-1200.jpg 1200w" sizes="(min-width: 820px) 45vw, 100vw" alt="Tavolo apparecchiato sulla terrazza del Lido Pino d'Oro: tovaglia bianca, tovaglioli, bicchieri e una piantina" width="1200" height="900" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('senza-foto')">
+          <figcaption>Il tavolo, sulla terrazza</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- La terrazza: due foto, senza testo aggiuntivo (la pagina resta sulle 400 parole) -->
+    <section class="terrazza" aria-label="La terrazza sulla spiaggia">
+      <div class="contenitore terrazza-griglia">
+        <figure class="foto foto-terrazza">
+          <img src="foto/terrazza-mare-720.jpg" srcset="foto/terrazza-mare-720.jpg 720w, foto/terrazza-mare-1200.jpg 1200w" sizes="(min-width: 1120px) 520px, 50vw" alt="La terrazza del Lido Pino d'Oro sotto la pergola di canne, con il mare e gli ombrelloni sullo sfondo" width="1200" height="800" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('senza-foto')">
+          <figcaption>La terrazza, con il mare davanti</figcaption>
+        </figure>
+        <figure class="foto foto-terrazza">
+          <img src="foto/terrazza-pergola-720.jpg" srcset="foto/terrazza-pergola-720.jpg 720w, foto/terrazza-pergola-1200.jpg 1200w" sizes="(min-width: 1120px) 520px, 50vw" alt="I tavoli della terrazza del Lido Pino d'Oro sotto la pergola di canne, con le palme" width="1200" height="800" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('senza-foto')">
+          <figcaption>Sotto la pergola di canne</figcaption>
         </figure>
       </div>
     </section>
