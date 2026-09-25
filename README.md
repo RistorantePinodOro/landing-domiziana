@@ -89,8 +89,18 @@ RECENSIONI GOOGLE AUTOMATICHE
 SU HOSTINGER (recensioni automatiche senza GitHub)
   Su un hosting PHP l'aggiornamento settimanale lo fa aggiorna-recensioni.php, con la stessa logica
   dello script per GitHub, lanciato dal cron di hPanel. La pagina non cambia: legge recensioni.json.
-  1. Carica la cartella su Hostinger (File Manager o FTP), compreso .htaccess (nel File Manager
-     attiva "Mostra file nascosti"). Controlla che la cartella sia scrivibile (lo e' di norma).
+  1. Carica i file su Hostinger. Per averla come sottopagina del sito esistente (es. tuodominio.it/domiziana/):
+       - hPanel > File Manager > public_html (la cartella del sito esistente);
+       - crea una cartella con il nome che vuoi nell'indirizzo, tutto minuscolo e senza spazi (es. domiziana);
+       - entra nella cartella, carica lo zip "piatto" della landing (i file senza cartella esterna) ed estrailo
+         li': index.html deve trovarsi direttamente in public_html/domiziana/, non in una sottocartella;
+       - attiva "Mostra file nascosti" e controlla che ci sia anche .htaccess.
+     La pagina risponde su https://tuodominio.it/domiziana/ e gli annunci useranno
+     https://tuodominio.it/domiziana/?g=lavoro e https://tuodominio.it/domiziana/?g=sosta.
+     Servono solo: index.html, logo.png, foto/, recensioni.json, aggiorna-recensioni.php, config.example.php,
+     .htaccess (README.md puo' restare: non e' scaricabile). Le cartelle .github e scripts servono solo a GitHub.
+     Il sito esistente non cambia: la cartella e' indipendente, e le sue regole .htaccess valgono solo li' dentro
+     (quelle del sito principale continuano a valere e non danno fastidio).
   2. Nel File Manager duplica config.example.php, rinomina la copia in config.php e compila:
        'api_key' => la chiave di Google Maps Platform (la stessa usata su GitHub, o una nuova);
        'token'   => una frase lunga e segreta a tua scelta.
