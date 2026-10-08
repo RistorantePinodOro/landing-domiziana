@@ -1,6 +1,6 @@
-# Pubblica la landing su GitHub Pages a ogni push su main: esegue i test, scarica le recensioni dalla scheda Google
-# (se c'è il secret), costruisce _sito/ dai modelli e dai dati e la pubblica. recensioni.json non entra mai nel repository.
-# Prima esecuzione: prova ad attivare Pages da sola (enablement). Se fallisce: Settings > Pages > Source "GitHub Actions".
+# Pubblica la landing su GitHub Pages a ogni push su main.
+# Prima esecuzione: prova ad attivare Pages da sola (enablement). Se fallisce, attivarlo a mano:
+# Settings > Pages > Source: "GitHub Actions", poi rilanciare il workflow da Actions.
 name: Pubblica su GitHub Pages
 
 on:
@@ -26,52 +26,26 @@ jobs:
     steps:
       - name: Scarica il repository
         uses: actions/checkout@v4
-      - name: Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Test
-        run: npm test
-      - name: Scarica le recensioni dalla scheda Google
-        env:
-          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
-          GOOGLE_PLACE_ID: ${{ vars.GOOGLE_PLACE_ID }}
-        run: node scripts/aggiorna-recensioni.mjs
-      - name: Costruisci il sito
-        run: node scripts/costruisci.mjs
       - name: Configura Pages
         uses: actions/configure-pages@v5
         with:
           enablement: true
-      - name: Carica i file
+      - name: Prepara i file da pubblicare
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _sito
+          path: .
       - name: Pubblica
         id: deployment
         uses: actions/deploy-pages@v4
 
   hostinger:
     # Facoltativo: carica la cartella anche su Hostinger via FTP. Parte solo se nel repository sono impostate
-    # la variabile HOSTINGER_FTP_HOST e i secret HOSTINGER_FTP_USER / HOSTINGER_FTP_PASSWORD (README, "Su Hostinger").
+    # la variabile HOSTINGER_FTP_HOST e i secret HOSTINGER_FTP_USER / HOSTINGER_FTP_PASSWORD (vedi README, "SU HOSTINGER").
     if: vars.HOSTINGER_FTP_HOST != ''
     runs-on: ubuntu-latest
     steps:
       - name: Scarica il repository
         uses: actions/checkout@v4
-      - name: Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Test
-        run: npm test
-      - name: Scarica le recensioni dalla scheda Google
-        env:
-          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
-          GOOGLE_PLACE_ID: ${{ vars.GOOGLE_PLACE_ID }}
-        run: node scripts/aggiorna-recensioni.mjs
-      - name: Costruisci il sito per Hostinger
-        run: node scripts/costruisci.mjs --hostinger
       - name: Carica su Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -79,7 +53,12 @@ jobs:
           username: ${{ secrets.HOSTINGER_FTP_USER }}
           password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
           protocol: ${{ vars.HOSTINGER_FTP_PROTOCOL || 'ftps' }}
-          local-dir: _sito/
           server-dir: ${{ vars.HOSTINGER_FTP_DIR || 'public_html/' }}
           exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            scripts/**
+            README.md
+            LICENSE
             config.php

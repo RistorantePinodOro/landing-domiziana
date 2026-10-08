@@ -1,0 +1,1247 @@
+@font-face {
+    font-family: "Century Gothic";
+    src: url(fonts/GOTHIC.TTF);
+}
+
+@font-face {
+    font-family: "DM Serif Display Reg";
+    src: url(fonts/DM_Serif_Display/DMSerifDisplay-Regular.ttf);
+}
+
+@font-face {
+    font-family: "Dm Serif Display Italic";
+    src: url(fonts/DM_Serif_Display/DMSerifDisplay-Italic.ttf);
+}
+
+@font-face {
+    font-family: "Dm Serif Text";
+    src: url(fonts/DM_Serif_Text/DMSerifText-Regular.ttf);
+}
+
+@font-face {
+    font-family: "Dm Serif Text Italic";
+    src: url(fonts/DM_Serif_Text/DMSerifText-Italic.ttf);
+}
+
+@font-face {
+    font-family: "Carlito Italic";
+    src: url(fonts/Carlito/Carlito-Italic.ttf);
+}
+
+::selection {
+    background-color: #624F23;
+    color:#F5DCA4
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+btn {
+    transition: 0.2s
+}
+
+btn:hover {
+    transform: translateY(-8px);
+    transition: 0.2s
+}
+
+body {
+    font-family: 'DM Serif Text';
+    margin: 0;
+    background-color: #FFF2D7;
+    color: #302B1F;
+}
+
+section {
+    margin: 0
+}
+
+a {
+    color: #986D0C;
+    font-family: 'Century Gothic';
+    transition: 0.2s;
+}
+
+a:hover {
+    letter-spacing: 0.1vw;
+    transition: 0.2s;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 100;
+}
+
+.main_logo {
+    display: grid;
+    margin: 0 auto;
+    background: #00000000;
+    width: 20rem;
+    height: auto;
+    padding: 26px;
+    animation: opacity_0-100 1s;
+}
+
+.titolo_principale {
+    color: #302B1F;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 10px auto;
+    line-height: 10vh;
+    font-size: 3rem;
+    max-width: 90%;
+    animation: titolo-inizio-spacing 1.5s, opacity_0-100 1.70s;
+}
+
+.titolo-frecciagiu {
+    display: grid;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    height: 8vh;
+}
+
+.striscia-data-bg-layer0 {
+    background-image: url('icons/wave2.png');
+    background-color: #00000000;
+    background-repeat: repeat-x;
+    background-position: 0%;
+    background-size: contain;
+    margin: 0;
+    animation: opacity_0-100 1s cubic-bezier(.79,.37,.28,.9), scorrimento-onda 9.75s infinite linear;
+}
+
+.striscia-data {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 5vh;
+    background-image: url("icons/wave.png");
+    background-repeat:  repeat-x;
+    background-position: 0%;
+    background-size: contain;
+    margin: 0;
+    height: 12vh;
+    color: white;
+    padding: 4px;
+    text-align: center;
+    animation-delay: 0.3s;
+    animation: scorrimento-onda 13s infinite linear; /*header_orario_bg_blink 5s infinite cubic-bezier(.4,.67,.5,.76)*/
+}
+
+.striscia-data > img {
+    animation: opacity_0-100 1s cubic-bezier(.79,.37,.28,.9)
+}
+
+.striscia-data-testo {
+    display: grid;
+    grid-template-columns: 100%;
+    text-align: center;
+    color: white;
+    padding: 0;
+    font-family: 'DM Serif Text';
+    font-size: calc(2rem + 0.390625vw);
+    animation-name: header_orario_apparsa_testo;
+    letter-spacing: 2px;
+    animation-duration: 1.5s;
+    animation-timing-function: cubic-bezier(.79,.37,.28,.9);
+}
+
+.striscia-ora-testo {
+    grid-column: 1 / -1;
+    color: white;
+    padding: 0;
+    font-family: 'DM Serif Text';
+    font-size: calc(3.4rem + 0.390625vw);
+    animation-name: header_orario_apparsa_testo;
+    letter-spacing: 2px;
+    animation-duration: 1.5s;
+    white-space: pre-line;
+    animation-timing-function: cubic-bezier(.79,.37,.28,.9);
+}
+
+.striscia-ora-testo span {
+    font-size: calc(1.2rem + 0.390625vw);
+}
+
+.buttons_container_title {
+    position: relative;
+    top: 20px;
+    animation-delay: 1s;
+    animation: opacity_0-100 2.2s;
+
+}
+
+.prenota-tavolo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F5DCA4 ;
+    font-family: "Century Gothic";
+    color: #302B1F;
+    font-size: 1.85vw;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+    letter-spacing: 0;
+    width: 30vw;
+    height: 3vw;
+    transition: 0.4s;
+}
+
+.prenota-tavolo2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F5DCA467;
+    border-width: 6px;
+    border-color: #000;
+    font-family: "Century Gothic";
+    color: #302B1F;
+    font-size: 1.85vw;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+    letter-spacing: 0;
+    width: 60vw;
+    height: 3vw;
+    transition: 0.4s;
+}
+
+.prenota-tavolo:hover {
+    text-align: center;
+    letter-spacing: 2px;
+    transition: 0.4s;
+    transform: translateY(-4px);
+    box-shadow: 0px 0px 20px #F5DCA4;
+}
+
+.prenota-spiaggia {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5dba454 ;
+    border-color: #302B1F;
+    border-width: 1px;
+    border-style: solid;
+    font-family: "Century Gothic";
+    color: #302B1F;
+    font-size: 1.85vw;
+    filter: drop-shadow(3px 5px 3px #fff, -4 3px 5px #FFD776);
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    letter-spacing: 0;
+    width: 30vw;
+    text-decoration: none;
+    height: 3vw;
+    transition: 0.4s;
+}
+
+.prenota-spiaggia:hover {
+    text-align: center;
+    letter-spacing: 2px;
+    transition: 0.4s;
+    transform: translateY(-4px);
+    box-shadow: 0px 0px 10px #fffbf1b6;
+}
+
+
+/* 4 PROVE */
+.le4-prove {
+    font-family: 'DM Serif Display Italic';
+    font-size: 8vh;
+    animation: opacity_0-100 2s
+}
+
+.prova2_distanza {
+    text-align: right;
+}
+
+.prova4_recensione {
+    text-align: right;
+}
+
+.stelle-medie {
+    color: #242424;
+    opacity: 40%;
+    font-size: 160%;
+    letter-spacing: -12%;
+}
+
+/* blocco di recensioni */
+
+.titolo-cosadicono /* <- recensioni varie */ {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: right;
+    margin: 6vh auto;
+}
+
+.recensioni {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.recensione-blocco1 {
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    box-shadow: #624F2311 0px 2px 10px;
+    animation: opacity_0-100 1s;
+    width: 35vw;
+    height: 25vh;
+    padding: 2%;
+    font-size: 3vw;
+    background: linear-gradient(160deg, #FFF 0%, #FFF7E4 100%);
+    transition: 0.4s;
+}
+
+/* 2 per altro styling */
+.recensione-blocco2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: #624F2311 0px 2px 10px;
+    line-height: 3vh;
+    border-radius: 0 16px 0 16px;
+    padding: 4%;
+    font-size: 7vw;
+    background: linear-gradient(160deg, #FFF 0%, #FFF7E4 100%);
+    transition: 0.4s;
+}
+
+.nome-recensore {
+    font-size: 5vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.nome-recensore2 {
+    text-align: center;
+    position: relative;
+    top: 10%
+}
+
+.lestelle-recensione2 {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.titolo-recensione2 {
+    text-align: center;
+    line-height: 4vh;
+    font-size: 3rem;
+}
+
+.contenuto-recensione2 {
+    text-align: center;
+    font-size: 1rem;
+    font-family: "Carlito"
+}
+/* */
+
+.recensione-blocco1:hover {
+    transform: translateY(-10px);
+    box-shadow: #624F2330 0px 12px 16px;
+    transition: 0.4s;
+}
+
+.recensione-blocco1 .titolo-recensione {
+    font-family: "Carlito italic";
+}
+
+.recensione-blocco1 .lestelle-recensione {
+    color:#F5DCA4;
+    text-align: right;
+}
+
+.contenuto-recensione {
+    font-family: "Carlito italic";
+    font-size: 4vw;
+    text-align: right;
+    width: 100%;
+    height: 100%;
+}
+
+.titolocontenuto-container {
+    display: flex;
+    align-items:end;
+    flex-direction: column;
+    line-height: 2.5vh;
+}
+
+.galleria {
+    height: 90vh;
+    padding: 5%;
+    background: linear-gradient(#FFF2D7 , #fff);
+}
+
+.galleria .titolo {
+    font-family: "DM Serif Display Reg";
+    text-align: center;
+}
+
+.contenitore-immagini {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #986D0C;
+    height: 80vh;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+}
+
+#piatto-piuordinato {
+    padding: 4%;
+    background: linear-gradient(#ffffffde, #fff2d792);
+}
+
+#piatto-piuordinato h1 {
+    font-size: 6vw;
+}
+
+/* Menu */
+.contenitore-menu {
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.titolo-menu {
+    font-size: clamp(1.5rem, 1.5vw, 3rem);
+    margin: 0 0;
+    font-weight: 100;
+    padding: 2%;
+    line-height: 98%;
+}
+
+.piatto-piuordinato-titolo {
+    font-size: 4vh;
+    margin: 0 0;
+}
+
+.titolo-piatto {
+    font-size: 5vh;
+    line-height: 5vh;
+    font-weight: 400;
+    font-family: "Dm Serif Display Reg";
+    margin-top: 1vh;
+    margin-bottom: 2vh;
+}
+
+.menu1 {
+    border-radius: 8px 8px 0 0;
+    font-family: 'DM Serif Display Reg';
+    background-color: #FFF;
+    width: 90%;
+    height: 100%;
+    border: 2px solid #FFD776;
+}
+
+
+
+.menu-immagine img {
+    width: 100%;
+    max-height: 10vh;
+    padding: 0;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+.menu-icona-desc {
+    width: 6%;
+    max-width: 8%;
+    filter: brightness(0);
+    padding-right: 2vw;
+}
+
+.titolo-nome-menu {
+    font-size: clamp(2rem, 4vw, 3rem);
+    padding: 4px;
+}
+
+.prezzo-menu {
+    font-family: "Century Gothic";
+    font-size: 3vh;
+}
+
+.descrizione-menu {
+    font-family: "Century Gothic";
+}
+
+.btn-calltoaction-whatsapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #242424;
+    color:#F5DCA4;
+    padding: 12px;
+    font-family: "Dm Serif Text";
+    text-decoration: none;
+    width: 62vw;
+    border-radius: 6px;
+    font-size: clamp(1rem, 4vw, 3rem);
+    box-shadow: #302B1F44 0px 4px 10px;
+}
+
+.storia {
+    background-image:
+    url("foto/pinodoro126.JPG");
+    background-color: #fff6e2a4;
+    background-blend-mode: lighten;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-size: cover;
+    
+}
+
+.invito-recensione {
+    background-image: url("foto/vistamaresala.jpg");
+    background-size: cover;
+    background-color: #ffffffa4;
+    background-blend-mode: lighten;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    padding: 6%;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+/* domande */
+
+.domande-faq {
+    padding: 6%;
+}
+
+.domanda {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6%;
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    letter-spacing: 2px;
+}
+
+.domanda span {
+    font-size: clamp(1rem, 4vw, 3rem);
+}
+
+.domanda_r {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: right;
+    padding: 6%;
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    letter-spacing: 2px;
+}
+
+.domanda_r span {
+    font-size: clamp(1rem, 4vw, 3rem);
+}
+
+.numerodomanda_l {
+    opacity: 20%;
+    margin: 0 0;
+    padding-right: 2%;
+    font-size: clamp(4.5rem, 8vw, 12rem);
+}
+
+.numerodomanda_r {
+    opacity: 20%;
+    margin: 0 0;
+    padding-left: 2%;
+    font-size: clamp(4.5rem, 8vw, 12rem);
+}
+
+.domande-titolo {
+    display: grid;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.domande-faq {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding: 6%;
+}
+/*infocontatti*/
+.infoecontatti {
+    padding: 6%;
+    background: #fff
+}
+
+.descrizione-finale {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    text-align: justify;
+}
+/*orari*/
+.orari {
+    padding: 6%;
+    padding-top : 0
+}
+
+.titolo-menu-container {
+    display: flex;
+    gap: 3vw
+}
+
+#tabellaorario {
+    width: 100%;
+    font-family: "Century Gothic";
+    background-color: #fff;
+    padding: 6%;
+    box-shadow: #302B1F24 0px 3px 10px;
+    border: 2px solid #F5DCA4;
+    font-size: clamp(1rem, 4vw, 3rem);
+    
+}
+
+.contatto {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.contatto img {
+    width: 7%;
+    padding-right: 3%;
+}
+
+.contatti-contenitore {
+    display: grid;
+    gap: 1.5vh;
+}
+
+.stars-domande {
+    opacity: 30%;
+    letter-spacing: -6vw;
+    font-size: 20vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: blinking 3s infinite;
+}
+
+.storia-titolo {
+    font-size: 9vw;
+    line-height: 5vh;
+}
+
+.compleanno_festa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #302B1F;
+    padding: 4%;
+    width: 80vw;
+    height: 22vh;
+    border-radius: 8px;
+    box-shadow: 0px 0px 12px #242424;
+}
+
+.btn-whatsapp-festa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Dm Serif Text";
+    color: #242424;
+    background-color: #F8D587;
+    text-decoration: none;
+    width: 50vw;
+    text-align: center;
+    padding: 5%;
+    font-size: 2vh;
+    border-radius: 6px;
+}
+
+.btn-chiama-festa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    width: 25vw;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.foto_galleria {
+    height: 40vh;
+    width: 100%;
+    object-fit: cover;
+}
+
+.contenitore-immagini {
+    overflow: auto;
+    white-space: nowrap;
+    background-color: transparent;
+    background: linear-gradient(#FFF2D7 , #fff)
+}
+
+.contenitore-immagini img {
+    display: inline-block;
+    margin: 0 0
+}
+
+.waveimg-domande {
+    display: flex;
+    align-items: start;
+    width: 70vw
+}
+
+.trovatorisposte-domanda {
+    text-align: center;
+    font-size: 4vw;
+    padding-bottom: 2vh;
+}
+
+.prenota-tavolo3 {
+    background-color: transparent;
+    border: 2px solid #000;
+    font-family: 'Dm Serif Text';
+    font-size: 2.4vh;
+    padding: 2%;
+    color: #000;
+    text-decoration: none;
+}
+
+.titoloinfocontatti {
+    text-align: left;
+}
+
+.descrizione-storia {
+    font-family: "Century Gothic";
+    text-align: right;
+    justify-content: right;
+    display: grid;
+}
+
+.invito-recensione-container {
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    }
+
+/*media*/
+
+@media (min-width: 1024px) {
+    .titolo_principale {
+        font-size: 5vw;
+        line-height: 8vh;
+    }
+
+    .striscia-data-testo {
+        font-size: 2.2vw;
+    }
+
+    .striscia-ora-testo span {
+    font-size: 2vw;
+    }
+
+    .le4-prove {
+        line-height: 40px;
+    }
+
+    .recensioni {
+        padding: 0;
+        max-width: 100%;
+        padding: none;
+        display: flex;
+        overflow: hidden;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .recensione-blocco1 {
+        width: 30vw;
+        height: 18vh;
+    }
+
+    .recensione-blocco1 .nome-recensore {
+        font-size: 3.4rem
+    }
+
+    .recensione-blocco1 .titolo-recensione {
+        font-size: 3rem;
+    }
+
+    .recensione-blocco1 .contenuto-recensione {
+        font-size: 1.2rem;
+    }
+    
+    .desc-piatto {
+        display: block;
+        width: 60vw;
+        font-size: 1.2vw;
+    }
+
+    .piatto-piuordinato-titolo {
+        font-size: 3vw !important;
+    }
+
+    .piatto-foto {
+        position: absolute;
+        left: 5vw;
+        width: 20vw
+    }
+
+    .titolo-piatto {
+        font-size: 4vw
+    }
+
+    .compleanno_festa {
+        padding: 0%;
+        width: 40vw;
+        height: 22vh;
+    }
+
+    .compleanno_festa a {
+        white-space: nowrap;
+    }
+
+    .compleanno_festa .btn-whatsapp-festa {
+        padding: 1%;
+        font-size: 1.6vw;
+        width: 20vw;
+        height: 5vh
+    }
+
+    .btn-whatsapp-festa img {
+        width: 10% !important;
+    }
+
+
+    .compleanno_festa .btn-chiama-festa {
+        padding: 1%;
+        font-size: 1.5vw;
+        width: 12vw;
+        height: 5vh
+    }
+
+    .compleanno_festa i {
+        font-size: 2.3vh !important;
+        font-family: "Century Gothic";
+    }
+
+    .compleanno_festa h2 {
+        font-size: 2vw;
+    }
+
+    .contenitore-menu {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        max-width: 100vw;
+        width: 80%;
+        max-height: 80vh;
+        flex-direction: row;
+        font-size: 1vw;
+        padding-bottom: 2vh;
+    }
+    
+    .contenitore-menu h3 {
+        max-width: 100%;
+        max-height: 60%;
+        height: 100%;
+    }
+
+    .menu1 {
+        max-width: 30%;
+        flex: 1;
+        height: 100%;
+        transition: 0.2s
+    }
+
+    .menu1:hover {
+        max-width: 32%;
+        transform: translateY(-4px);
+        transition: 0.2s
+    }
+
+    .menu-icona-desc {
+        padding-right: 1vw;
+    }
+
+    .titolo-nome-menu {
+        font-size: 2vw;
+    }
+
+    .btn-calltoaction-whatsapp {
+        display: flex;
+        width: 19vw;
+        height: 3vh;
+        font-size: 1.2rem;
+    }
+
+    .titolo-menu-container {
+        gap: 1.2vw
+    }
+
+    .storia-titolo {
+        font-size: 4vw;
+        line-height: 8vh;
+    }
+
+    .descrizione-storia {
+        font-size: 1.4vw;
+    }
+
+    .descrizione-storia span {
+        align-items: right;
+        width: 70vw;
+    }
+
+    .storia h2 {
+        font-size: 2vw;
+    }
+
+    .recensione-blocco2 {
+        display: flex;
+        height: 60vh;
+        width: 20vw;
+        padding-top: 2%;
+        padding-bottom: 2%;
+        border-radius: 0 5vh;
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .recensione-domanda {
+        font-size: 2vw;
+    }
+
+    .titolo-recensione2 {
+        line-height: 5vh;
+        padding-bottom: 2vh;
+        font-size: 2vw
+    }
+
+    .contenuto-recensione2 {
+        font-size: 2.3vh;
+    }
+
+    .domande-titolo {
+        gap: 0vh
+    }
+
+    .domande-titolo h1 {
+        font-size: 5vh;
+        margin: 0 0;
+        padding: 3%
+    }
+
+    .domande-titolo span {
+        margin: 0 0;
+        font-size: 3vh
+    }
+
+    .numerodomanda_l {
+        font-size: 4vw
+    }
+
+    .domanda {
+        padding: 2%;
+        max-width: 60%
+    }
+
+    .domanda i {
+        font-size: 3vh
+    }
+
+    .domanda span {
+        font-size: 4vh;
+    }
+
+    .numerodomanda_r {
+        font-size: 4vw;
+    }
+
+    .domanda_r {
+        padding: 2%;
+        max-width: 60%
+    }
+
+    .domanda_r i {
+        font-size: 3vh
+    }
+
+    .domanda_r span {
+        font-size: 4vh;
+    }
+
+    .waveimg-domande {
+        width: 20vw;
+    }
+
+    .stars-domande {
+        font-size: 6vw;
+        letter-spacing: 1vw;
+    }
+
+    .trovatorisposte-domanda {
+        font-size: 4vh;
+    }
+
+    .descrizione-finale {
+        font-size: 3vh;
+    }
+
+    .prenota-tavolo3 {
+    font-size: 1.85vw;
+    }
+
+    .orari {
+        padding-bottom: 2vh;
+    }
+
+    .orari h1 {
+        font-size: 6vh;
+    }
+
+    #tabellaorario {
+        font-size: 1.5vw;
+        width: 32vw;
+        padding: 2%;
+        transition: 0.2s;
+    }
+
+    #tabellaorario:hover {
+        transform: translateY(-4px);
+        transition: 0.2s;
+    }
+
+    .contatto img {
+        width: 3%;
+    }
+
+    .contatto {
+        font-size: 3vh;
+        justify-content: end;
+        text-align: right;
+    }
+
+    .desktop-grid {
+        display: flex;
+        align-items: center;
+    }
+
+    .titoloinfocontatti {
+        text-align: right;
+    }
+
+    .invito-recensione-container {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .gmaps {
+        padding: 4% !important
+    }
+
+}
+
+
+@media (max-width: 1023px) {
+    .main_logo {
+        width: 50vw;
+        height: auto;
+    }
+
+    .titolo_principale {
+        line-height: 6vh;
+    }
+    
+    .striscia-data-testo {
+        font-size: 5.7vw;
+        letter-spacing: 0;
+        line-height: 3vh;
+        animation-name: header_orario_apparsa_testo_media768;
+    }
+
+    .striscia-ora-testo {
+        font-size: calc(2rem + 0.390625vw);
+    }
+
+    .prenota-tavolo {
+        font-size: calc(0.9rem + 0.390625vw);
+        width: 60vw;
+    }
+
+    .prenota-spiaggia {
+       font-size: calc(0.9rem + 0.390625vw);
+       width: 60vw; 
+    }
+
+    .le4-prove {
+        font-size: 250%;
+        line-height: 16px;
+        margin: 40px;
+    }
+    
+    .titolo-cosadicono {
+        font-size: 7vw;
+        max-width: 90%;
+    }
+
+    .titolo-cosadicono .titolo-recensione {
+        font-size: 7vw;
+    }
+
+    .titolo-cosadicono .le5stelle-recensione {
+        font-size: 7vw;
+    }
+
+    .recensioni {
+        margin: 2% 2%;
+    }
+
+    .recensione-blocco1 {
+    width: 90%;
+    height: 15vh;
+    font-size: 8vw;
+    margin: 4% 4%;
+    padding: 4vw;
+    /*justify-content: unset;*/
+    }
+
+    .titolocontenuto-container {
+        line-height: 1.5vh;
+    }
+
+    .lestelle-recensione2 {
+    text-align: center;
+    font-size: 2rem;
+    
+    }
+
+    .titolo-recensione2 {
+    text-align: center;
+    font-size: 1.3rem;
+    line-height: 2.4vh;
+    }
+
+    .descrizione-finale {
+    display: block;
+    text-align: center;
+    align-items: center;
+    justify-content: center;  
+    }
+}
+
+@media (min-width: 769px) {
+    .le4-prove {
+        padding: 8%;
+    }
+}
+
+/*anim*/
+
+@keyframes titolo-inizio-spacing {
+    0% {
+        letter-spacing: 4px;
+    }
+
+    100% {
+        letter-spacing: 0;
+    }
+}
+
+@keyframes scorrimento-onda {
+    0% {
+        background-position: 0px;
+    }
+    100% {
+        background-position: 1264px;
+    }
+}
+
+@keyframes header_orario_apparsa_bg {
+    0% {
+        background-repeat: inherit;
+        height: 0;
+    }
+    100% {
+        height: 9vh;
+    }
+}
+
+@keyframes opacity_0-100 {
+    0% {
+        opacity: 0%;
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+@keyframes header_orario_bg_blink {
+    0% {
+        background-color: #302B1F;
+        opacity: 100%
+    }
+
+    50% {
+        background-color: #624F23;
+        opacity: 100%    
+    }
+
+    100% {
+        background-color: #302B1F;
+        opacity: 100%
+    }
+}
+
+@keyframes header_orario_apparsa_testo {
+    0% {
+        opacity: 0%;
+        letter-spacing: 0.2vw;
+    }
+    100% {
+        opacity: 100%;
+        letter-spacing: 2px;
+    }
+}
+
+@keyframes blinking {
+    0%,100% {
+        opacity: 100%;
+    }
+    50% {
+        opacity: 50%;
+    }
+}
+
+@keyframes header_orario_apparsa_testo_media768 {
+    0% {
+        opacity: 0%;
+        letter-spacing: 2px;
+    }
+    100% {
+        opacity: 100%;
+        letter-spacing: 0px;
+    }
+}

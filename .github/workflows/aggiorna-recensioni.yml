@@ -1,16 +1,17 @@
-# Ogni mattina (05:23 UTC = 7:23 ora italiana d'estate, 6:23 d'inverno) scarica le recensioni della scheda Google
-# (Places API) e ripubblica la pagina con il file aggiornato. recensioni.json non entra mai nel repository.
-# Si può lanciare a mano da Actions > "Aggiorna le recensioni Google". Servono il secret GOOGLE_PLACES_API_KEY
-# e, facoltativa, la variabile GOOGLE_PLACE_ID (altrimenti vale quello di data/restaurant.json).
+# Ogni lunedi' mattina (05:23 UTC = 7:23 ora italiana d'estate, 6:23 d'inverno) scarica le recensioni
+# della scheda Google (Places API), aggiorna recensioni.json se e' cambiato qualcosa e ripubblica la
+# pagina. Si puo' lanciare a mano in qualsiasi momento da Actions > "Aggiorna le recensioni Google".
+# Prima di funzionare servono: il secret GOOGLE_PLACES_API_KEY e la variabile GOOGLE_PLACE_ID
+# (Settings > Secrets and variables > Actions). Vedi README.md, "Recensioni Google automatiche".
 name: Aggiorna le recensioni Google
 
 on:
   schedule:
-    - cron: "23 5 * * *"
+    - cron: "23 5 * * 1"
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -19,54 +20,67 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  aggiorna-e-pubblica:
+  aggiorna:
+    runs-on: ubuntu-latest
+    outputs:
+      cambiato: ${{ steps.salva.outputs.cambiato }}
+    steps:
+      - name: Scarica il repository
+        uses: actions/checkout@v4
+      - name: Scarica le recensioni dalla scheda Google
+        env:
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+          GOOGLE_PLACE_ID: ${{ vars.GOOGLE_PLACE_ID }}
+          GOOGLE_PLACE_QUERY: ${{ vars.GOOGLE_PLACE_QUERY }}
+        run: node scripts/aggiorna-recensioni.mjs
+      - name: Salva recensioni.json se e' cambiato
+        id: salva
+        run: |
+          if git diff --quiet -- recensioni.json; then
+            echo "cambiato=false" >> "$GITHUB_OUTPUT"
+            echo "Nessuna modifica da salvare."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add recensioni.json
+          git commit -m "Aggiorna le recensioni Google"
+          git push
+          echo "cambiato=true" >> "$GITHUB_OUTPUT"
+
+  pubblica:
+    needs: aggiorna
+    if: needs.aggiorna.outputs.cambiato == 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Scarica il repository
+      - name: Scarica il repository aggiornato
         uses: actions/checkout@v4
-      - name: Node
-        uses: actions/setup-node@v4
         with:
-          node-version: 22
-      - name: Scarica le recensioni dalla scheda Google
-        env:
-          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
-          GOOGLE_PLACE_ID: ${{ vars.GOOGLE_PLACE_ID }}
-        run: node scripts/aggiorna-recensioni.mjs
-      - name: Costruisci il sito
-        run: node scripts/costruisci.mjs
+          ref: main
       - name: Configura Pages
         uses: actions/configure-pages@v5
-      - name: Carica i file
+      - name: Prepara i file da pubblicare
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _sito
+          path: .
       - name: Pubblica
         id: deployment
         uses: actions/deploy-pages@v4
 
   hostinger:
-    # Facoltativo: carica le recensioni aggiornate (e il resto) anche su Hostinger via FTP.
+    # Facoltativo: dopo un aggiornamento carica recensioni.json (e il resto) anche su Hostinger via FTP.
     # Parte solo se sono impostati HOSTINGER_FTP_HOST e i secret HOSTINGER_FTP_USER / HOSTINGER_FTP_PASSWORD.
-    if: vars.HOSTINGER_FTP_HOST != ''
+    needs: aggiorna
+    if: needs.aggiorna.outputs.cambiato == 'true' && vars.HOSTINGER_FTP_HOST != ''
     runs-on: ubuntu-latest
     steps:
-      - name: Scarica il repository
+      - name: Scarica il repository aggiornato
         uses: actions/checkout@v4
-      - name: Node
-        uses: actions/setup-node@v4
         with:
-          node-version: 22
-      - name: Scarica le recensioni dalla scheda Google
-        env:
-          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
-          GOOGLE_PLACE_ID: ${{ vars.GOOGLE_PLACE_ID }}
-        run: node scripts/aggiorna-recensioni.mjs
-      - name: Costruisci il sito per Hostinger
-        run: node scripts/costruisci.mjs --hostinger
+          ref: main
       - name: Carica su Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -74,7 +88,12 @@ jobs:
           username: ${{ secrets.HOSTINGER_FTP_USER }}
           password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
           protocol: ${{ vars.HOSTINGER_FTP_PROTOCOL || 'ftps' }}
-          local-dir: _sito/
           server-dir: ${{ vars.HOSTINGER_FTP_DIR || 'public_html/' }}
           exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            scripts/**
+            README.md
+            LICENSE
             config.php

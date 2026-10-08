@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Pranzo sulla Domiziana | Lido Pino d'Oro</title>
+      <meta name="description" content="Pranzo sulla spiaggia a 1 minuto dalla Domiziana. Pesce del nostro Tirreno, prezzi chiari, servizio in 30 minuti se hai fretta. Aperti a pranzo tutti i giorni dell'anno.">
+      <meta name="theme-color" content="#FFF2D7">
+    </head>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <script>
+    /* Parametro URL dei gruppi di annunci (?g=lavoro | ?g=sosta): letto prima del rendering per evitare sfarfallii.
+    (function () {
+      var g = new URLSearchParams(location.search).get("g");
+      if (g === "lavoro" || g === "sosta") document.documentElement.setAttribute("data-g", g);
+    })(); */
+    </script>
+
+    <body style="margin:0px">
+    <link rel="stylesheet" href="styles.css">
+
+    <section style="background-image: url('foto/bg.png'); height: 100vh; background-repeat: no-repeat; background-size: cover; background-attachment: scroll;">
+        <div class="mainlanding">
+            <div style="position: static; top: 3vh; width: 100%; margin:0;">
+                <img class="main_logo" src="logo.png">
+
+                    <!--Data Dinamica-->
+                    <div class="striscia-data-bg-layer0">
+                      <div class="striscia-data">
+                        <img class="ora-icona" src="icons/schedule.svg" style="width: calc(1.7rem + 0.390625vw); opacity: 100%; color: white; padding-right: 3vw;">
+                        <div class="striscia-data-testo">
+                          <span id="data-oggi">data</span>
+                          <span class="striscia-ora-testo" style="flex-basis: 100%;"><span data-orario>orario</span></span>
+                        </div>
+                        
+                      </div>
+                    </div>
+                    <!--Fine Data Dinamica-->
+                    
+                  <div style="display: block; gap: 1px;">
+                    <h1 class="titolo_principale">Il ristorante sulla spiaggia<br>Sempre Aperto.<br>Tutti i giorni dell’anno.</h1>
+                    <div class="buttons_container_title">
+                      <a href="https://prenotazioni.cooperto.it/in/ca5abec6-9f55-4578-822e-2e7b3cba7998" class="prenota-tavolo">
+                        prenota ora il tuo pranzo! >
+                      </a>
+                      <br>
+                      <a href="https://new-widget.spiagge.it/stabilimenti-balneari/prenotazione/it-ce-81034-lido-pino-doro/insertPeriod?yb_booking_license=it-ce-81034-lido-pino-doro" class="prenota-spiaggia">
+                        prenota la tua spiaggia! >
+                      </a>
+                  </div>
+                  <img class="titolo-frecciagiu" src="icons/arrow_down.svg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="le4-prove" style="background-color: #FFF2D7; ">
+      <!--aperto sempre-->
+      <div class="prova1_365">
+        <div style="display: flex; align-items: center;">
+          <span style="color: #805900; opacity: 40%; font-size: 200%; letter-spacing: -12%;">365</span><b style="font-size: 3vw; color: #dab04e;">&nbsp&nbsp★</b><br>
+          <br><br><br>
+        </div>
+        <b style="font-size: 60%;">Aperti a pranzo <mark style="background-color: #2D291E; color:#F8D587; padding: 4px;">Tutti i giorni.</mark></b>
+        <br>
+        <i style="font-size: 40%;">Ferragosto, Natale e Capodanno compresi. In estate anche tutti i giorni a cena.</i>
+        <br>
+        <a href="#tabellaorario" style="font-size: 40%;">controlla gli orari ↓</a>
+      </div>
+      <hr>
+      <br>
+      <!--distanza-->
+      <div class="prova2_distanza">
+        <span style="color: #242424; opacity: 40%; font-size: 160%; letter-spacing: -12%;">300m</span>
+        <br><br>
+        <b style="font-size: 60%;">Distanti dalla Domiziana.</b>
+        <br>
+        <a href="https://www.google.com/maps/search/?api=1&query=Lido%20Pino%20d%27Oro&query_place_id=ChIJcV_Xya3fOhMRWT5u9UL0X08" style="font-size: 40%;">portami lì →</a>
+      </div>
+      <hr>
+      <br>
+      <!--piatto ordinato-->
+      <div class="prova3_piatti">
+        <span style="color: #805900; opacity: 40%; font-size: 200%; letter-spacing: -12%;">1 su 3</span>
+        <br><br>
+        <b style="font-size: 60%;">Clienti ordinano lo stesso piatto.</b>
+        <br>
+        <i style="font-size: 40%;"></i>
+        <a href="#piatto-piuordinato" style="font-size: 40%;">scopri qual'è ↓</a>
+      </div>
+      <hr>
+      <br>
+      <!--recensioni-->
+      <div class="prova4_recensione">
+        <b class="stelle-medie" id="stelle-medie">0.0★</b>
+        <br><br>
+        <b class="conteggio-recensioni" id="conteggio-recensioni" style="font-size: 60%;">Su 0 recensioni</b>
+        <br>
+        <a data-link="recensioni" href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro" target="_blank" rel="noopener" style="font-size: 40%;">leggile tutte →</a>
+      </div>
+      
+      <div>
+          <div class="recensioni">
+            <!--recensione1-->
+            <blockquote class="recensione-blocco1">
+              <div style="display: flex; flex-grow: 1; justify-content: space-between;">
+                <cite><span class="nome-recensore">NomeC.</span></cite>
+                <span class="lestelle-recensione">★★★★★</span>
+              </div>
+              <div class="titolocontenuto-container">
+                <span class="titolo-recensione">"Titolo"</span><br>
+                <span class="contenuto-recensione">contenuto della recensione</span>
+              </div>
+            </blockquote>
+            <!--recensione2-->
+            <blockquote class="recensione-blocco1" style="animation-delay: 0.2s;">
+              <div style="display: flex; flex-grow: 1; justify-content: space-between;">
+                <cite><span class="nome-recensore">NomeC.</span></cite>
+                <span class="lestelle-recensione">★★★★★</span>
+              </div>
+              <div class="titolocontenuto-container">
+                <span class="titolo-recensione">"Titolo"</span><br>
+                <span class="contenuto-recensione">contenuto della recensione</span>
+              </div>
+            </blockquote>
+
+          </div>
+      </div>
+    </section>
+      <hr>
+    <!-- galleria -->
+    <section class="galleria">
+      <h1 class="titolo">G A L L E R Y</h1>
+      <i style="opacity: 40%">scorri a destra...</i>
+      <div class="contenitore-immagini">
+        <div class="contenitore-pag1" style="grid-template-columns: 1fr 1fr; align-items: center; justify-content: center;">
+          <img class="foto_galleria" src="foto/galleria/foto-1.jpg">
+          <img class="foto_galleria" src="foto/galleria/foto-3.jpg">
+          <img class="foto_galleria" src="foto/galleria/foto-2.jpg">
+          <img class="foto_galleria" src="foto/galleria/foto-4.jpg">
+          <img class="foto_galleria" src="foto/galleria/foto-5.jpg">
+          <br>
+          <img class="foto_galleria" src="foto/galleria/foto-6.jpg">
+          <img class="foto_galleria" src="foto/galleria/foto-7.jpg">
+          <img class="foto_galleria" src="foto/galleria/foto-8.jpg">
+          <img class="foto_galleria" src="foto/galleria/foto-9.jpg">
+          <img class="foto_galleria" src="foto/galleria/foto-10.jpg">
+        </div>
+      </div>
+      <div class="contenitore-immagini-puntini">
+
+      </div>
+    </section>
+    <hr style="background: #fff;">
+
+    <!-- piatto più ordinato -->
+    <section id="piatto-piuordinato">
+      <img src="foto/cerchi.svg" style="position:absolute; z-index: -1; width: 60%;">
+      <h1 class="piatto-piuordinato-titolo">★ Il Piatto più ordinato del mese</h1>
+      <img class="piatto-foto" src="foto/piatto.png" style="position: absolute; z-index: -1; overflow-x: hidden; right:30%;">
+      <h3 class="titolo-piatto"><u><i>Lo spaghetto del pino d'oro</i></u></h3>
+      <span class="desc-piatto" style="font-family: 'Century Gothic'">
+      Lupini pescati del nostro Tirreno. Il sapore di mare che le vongole d'allevamento non hanno più.<br><br>
+      Per anni abbiamo servito le vongole veraci. Poi sono diventate quasi tutte d'allevamento e il prezzo è salito a livelli che non avevano più senso: né per noi, né per te.<br><br>
+
+      Li facciamo su spaghetti di pasta fresca, 100% grano italiano del pastificio Maffei, con olio all'aglio e al prezzemolo e una sfumata di Falerno del Massico DOP: il vino che nasce a sei chilometri da questo tavolo.
+      </span>
+      <i style="display:flex; font-size: 2.5vh; text-align: right; margin-top: 2vh;">Ti dispiacerà arrivare all'ultima manciata di lupini.</i>
+      <br>
+      <a href="https://prenotazioni.cooperto.it/in/ca5abec6-9f55-4578-822e-2e7b3cba7998" class="prenota-tavolo">prenota il tuo tavolo!</a>
+    </section>
+
+    <!-- menùs -->
+    <section class="contenitore-menu">
+        <!--menu 1-->
+        <div class="menu1">
+          <div class="menu-immagine">
+            <div class="sfumaturafotomenu"></div>
+            <img src="foto/terrazza-mare-720.jpg" style="object-fit: cover;">
+          </div>
+          <div style="padding: 6%; padding-top: 0;">
+          <div class="menu-testo">
+            <div class="titolo-menu-container">
+              <img src="icons/schedule.svg" style="width: 8%; filter: brightness(0);">
+              </svg>
+              <h3 class="titolo-menu">
+              Hai un’ora per pranzo? <br> Usala bene.
+              </h3>
+            </div>
+            <hr>
+              <div style="display: flex; align-items: center; justify-content: center;">
+                <img src="icons/arrow_right.svg" style="width: 10%;">
+                <span class="titolo-nome-menu">SMART</span><hr style="border-style: dashed; width:16vw"><span class="prezzo-menu">€16,70</span>
+              </div>
+              <i class="descrizione-menu">Un piatto a scelta, servito in 30 minuti.</i>
+              <div style="display: flex; align-items: center; justify-content: center;">
+                <img src="icons/arrow_right.svg" style="width: 10%;">
+                <br>
+                <span class="titolo-nome-menu">PLUS</span><hr style="border-style: dashed; width:20vw "><span class="prezzo-menu">€25,70</span>
+              </div>
+              <i class="descrizione-menu">Primo e Secondo, serviti in 45 minuti.</i>
+            <hr>
+            <u style="font-family: 'Century Gothic';"><i>Con fattura al tavolo.</i></u>
+            <br>
+            <div style="display: flex; align-items: center;">
+              <img src="icons/people.svg" style="width: 10%;">
+              <span style="font-family: 'Century Gothic'; padding: 4px;">Porti un cliente? Ti diamo un lavoro tranquillo, dove si parla.</span>
+            </div><hr>
+            <div style="display: flex; justify-content: center; align-items: center;">
+            <div style="display: flex; justify-content: center; align-items: center;">
+            <a href="https://wa.me/393887877008?text=DOMIZIANA%20LAVORO%20%E2%80%93%20arrivo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D" target="_blank" rel="noopener" class="btn-calltoaction-whatsapp" data-azione="whatsapp-lavoro">
+              <img src="icons/message_yellow_btn.svg" style="width: 10%; padding-right: 8px;">
+              <span>Scrivi “arrivo” su Whatsapp</span>
+            </a>
+            </div>
+            </div>
+            <a href="" style="display: flex; justify-content: center; align-items: center; padding: 4px;">vedi le formule pranzo →</a>
+            </div>
+            </div>
+        </div>
+        <!--menu2-->
+        <div class="menu1">
+          <div class="menu-immagine">
+            <div class="sfumaturafotomenu"></div>
+            <img src="foto/ANG2483.jpg" style="object-fit: cover;">
+          </div>
+          <div style="padding: 6%; padding-top: 0;">
+          <div class="menu-testo">
+            <div class="titolo-menu-container">
+              <img src="icons/directions_car.svg" style="width: 8%; filter: brightness(0);">
+              </svg>
+              <h3 class="titolo-menu">
+              Sei in viaggio sulla Domiziana?
+              </h3>
+            </div>
+            <hr>
+              <div style="display: flex; align-items: center; justify-content: center; align-items: center;">
+                <img src="icons/schedule.svg" class="menu-icona-desc">
+                <span class="descrizione-menu">1 Minuto sulla deviazione e sei sulla sabbia.</span>
+              </div><br>
+              <div style="display: flex; align-items: center; justify-content: center; align-items: center;">
+                <img src="icons/supervisor_account.svg" class="menu-icona-desc">
+                <span class="descrizione-menu">Con bambini?<br>C’è il menù baby, e mentre aspettano, si sgranchiscono in spiaggia.</span>
+              </div>
+            <hr style="width: 20vw;">
+              <div style="display: flex; align-items: center; justify-content: start; align-items: start;">
+                <img src="icons/directions_car.svg" class="menu-icona-desc">
+                <div>
+                  <span class="descrizione-menu">Passi una volta sola?</span><br>
+                  <a href="" style="color:#2D291E"><b>Ecco i 3 piatti da ordinare →</b></a>
+                </div>
+              </div><hr>
+            <div style="display: flex; justify-content: center; align-items: center;">
+            <a href="https://wa.me/393887877008?text=DOMIZIANA%20SOSTA%20%E2%80%93%20arriviamo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D%20(bambini%3A%20%5B%20%5D)" target="_blank" rel="noopener" class="btn-calltoaction-whatsapp">
+              <img src="icons/message_yellow_btn.svg" style="width: 10%; padding-right: 8px;">
+              <span style="letter-spacing: -1px;">Scrivi “arriviamo tra 10 minuti”</span>
+            </a>
+            </div>
+            <a href="" style="display: flex; justify-content: center; align-items: center; padding: 4px;">vedi le formule pranzo →</a>
+            </div>
+            </div>
+        </div>
+        <!--menu3-->
+        <div class="menu1">
+          <div class="menu-immagine">
+            <div class="sfumaturafotomenu"></div>
+            <img src="foto/lidobrindisi.jpg" style="object-fit: cover;">
+          </div>
+          <div style="padding: 6%; padding-top: 0; height: 100%;">
+          <div class="menu-testo">
+            <div class="titolo-menu-container">
+              <img src="icons/schedule.svg" style="width: 8%; filter: brightness(0);">
+              </svg>
+              <h3 class="titolo-menu">
+              Un pranzo per stare bene con qualcuno.
+              </h3>
+            </div>
+            <hr>
+              <div style="display: flex; align-items: center; justify-content: start;">
+                <img src="icons/arrow_right.svg" style="width: 10%;">
+                <span class="titolo-nome-menu" style="letter-spacing: -4px;">Menù "Sapori Veri"</span><hr style="border-style: dashed;"><span class="prezzo-menu">€</span>
+              </div>
+              <i class="descrizione-menu">antipasti, primo, frittura, dolce e caffè, per tutto il tavolo.</i>
+            <hr>
+            <div style="display: flex; align-items: center; justify-content: start; align-items: start;">
+                <img class="menu-icona-desc" src="icons/posate.svg">
+                <span class="descrizione-menu">Il tavolo sulla spiaggia, anche a febbraio.</span>
+            </div><br>
+            <div style="display: flex; align-items: center; justify-content: start; align-items: start;">
+              <img src="icons/calendar_schedule.svg" class="menu-icona-desc">
+              <span class="descrizione-menu" style="animation: blinking 2s infinite"><b><u>La domenica si riempie!</u></b><br>Meglio scriverci prima.</span>
+            </div><hr>
+            <a href="https://wa.me/393887877008" target="_blank" rel="noopener" class="btn-calltoaction-whatsapp">
+              <img src="icons/message_yellow_btn.svg" style="width: 10%; padding-right: 8px;">
+              <span>Prenota il tavolo su WhatsApp</span>
+            </a>
+            <a href="" style="display: flex; justify-content: center; align-items: center; padding: 4px;">vedi le formule pranzo →</a>
+            </div>
+            </div>
+        </div>
+        <br>
+    </section>
+    <div style="width: 100%; display:flex; align-items: center; justify-content: center; padding-bottom: 4vh; padding-top: 0;">
+      <div class="compleanno_festa">
+        <div style="display: flex; justify-content: center; align-items: right;">
+           <h2 style="color:#F8D587; font-size: 7w; text-align: left; margin: 0 0;">Un compleanno o una festa?</h2>
+           <img src="icons/celebration.svg" style="width: 7%;">
+        </div><br>
+          <i style="color: #fff; font-size: 5vw; border-radius: 12px;">Una festa sulla spiaggia, in qualsiasi mese dell’anno.</i><br>
+        <div style="display: flex; gap: 2vw">
+           <a class="btn-whatsapp-festa" href="https://wa.me/393887877008" ><img src="icons/message_yellow_btn.svg" style="filter: brightness(0); width:15%; padding-right: 1vw;">Chiedi su Whatsapp</a>
+           <a class="btn-chiama-festa" data-azione="chiama" href="tel:+393887877008">Chiama</a>
+        </div>
+      </div>
+    </div>
+    <!-- storia -->
+    <section class="storia" style="padding-right: 6%; padding-left: 6%;">
+      <h2 style="text-align: right; font-family: 'Dm Serif Text'; margin-top: 2vh; margin-bottom: 2vh; letter-spacing: -4%;">Perché siamo qui?</h2>
+      <h1 class="storia-titolo" style="text-align: right; margin-top: 2vh; margin-bottom: 2vh; letter-spacing: -4%;">Il problema non è trovare un ristorante.<br>È non sbagliare.</h1>
+      <span class="descrizione-storia">
+        Se sei di qui, te lo sarai detto anche tu. Arriva un amico da fuori, un parente, un collega che vuoi trattare bene. Vuoi portarlo in un posto che gli resti. E l’unica cosa che ti viene in mente è:<br>
+        <br>“ e adesso dove lo porto? “
+        <br><br>Se invece sei in vacanza, il problema è l’opposto: sei circondato da locali che non conosci e non hai voglia di sprecare uno dei pochi pranzi buoni che hai a disposizione.<br>
+        E poi c’è la cosa che a Mondragone sanno tutti: fuori stagione metà dei locali è chiuso, e ad agosto quelli aperti non hanno un tavolo libero. Noi siamo aperti a pranzo tutti i giorni dell’anno. Non è uno slogan pubblicitario: è la scelta su cui abbiamo costruito il ristorante, e più sotto ti spiego perché l’abbiamo fatta.<br>
+      </span>
+      <h2 style="text-align: right;">Se prenoti da noi, l’unica cosa che rischi è di doverci tornare.</h2>
+      <a href="https://new-widget.spiagge.it/stabilimenti-balneari/prenotazione/it-ce-81034-lido-pino-doro/insertPeriod?yb_booking_license=it-ce-81034-lido-pino-doro" class="prenota-spiaggia" style="text-align: center;">
+        prenota ora la spiaggia!
+      </a>
+    </section>
+
+    <!-- invito recensione -->
+    <section class="invito-recensione">
+      <div class="invito-recensione-container">
+      <div>
+        <blockquote class="recensione-blocco2">
+              <div style="display: flex; flex-direction: column;">
+                <span class="titolo-recensione2"><i>"Ho gradito particolarmente il menù pranzo"</i></span>
+                <span class="lestelle-recensione2">★★★★★</span>
+              </div>
+              <hr style="width: 100%; margin: 3vh 3vh;">
+              <div class="titolocontenuto-container2" style="display: flex; flex-direction: column;">
+                <span class="contenuto-recensione2">Lido ben curato, non troppo caotico, dove si può spendere una bella giornata rilassata. Ho gradito particolarmente il pranzo, il menù che propongono in settimana è molto vantaggioso e le proposte sono deliziose.<br>Assolutamente Raccomandato!</span>
+                <i class="titolo-recensione2">Pasquale T.</i>
+              </div>
+        </blockquote>
+      </div>
+      <div>
+        <i class="recensione-domanda">E se la prossima recensione fosse la tua?<br>
+        Ogni ospite che ci sceglie è parte della nostra storia.<br>
+        Vienici a trovare! Siamo pronti a farti vivere un’esperienza indimenticabile!</i>
+        <br>
+        <a href="https://prenotazioni.cooperto.it/in/ca5abec6-9f55-4578-822e-2e7b3cba7998" class="prenota-tavolo">
+        prenota ora il tuo pranzo! >
+        </a>
+      </div>
+      </div>
+    </section>
+
+    <!-- domande -->
+    <section section="domande-faq">
+      <div class="domande-titolo">
+        <h1>Domande?</h1><br>
+        <span style="font-weight: 100;">Ecco tutto ciò che devi sapere!</span>
+      </div>
+      <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+      <div class="domanda">
+        <h1 class="numerodomanda_l">1</h1>
+        <div style="display: grid;">
+        <i>Dove si trova il ristorante?</i>
+        <span>Siamo a Mondragone, a 300 metri dalla Domiziana.</span>
+        </div><br>
+      </div>
+      <img class="waveimg-domande" src="icons/wave.svg">
+
+      <div class="domanda_r">
+        <div style="display: grid;">
+        <i>Il ristorante è specializzato in pesce?</i>
+        <span>La nostra specialità è sicuramente la cucina di mare.<br>Abbiamo comunque un menù vario con piatti di carne, pasta e altre specialità.</span>
+        </div><br>
+        <h1 class="numerodomanda_r">2</h1>
+      </div>
+      <img class="waveimg-domande" src="icons/wave.svg">
+
+      <div class="domanda" style="padding-bottom: 0;">
+        <h1 class="numerodomanda_l">3</h1>
+        <div style="display: grid;">
+        <i>Devo per forza prenotare online per il dolce?</i>
+        <span>Sì, l’omaggio è valido solo per chi prenota direttamente da questa pagina!</span>
+        </div><br>
+      </div><br>
+      <span class="stars-domande">★★★★★</span>
+      <i class="trovatorisposte-domanda">hai trovato le risposte che cercavi?<br>ora non ti resta che prenotare il tuo tavolo!</i>
+      <div style="width: 70vw; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        <hr style="width: 30%; border: 1px solid #000">
+        <a href="https://prenotazioni.cooperto.it/in/ca5abec6-9f55-4578-822e-2e7b3cba7998" class="prenota-tavolo3"  href="">prenota ora il tuo tavolo!</a>
+      </div>
+      </div>
+      </div>
+    </section>
+    <hr>
+
+    <!-- info e contatti -->
+    <section section="infoecontatti">
+      <div style="display: flex; max-height: 60vh; padding: 3%">
+      <b style="opacity: 20%; font-size: 3rem; text-align: center; font-family: 'Dm Serif Display Reg'; width: 10%">“</b><span class="descrizione-finale">
+        Al Lido Ristorante Pino d’Oro, la passione per la cucina mediterranea si unisce all’amore per il mare e la natura.<br>
+        Situato direttamente su un lido a Mondragone (CE), con una vista spettacolare sul mare, il nostro ristorante è il luogo ideale per godersi una pausa pranzo o una cena in totale relax.<br>
+        In estate, puoi fare un bagno rigenerante nel nostro lido prima o dopo il pasto, mentre durante tutto l’anno, ti offriamo piatti freschi e gustosi per ogni stagione.</span>
+        <b style="opacity: 20%; font-size: 3rem; text-align: center; font-family: 'Dm Serif Display Reg'; width: 10%; justify-self: end; flex-direction: column;">”</b>
+      </div>
+    <hr>
+    <div class="desktop-grid">
+    <iframe class="gmaps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.9830828280155!2d13.877461201852412!3d41.1130605330087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x133adfadc88b01b7%3A0x7efe8a696af45353!2sPiazza%20Mario%20Liberato%20Conte%2C%2029%2C%2081034%20Mondragone%20CE!5e0!3m2!1sit!2sit!4v1791296216033!5m2!1sit!2sit" style="border:0; padding:0%; display: flex; align-items: center; justify-content: center; width: 100vw; height: 70vh" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+
+    <div class="orari">
+    <h1 style="text-align: right;"><i>I nostri orari:</i></h1>
+    <table id="tabellaorario">
+      <tbody>
+        <tr>
+          <th style="text-align: left;">Lunedì-Giovedì</th>
+          <th style="text-align: right;"><b>12:00-15:00</b></th>
+        </tr>
+        <tr>
+          <th style="text-align: left; opacity: 80%">Venerdì</th>
+          <th style="text-align: right; opacity: 80%"><b>12:00-15:00<br>19:30-23:30</b></th>
+        </tr>
+        <tr>
+          <th style="text-align: left;">Sabato</th>
+          <th style="text-align: right;"><b>12:00-15:00<br>19:30-23:30</b></th>
+        </tr>
+        <tr>
+          <th style="text-align: left; opacity: 80%">Domenica</th>
+          <th style="text-align: right; opacity: 80%"><b>12:00-15:00</b></th>
+        </tr>
+      </tbody>
+    </table>
+    <h1 class="titoloinfocontatti"><i>Info & Contatti:</i></h1>
+    <div class="contatti-contenitore">
+        <div class="contatto">
+          <img src="icons/location_on.svg">
+          <span>Piazza Mario Liberato Conte, 29<br>81034 Mondragone (CE)</span>
+        </div>
+        <div class="contatto">
+      <img src="icons/call.svg">
+      <span>+39 388 787 7008</span>
+        </div>
+          <div class="contatto">
+            <img src="icons/mail.svg">
+            <span>infolidopinodoro@gmail.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    </section>
+    <div style="display:flex; justify-content:center; align-items:center; font-size: 14px; font-family:'Century Gothic'; text-align: center; line-height: 1.6vh; padding: 0; margin: 0 0">
+    <i style="text-align: center; width: 100vh;";>In fondo alla landing ci sono i dati del titolare (P.IVA obbligatoria, art. 35 DPR 633/72) e i collegamenti a termini, privacy e cookie policy, scritte per questa pagina: niente vendite online, contatti via telefono e WhatsApp, recensioni da Google, caratteri in casa, cookie solo per Google Ads e solo con consenso. Le scelte già scritte, da confermare o cambiare: messaggi WhatsApp conservati al massimo 12 mesi, nessun DPO, risposta "Sì" al pagamento con carta (obbligo di legge), tempi di servizio come impegno e non garanzia. Su Hostinger accettare il DPA nell'area clienti.
+    Banner cookie: compare solo con google.ads Id impostato. Prima della scelta non parte nulla verso Google; "Accetta" carica il tag con la modalità consenso (solo misurazione, niente personalizzazione); "Rifiuta", la X e il tasto Esc non caricano nulla; i due pulsanti sono identici; la scelta dura 6 mesi e si cambia da "Preferenze cookie"; la revoca cancella i cookie di Google Ads e ricarica la pagina senza tag.</i>
+    </div>
+    <span style="text-align: center; font-size: 2vh; justify-content: center; align-items: center; display: grid;">Tutti i diritti riservati.</span>
+  <script>
+    (function () {
+      "use strict";
+
+      // =====================================================================
+      //  CONFIG - l'unico blocco da modificare per mettere online la pagina
+      // =====================================================================
+      var CONFIG = {
+        // Telefono del ristorante, con prefisso internazionale (pulsante "Chiama").
+        telefono: "+39 388 787 7008",
+        // Numero WhatsApp (lo stesso numero): solo cifre, con il prefisso 39 e senza "+".
+        whatsapp: "393887877008",
+        // Orario del pranzo mostrato nella riga sopra il titolo. DA CONFERMARE.
+        orarioPranzo: "12:00-15:30",
+        // Place ID della scheda Google del Lido (Google Maps > scheda del Lido > condividi, oppure
+        // https://developers.google.com/maps/documentation/places/web-service/place-id).
+        // Con il Place ID, "Portami li'" apre direttamente la scheda e "Leggi tutte le recensioni" apre le recensioni.
+        googlePlaceId: "ChIJcV_Xya3fOhMRWT5u9UL0X08",
+        // Google Ads: ID del tag (es. "AW-123456789") ed etichetta di conversione di ogni pulsante
+        // (Google Ads > Obiettivi > Conversioni: una conversione per pulsante). Vuoto = nessun tracciamento.
+        googleAdsId: "",
+        conversioni: {
+          "portami-li": "",
+          "chiama": "",
+          "whatsapp-lavoro": "",
+          "whatsapp-sosta": "",
+          "whatsapp-generico": ""
+        },
+        // Messaggi WhatsApp precompilati, diversi per pulsante: servono a capire da dove arriva il cliente.
+        // Le parole chiave DOMIZIANA LAVORO / DOMIZIANA SOSTA / DOMIZIANA vanno nel foglio 4-MARKETING.
+        messaggi: {
+          "whatsapp-lavoro": "DOMIZIANA LAVORO – arrivo tra 10 minuti, siamo in [ ]",
+          "whatsapp-sosta": "DOMIZIANA SOSTA – arriviamo tra 10 minuti, siamo in [ ] (bambini: [ ])",
+          "whatsapp-generico": "DOMIZIANA – arrivo tra 10 minuti, siamo in [ ]"
+        },
+        // Titolo in base al parametro ?g= dei gruppi di annunci.
+        titoli: {
+          lavoro: "Pranzo sulla spiaggia, a 1 minuto dalla Domiziana. In un'ora sei di nuovo in strada.",
+          sosta: "Pesce del Tirreno sulla spiaggia, a 1 minuto dalla Domiziana."
+        }
+      };
+      // =====================================================================
+
+      var gruppo = document.documentElement.getAttribute("data-g") || "nessuno";
+
+      // Titolo per gruppo di annunci (l'ordine delle schede e' gestito dal CSS tramite data-g).
+      if (CONFIG.titoli[gruppo]) document.getElementById("titolo").textContent = CONFIG.titoli[gruppo];
+
+      // Data di oggi, calcolata dal browser al momento della visita (fuso Europe/Rome) e ricontrollata
+      // ogni minuto: se la pagina resta aperta oltre la mezzanotte, la data cambia da sola.
+      // Riempie la striscia in alto ("Venerdì 25 settembre 2026") e la riga sopra il titolo
+      // ("Oggi, venerdì 25 settembre, siamo aperti a pranzo"). Nel file HTML c'e' solo la parola "Oggi".
+      var GIORNI = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"];
+      var MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
+      function dataOggi(conAnno) {
+        var adesso = new Date();
+        try {
+          var opzioni = { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Rome" };
+          if (conAnno) opzioni.year = "numeric";
+          return new Intl.DateTimeFormat("it-IT", opzioni).format(adesso);
+        } catch (e) { // browser senza Intl: stessa data, composta a mano (ora locale del dispositivo)
+          return GIORNI[adesso.getDay()] + " " + adesso.getDate() + " " + MESI[adesso.getMonth()] + (conAnno ? " " + adesso.getFullYear() : "");
+        }
+      }
+      var ultimaData = "";
+      function aggiornaData() {
+        var breve = dataOggi(false);
+        if (breve === ultimaData) return;
+        ultimaData = breve;
+        document.getElementById("data-oggi").textContent = "oggi, " + breve + ", aperti";
+        var completa = dataOggi(true);
+        //document.getElementById("data-striscia").textContent = completa.charAt(0).toUpperCase() + completa.slice(1);
+      }
+      aggiornaData();
+      setInterval(aggiornaData, 60000);
+      Array.prototype.forEach.call(document.querySelectorAll("[data-orario]"), function (el) { el.textContent = CONFIG.orarioPranzo; });
+
+      // Link dei pulsanti, costruiti da CONFIG.
+      var cifre = String(CONFIG.whatsapp).replace(/\D/g, "");
+      var nome = encodeURIComponent("Lido Pino d'Oro");
+      var urlMaps = "https://www.google.com/maps/search/?api=1&query=" + nome +
+        (CONFIG.googlePlaceId ? "&query_place_id=" + encodeURIComponent(CONFIG.googlePlaceId) : "");
+      var urlRecensioni = CONFIG.googlePlaceId
+        ? "https://search.google.com/local/reviews?placeid=" + encodeURIComponent(CONFIG.googlePlaceId)
+        : urlMaps;
+      function urlWhatsapp(testo) { return "https://wa.me/" + cifre + "?text=" + encodeURIComponent(testo); }
+      var link = {
+        "portami-li": urlMaps,
+        "chiama": "tel:" + String(CONFIG.telefono).replace(/[^\d+]/g, ""),
+        "whatsapp-lavoro": urlWhatsapp(CONFIG.messaggi["whatsapp-lavoro"]),
+        "whatsapp-sosta": urlWhatsapp(CONFIG.messaggi["whatsapp-sosta"]),
+        "whatsapp-generico": urlWhatsapp(CONFIG.messaggi["whatsapp-generico"])
+      };
+
+      // Google Ads: ogni pulsante e' una conversione separata (Portami li', Chiama, WhatsApp Lavoro,
+      // WhatsApp Sosta, WhatsApp generico) e porta con se' il gruppo di annunci (?g=). Il tag viene
+      // caricato in modo asincrono, solo se configurato, per restare sotto i 2 secondi.
+      window.dataLayer = window.dataLayer || [];
+      if (CONFIG.googleAdsId) {
+        window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+        window.gtag("js", new Date());
+        window.gtag("config", CONFIG.googleAdsId);
+        var tag = document.createElement("script");
+        tag.async = true;
+        tag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(CONFIG.googleAdsId);
+        document.head.appendChild(tag);
+      }
+      function traccia(azione) {
+        window.dataLayer.push({ event: "clic_pulsante", azione: azione, gruppo: gruppo });
+        var etichetta = CONFIG.conversioni[azione];
+        if (CONFIG.googleAdsId && etichetta && typeof window.gtag === "function") {
+          window.gtag("event", "conversion", {
+            send_to: CONFIG.googleAdsId + "/" + etichetta,
+            gruppo: gruppo,
+            transport_type: "beacon"
+          });
+        }
+      }
+
+      Array.prototype.forEach.call(document.querySelectorAll("[data-azione]"), function (a) {
+        var azione = a.getAttribute("data-azione");
+        if (link[azione]) a.setAttribute("href", link[azione]);
+        a.addEventListener("click", function () { traccia(azione); });
+      });
+      Array.prototype.forEach.call(document.querySelectorAll("[data-link='recensioni']"), function (a) {
+        a.setAttribute("href", urlRecensioni);
+      });
+      // Se CONFIG.googlePlaceId e' vuoto ma recensioni.json contiene il Place ID della scheda, i link Google usano quello.
+      function impostaLinkGoogle(placeId) {
+        var maps = "https://www.google.com/maps/search/?api=1&query=" + nome + "&query_place_id=" + encodeURIComponent(placeId);
+        var rec = "https://search.google.com/local/reviews?placeid=" + encodeURIComponent(placeId);
+        Array.prototype.forEach.call(document.querySelectorAll("[data-azione='portami-li']"), function (a) { a.setAttribute("href", maps); });
+        Array.prototype.forEach.call(document.querySelectorAll("[data-link='recensioni']"), function (a) { a.setAttribute("href", rec); });
+      }
+
+      // Recensioni Google: lette da recensioni.json, che il workflow "Aggiorna le recensioni Google" rigenera
+      // ogni lunedi' mattina dalla scheda Google (Places API); su Hostinger lo fa aggiorna-recensioni.php via cron.
+      // Finche' il file e' vuoto restano i tre segnaposto della pagina.
+      // I testi arrivano da Google: vengono inseriti come testo, mai come HTML.
+      function iconaStella() {
+        var NS = "http://www.w3.org/2000/svg";
+        var svg = document.createElementNS(NS, "svg"); svg.setAttribute("aria-hidden", "true");
+        var use = document.createElementNS(NS, "use"); use.setAttribute("href", "#i-stella"); use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#i-stella");
+        svg.appendChild(use); return svg;
+      }
+      function mostraRecensioni(dati) {
+        if (!dati || !dati.scelte || !dati.scelte.length) return;
+        if (typeof dati.valutazione === "number" && dati.numeroRecensioni) {
+          document.getElementById("stelle-medie").textContent =
+            dati.valutazione.toFixed(1).replace(".", ",") + "★";
+          document.getElementById("conteggio-recensioni").textContent = "Su " + dati.numeroRecensioni + " recensioni";
+        }
+        var contenitore = document.getElementById("recensioni");
+        contenitore.textContent = "";
+        dati.scelte.slice(0, 3).forEach(function (r) {
+          var scheda = document.createElement("blockquote"); scheda.className = "recensione";
+          var stelle = document.createElement("div"); stelle.className = "stelle";
+          var n = Math.max(1, Math.min(5, Math.round(Number(r.valutazione) || 5)));
+          stelle.setAttribute("aria-label", n + " stelle su 5");
+          for (var i = 0; i < n; i++) stelle.appendChild(iconaStella());
+          var p = document.createElement("p"); p.textContent = '"' + r.testo + '"';
+          if (r.troncata && r.link) {
+            var leggi = document.createElement("a"); leggi.className = "leggi-tutto";
+            leggi.href = r.link; leggi.target = "_blank"; leggi.rel = "noopener"; leggi.textContent = "Leggi tutto";
+            p.appendChild(document.createTextNode(" ")); p.appendChild(leggi);
+          }
+          var cite = document.createElement("cite"); cite.textContent = r.autore + (r.quando ? " · " + r.quando : "");
+          scheda.appendChild(stelle); scheda.appendChild(p); scheda.appendChild(cite);
+          contenitore.appendChild(scheda);
+        });
+        if (!CONFIG.googlePlaceId && dati.placeId) impostaLinkGoogle(dati.placeId);
+      }
+      if (window.fetch) {
+        fetch("recensioni.json", { cache: "no-cache" })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(mostraRecensioni)
+          .catch(function () { /* file assente o non raggiungibile: restano i segnaposto */ });
+      }
+    })();
+  </script>
+    </body>
+</html>
