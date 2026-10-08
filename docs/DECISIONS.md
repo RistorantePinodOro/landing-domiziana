@@ -33,3 +33,4 @@ Il "perché" delle scelte non ovvie di questo repository. Nel codice pubblicato 
 
 - **GitHub Pages è un'anteprima; per gli annunci a pagamento si usa la copia su Hostinger** (i termini di GitHub Pages non sono pensati per siti commerciali).
 - **Su Hostinger le recensioni si rinnovano alla prima visita dopo 24 ore** tramite `recensioni.php` (regola in `.htaccess`), con un lucchetto e un tentativo al massimo ogni ora se Google non risponde; il cron di hPanel è facoltativo.
+- **Le icone si richiamano con `?v=N`** in `index.html`, `privacy.html` e `cookie.html`: i browser tengono a lungo la favicon in una cache propria, quindi quando si cambiano i file si aumenta N in tutte e tre le pagine (un test controlla che coincidano). Nelle misure da scheda (16, 32 e 48 px) il filo del rombo è ridisegnato largo almeno un pixel, altrimenti sparisce; niente manifest, perché alle schede non serve.
