@@ -1245,3 +1245,134 @@ h1, h2, h3, h4, h5, h6 {
         letter-spacing: 0px;
     }
 }
+/* Banner dei cookie, mappa caricata su richiesta e collegamenti legali */
+.pulsante-legale {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0.6rem 1.4rem;
+    border: 2px solid #302B1F;
+    border-radius: 6px;
+    background-color: #302B1F;
+    color: #F5DCA4;
+    font-family: "Dm Serif Text", Georgia, serif;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.pulsante-legale:focus-visible,
+.consenso-chiudi:focus-visible,
+.link-legali a:focus-visible,
+.mappa a:focus-visible {
+    outline: 3px solid #986D0C;
+    outline-offset: 2px;
+}
+
+.consenso {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    padding: 0.75rem;
+}
+
+.consenso[hidden] {
+    display: none;
+}
+
+.consenso-scatola {
+    position: relative;
+    display: grid;
+    gap: 0.8rem;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1rem 3rem 1rem 1.1rem;
+    background-color: #FFF;
+    border: 2px solid #F5DCA4;
+    border-radius: 8px;
+    box-shadow: #302B1F44 0px 4px 16px;
+    color: #302B1F;
+}
+
+.consenso-scatola p {
+    margin: 0;
+    font-family: "Century Gothic", sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.consenso-scatola a:hover,
+.link-legali a:hover {
+    letter-spacing: normal;
+}
+
+.consenso-chiudi {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    padding: 0;
+    border: 1px solid #F5DCA4;
+    border-radius: 50%;
+    background-color: #FFF;
+    color: #302B1F;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.consenso-azioni {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.6rem;
+}
+
+.consenso-azioni .pulsante-legale {
+    flex: 1 1 8rem;
+}
+
+.mappa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 40vh;
+    padding: 6%;
+    background: linear-gradient(160deg, #FFF 0%, #FFF7E4 100%);
+    border: 2px solid #F5DCA4;
+    text-align: center;
+}
+
+.mappa p {
+    margin: 0;
+    max-width: 34ch;
+    font-family: "Century Gothic", sans-serif;
+}
+
+.link-legali {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 1.5rem 1rem 0.5rem;
+    font-size: 0.95rem;
+}
+
+@media (min-width: 1024px) {
+    .consenso-scatola {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+    }
+
+    .mappa {
+        width: 40vw;
+        min-height: 50vh;
+    }
+}
