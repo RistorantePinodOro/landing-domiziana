@@ -2,6 +2,33 @@
 <html lang="it">
     <head>
       <meta charset="utf-8">
+      <!-- Google Tag Manager: il contenitore si carica solo dopo "Accetta" nel banner dei cookie (cookie.html).
+           Prima della scelta la modalita' consenso di Google parte con tutto negato. -->
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { window.dataLayer.push(arguments); }
+        gtag("consent", "default", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied", analytics_storage: "denied" });
+        window.caricaTagManager = function () {
+          if (window.tagManagerCaricato) return;
+          window.tagManagerCaricato = true;
+          gtag("consent", "update", { ad_storage: "granted", ad_user_data: "granted", analytics_storage: "granted" });
+          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-MST8XCR6');
+        };
+        (function () {
+          var salvato = null;
+          // localStorage lancia un'eccezione se il browser blocca la memoria del sito: in quel caso si chiede di nuovo il consenso.
+          try { salvato = JSON.parse(localStorage.getItem("cookie-consenso") || "null"); } catch (errore) { salvato = null; }
+          if (!salvato || salvato.scelta !== "accettati") return;
+          var scadenza = new Date(salvato.quando);
+          scadenza.setMonth(scadenza.getMonth() + 6);
+          if (Date.now() < scadenza.getTime()) window.caricaTagManager();
+        })();
+      </script>
+      <!-- Fine Google Tag Manager -->
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Pranzo sulla Domiziana | Lido Pino d'Oro</title>
       <meta name="description" content="Pranzo sulla spiaggia a 1 minuto dalla Domiziana. Pesce del nostro Tirreno, prezzi chiari, servizio in 30 minuti se hai fretta. Aperti a pranzo tutti i giorni dell'anno.">
@@ -414,7 +441,11 @@
       </div>
     <hr>
     <div class="desktop-grid">
-    <iframe class="gmaps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.9830828280155!2d13.877461201852412!3d41.1130605330087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x133adfadc88b01b7%3A0x7efe8a696af45353!2sPiazza%20Mario%20Liberato%20Conte%2C%2029%2C%2081034%20Mondragone%20CE!5e0!3m2!1sit!2sit!4v1791296216033!5m2!1sit!2sit" style="border:0; padding:0%; display: flex; align-items: center; justify-content: center; width: 100vw; height: 70vh" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <div class="gmaps mappa" id="mappa" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.9830828280155!2d13.877461201852412!3d41.1130605330087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x133adfadc88b01b7%3A0x7efe8a696af45353!2sPiazza%20Mario%20Liberato%20Conte%2C%2029%2C%2081034%20Mondragone%20CE!5e0!3m2!1sit!2sit!4v1791296216033!5m2!1sit!2sit">
+      <p>La mappa è di Google Maps: si carica solo se la chiedi, e da quel momento Google riceve i dati della tua visita.</p>
+      <button type="button" class="pulsante-legale" id="mappa-mostra">Mostra la mappa</button>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro&amp;query_place_id=ChIJcV_Xya3fOhMRWT5u9UL0X08" target="_blank" rel="noopener">Apri in Google Maps →</a>
+    </div>
 
     <div class="orari">
     <h1 style="text-align: right;"><i>I nostri orari:</i></h1>
@@ -460,6 +491,7 @@
     <i style="text-align: center; width: 100vh;";>In fondo alla landing ci sono i dati del titolare (P.IVA obbligatoria, art. 35 DPR 633/72) e i collegamenti a termini, privacy e cookie policy, scritte per questa pagina: niente vendite online, contatti via telefono e WhatsApp, recensioni da Google, caratteri in casa, cookie solo per Google Ads e solo con consenso. Le scelte già scritte, da confermare o cambiare: messaggi WhatsApp conservati al massimo 12 mesi, nessun DPO, risposta "Sì" al pagamento con carta (obbligo di legge), tempi di servizio come impegno e non garanzia. Su Hostinger accettare il DPA nell'area clienti.
     Banner cookie: compare solo con google.ads Id impostato. Prima della scelta non parte nulla verso Google; "Accetta" carica il tag con la modalità consenso (solo misurazione, niente personalizzazione); "Rifiuta", la X e il tasto Esc non caricano nulla; i due pulsanti sono identici; la scelta dura 6 mesi e si cambia da "Preferenze cookie"; la revoca cancella i cookie di Google Ads e ricarica la pagina senza tag.</i>
     </div>
+    <nav class="link-legali" aria-label="Note legali"><a href="privacy.html">Privacy</a> · <a href="cookie.html">Cookie policy</a> · <a href="#" id="preferenze-cookie">Preferenze cookie</a></nav>
     <span style="text-align: center; font-size: 2vh; justify-content: center; align-items: center; display: grid;">Tutti i diritti riservati.</span>
   <script>
     (function () {
@@ -639,6 +671,84 @@
           .then(mostraRecensioni)
           .catch(function () { /* file assente o non raggiungibile: restano i segnaposto */ });
       }
+    })();
+  </script>
+
+  <div class="consenso" id="consenso" role="region" aria-label="Uso dei cookie" hidden>
+    <div class="consenso-scatola">
+      <button type="button" class="consenso-chiudi" data-consenso="rifiutati" aria-label="Chiudi e mantieni le impostazioni predefinite: nessun cookie di statistica o di marketing">&times;</button>
+      <p><strong>Cookie per statistiche e annunci.</strong> Se accetti, carichiamo Google Tag Manager, che attiva gli strumenti di Google per misurare le visite alla pagina e i risultati dei nostri annunci. Senza il tuo consenso non li carichiamo e non installiamo cookie di questo tipo: chiudendo il banner con la X resti con le impostazioni predefinite. Puoi cambiare idea da "Preferenze cookie" in fondo alla pagina. <a href="cookie.html">Cookie policy</a> · <a href="privacy.html">Privacy</a></p>
+      <div class="consenso-azioni">
+        <button type="button" class="pulsante-legale" data-consenso="rifiutati">Rifiuta</button>
+        <button type="button" class="pulsante-legale" data-consenso="accettati">Accetta</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      "use strict";
+      // Banner dei cookie (Linee guida del Garante 10 giugno 2021): "Accetta" e "Rifiuta" identici, la X e il tasto Esc
+      // valgono come rifiuto, la scelta dura 6 mesi e si cambia da "Preferenze cookie".
+      var CHIAVE = "cookie-consenso", MESI = 6;
+      var banner = document.getElementById("consenso");
+      function sceltaSalvata() {
+        var salvato = null;
+        try { salvato = JSON.parse(localStorage.getItem(CHIAVE) || "null"); } catch (errore) { return ""; }
+        if (!salvato || (salvato.scelta !== "accettati" && salvato.scelta !== "rifiutati")) return "";
+        var scadenza = new Date(salvato.quando);
+        scadenza.setMonth(scadenza.getMonth() + MESI);
+        return Date.now() < scadenza.getTime() ? salvato.scelta : "";
+      }
+      function salva(scelta) {
+        try { localStorage.setItem(CHIAVE, JSON.stringify({ scelta: scelta, quando: Date.now() })); } catch (errore) { return false; }
+        return true;
+      }
+      // Revoca: cancella i cookie e la memoria che i tag di Google hanno impostato su questo dominio.
+      function cancellaCookieGoogle() {
+        var parti = location.hostname.split(".");
+        document.cookie.split(";").forEach(function (c) {
+          var nome = c.split("=")[0].trim();
+          if (!/^(_gcl_|_gac_|_ga|_gid|_gat)/.test(nome)) return;
+          document.cookie = nome + "=; Max-Age=0; path=/";
+          for (var i = 0; i < parti.length - 1; i++) document.cookie = nome + "=; Max-Age=0; path=/; domain=" + parti.slice(i).join(".");
+        });
+        try { localStorage.removeItem("_gcl_ls"); } catch (errore) { return; }
+      }
+      banner.querySelectorAll("[data-consenso]").forEach(function (pulsante) {
+        pulsante.addEventListener("click", function () {
+          var scelta = pulsante.getAttribute("data-consenso");
+          salva(scelta);
+          banner.hidden = true;
+          if (scelta === "accettati") { window.caricaTagManager(); return; }
+          if (window.tagManagerCaricato) {
+            window.gtag("consent", "update", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied", analytics_storage: "denied" });
+            cancellaCookieGoogle();
+            location.reload();
+          }
+        });
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !banner.hidden) banner.querySelector(".consenso-chiudi").click();
+      });
+      document.getElementById("preferenze-cookie").addEventListener("click", function (e) {
+        e.preventDefault();
+        banner.hidden = false;
+      });
+      if (!sceltaSalvata()) banner.hidden = false;
+
+      // Mappa di Google: si carica solo al clic su "Mostra la mappa".
+      var mappa = document.getElementById("mappa");
+      document.getElementById("mappa-mostra").addEventListener("click", function () {
+        var iframe = document.createElement("iframe");
+        iframe.className = "gmaps";
+        iframe.src = mappa.getAttribute("data-src");
+        iframe.title = "Mappa: come raggiungere il Lido Pino d'Oro";
+        iframe.loading = "lazy";
+        iframe.referrerPolicy = "strict-origin-when-cross-origin";
+        iframe.allowFullscreen = true;
+        iframe.setAttribute("style", "border:0; padding:0%; display: flex; align-items: center; justify-content: center; width: 100vw; height: 70vh");
+        mappa.replaceWith(iframe);
+      });
     })();
   </script>
     </body>
