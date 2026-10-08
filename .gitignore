@@ -1,2 +1,6 @@
 config.php
 .ftp-deploy-sync-state.json
+recensioni.json
+recensioni.json.tmp
+recensioni.lock
+recensioni.ultimo-tentativo
