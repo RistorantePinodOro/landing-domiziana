@@ -105,7 +105,7 @@
         <br><br>
         <b style="font-size: 60%;">Distanti dalla Domiziana.</b>
         <br>
-        <a href="https://www.google.com/maps/search/?api=1&query=Lido%20Pino%20d%27Oro&query_place_id=ChIJcV_Xya3fOhMRWT5u9UL0X08" style="font-size: 40%;">portami lì →</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro&amp;query_place_id=ChIJcV_Xya3fOhMRWT5u9UL0X08" target="_blank" rel="noopener" data-azione="portami-li" style="font-size: 40%;">portami lì →</a>
       </div>
       <hr>
       <br>
@@ -281,7 +281,7 @@
                 </div>
               </div><hr>
             <div style="display: flex; justify-content: center; align-items: center;">
-            <a href="https://wa.me/393887877008?text=DOMIZIANA%20SOSTA%20%E2%80%93%20arriviamo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D%20(bambini%3A%20%5B%20%5D)" target="_blank" rel="noopener" class="btn-calltoaction-whatsapp">
+            <a href="https://wa.me/393887877008?text=DOMIZIANA%20SOSTA%20%E2%80%93%20arriviamo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D%20(bambini%3A%20%5B%20%5D)" target="_blank" rel="noopener" class="btn-calltoaction-whatsapp" data-azione="whatsapp-sosta">
               <img src="icons/message_yellow_btn.svg" style="width: 10%; padding-right: 8px;">
               <span style="letter-spacing: -1px;">Scrivi “arriviamo tra 10 minuti”</span>
             </a>
@@ -471,18 +471,22 @@
     </table>
     <h1 class="titoloinfocontatti"><i>Info & Contatti:</i></h1>
     <div class="contatti-contenitore">
-        <div class="contatto">
-          <img src="icons/location_on.svg">
+        <a class="contatto" href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro&amp;query_place_id=ChIJcV_Xya3fOhMRWT5u9UL0X08" target="_blank" rel="noopener" data-azione="portami-li">
+          <img src="icons/location_on.svg" alt="">
           <span>Piazza Mario Liberato Conte, 29<br>81034 Mondragone (CE)</span>
-        </div>
-        <div class="contatto">
-      <img src="icons/call.svg">
-      <span>+39 388 787 7008</span>
-        </div>
-          <div class="contatto">
-            <img src="icons/mail.svg">
-            <span>infolidopinodoro@gmail.com</span>
-          </div>
+        </a>
+        <a class="contatto" href="tel:+393887877008" data-azione="chiama">
+          <img src="icons/call.svg" alt="">
+          <span>+39 388 787 7008</span>
+        </a>
+        <a class="contatto contatto-whatsapp" href="https://wa.me/393887877008?text=DOMIZIANA%20%E2%80%93%20arrivo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D" target="_blank" rel="noopener" data-azione="whatsapp-generico">
+          <img src="icons/message_yellow_btn.svg" alt="">
+          <span>Scrivici su WhatsApp</span>
+        </a>
+        <a class="contatto" href="mailto:infolidopinodoro@gmail.com">
+          <img src="icons/mail.svg" alt="">
+          <span>infolidopinodoro@gmail.com</span>
+        </a>
         </div>
       </div>
     </div>
