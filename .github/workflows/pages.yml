@@ -32,6 +32,8 @@ jobs:
         with:
           node-version: 22
       - name: Scarica le recensioni dalla scheda Google
+        # Se Google non risponde la pagina si pubblica lo stesso: senza recensioni.json i blocchi delle recensioni restano nascosti.
+        continue-on-error: true
         env:
           GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
           GOOGLE_PLACE_ID: ${{ vars.GOOGLE_PLACE_ID }}

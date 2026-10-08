@@ -1401,6 +1401,14 @@ h1, h2, h3, h4, h5, h6 {
     align-items: baseline;
     gap: 0.8rem;
 }
+.recensione-testata cite {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.recensione-testata [role="img"] {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
 
 .recensione-blocco2 .recensione-testata {
     flex-direction: column;
@@ -1471,10 +1479,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .attribuzione-google {
     margin: 0;
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0.75;
+    font-size: 0.8rem;
+}
+.attribuzione-evidenza {
+    margin-top: 0.8rem;
+    font-family: "Century Gothic", sans-serif;
+    text-align: center;
 }
 
 .nota-recensioni {

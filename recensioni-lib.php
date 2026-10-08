@@ -12,7 +12,7 @@ declare(strict_types=1);
 const PLACE_ID_PREDEFINITO = 'ChIJcV_Xya3fOhMRWT5u9UL0X08'; // uguale a google.placeId in data/restaurant.json (un test lo verifica)
 const CAMPI = 'id,displayName,rating,userRatingCount,reviews,googleMapsUri';
 const LINGUE = ['it', 'en'];           // la prima è la principale (voto, conteggio, testi in italiano); le altre aggiungono le recensioni scritte in quella lingua
-const MASSIMO_TUTTE = 10;
+const MASSIMO_CANDIDATE = 10;      // recensioni idonee tra cui scegliere le 3 in riga e quella in evidenza
 const ETA_MASSIMA_GIORNI = 730;        // recensioni più vecchie di due anni non entrano (legge 11 marzo 2026, n. 34)
 const TESTO_MIN_FILE = 20;             // recensioni più corte non entrano nel file
 const TESTO_MIN = 40;                  // recensioni più corte non vengono messe in evidenza
@@ -271,8 +271,7 @@ function normalizza(array $dati, array $extra, string $placeId, ?int $adesso = n
         }
     }
     $manuali = escluseManuali();
-    // Nel file restano solo le recensioni che la pagina può mostrare (minimizzazione, art. 5.1.c GDPR).
-    $tutte = array_values(array_filter($scaricate, static function (array $r) use ($manuali, $adesso): bool {
+    $candidate = array_values(array_filter($scaricate, static function (array $r) use ($manuali, $adesso): bool {
         if ($r['valutazione'] < VALUTAZIONE_MIN || mb_strlen($r['testo']) < TESTO_MIN_FILE) {
             return false;
         }
@@ -282,8 +281,22 @@ function normalizza(array $dati, array $extra, string $placeId, ?int $adesso = n
         }
         return !daEscludere($r, $manuali);
     }));
-    usort($tutte, static fn(array $a, array $b): int => strcmp($b['data'], $a['data']));
-    $tutte = array_slice($tutte, 0, MASSIMO_TUTTE);
+    usort($candidate, static fn(array $a, array $b): int => strcmp($b['data'], $a['data']));
+    $candidate = array_slice($candidate, 0, MASSIMO_CANDIDATE);
+    $scelte = scegli($candidate);
+    // In evidenza va la più recente tra le altre idonee con almeno TESTO_MIN caratteri.
+    $mostrate = [];
+    foreach ($scelte as $r) {
+        $mostrate[chiaveRecensione($r)] = true;
+    }
+    foreach ($candidate as $r) {
+        if (!isset($mostrate[chiaveRecensione($r)]) && mb_strlen($r['testo']) >= TESTO_MIN) {
+            $mostrate[chiaveRecensione($r)] = true;
+            break;
+        }
+    }
+    // Nel file vanno solo le recensioni che la pagina mostra: le 3 in riga e quella in evidenza (minimizzazione, art. 5.1.c GDPR).
+    $tutte = array_values(array_filter($candidate, static fn(array $r): bool => isset($mostrate[chiaveRecensione($r)])));
     $valutazione = $dati['rating'] ?? null;
     $numero = $dati['userRatingCount'] ?? null;
     return [
@@ -293,7 +306,7 @@ function normalizza(array $dati, array $extra, string $placeId, ?int $adesso = n
         'googleMapsUri' => (string) ($dati['googleMapsUri'] ?? ''),
         'valutazione' => is_int($valutazione) || is_float($valutazione) ? $valutazione : null,
         'numeroRecensioni' => is_int($numero) ? $numero : null,
-        'scelte' => scegli($tutte),
+        'scelte' => $scelte,
         'tutte' => $tutte,
     ];
 }

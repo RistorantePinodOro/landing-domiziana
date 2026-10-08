@@ -121,21 +121,23 @@
       <hr>
       <br>
       <!--recensioni-->
-      <div class="prova4_recensione" id="prova-recensioni" hidden>
-        <b class="stelle-medie" id="stelle-medie">0.0★</b>
-        <br><br>
-        <b class="conteggio-recensioni" id="conteggio-recensioni" style="font-size: 60%;">Su 0 recensioni</b>
-        <br>
-        <a data-link="recensioni" href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro" target="_blank" rel="noopener" style="font-size: 40%;">leggile tutte →</a>
+      <div class="prova4_recensione" id="prova-recensioni">
+        <span id="dati-recensioni" hidden>
+          <b class="stelle-medie" id="stelle-medie">0.0★</b>
+          <br><br>
+          <b class="conteggio-recensioni" style="font-size: 60%;">Su <span id="conteggio-recensioni">0</span> recensioni di <span translate="no">Google&nbsp;Maps</span></b>
+          <br>
+        </span>
+        <a data-link="recensioni" id="link-recensioni" href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro" target="_blank" rel="noopener" style="font-size: 40%;">Leggi le recensioni su Google Maps →</a>
       </div>
       
       <div class="blocco-recensioni" id="blocco-recensioni" hidden>
           <div class="recensioni" id="recensioni"></div>
           <div class="recensioni-info">
-            <p class="attribuzione-google">Voto e recensioni forniti da Google Maps</p>
-            <details class="nota-recensioni">
+            <p class="attribuzione-google">Voto e recensioni forniti da <span translate="no">Google Maps</span></p>
+            <details class="nota-recensioni" id="nota-recensioni">
               <summary>Come le scegliamo</summary>
-              <p>Selezione automatica tra le recensioni che Google fornisce per la scheda <span id="nome-scheda">del ristorante</span> (le più pertinenti, in italiano e in inglese): mostriamo solo quelle con almeno 4 stelle, senza espressioni negative e pubblicate da meno di due anni, e togliamo quelle i cui autori chiedono di non comparire. In evidenza prima una recensione sul servizio, una sul viaggio e una sul cibo. I testi sono integrali, come li hanno scritti gli autori. Non le verifichiamo noi: autenticità e regole sono di Google. Il voto medio e il numero totale comprendono tutte le recensioni, anche quelle non mostrate. <a href="privacy.html">Privacy e diritti degli autori</a></p>
+              <p>Selezione automatica tra le recensioni che Google fornisce per la scheda <span id="nome-scheda">del ristorante</span> (le più pertinenti, in italiano e in inglese): mostriamo solo quelle con almeno 4 stelle, pubblicate da meno di due anni e senza le parole di critica di un nostro elenco fisso (come «deluso», «sporco», «da evitare»: il controllo è automatico e può lasciare fuori anche frasi positive come «non ci ha mai delusi»), e togliamo quelle i cui autori chiedono di non comparire. In riga mettiamo una recensione sul servizio, una sul viaggio e una sul cibo; più in basso, in evidenza, la più recente tra le altre con almeno 40 caratteri. I testi sono integrali, come li hanno scritti gli autori. Non le verifichiamo noi: autenticità e regole sono di Google. Il voto medio e il numero totale comprendono tutte le recensioni, anche quelle non mostrate. <a href="privacy.html">Privacy e diritti degli autori</a></p>
             </details>
           </div>
       </div>
@@ -347,6 +349,7 @@
       <div class="invito-recensione-container">
       <div>
         <blockquote class="recensione-blocco2" id="recensione-evidenza" hidden></blockquote>
+        <p class="attribuzione-google attribuzione-evidenza" id="attribuzione-evidenza" hidden>Recensione da <span translate="no">Google Maps</span> · <a href="#nota-recensioni" id="vai-nota-recensioni">come le scegliamo</a></p>
       </div>
       <div>
         <i class="recensione-domanda">E se la prossima recensione fosse la tua?<br>
@@ -675,15 +678,17 @@
         if (!dati || !dati.scelte || !dati.scelte.length) return;
         if (typeof dati.valutazione === "number" && dati.numeroRecensioni) {
           document.getElementById("stelle-medie").textContent = dati.valutazione.toFixed(1).replace(".", ",") + "★";
-          document.getElementById("conteggio-recensioni").textContent = "Su " + dati.numeroRecensioni + " recensioni";
-          document.getElementById("prova-recensioni").hidden = false;
+          document.getElementById("conteggio-recensioni").textContent = dati.numeroRecensioni;
+          document.getElementById("dati-recensioni").hidden = false;
+          document.getElementById("link-recensioni").textContent = "leggile tutte →";
         }
         if (dati.nome) document.getElementById("nome-scheda").textContent = "«" + dati.nome + "»";
         var mostrate = dati.scelte.slice(0, 3);
         var contenitore = document.getElementById("recensioni");
         mostrate.forEach(function (r) { contenitore.appendChild(schedaRecensione(r, "recensione-blocco1")); });
         document.getElementById("blocco-recensioni").hidden = false;
-        // In evidenza nella sezione "E se la prossima recensione fosse la tua?" va una recensione diversa da quelle in riga.
+        // In evidenza nella sezione "E se la prossima recensione fosse la tua?" va l'altra recensione del file, scelta da chi
+        // genera recensioni.json (la più recente tra le altre idonee con almeno 40 caratteri).
         var chiavi = mostrate.map(function (r) { return r.autore + "|" + r.testo; });
         var altra = (dati.tutte || []).filter(function (r) { return chiavi.indexOf(r.autore + "|" + r.testo) < 0; })[0];
         if (altra) {
@@ -691,6 +696,7 @@
           var nuova = schedaRecensione(altra, "recensione-blocco2");
           nuova.id = "recensione-evidenza";
           evidenza.parentNode.replaceChild(nuova, evidenza);
+          document.getElementById("attribuzione-evidenza").hidden = false;
         }
         if (dati.googleMapsUri) {
           Array.prototype.forEach.call(document.querySelectorAll("[data-link='recensioni']"), function (a) { a.setAttribute("href", dati.googleMapsUri); });
@@ -698,7 +704,15 @@
           impostaLinkGoogle(dati.placeId);
         }
         aggiornaMostraTutto();
+        // Le schede usano un carattere che il browser scarica solo ora: quando arriva, le righe cambiano e va rifatta la misura.
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(aggiornaMostraTutto);
+          if (typeof document.fonts.addEventListener === "function") document.fonts.addEventListener("loadingdone", aggiornaMostraTutto);
+        }
       }
+      document.getElementById("vai-nota-recensioni").addEventListener("click", function () {
+        document.getElementById("nota-recensioni").open = true;
+      });
       var ritardoMostra = null;
       window.addEventListener("resize", function () { clearTimeout(ritardoMostra); ritardoMostra = setTimeout(aggiornaMostraTutto, 150); });
       fetch("recensioni.json", { cache: "no-cache" })

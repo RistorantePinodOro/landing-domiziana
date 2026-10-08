@@ -1,6 +1,6 @@
 // Scarica dalla scheda Google del Lido (Places API (New) di Google Maps Platform) la valutazione media, il numero
 // totale di recensioni e le recensioni che Google espone (al massimo 5 per lingua, le più rilevanti), sceglie le 3 da
-// mettere in evidenza e scrive recensioni.json. Stessa logica di hostinger/recensioni-lib.php.
+// mostrare in riga e quella in evidenza e scrive recensioni.json. Stessa logica di hostinger/recensioni-lib.php.
 //
 // Variabili d'ambiente:
 //   GOOGLE_PLACES_API_KEY   chiave API (obbligatoria; nel repository: Settings > Secrets and variables > Actions)
@@ -19,7 +19,7 @@ const RISTORANTE = JSON.parse(readFileSync(new URL("data/restaurant.json", RADIC
 
 const CAMPI = "id,displayName,rating,userRatingCount,reviews,googleMapsUri";
 const LINGUE = ["it", "en"]; // la prima è la principale (voto, conteggio, testi in italiano); le altre aggiungono le recensioni scritte in quella lingua
-const MASSIMO_TUTTE = 10;
+const MASSIMO_CANDIDATE = 10;  // recensioni idonee tra cui scegliere le 3 in riga e quella in evidenza
 const ETA_MASSIMA_GIORNI = 730; // recensioni più vecchie di due anni non entrano (legge 11 marzo 2026, n. 34)
 const TESTO_MIN_FILE = 20;      // recensioni più corte non entrano nel file
 const TESTO_MIN = 40;           // recensioni più corte non vengono messe in evidenza
@@ -143,13 +143,19 @@ function normalizza(dati, extra, adesso) {
     for (const r of reviews) if (r.originalText?.languageCode === lingua) aggiungi(r, lingua);
   }
   const manuali = escluseManuali();
-  // Nel file restano solo le recensioni che la pagina può mostrare (minimizzazione, art. 5.1.c GDPR).
-  const tutte = scaricate
+  const candidate = scaricate
     .filter((r) => r.valutazione >= VALUTAZIONE_MIN && r.testo.length >= TESTO_MIN_FILE)
     .filter((r) => !r.data || adesso - Date.parse(r.data) <= ETA_MASSIMA_GIORNI * 86400000)
     .filter((r) => !daEscludere(r, manuali))
     .sort((a, b) => b.data.localeCompare(a.data))
-    .slice(0, MASSIMO_TUTTE);
+    .slice(0, MASSIMO_CANDIDATE);
+  const scelte = scegli(candidate);
+  // In evidenza va la più recente tra le altre idonee con almeno TESTO_MIN caratteri.
+  const mostrate = new Set(scelte.map(chiaveRecensione));
+  const evidenza = candidate.find((r) => !mostrate.has(chiaveRecensione(r)) && r.testo.length >= TESTO_MIN);
+  if (evidenza) mostrate.add(chiaveRecensione(evidenza));
+  // Nel file vanno solo le recensioni che la pagina mostra: le 3 in riga e quella in evidenza (minimizzazione, art. 5.1.c GDPR).
+  const tutte = candidate.filter((r) => mostrate.has(chiaveRecensione(r)));
   return {
     aggiornato: new Date(adesso).toISOString(),
     placeId: dati.id || placeId,
@@ -157,7 +163,7 @@ function normalizza(dati, extra, adesso) {
     googleMapsUri: dati.googleMapsUri || "",
     valutazione: typeof dati.rating === "number" ? dati.rating : null,
     numeroRecensioni: typeof dati.userRatingCount === "number" ? dati.userRatingCount : null,
-    scelte: scegli(tutte),
+    scelte,
     tutte,
   };
 }

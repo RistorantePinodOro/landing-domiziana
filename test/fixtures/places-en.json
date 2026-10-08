@@ -84,6 +84,23 @@
     "text": "Una bellissima scoperta.",
     "languageCode": "it"
    }
+  },
+  {
+   "rating": 5,
+   "relativePublishTimeDescription": "2 weeks ago",
+   "publishTime": "2026-09-20T12:00:00Z",
+   "googleMapsUri": "https://www.google.com/maps/reviews/en6",
+   "authorAttribution": {
+    "displayName": "Peter Short"
+   },
+   "text": {
+    "text": "Thank you, the food is amazing!",
+    "languageCode": "en"
+   },
+   "originalText": {
+    "text": "Thank you, the food is amazing!",
+    "languageCode": "en"
+   }
   }
  ]
 }

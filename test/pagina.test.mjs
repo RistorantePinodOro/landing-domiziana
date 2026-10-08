@@ -12,11 +12,19 @@ test("la pagina pubblicata non contiene recensioni scritte a mano o segnaposto",
 });
 
 test("i blocchi delle recensioni partono nascosti e hanno l'attribuzione a Google", () => {
-  for (const id of ["prova-recensioni", "blocco-recensioni", "recensione-evidenza"]) {
+  for (const id of ["dati-recensioni", "blocco-recensioni", "recensione-evidenza", "attribuzione-evidenza"]) {
     assert.match(pagina, new RegExp(`id="${id}"[^>]*\\bhidden\\b`), `#${id} deve partire nascosto`);
   }
-  assert.ok(pagina.includes("Voto e recensioni forniti da Google Maps"));
+  assert.ok(pagina.includes('Voto e recensioni forniti da <span translate="no">Google Maps</span>'));
+  assert.match(pagina, /id="attribuzione-evidenza"[^>]*>Recensione da <span translate="no">Google Maps<\/span>/);
   assert.ok(pagina.includes('fetch("recensioni.json"'));
+});
+
+test("senza dati resta visibile il link alle recensioni su Google Maps", () => {
+  assert.match(pagina, /<div class="prova4_recensione" id="prova-recensioni">/);
+  const blocco = pagina.slice(pagina.indexOf('id="prova-recensioni"'), pagina.indexOf("</div>", pagina.indexOf('id="prova-recensioni"')));
+  const link = blocco.slice(blocco.indexOf("</span>\n"));
+  assert.match(link, /<a data-link="recensioni"[^>]*>Leggi le recensioni su Google Maps →<\/a>/);
 });
 
 test("i file PHP delle recensioni nella radice sono quelli di hostinger/", () => {
