@@ -53,12 +53,22 @@ test("entrano solo recensioni con abbastanza stelle, testo e meno di due anni", 
     assert.ok(r.testo.length >= 20);
     assert.ok(Date.parse(ADESSO) - Date.parse(r.data) <= 730 * 86400000);
   }
-  assert.ok(dati.tutte.length <= 10);
   const date = dati.tutte.map((r) => r.data);
   assert.deepEqual(date, [...date].sort().reverse(), "ordinate dalla più recente");
 });
 
-test("le tre in evidenza coprono lavoro, viaggio e cibo", () => {
+test("nel file ci sono solo le recensioni che la pagina mostra: 3 in riga e una in evidenza", () => {
+  const chiave = (r) => `${r.autore}|${r.testo}`;
+  const inRiga = new Set(dati.scelte.map(chiave));
+  for (const r of dati.scelte) assert.ok(dati.tutte.some((t) => chiave(t) === chiave(r)), `${r.autore} manca da tutte`);
+  const altre = dati.tutte.filter((r) => !inRiga.has(chiave(r)));
+  assert.equal(altre.length, 1, "una sola recensione oltre quelle in riga");
+  assert.equal(altre[0].autore, "Sandra Maloney", "la più recente tra le altre idonee");
+  assert.ok(altre[0].testo.length >= 40, "in evidenza solo testi di almeno 40 caratteri");
+  assert.ok(!dati.tutte.some((r) => r.autore === "Peter Short"), "idonea ma corta e non mostrata: non va nel file");
+});
+
+test("le tre in riga coprono lavoro, viaggio e cibo", () => {
   assert.deepEqual(dati.scelte.map((r) => r.categoria), ["lavoro", "viaggio", "cibo"]);
   assert.deepEqual(dati.scelte.map((r) => r.autore), ["Marco Rossi", "Giulia Bianchi", "Antonio"]);
 });

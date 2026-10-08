@@ -10,18 +10,20 @@ COSA C'E' IN QUESTO REPOSITORY
   logo.png        il logo
   foto/           qui vanno le due foto (vedi sotto)
   README.md       questo file
-  recensioni.json valutazione, numero di recensioni e recensioni della scheda Google (aggiornato in automatico)
-  scripts/        lo script che scarica le recensioni da Google (versione per GitHub Actions)
-  aggiorna-recensioni.php   lo stesso aggiornamento in PHP, per Hostinger (vedi "SU HOSTINGER")
+  scripts/        lo script che scarica le recensioni da Google e scrive recensioni.json (versione per GitHub Actions)
+  recensioni.php, recensioni-lib.php, aggiorna-recensioni.php   lo stesso aggiornamento in PHP, per Hostinger
+                  (vedi "SU HOSTINGER")
+  recensioni-escluse.txt    autori o recensioni da non mostrare, su loro richiesta
   config.example.php        modello del file con la chiave, solo per Hostinger
   .htaccess       regole di protezione per Hostinger (GitHub Pages le ignora)
   .github/        gli automatismi: pubblicazione su GitHub Pages, aggiornamento delle recensioni, caricamento FTP facoltativo
   .nojekyll       serve solo a GitHub Pages (dice di pubblicare i file cosi' come sono)
 
 COME SI PUBBLICA
-  Opzione 1 - GitHub Pages (gratis, senza hosting): Settings > Pages > Source "Deploy from a branch",
-    branch main, cartella "/ (root)". La pagina sara' su https://NOMEUTENTE.github.io/landing-domiziana/
-    e si puo' collegare a un dominio proprio dalla stessa schermata.
+  Opzione 1 - GitHub Pages (gratis, senza hosting): Settings > Pages > Source "GitHub Actions".
+    A ogni push su main l'automatismo "Pubblica su GitHub Pages" scarica le recensioni e pubblica.
+    La pagina sara' su https://NOMEUTENTE.github.io/landing-domiziana/ e si puo' collegare a un dominio
+    proprio dalla stessa schermata.
   Opzione 2 - Hostinger (o altro hosting con PHP): carica il contenuto del repository, cosi' com'e',
     dove vuoi che stia la pagina: nella radice di un dominio dedicato (public_html/) oppure in una
     sottocartella (es. public_html/domiziana/). La pagina funziona subito; per le recensioni
@@ -60,35 +62,43 @@ FOTO
   Se un file manca, al suo posto compare una cornice dorata con la didascalia.
 
 RECENSIONI GOOGLE AUTOMATICHE
-  Il blocco "La prova" (voto, numero di recensioni e tre recensioni) si aggiorna da solo dalla scheda
-  Google del Lido: ogni lunedi' mattina (7:23 ora italiana d'estate, 6:23 d'inverno) un automatismo
-  (Actions > "Aggiorna le recensioni Google", lanciabile anche a mano in qualsiasi momento) interroga
-  l'API ufficiale di Google Maps Platform (Places API), scrive recensioni.json e ripubblica la pagina.
-  Google espone al massimo 5 recensioni per scheda (le piu' rilevanti): lo script ne sceglie 3, con
-  almeno 4 stelle, una per categoria del documento (lavoro/servizio, viaggio/famiglia, cibo), copiate
-  parola per parola; oltre i 320 caratteri il testo viene accorciato e compare il link "Leggi tutto"
-  verso la recensione su Google. I nomi vengono abbreviati a nome e iniziale (es. "Marco R.").
-  Finche' l'automatismo non e' configurato, nella pagina restano i tre segnaposto.
+  Voto medio, numero di recensioni e quattro recensioni (tre in riga e una in evidenza piu' in basso,
+  accanto a "E se la prossima recensione fosse la tua?") arrivano dalla scheda Google del Lido tramite
+  l'API ufficiale di Google Maps Platform (Places API (New)), con la chiave di Google Maps. La pagina le
+  legge da recensioni.json, che non sta nel repository: lo genera chi pubblica.
+    - GitHub Pages: a ogni pubblicazione e ogni giorno alle 7:23 ora italiana d'estate (6:23 d'inverno),
+      con Actions > "Aggiorna le recensioni Google" (lanciabile anche a mano in qualsiasi momento).
+    - Hostinger: recensioni.php, quando il file ha piu' di un giorno (vedi "SU HOSTINGER").
+  Google espone al massimo 5 recensioni per lingua (le piu' pertinenti, in italiano e in inglese).
+  Entrano solo quelle con almeno 4 stelle, pubblicate da meno di due anni, senza le parole di critica
+  dell'elenco PAROLE_ESCLUSE (controllo automatico: puo' togliere anche frasi positive come "non ci ha
+  mai delusi") e non presenti in recensioni-escluse.txt. In riga va una recensione per tema (servizio,
+  viaggio, cibo); in evidenza la piu' recente tra le altre con almeno 40 caratteri. Testi integrali e
+  nomi come li mostra Google, con i link al profilo dell'autore, alla recensione e per segnalarla.
+  Nel file finiscono solo le recensioni mostrate.
+  Senza dati (chiave mancante, Google non raggiungibile) voto e recensioni restano nascosti e si vede
+  solo il link alle recensioni su Google Maps: niente segnaposto, niente voti inventati.
+  Se un autore chiede di non comparire: scrivere il suo nome, o il link della recensione, in una riga di
+  recensioni-escluse.txt. La recensione sparisce al successivo aggiornamento.
 
-  Per attivarlo, una volta sola:
+  Per attivarlo su GitHub, una volta sola:
   1. Su https://console.cloud.google.com crea un progetto, attiva "Places API (New)" e la fatturazione
-     (obbligatoria per Google Maps Platform; la quota gratuita mensile copre ampiamente le 4 o 5
-     chiamate al mese di questo automatismo; imposta comunque un avviso di budget).
+     (obbligatoria per Google Maps Platform; la quota gratuita mensile copre ampiamente le poche chiamate
+     al giorno di questo automatismo; imposta comunque un avviso di budget).
   2. Crea una chiave API (APIs & Services > Credentials) limitata alla sola "Places API (New)".
-  3. Nel repository: Settings > Secrets and variables > Actions.
-       Secrets   -> GOOGLE_PLACES_API_KEY = la chiave
-       Variables -> GOOGLE_PLACE_ID = il Place ID della scheda del Lido
-                    (si trova con https://developers.google.com/maps/documentation/places/web-service/place-id)
-                    In alternativa GOOGLE_PLACE_QUERY = "Lido Pino d'Oro <comune>": lo script cerca la scheda
-                    e stampa il Place ID nel log, da salvare poi in GOOGLE_PLACE_ID.
-  4. Actions > "Aggiorna le recensioni Google" > Run workflow: se tutto e' a posto, in un minuto la pagina
-     mostra le recensioni vere. Da li' in poi va da solo.
-  Il Place ID trovato viene usato anche da "Portami li'" e "Leggi tutte le recensioni su Google",
-  se CONFIG.googlePlaceId in index.html e' vuoto.
+     Non limitarla ai siti (referrer HTTP): la usano solo GitHub e Hostinger, mai il browser.
+  3. Nel repository: Settings > Secrets and variables > Actions > Secrets:
+       GOOGLE_PLACES_API_KEY = la chiave
+     Il Place ID della scheda e' gia' in data/restaurant.json (google.placeId). La variabile
+     GOOGLE_PLACE_ID serve solo per usare un'altra scheda.
+  4. Actions > "Aggiorna le recensioni Google" > Run workflow: in un minuto la pagina mostra le recensioni.
+     Da li' in poi va da solo. Se Google non risponde, la pagina si pubblica lo stesso, senza recensioni.
 
-SU HOSTINGER (recensioni automatiche senza GitHub)
-  Su un hosting PHP l'aggiornamento settimanale lo fa aggiorna-recensioni.php, con la stessa logica
-  dello script per GitHub, lanciato dal cron di hPanel. La pagina non cambia: legge recensioni.json.
+SU HOSTINGER
+  Su Hostinger recensioni.json lo crea e lo rinnova recensioni.php, con la stessa logica dello script per
+  GitHub: .htaccess fa passare da li' ogni richiesta di recensioni.json e, se il file manca o ha piu' di un
+  giorno, recensioni.php lo rigenera da Google con la chiave di config.php. Se Google non risponde,
+  riprova al massimo una volta l'ora e intanto serve l'ultimo file buono. Non serve nessun cron.
   1. Carica i file su Hostinger. Per averla come sottopagina del sito esistente (es. tuodominio.it/domiziana/):
        - hPanel > File Manager > public_html (la cartella del sito esistente);
        - crea una cartella con il nome che vuoi nell'indirizzo, tutto minuscolo e senza spazi (es. domiziana);
@@ -97,8 +107,12 @@ SU HOSTINGER (recensioni automatiche senza GitHub)
        - attiva "Mostra file nascosti" e controlla che ci sia anche .htaccess.
      La pagina risponde su https://tuodominio.it/domiziana/ e gli annunci useranno
      https://tuodominio.it/domiziana/?g=lavoro e https://tuodominio.it/domiziana/?g=sosta.
-     Servono solo: index.html, logo.png, foto/, recensioni.json, aggiorna-recensioni.php, config.example.php,
-     .htaccess (README.md puo' restare: non e' scaricabile). Le cartelle .github e scripts servono solo a GitHub.
+     Servono: index.html, styles.css, logo.png, le icone (favicon*, apple-touch-icon.png), fonts/, foto/,
+     icons/, privacy.html, cookie.html, legale.css, recensioni.php, recensioni-lib.php,
+     aggiorna-recensioni.php, config.example.php, recensioni-escluse.txt e .htaccess.
+     recensioni.json non va caricato: si crea da solo alla prima visita.
+     README.md puo' restare: non e' scaricabile. Le cartelle .github, scripts, src, data, docs, test e
+     hostinger servono solo a GitHub (.htaccess le nasconde comunque).
      Il sito esistente non cambia: la cartella e' indipendente, e le sue regole .htaccess valgono solo li' dentro
      (quelle del sito principale continuano a valere e non danno fastidio).
      Se il sito e' WordPress: funziona allo stesso modo. WordPress gestisce solo gli indirizzi che non
@@ -111,23 +125,25 @@ SU HOSTINGER (recensioni automatiche senza GitHub)
        'api_key' => la chiave di Google Maps Platform (la stessa usata su GitHub, o una nuova);
        'token'   => una frase lunga e segreta a tua scelta.
      config.php viene eseguito da PHP e non e' mai mostrato ai visitatori; .htaccess lo blocca anche
-     da download diretto.
-  3. hPanel > Avanzate > Cron Job: crea un cron settimanale, il lunedi' alle 7, con il comando
-       php /home/UTENTE/domains/TUODOMINIO/public_html/CARTELLA/aggiorna-recensioni.php
-     Il percorso esatto della cartella lo vedi in alto nel File Manager (inizia con /home/u...).
-     Con la pianificazione "Personalizzata": minuto 0, ora 7, giorno *, mese *, giorno della settimana 1.
-  4. Prova subito dal browser: https://TUODOMINIO/CARTELLA/aggiorna-recensioni.php?token=IL_TOKEN
+     da download diretto. Senza config.php le recensioni non compaiono.
+  3. Prova subito dal browser: https://TUODOMINIO/CARTELLA/aggiorna-recensioni.php?token=IL_TOKEN
      Risponde con una riga ("Aggiornato recensioni.json: ..." oppure "Nessuna novita': ...").
      Senza token, o con token sbagliato, risponde "Accesso negato".
-  5. Ricarica la pagina: nel blocco "La prova" compaiono voto, numero di recensioni e le tre recensioni.
+  4. Ricarica la pagina: compaiono voto, numero di recensioni e le recensioni.
+  5. Facoltativo: un cron giornaliero tiene il file aggiornato anche nei giorni senza visite.
+     hPanel > Avanzate > Cron Job, pianificazione "Personalizzata": minuto 23, ora 7, giorno *, mese *,
+     giorno della settimana *, con il comando
+       php /home/UTENTE/domains/TUODOMINIO/public_html/CARTELLA/aggiorna-recensioni.php
+     Il percorso esatto della cartella lo vedi in alto nel File Manager (inizia con /home/u...).
 
   Facoltativo - caricamento automatico da GitHub a Hostinger (per chi modifica la pagina su GitHub):
-  a ogni push, e dopo ogni aggiornamento delle recensioni, i workflow caricano la cartella via FTP.
+  a ogni push i workflow caricano la cartella via FTP.
   Si attiva impostando nel repository (Settings > Secrets and variables > Actions):
     Variables: HOSTINGER_FTP_HOST (es. ftp.tuodominio.it), HOSTINGER_FTP_DIR (es. public_html/domiziana/,
                con la barra finale), HOSTINGER_FTP_PROTOCOL (ftps; mettere ftp solo se ftps non funziona)
     Secrets:   HOSTINGER_FTP_USER, HOSTINGER_FTP_PASSWORD (hPanel > File > Account FTP)
-  Con questo attivo il cron su Hostinger non serve piu': le recensioni arrivano gia' aggiornate da GitHub.
+  Il caricamento FTP non porta recensioni.json e non tocca config.php: su Hostinger le recensioni le
+  rinnova recensioni.php, quindi config.php con la chiave va creato comunque (passo 2).
   Senza queste impostazioni il caricamento FTP non parte e non da' errori.
 
 GOOGLE ADS

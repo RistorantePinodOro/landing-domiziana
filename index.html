@@ -121,39 +121,24 @@
       <hr>
       <br>
       <!--recensioni-->
-      <div class="prova4_recensione">
-        <b class="stelle-medie" id="stelle-medie">0.0★</b>
-        <br><br>
-        <b class="conteggio-recensioni" id="conteggio-recensioni" style="font-size: 60%;">Su 0 recensioni</b>
-        <br>
-        <a data-link="recensioni" href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro" target="_blank" rel="noopener" style="font-size: 40%;">leggile tutte →</a>
+      <div class="prova4_recensione" id="prova-recensioni">
+        <span id="dati-recensioni" hidden>
+          <b class="stelle-medie" id="stelle-medie">0.0★</b>
+          <br><br>
+          <b class="conteggio-recensioni" style="font-size: 60%;">Su <span id="conteggio-recensioni">0</span> recensioni di <span translate="no">Google&nbsp;Maps</span></b>
+          <br>
+        </span>
+        <a data-link="recensioni" id="link-recensioni" href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro" target="_blank" rel="noopener" style="font-size: 40%;">Leggi le recensioni su Google Maps →</a>
       </div>
       
-      <div>
-          <div class="recensioni">
-            <!--recensione1-->
-            <blockquote class="recensione-blocco1">
-              <div style="display: flex; flex-grow: 1; justify-content: space-between;">
-                <cite><span class="nome-recensore">NomeC.</span></cite>
-                <span class="lestelle-recensione">★★★★★</span>
-              </div>
-              <div class="titolocontenuto-container">
-                <span class="titolo-recensione">"Titolo"</span><br>
-                <span class="contenuto-recensione">contenuto della recensione</span>
-              </div>
-            </blockquote>
-            <!--recensione2-->
-            <blockquote class="recensione-blocco1" style="animation-delay: 0.2s;">
-              <div style="display: flex; flex-grow: 1; justify-content: space-between;">
-                <cite><span class="nome-recensore">NomeC.</span></cite>
-                <span class="lestelle-recensione">★★★★★</span>
-              </div>
-              <div class="titolocontenuto-container">
-                <span class="titolo-recensione">"Titolo"</span><br>
-                <span class="contenuto-recensione">contenuto della recensione</span>
-              </div>
-            </blockquote>
-
+      <div class="blocco-recensioni" id="blocco-recensioni" hidden>
+          <div class="recensioni" id="recensioni"></div>
+          <div class="recensioni-info">
+            <p class="attribuzione-google">Voto e recensioni forniti da <span translate="no">Google Maps</span></p>
+            <details class="nota-recensioni" id="nota-recensioni">
+              <summary>Come le scegliamo</summary>
+              <p>Selezione automatica tra le recensioni che Google fornisce per la scheda <span id="nome-scheda">del ristorante</span> (le più pertinenti, in italiano e in inglese): mostriamo solo quelle con almeno 4 stelle, pubblicate da meno di due anni e senza le parole di critica di un nostro elenco fisso (come «deluso», «sporco», «da evitare»: il controllo è automatico e può lasciare fuori anche frasi positive come «non ci ha mai delusi»), e togliamo quelle i cui autori chiedono di non comparire. In riga mettiamo una recensione sul servizio, una sul viaggio e una sul cibo; più in basso, in evidenza, la più recente tra le altre con almeno 40 caratteri. I testi sono integrali, come li hanno scritti gli autori. Non le verifichiamo noi: autenticità e regole sono di Google. Il voto medio e il numero totale comprendono tutte le recensioni, anche quelle non mostrate. <a href="privacy.html">Privacy e diritti degli autori</a></p>
+            </details>
           </div>
       </div>
     </section>
@@ -363,17 +348,8 @@
     <section class="invito-recensione">
       <div class="invito-recensione-container">
       <div>
-        <blockquote class="recensione-blocco2">
-              <div style="display: flex; flex-direction: column;">
-                <span class="titolo-recensione2"><i>"Ho gradito particolarmente il menù pranzo"</i></span>
-                <span class="lestelle-recensione2">★★★★★</span>
-              </div>
-              <hr style="width: 100%; margin: 3vh 3vh;">
-              <div class="titolocontenuto-container2" style="display: flex; flex-direction: column;">
-                <span class="contenuto-recensione2">Lido ben curato, non troppo caotico, dove si può spendere una bella giornata rilassata. Ho gradito particolarmente il pranzo, il menù che propongono in settimana è molto vantaggioso e le proposte sono deliziose.<br>Assolutamente Raccomandato!</span>
-                <i class="titolo-recensione2">Pasquale T.</i>
-              </div>
-        </blockquote>
+        <blockquote class="recensione-blocco2" id="recensione-evidenza" hidden></blockquote>
+        <p class="attribuzione-google attribuzione-evidenza" id="attribuzione-evidenza" hidden>Recensione da <span translate="no">Google Maps</span> · <a href="#nota-recensioni" id="vai-nota-recensioni">come le scegliamo</a></p>
       </div>
       <div>
         <i class="recensione-domanda">E se la prossima recensione fosse la tua?<br>
@@ -632,49 +608,116 @@
         Array.prototype.forEach.call(document.querySelectorAll("[data-link='recensioni']"), function (a) { a.setAttribute("href", rec); });
       }
 
-      // Recensioni Google: lette da recensioni.json, che il workflow "Aggiorna le recensioni Google" rigenera
-      // ogni lunedi' mattina dalla scheda Google (Places API); su Hostinger lo fa aggiorna-recensioni.php via cron.
-      // Finche' il file e' vuoto restano i tre segnaposto della pagina.
+      // Recensioni Google: recensioni.json viene rigenerato ogni giorno dalla scheda Google (Places API) con la chiave di
+      // Google Maps Platform, su GitHub dal workflow "Aggiorna le recensioni Google" e su Hostinger da recensioni.php.
+      // Senza dati i blocchi delle recensioni restano nascosti: mai recensioni o voti finti.
       // I testi arrivano da Google: vengono inseriti come testo, mai come HTML.
-      function iconaStella() {
-        var NS = "http://www.w3.org/2000/svg";
-        var svg = document.createElementNS(NS, "svg"); svg.setAttribute("aria-hidden", "true");
-        var use = document.createElementNS(NS, "use"); use.setAttribute("href", "#i-stella"); use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#i-stella");
-        svg.appendChild(use); return svg;
+      var NOMI_LINGUE = { en: "in inglese", de: "in tedesco", fr: "in francese", es: "in spagnolo" };
+      function elemento(tag, classe, testo) {
+        var el = document.createElement(tag);
+        if (classe) el.className = classe;
+        if (testo !== undefined) el.textContent = testo;
+        return el;
+      }
+      function linkEsterno(href, classe, testo) {
+        var a = elemento("a", classe, testo);
+        a.href = href; a.target = "_blank"; a.rel = "noopener";
+        return a;
+      }
+      // Stessa recensione nelle due varianti del design: in riga (recensione-blocco1) e in evidenza (recensione-blocco2).
+      function schedaRecensione(r, variante) {
+        var due = variante === "recensione-blocco2";
+        var scheda = elemento("blockquote", variante + " recensione-google");
+        var testata = elemento("div", "recensione-testata");
+        var autore = elemento("cite", due ? "titolo-recensione2" : "nome-recensore");
+        autore.appendChild(r.autoreLink ? linkEsterno(r.autoreLink, "", r.autore) : document.createTextNode(r.autore));
+        var n = Math.max(1, Math.min(5, Math.round(Number(r.valutazione))));
+        var stelle = elemento("span", due ? "lestelle-recensione2" : "lestelle-recensione", "★★★★★".slice(0, n));
+        stelle.setAttribute("role", "img");
+        stelle.setAttribute("aria-label", n + " stelle su 5");
+        testata.appendChild(autore);
+        testata.appendChild(stelle);
+        var testo = elemento("p", due ? "contenuto-recensione2" : "contenuto-recensione", "“" + r.testo + "”");
+        var mostra = elemento("button", "mostra-tutto", "Mostra tutto");
+        mostra.type = "button";
+        mostra.hidden = true;
+        mostra.setAttribute("aria-expanded", "false");
+        mostra.addEventListener("click", function () {
+          var aperta = scheda.classList.toggle("aperta");
+          mostra.textContent = aperta ? "Riduci" : "Mostra tutto";
+          mostra.setAttribute("aria-expanded", aperta ? "true" : "false");
+        });
+        var dettagli = elemento("p", "recensione-dettagli");
+        var parti = [];
+        if (r.quando) parti.push(document.createTextNode(r.quando));
+        if (r.lingua && r.lingua !== "it") parti.push(document.createTextNode(NOMI_LINGUE[r.lingua] || "in " + r.lingua));
+        if (r.link) parti.push(linkEsterno(r.link, "", "Vedi su Google"));
+        if (r.segnala) {
+          var segnala = linkEsterno(r.segnala, "segnala", "Segnala");
+          segnala.setAttribute("aria-label", "Segnala questa recensione a Google");
+          parti.push(segnala);
+        }
+        parti.forEach(function (parte, i) {
+          if (i) dettagli.appendChild(document.createTextNode(" · "));
+          dettagli.appendChild(parte);
+        });
+        scheda.appendChild(testata);
+        scheda.appendChild(testo);
+        scheda.appendChild(mostra);
+        scheda.appendChild(dettagli);
+        return scheda;
+      }
+      // "Mostra tutto" compare solo sulle recensioni che il limite di righe del CSS ha davvero accorciato.
+      function aggiornaMostraTutto() {
+        Array.prototype.forEach.call(document.querySelectorAll(".recensione-google"), function (scheda) {
+          var testo = scheda.querySelector("p");
+          scheda.querySelector(".mostra-tutto").hidden = !scheda.classList.contains("aperta") && testo.scrollHeight <= testo.clientHeight + 1;
+        });
       }
       function mostraRecensioni(dati) {
         if (!dati || !dati.scelte || !dati.scelte.length) return;
         if (typeof dati.valutazione === "number" && dati.numeroRecensioni) {
-          document.getElementById("stelle-medie").textContent =
-            dati.valutazione.toFixed(1).replace(".", ",") + "★";
-          document.getElementById("conteggio-recensioni").textContent = "Su " + dati.numeroRecensioni + " recensioni";
+          document.getElementById("stelle-medie").textContent = dati.valutazione.toFixed(1).replace(".", ",") + "★";
+          document.getElementById("conteggio-recensioni").textContent = dati.numeroRecensioni;
+          document.getElementById("dati-recensioni").hidden = false;
+          document.getElementById("link-recensioni").textContent = "leggile tutte →";
         }
+        if (dati.nome) document.getElementById("nome-scheda").textContent = "«" + dati.nome + "»";
+        var mostrate = dati.scelte.slice(0, 3);
         var contenitore = document.getElementById("recensioni");
-        contenitore.textContent = "";
-        dati.scelte.slice(0, 3).forEach(function (r) {
-          var scheda = document.createElement("blockquote"); scheda.className = "recensione";
-          var stelle = document.createElement("div"); stelle.className = "stelle";
-          var n = Math.max(1, Math.min(5, Math.round(Number(r.valutazione) || 5)));
-          stelle.setAttribute("aria-label", n + " stelle su 5");
-          for (var i = 0; i < n; i++) stelle.appendChild(iconaStella());
-          var p = document.createElement("p"); p.textContent = '"' + r.testo + '"';
-          if (r.troncata && r.link) {
-            var leggi = document.createElement("a"); leggi.className = "leggi-tutto";
-            leggi.href = r.link; leggi.target = "_blank"; leggi.rel = "noopener"; leggi.textContent = "Leggi tutto";
-            p.appendChild(document.createTextNode(" ")); p.appendChild(leggi);
-          }
-          var cite = document.createElement("cite"); cite.textContent = r.autore + (r.quando ? " · " + r.quando : "");
-          scheda.appendChild(stelle); scheda.appendChild(p); scheda.appendChild(cite);
-          contenitore.appendChild(scheda);
-        });
-        if (!CONFIG.googlePlaceId && dati.placeId) impostaLinkGoogle(dati.placeId);
+        mostrate.forEach(function (r) { contenitore.appendChild(schedaRecensione(r, "recensione-blocco1")); });
+        document.getElementById("blocco-recensioni").hidden = false;
+        // In evidenza nella sezione "E se la prossima recensione fosse la tua?" va l'altra recensione del file, scelta da chi
+        // genera recensioni.json (la più recente tra le altre idonee con almeno 40 caratteri).
+        var chiavi = mostrate.map(function (r) { return r.autore + "|" + r.testo; });
+        var altra = (dati.tutte || []).filter(function (r) { return chiavi.indexOf(r.autore + "|" + r.testo) < 0; })[0];
+        if (altra) {
+          var evidenza = document.getElementById("recensione-evidenza");
+          var nuova = schedaRecensione(altra, "recensione-blocco2");
+          nuova.id = "recensione-evidenza";
+          evidenza.parentNode.replaceChild(nuova, evidenza);
+          document.getElementById("attribuzione-evidenza").hidden = false;
+        }
+        if (dati.googleMapsUri) {
+          Array.prototype.forEach.call(document.querySelectorAll("[data-link='recensioni']"), function (a) { a.setAttribute("href", dati.googleMapsUri); });
+        } else if (!CONFIG.googlePlaceId && dati.placeId) {
+          impostaLinkGoogle(dati.placeId);
+        }
+        aggiornaMostraTutto();
+        // Le schede usano un carattere che il browser scarica solo ora: quando arriva, le righe cambiano e va rifatta la misura.
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(aggiornaMostraTutto);
+          if (typeof document.fonts.addEventListener === "function") document.fonts.addEventListener("loadingdone", aggiornaMostraTutto);
+        }
       }
-      if (window.fetch) {
-        fetch("recensioni.json", { cache: "no-cache" })
-          .then(function (r) { return r.ok ? r.json() : null; })
-          .then(mostraRecensioni)
-          .catch(function () { /* file assente o non raggiungibile: restano i segnaposto */ });
-      }
+      document.getElementById("vai-nota-recensioni").addEventListener("click", function () {
+        document.getElementById("nota-recensioni").open = true;
+      });
+      var ritardoMostra = null;
+      window.addEventListener("resize", function () { clearTimeout(ritardoMostra); ritardoMostra = setTimeout(aggiornaMostraTutto, 150); });
+      fetch("recensioni.json", { cache: "no-cache" })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(mostraRecensioni);
     })();
   </script>
 

@@ -1381,3 +1381,148 @@ h1, h2, h3, h4, h5, h6 {
         min-height: 50vh;
     }
 }
+
+/* Recensioni Google: le schede le crea lo script della pagina da recensioni.json */
+[hidden] {
+    display: none !important;
+}
+
+.recensione-blocco1.recensione-google,
+.recensione-blocco2.recensione-google {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.recensione-testata {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.8rem;
+}
+.recensione-testata cite {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.recensione-testata [role="img"] {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.recensione-blocco2 .recensione-testata {
+    flex-direction: column;
+    align-items: center;
+}
+
+.recensione-google .nome-recensore,
+.recensione-google .titolo-recensione2 {
+    font-size: clamp(1.1rem, 4.5vw, 1.6rem);
+    line-height: 1.2;
+    position: static;
+}
+
+.recensione-google cite a {
+    color: inherit;
+}
+
+.recensione-google .contenuto-recensione,
+.recensione-google .contenuto-recensione2 {
+    margin: 0;
+    height: auto;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    overflow: hidden;
+}
+
+.recensione-google.aperta .contenuto-recensione,
+.recensione-google.aperta .contenuto-recensione2 {
+    display: block;
+}
+
+.mostra-tutto {
+    align-self: flex-end;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #986D0C;
+    font-family: "Century Gothic", sans-serif;
+    font-size: 0.9rem;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.recensione-dettagli {
+    margin: 0;
+    font-family: "Century Gothic", sans-serif;
+    font-size: 0.85rem;
+    text-align: right;
+}
+
+.recensione-dettagli a:hover,
+.recensione-google cite a:hover {
+    letter-spacing: normal;
+}
+
+.recensioni-info {
+    display: grid;
+    gap: 0.4rem;
+    justify-items: center;
+    padding: 1rem 6% 0;
+    font-family: "Century Gothic", sans-serif;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.attribuzione-google {
+    margin: 0;
+    font-size: 0.8rem;
+}
+.attribuzione-evidenza {
+    margin-top: 0.8rem;
+    font-family: "Century Gothic", sans-serif;
+    text-align: center;
+}
+
+.nota-recensioni {
+    max-width: 60ch;
+}
+
+.nota-recensioni summary {
+    color: #986D0C;
+    cursor: pointer;
+}
+
+.nota-recensioni p {
+    margin: 0.5rem 0 0;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.mostra-tutto:focus-visible,
+.nota-recensioni summary:focus-visible,
+.recensione-google a:focus-visible {
+    outline: 3px solid #986D0C;
+    outline-offset: 2px;
+}
+
+@media (min-width: 1024px) {
+    .recensioni {
+        align-items: stretch;
+    }
+
+    .recensione-blocco1.recensione-google {
+        margin: 0 1vw;
+    }
+
+    .recensione-google .contenuto-recensione {
+        font-size: 1.15rem;
+    }
+
+    .recensione-blocco2.recensione-google {
+        width: 26vw;
+    }
+}

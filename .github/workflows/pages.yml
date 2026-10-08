@@ -1,4 +1,5 @@
-# Pubblica la landing su GitHub Pages a ogni push su main.
+# Pubblica la landing su GitHub Pages a ogni push su main: scarica le recensioni dalla scheda Google (se c'è il
+# secret GOOGLE_PLACES_API_KEY) e pubblica i file del repository. recensioni.json non viene mai salvato nel repository.
 # Prima esecuzione: prova ad attivare Pages da sola (enablement). Se fallisce, attivarlo a mano:
 # Settings > Pages > Source: "GitHub Actions", poi rilanciare il workflow da Actions.
 name: Pubblica su GitHub Pages
@@ -26,6 +27,17 @@ jobs:
     steps:
       - name: Scarica il repository
         uses: actions/checkout@v4
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Scarica le recensioni dalla scheda Google
+        # Se Google non risponde la pagina si pubblica lo stesso: senza recensioni.json i blocchi delle recensioni restano nascosti.
+        continue-on-error: true
+        env:
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+          GOOGLE_PLACE_ID: ${{ vars.GOOGLE_PLACE_ID }}
+        run: node scripts/aggiorna-recensioni.mjs
       - name: Configura Pages
         uses: actions/configure-pages@v5
         with:
@@ -41,6 +53,7 @@ jobs:
   hostinger:
     # Facoltativo: carica la cartella anche su Hostinger via FTP. Parte solo se nel repository sono impostate
     # la variabile HOSTINGER_FTP_HOST e i secret HOSTINGER_FTP_USER / HOSTINGER_FTP_PASSWORD (vedi README, "SU HOSTINGER").
+    # Su Hostinger le recensioni le rinnova recensioni.php con la chiave di config.php: recensioni.json non si carica.
     if: vars.HOSTINGER_FTP_HOST != ''
     runs-on: ubuntu-latest
     steps:
@@ -62,3 +75,6 @@ jobs:
             README.md
             LICENSE
             config.php
+            recensioni.json
+            recensioni.lock
+            recensioni.ultimo-tentativo

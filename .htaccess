@@ -6,10 +6,12 @@ DirectoryIndex index.html
 Options -Indexes
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  # recensioni.json passa da recensioni.php, che lo rinnova dalla scheda Google quando ha più di un giorno.
+  RewriteRule ^recensioni\.json$ recensioni.php [L]
 </IfModule>
 
 # File di lavoro e configurazione: mai scaricabili (config.php viene comunque eseguito, non mostrato).
-<FilesMatch "^(config\.php|config\.example\.php|README\.md|LICENSE|CLAUDE\.md|package\.json|recensioni-escluse\.txt|\.gitignore|\.nojekyll|\.ftp-deploy-sync-state\.json)$">
+<FilesMatch "^(config\.php|config\.example\.php|recensioni-lib\.php|recensioni-escluse\.txt|recensioni\.lock|recensioni\.ultimo-tentativo|recensioni\.json\.tmp|README\.md|LICENSE|CLAUDE\.md|package\.json|\.gitignore|\.nojekyll|\.ftp-deploy-sync-state\.json)$">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>
@@ -19,7 +21,7 @@ Options -Indexes
 </FilesMatch>
 RedirectMatch 404 /(\.github|\.git|scripts|src|data|docs|test|hostinger)(/|$)
 
-# Il browser ricontrolla sempre le recensioni (il file cambia una volta a settimana).
+# Il browser ricontrolla sempre le recensioni (il file cambia ogni giorno).
 <IfModule mod_headers.c>
   <FilesMatch "^recensioni\.json$">
     Header set Cache-Control "no-cache"
