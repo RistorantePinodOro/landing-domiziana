@@ -625,6 +625,11 @@ h1, h2, h3, h4, h5, h6 {
     padding-right: 3%;
 }
 
+/* L'icona di WhatsApp nasce chiara: scura come le altre icone dei contatti */
+.contatto-whatsapp img {
+    filter: brightness(0);
+}
+
 .contatti-contenitore {
     display: grid;
     gap: 1.5vh;
