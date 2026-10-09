@@ -67,6 +67,7 @@ test("le icone hanno le misure giuste e quella per iPhone non è trasparente", (
     return { lato: [b.readUInt32BE(16), b.readUInt32BE(20)], colore: b[25] };
   };
   assert.deepEqual(png("favicon-32.png").lato, [32, 32]);
+  assert.deepEqual(png("favicon-512.png").lato, [512, 512]);
   const ios = png("apple-touch-icon.png");
   assert.deepEqual(ios.lato, [180, 180]);
   assert.ok([0, 2].includes(ios.colore), "apple-touch-icon.png con canale alfa: iOS riempirebbe di nero");
