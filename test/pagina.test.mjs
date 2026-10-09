@@ -23,7 +23,7 @@ test("i blocchi delle recensioni partono nascosti e hanno l'attribuzione a Googl
 test("senza dati resta visibile il link alle recensioni su Google Maps", () => {
   assert.match(pagina, /<div class="prova4_recensione" id="prova-recensioni">/);
   const blocco = pagina.slice(pagina.indexOf('id="prova-recensioni"'), pagina.indexOf("</div>", pagina.indexOf('id="prova-recensioni"')));
-  const link = blocco.slice(blocco.indexOf("</span>\n"));
+  const link = blocco.slice(blocco.indexOf("</span>"));
   assert.match(link, /<a data-link="recensioni"[^>]*>Leggi le recensioni su Google Maps →<\/a>/);
 });
 

@@ -105,7 +105,7 @@ test("i dati del titolare mancanti compaiono come TODO(titolare) e quelli vuoti 
 });
 
 test("la cartella per Hostinger contiene i PHP e .htaccess ma mai config.php", () => {
-  const file = tutti(uscita).map((f) => f.slice(uscita.length + 1));
+  const file = tutti(uscita).map((f) => f.slice(uscita.length + 1).replaceAll("\\", "/"));
   for (const atteso of ["recensioni.php", "recensioni-lib.php", "aggiorna-recensioni.php", "config.example.php", ".htaccess", "recensioni-escluse.txt", ".nojekyll", "favicon.ico", "assets/stile.css", "assets/pagina.js", "assets/legale.css", "assets/caratteri/OFL.txt"]) {
     assert.ok(file.includes(atteso), atteso);
   }
@@ -116,6 +116,6 @@ test("la cartella per Hostinger contiene i PHP e .htaccess ma mai config.php", (
 test("senza --hostinger restano fuori PHP, .htaccess e l'elenco delle esclusioni", () => {
   const solo = mkdtempSync(join(tmpdir(), "sito-pages-"));
   costruisci({ uscita: solo });
-  const file = tutti(solo).map((f) => f.slice(solo.length + 1));
+  const file = tutti(solo).map((f) => f.slice(solo.length + 1).replaceAll("\\", "/"));
   for (const vietato of ["recensioni.php", "recensioni-lib.php", ".htaccess", "recensioni-escluse.txt", "config.example.php"]) assert.ok(!file.includes(vietato), vietato);
 });
