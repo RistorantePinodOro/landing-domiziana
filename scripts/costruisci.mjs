@@ -189,7 +189,7 @@ export function costruisci({ radice = RADICE, uscita = join(RADICE, "_sito"), ho
     writeFileSync(join(uscita, pagina), rendi(readFileSync(join(radice, "src", pagina), "utf8"), dati));
   }
   cpSync(join(radice, "src/assets"), join(uscita, "assets"), { recursive: true });
-  for (const f of FILE_RADICE) cpSync(join(radice, "src", f), join(uscita, f));
+  for (const f of FILE_RADICE) cpSync(join(radice, f), join(uscita, f)); // icone: le stesse della pagina pubblicata
   if (existsSync(join(radice, "recensioni.json"))) cpSync(join(radice, "recensioni.json"), join(uscita, "recensioni.json"));
   if (hostinger) {
     for (const f of FILE_HOSTINGER) cpSync(join(radice, "hostinger", f), join(uscita, f));
