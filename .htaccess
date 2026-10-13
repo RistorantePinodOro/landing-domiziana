@@ -21,6 +21,12 @@ Options -Indexes
 </FilesMatch>
 RedirectMatch 404 /(\.github|\.git|scripts|src|data|docs|test|hostinger)(/|$)
 
+# Il sito principale ammette solo risorse dello stesso dominio: senza questa intestazione, che la sostituisce,
+# Tag Manager (caricato dopo "Accetta") e i tag di Google Ads e Analytics restano bloccati.
+<IfModule mod_headers.c>
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com https://www.google.com https://www.google.it https://*.doubleclick.net https://www.googleadservices.com https://pagead2.googlesyndication.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://www.google.com https://google.com https://www.google.it https://www.googleadservices.com https://*.doubleclick.net https://pagead2.googlesyndication.com; frame-src https://www.googletagmanager.com https://td.doubleclick.net; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+</IfModule>
+
 # Il browser ricontrolla sempre le recensioni (il file cambia ogni giorno).
 <IfModule mod_headers.c>
   <FilesMatch "^recensioni\.json$">
