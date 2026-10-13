@@ -41,6 +41,14 @@ test(".htaccess fa passare recensioni.json da recensioni.php e protegge i file d
   }
 });
 
+test(".htaccess lascia caricare Tag Manager e i tag di Google, e nessun servizio non dichiarato in cookie.html", () => {
+  const csp = leggi(".htaccess").match(/Header always set Content-Security-Policy "([^"]+)"/)?.[1] ?? "";
+  for (const direttiva of ["script-src", "connect-src", "img-src", "frame-src"]) {
+    assert.match(csp, new RegExp(`${direttiva} [^;]*https://www\\.googletagmanager\\.com`), direttiva);
+  }
+  assert.doesNotMatch(csp, /facebook|iubenda/);
+});
+
 test("index, privacy e cookie richiamano nell'intestazione le stesse icone, con percorsi relativi", () => {
   const elenchi = ["index.html", "privacy.html", "cookie.html"].map((file) => {
     const intestazione = leggi(file).split("</head>")[0];
