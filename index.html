@@ -972,7 +972,7 @@
             <dl class="riepilogo" id="riepilogo"></dl>
             <div class="slot-notice" id="slotNotice" role="note" hidden></div>
             <label class="consent attn" id="ackWrap" hidden><input id="ackNotice" name="ackNotice" type="checkbox" aria-describedby="slotNotice"> <span>Ho letto l'avviso qui sopra.</span></label>
-            <div class="field"><label for="notes">Note</label><textarea id="notes" name="notes" maxlength="488" placeholder="Allergie, ricorrenze, richieste particolari…" aria-describedby="notesHint"></textarea>
+            <div class="field"><label for="notes">Note</label><textarea id="notes" name="notes" maxlength="500" placeholder="Allergie, ricorrenze, richieste particolari…" aria-describedby="notesHint"></textarea>
               <p class="form-note" id="notesHint">Se qui indichi allergie o intolleranze, acconsenti espressamente a che usiamo queste informazioni per preparare il tuo tavolo (dati relativi alla salute, vedi l'<a href="privacy.html#prenotazioni" target="_blank" rel="noopener">informativa sulla privacy</a>). Confermale anche al nostro staff.</p></div>
             <div class="field hp" aria-hidden="true"><label for="website">Sito web</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
             <label class="consent"><input id="privacy" name="privacy" type="checkbox" required> <span>Ho letto l'<a href="privacy.html#prenotazioni" target="_blank" rel="noopener">informativa sulla privacy</a>; i miei dati saranno usati solo per gestire questa prenotazione.</span></label>
@@ -1520,7 +1520,8 @@
         action: 'create',
         firstName: v('firstName'), lastName: v('lastName'), phone: v('phone'),
         date: dateInput.value, time: scelto('time'), guests: Number(guestsInput.value),
-        notes: 'DOMIZIANA' + (v('notes') ? ' – ' + v('notes') : ''), // la parola dice al locale che la prenotazione arriva da questa pagina (dolce in omaggio)
+        notes: v('notes'),
+        source: 'domiziana', // nella nota di Cooperto diventa "[dalla landing Domiziana]": il locale riconosce chi ha diritto al dolce
         privacy: !!$('privacy').checked, marketing: !!$('marketing').checked,
         website: $('website').value
       };

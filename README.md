@@ -45,7 +45,8 @@ PULSANTI
     pulsanti generici       DOMIZIANA - arrivo tra 10 minuti, siamo in [ ]
   "Portami li'" apre Google Maps sulla scheda del Lido (con il Place ID atterra esattamente sulla scheda).
   I pulsanti "prenota" portano al modulo in fondo alla pagina: la richiesta arriva al sistema di
-  prenotazione (Cooperto) con la parola DOMIZIANA nella nota, per riconoscere chi ha diritto al dolce.
+  prenotazione (Cooperto) con "[dalla landing Domiziana]" in fondo alla nota (quelle dal sito principale hanno
+  "[dal sito web]"): cosi' il locale riconosce chi ha diritto al dolce.
 
 COSA COMPLETARE PRIMA DI ANDARE ONLINE
   Nel testo delle pagine legali, i dati mancanti sono dentro <span class="dc">TODO(titolare): ...</span>
