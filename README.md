@@ -2,13 +2,15 @@
 
 ```
 Pagina autonoma per la campagna Google Performance Max (obiettivo: visite al locale).
-Non dipende dal sito principale: nessun backend, nessun widget, nessun database.
-Si carica cosi' com'e' su qualsiasi spazio web.
+Stesso stile del sito principale (ristorantepinodoro.it) e stesso modulo di prenotazione: il modulo
+chiama /api/prenota.php del sito principale, quindi funziona solo come sottocartella di quel dominio
+(ristorantepinodoro.it/domiziana/). Su GitHub Pages la pagina si vede, ma il modulo non puo' inviare
+e mostra i contatti.
 
 COSA C'E' IN QUESTO REPOSITORY
   index.html      la pagina (testi, stile e script sono tutti dentro questo file)
-  logo.png        il logo
-  foto/           qui vanno le due foto (vedi sotto)
+  assets/         caratteri, icone e foto: copie di quelle del sito principale, con gli stessi nomi
+  logo.png, legale.css, fonts/   logo, stile e carattere delle pagine privacy.html e cookie.html
   README.md       questo file
   scripts/        lo script che scarica le recensioni da Google e scrive recensioni.json (versione per GitHub Actions)
   recensioni.php, recensioni-lib.php, aggiorna-recensioni.php   lo stesso aggiornamento in PHP, per Hostinger
@@ -33,7 +35,7 @@ INDIRIZZI DA METTERE NEGLI ANNUNCI
   Gruppo 1 - Pranzo di lavoro:       https://TUODOMINIO/?g=lavoro
   Gruppo 2 - Sosta sulla Domiziana:  https://TUODOMINIO/?g=sosta
   (in una sottocartella: https://TUODOMINIO/domiziana/?g=lavoro e https://TUODOMINIO/domiziana/?g=sosta)
-  Il parametro cambia il titolo, mette per prima la scheda giusta e viene allegato a ogni conversione.
+  Il parametro viene allegato agli eventi per Tag Manager (clic sui pulsanti, prenotazione inviata).
 
 PULSANTI
   Chiama e WhatsApp usano gia' il numero 388 787 7008.
@@ -42,24 +44,16 @@ PULSANTI
     scheda "in viaggio"     DOMIZIANA SOSTA - arriviamo tra 10 minuti, siamo in [ ] (bambini: [ ])
     pulsanti generici       DOMIZIANA - arrivo tra 10 minuti, siamo in [ ]
   "Portami li'" apre Google Maps sulla scheda del Lido (con il Place ID atterra esattamente sulla scheda).
+  I pulsanti "prenota" portano al modulo in fondo alla pagina: la richiesta arriva al sistema di
+  prenotazione (Cooperto) con la parola DOMIZIANA nella nota, per riconoscere chi ha diritto al dolce.
 
 COSA COMPLETARE PRIMA DI ANDARE ONLINE
-  Apri index.html con un editor di testo.
-  1. In cima al file: l'elenco dei dati da completare, con la posizione di ciascuno.
-  2. In fondo al file, blocco CONFIG: orario del pranzo, Place ID della scheda Google,
-     ID Google Ads ed etichette di conversione.
-  3. Nel testo, i dati mancanti sono tra parentesi quadre dentro <span class="dc">...</span>
-     (in giallo oro sulla pagina): sostituisci il testo e togli lo span.
+  Nel testo delle pagine legali, i dati mancanti sono dentro <span class="dc">TODO(titolare): ...</span>
+  (in giallo oro sulla pagina): sostituisci il testo e togli lo span.
 
 FOTO
-  Nella cartella foto/, ogni foto in due larghezze (-1200.jpg per desktop, -720.jpg per telefono):
-    tavolo-spiaggia-*.jpg    in alto: il tavolo apparecchiato sulla sabbia
-    tavolo-terrazza-*.jpg    blocco 3, provvisoria: al suo posto va lo Spaghetto ai Lupini visto dall'alto
-                             (salvarlo come spaghetto-ai-lupini-1200.jpg e -720.jpg, poi cambiare src, srcset,
-                             alt e didascalia del blocco 3 in index.html)
-    terrazza-mare-*.jpg e terrazza-pergola-*.jpg   striscia "La terrazza" sotto il blocco 3
-  Facoltativa: uno scatto invernale del tavolo sulla spiaggia al posto di tavolo-spiaggia.
-  Se un file manca, al suo posto compare una cornice dorata con la didascalia.
+  Foto, icone e caratteri stanno in assets/, con gli stessi nomi del sito principale: per cambiare una
+  foto sostituisci il file con uno delle stesse proporzioni, sia qui sia sul sito principale.
 
 RECENSIONI GOOGLE AUTOMATICHE
   Voto medio, numero di recensioni e quattro recensioni (tre in riga e una in evidenza piu' in basso,
@@ -107,8 +101,8 @@ SU HOSTINGER
        - attiva "Mostra file nascosti" e controlla che ci sia anche .htaccess.
      La pagina risponde su https://tuodominio.it/domiziana/ e gli annunci useranno
      https://tuodominio.it/domiziana/?g=lavoro e https://tuodominio.it/domiziana/?g=sosta.
-     Servono: index.html, styles.css, logo.png, le icone (favicon*, apple-touch-icon.png), fonts/, foto/,
-     icons/, privacy.html, cookie.html, legale.css, recensioni.php, recensioni-lib.php,
+     Servono: index.html, assets/, logo.png, le icone (favicon*, apple-touch-icon.png), fonts/,
+     privacy.html, cookie.html, legale.css, recensioni.php, recensioni-lib.php,
      aggiorna-recensioni.php, config.example.php, recensioni-escluse.txt e .htaccess.
      recensioni.json non va caricato: si crea da solo alla prima visita.
      README.md puo' restare: non e' scaricabile. Le cartelle .github, scripts, src, data, docs, test e

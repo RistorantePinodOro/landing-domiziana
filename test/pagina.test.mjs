@@ -21,10 +21,19 @@ test("i blocchi delle recensioni partono nascosti e hanno l'attribuzione a Googl
 });
 
 test("senza dati resta visibile il link alle recensioni su Google Maps", () => {
-  assert.match(pagina, /<div class="prova4_recensione" id="prova-recensioni">/);
+  assert.match(pagina, /<div class="prova destra" id="prova-recensioni">/);
   const blocco = pagina.slice(pagina.indexOf('id="prova-recensioni"'), pagina.indexOf("</div>", pagina.indexOf('id="prova-recensioni"')));
   const link = blocco.slice(blocco.indexOf("</span>"));
   assert.match(link, /<a data-link="recensioni"[^>]*>Leggi le recensioni su Google Maps →<\/a>/);
+});
+
+test("il modulo prenota tramite il backend del sito, con DOMIZIANA nella nota entro i 500 caratteri", () => {
+  assert.ok(pagina.includes('data-endpoint="/api/prenota.php"'));
+  assert.doesNotMatch(pagina, /prenotazioni\.cooperto\.it/, "niente più rimandi alla pagina di Cooperto");
+  const prefisso = pagina.match(/notes: '([^']+)' \+ \(v\('notes'\) \? '([^']+)' \+ v\('notes'\)/);
+  const massimo = Number(pagina.match(/<textarea id="notes" name="notes" maxlength="(\d+)"/)[1]);
+  assert.equal(prefisso[1] + prefisso[2], "DOMIZIANA – ");
+  assert.equal(massimo + (prefisso[1] + prefisso[2]).length, 500, "il backend rifiuta note oltre 500 caratteri");
 });
 
 test("i file PHP delle recensioni nella radice sono quelli di hostinger/", () => {
