@@ -33,9 +33,10 @@ test("i file PHP delle recensioni nella radice sono quelli di hostinger/", () =>
   }
 });
 
-test(".htaccess fa passare recensioni.json da recensioni.php e protegge i file di lavoro", () => {
+test(".htaccess fa passare recensioni.json da recensioni.php, toglie index.html dall'indirizzo e protegge i file di lavoro", () => {
   const htaccess = leggi(".htaccess");
   assert.match(htaccess, /RewriteRule \^recensioni\\\.json\$ recensioni\.php \[L\]/);
+  assert.match(htaccess, /RewriteRule \^index\\\.html\$ \/domiziana\/ \[R=301,L\]/);
   for (const protetto of ["config\\.php", "recensioni-lib\\.php", "recensioni-escluse\\.txt", "recensioni\\.lock"]) {
     assert.ok(htaccess.includes(protetto), protetto);
   }

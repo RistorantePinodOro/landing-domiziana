@@ -8,6 +8,9 @@ Options -Indexes
   RewriteEngine On
   # recensioni.json passa da recensioni.php, che lo rinnova dalla scheda Google quando ha più di un giorno.
   RewriteRule ^recensioni\.json$ recensioni.php [L]
+  # /domiziana/index.html → /domiziana/: nella barra resta l'indirizzo pulito, anche per i vecchi link.
+  RewriteCond %{THE_REQUEST} \s/+domiziana/index\.html[\s?] [NC]
+  RewriteRule ^index\.html$ /domiziana/ [R=301,L]
 </IfModule>
 
 # File di lavoro e configurazione: mai scaricabili (config.php viene comunque eseguito, non mostrato).
