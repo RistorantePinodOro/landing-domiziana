@@ -1,138 +1,659 @@
 <!DOCTYPE html>
 <html lang="it">
-    <head>
-      <meta charset="utf-8">
-      <!-- Google Tag Manager: il contenitore si carica solo dopo "Accetta" nel banner dei cookie (cookie.html).
-           Prima della scelta la modalita' consenso di Google parte con tutto negato. -->
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { window.dataLayer.push(arguments); }
-        gtag("consent", "default", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied", analytics_storage: "denied" });
-        window.caricaTagManager = function () {
-          if (window.tagManagerCaricato) return;
-          window.tagManagerCaricato = true;
-          gtag("consent", "update", { ad_storage: "granted", ad_user_data: "granted", analytics_storage: "granted" });
-          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','GTM-MST8XCR6');
-        };
-        (function () {
-          var salvato = null;
-          // localStorage lancia un'eccezione se il browser blocca la memoria del sito: in quel caso si chiede di nuovo il consenso.
-          try { salvato = JSON.parse(localStorage.getItem("cookie-consenso") || "null"); } catch (errore) { salvato = null; }
-          if (!salvato || salvato.scelta !== "accettati") return;
-          var scadenza = new Date(salvato.quando);
-          scadenza.setMonth(scadenza.getMonth() + 6);
-          if (Date.now() < scadenza.getTime()) window.caricaTagManager();
-        })();
-      </script>
-      <!-- Fine Google Tag Manager -->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Pranzo sulla Domiziana | Lido Pino d'Oro</title>
-      <meta name="description" content="Pranzo sulla spiaggia a 1 minuto dalla Domiziana. Pesce del nostro Tirreno, prezzi chiari, servizio in 30 minuti se hai fretta. Aperti a pranzo tutti i giorni dell'anno.">
-      <meta name="theme-color" content="#FFF2D7">
-      <link rel="icon" href="favicon.ico?v=2" sizes="any">
-      <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
-      <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=2">
-      <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
-    </head>
-
-    <script>
-    /* Parametro URL dei gruppi di annunci (?g=lavoro | ?g=sosta): letto prima del rendering per evitare sfarfallii.
+<head>
+  <meta charset="utf-8">
+  <!-- Google Tag Manager: il contenitore si carica solo dopo "Accetta" nel banner dei cookie (cookie.html).
+       Prima della scelta la modalita' consenso di Google parte con tutto negato. Stesso codice del sito principale. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    gtag("consent", "default", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied", analytics_storage: "denied" });
+    window.caricaTagManager = function () {
+      if (window.tagManagerCaricato) return;
+      window.tagManagerCaricato = true;
+      gtag("consent", "update", { ad_storage: "granted", ad_user_data: "granted", analytics_storage: "granted" });
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-MST8XCR6');
+    };
     (function () {
-      var g = new URLSearchParams(location.search).get("g");
-      if (g === "lavoro" || g === "sosta") document.documentElement.setAttribute("data-g", g);
-    })(); */
-    </script>
+      var salvato = null;
+      // localStorage lancia un'eccezione se il browser blocca la memoria del sito: in quel caso si chiede di nuovo il consenso.
+      try { salvato = JSON.parse(localStorage.getItem("cookie-consenso") || "null"); } catch (errore) { salvato = null; }
+      if (!salvato || salvato.scelta !== "accettati") return;
+      var scadenza = new Date(salvato.quando);
+      scadenza.setMonth(scadenza.getMonth() + 6);
+      if (Date.now() < scadenza.getTime()) window.caricaTagManager();
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pranzo sulla Domiziana | Lido Pino d'Oro</title>
+  <meta name="description" content="Pranzo sulla spiaggia a 1 minuto dalla Domiziana. Pesce del nostro Tirreno, prezzi chiari, servizio in 30 minuti se hai fretta. Aperti a pranzo tutti i giorni dell'anno.">
+  <meta name="theme-color" content="#FFF2D7">
+  <link rel="icon" href="favicon.ico?v=2" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
+  <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <style>
+    /* ==========================================================================
+       Lido Pino d'Oro — one page, one stylesheet. Tokens from the design brief
+       (landing "landing_upd1"): cream page, ink text, gold accents, DM Serif +
+       Questrial, full-width sections with a generous vertical rhythm.
+       ========================================================================== */
+    :root {
+      --crema: #FFF2D7;
+      --crema-chiara: #FFF7E4;
+      --crema-chiarissima: #FFFBF1;
+      --inchiostro: #302B1F;
+      --bruno: #624F23;
+      --oro: #986D0C;            /* accents, big numbers, headings: 4.2:1 on cream (large text only) */
+      --oro-link: #7D5A0A;       /* link and small-text gold: 5.8:1 on cream, 6.5:1 on white */
+      --oro-chiaro: #F5DCA4;
+      --oro-sole: #FFD776;
+      --oro-sabbia: #F8D587;
+      --grigio-oro: #B5A98A;
+      --grigio-oro-testo: #8F7F5A; /* the grey-gold of the big proof numbers, 3.5:1 on cream */
+      --testo-tenue: #4D4535;    /* secondary text, 8:1 on cream */
+      --riga: #B5A98A66;
+      --ombra: 0 4px 10px #302B1F44;
+      --errore: #8A2F1F;
+      --font-display: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+      --font-serif: 'DM Serif Text', Georgia, 'Times New Roman', serif;
+      --font-testo: 'Questrial', 'Century Gothic', 'Avenir Next', Arial, sans-serif;
+      --header-h: 68px;
+    }
 
-    <body style="margin:0px">
-    <link rel="stylesheet" href="styles.css">
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; background: var(--crema); color: var(--inchiostro);
+      font-family: var(--font-testo); font-size: 1.05rem; line-height: 1.6;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    ::selection { background: var(--bruno); color: var(--oro-chiaro); }
+    img { max-width: 100%; height: auto; display: block; }
+    h1, h2, h3, h4 { font-weight: 400; margin: 0; line-height: 1.1; }
+    p { margin: 0 0 1rem; }
+    a { color: var(--oro-link); text-decoration: underline; text-underline-offset: 3px; transition: letter-spacing .2s ease, color .2s ease; }
+    a:hover { letter-spacing: .04em; }
+    :focus-visible { outline: 3px solid var(--oro); outline-offset: 3px; border-radius: 3px; }
+    hr { border: 0; border-top: 1px solid #302B1F55; margin: .9rem 0; }
+    button { font: inherit; color: inherit; }
+    [hidden] { display: none !important; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .wrap { width: min(1200px, 100% - 2rem); margin-inline: auto; }
+    .misura { max-width: 70ch; }
+    section { scroll-margin-top: calc(var(--header-h) + 8px); }
+    .sezione { padding: clamp(3.5rem, 8vh, 6.5rem) 0; }
+    .occhiello { font-family: var(--font-testo); font-size: .8rem; letter-spacing: .28em; text-transform: uppercase; color: var(--oro-link); margin: 0 0 .5rem; }
+    .occhiello-serif { font-family: var(--font-serif); font-size: clamp(1.2rem, 2vw, 1.6rem); margin: 0 0 .6rem; }
+    .sezione-titolo { font-family: var(--font-display); font-size: clamp(2.2rem, 4.5vw, 3.4rem); margin: 0 0 1rem; letter-spacing: -.01em; }
+    .lead { font-size: 1.1rem; color: var(--testo-tenue); }
+    .icona { width: 1.5rem; height: 1.5rem; flex: none; object-fit: contain; }
+    .icona-scura { filter: brightness(0); }
+    .icona-chiara { filter: brightness(0) invert(1); }
 
-    <section style="background-image: url('foto/bg.jpg'); height: 100vh; background-repeat: no-repeat; background-size: cover; background-attachment: scroll;">
-        <div class="mainlanding">
-            <div style="position: static; top: 3vh; width: 100%; margin:0;">
-                <img class="main_logo" src="logo.png">
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+      min-height: 48px; padding: .75rem 1.6rem; border: 1px solid transparent; border-radius: 4px;
+      font-family: var(--font-testo); font-size: 1.05rem; line-height: 1.2; text-decoration: none; cursor: pointer;
+      color: var(--inchiostro); background: transparent; text-align: center;
+      transition: transform .25s ease, box-shadow .25s ease, letter-spacing .25s ease, background .25s ease;
+    }
+    .btn:hover { transform: translateY(-4px); letter-spacing: .04em; }
+    .btn-oro { background: var(--oro-chiaro); }
+    .btn-oro:hover { box-shadow: 0 0 20px var(--oro-chiaro); }
+    .btn-linea { background: #F5DCA454; border-color: var(--inchiostro); }
+    .btn-linea:hover { box-shadow: 0 0 10px #FFFBF1B6; background: #F5DCA48A; }
+    .btn-scuro {
+      background: var(--inchiostro); color: var(--oro-chiaro); border-radius: 6px; font-family: var(--font-serif);
+      font-size: 1.1rem; box-shadow: var(--ombra); padding-inline: 1.3rem;
+    }
+    .btn-scuro:hover { letter-spacing: .02em; }
+    .btn-scuro:focus-visible { outline-color: var(--oro-sole); }
+    .btn-bianco { border: 2px solid #fff; color: #fff; border-radius: 6px; }
+    .btn-bianco:hover { background: #ffffff1a; }
+    .btn-bianco:focus-visible { outline-color: var(--oro-sole); }
+    .btn[disabled] { opacity: .6; cursor: wait; transform: none; }
+    .link-oro { font-family: var(--font-testo); font-size: 1rem; }
+    .link-btn { background: none; border: 0; padding: 0; color: var(--oro-link); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; font-size: inherit; }
 
-                    <!--Data Dinamica-->
-                    <div class="striscia-data-bg-layer0">
-                      <div class="striscia-data">
-                        <img class="ora-icona" src="icons/schedule.svg" style="width: calc(1.7rem + 0.390625vw); opacity: 100%; color: white; padding-right: 3vw;">
-                        <div class="striscia-data-testo">
-                          <span id="data-oggi">data</span>
-                          <span class="striscia-ora-testo" style="flex-basis: 100%;"><span data-orario>orario</span></span>
-                        </div>
-                        
-                      </div>
-                    </div>
-                    <!--Fine Data Dinamica-->
-                    
-                  <div style="display: block; gap: 1px;">
-                    <h1 class="titolo_principale">Il ristorante sulla spiaggia<br>Sempre Aperto.<br>Tutti i giorni dell’anno.</h1>
-                    <div class="buttons_container_title">
-                      <a href="https://prenotazioni.cooperto.it/in/ca5abec6-9f55-4578-822e-2e7b3cba7998" class="prenota-tavolo">
-                        prenota ora il tuo pranzo! >
-                      </a>
-                      <br>
-                      <a href="https://new-widget.spiagge.it/stabilimenti-balneari/prenotazione/it-ce-81034-lido-pino-doro/insertPeriod?yb_booking_license=it-ce-81034-lido-pino-doro" class="prenota-spiaggia">
-                        prenota la tua spiaggia! >
-                      </a>
-                  </div>
-                  <img class="titolo-frecciagiu" src="icons/arrow_down.svg">
-                </div>
-            </div>
+    /* ---------- Header ---------- */
+    .header {
+      position: sticky; top: 0; z-index: 50; background: #FFF2D7F0;
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid var(--riga);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: var(--header-h); }
+    .brand { display: inline-flex; align-items: center; border-radius: 4px; }
+    .brand-logo { height: 44px; width: auto; }
+    .nav-links { display: flex; gap: clamp(1rem, 2.5vw, 2.2rem); list-style: none; margin: 0; padding: 0; }
+    .nav-links a { font-family: var(--font-testo); font-size: 1rem; color: var(--inchiostro); text-decoration: none; padding: .4rem 0; position: relative; }
+    .nav-links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--oro); transform: scaleX(0); transition: transform .25s ease; transform-origin: left; }
+    .nav-links a:hover::after, .nav-links a:focus-visible::after { transform: scaleX(1); }
+    .nav-links a:hover { letter-spacing: 0; }
+    .nav-cta { display: flex; align-items: center; gap: .8rem; }
+    .btn-nav { min-height: 44px; padding: .5rem 1.3rem; }
+    .nav-toggle {
+      display: none; width: 44px; height: 44px; border: 1px solid var(--riga); border-radius: 8px; background: none; cursor: pointer;
+      flex-direction: column; gap: 5px; align-items: center; justify-content: center;
+    }
+    .nav-toggle span { width: 20px; height: 2px; background: var(--inchiostro); display: block; border-radius: 1px; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative; overflow: hidden; min-height: calc(100svh - var(--header-h));
+      background: url("assets/photos/sfondo-spiaggia-1600.jpg") center top / cover no-repeat var(--crema);
+      display: flex; flex-direction: column; align-items: center; text-align: center; padding: 1.5rem 0 1rem;
+    }
+    .hero::after { content: ""; position: absolute; inset: auto 0 0; height: 18%; background: linear-gradient(to bottom, transparent, var(--crema)); pointer-events: none; }
+    .hero > * { position: relative; }
+    .hero-logo { width: clamp(11rem, 44vw, 18rem); height: auto; margin: 0 auto .8rem; animation: apparsa 1s ease both; }
+    .striscia-bg { --sh: clamp(92px, 12vh, 130px); position: relative; width: 100%; margin: .5rem 0 1.2rem; isolation: isolate; animation: apparsa 1s ease both; }
+    .striscia-bg::before {
+      content: ""; position: absolute; left: 0; right: 0; top: -7%; bottom: -7%; z-index: -2; opacity: .7;
+      background: url("assets/icons/ui/wave2.png") repeat-x 0 0 / calc(var(--sh) * 1.14 * 4.8615) calc(var(--sh) * 1.14);
+      animation: onda-indietro 32s linear infinite;
+    }
+    .striscia {
+      position: relative; height: var(--sh); display: flex; align-items: center; justify-content: center; gap: clamp(.8rem, 3vw, 1.6rem);
+      color: #fff; padding: 0 1rem; isolation: isolate;
+    }
+    .striscia::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: url("assets/icons/ui/wave.png") repeat-x 0 0 / calc(var(--sh) * 4.8615) var(--sh);
+      filter: brightness(.78); animation: onda 13s linear infinite;
+    }
+    .striscia-icona { width: clamp(1.7rem, 2.3vw, 2.4rem); height: auto; flex: none; }
+    .striscia-testo { margin: 0; display: grid; font-family: var(--font-serif); letter-spacing: .06em; line-height: 1.25; text-shadow: 0 1px 2px #302B1F66; animation: testo-orario 1.5s cubic-bezier(.79, .37, .28, .9) both; }
+    .striscia-testo > span:first-child { font-size: clamp(1.15rem, 2.2vw, 2rem); }
+    .striscia-ora { font-size: clamp(1.05rem, 2vw, 1.6rem); }
+    .hero-titolo {
+      font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4.6rem); line-height: 1.05; max-width: 26ch; margin: 0 auto; padding: 0 .5rem;
+      animation: titolo-spacing 1.5s ease-out both, apparsa 1.7s ease both;
+    }
+    .hero-cta { display: grid; gap: .9rem; justify-items: center; width: min(100%, 460px); margin: 1.3rem auto 0; padding: 0 1rem; animation: apparsa 2.2s ease both; }
+    .hero-cta .btn { width: 100%; }
+    .hero-freccia { display: inline-block; margin-top: .8rem; animation: rimbalzo 1.8s ease-in-out infinite; border-radius: 50%; }
+    .hero-freccia img { width: 52px; height: auto; }
+
+    /* ---------- Le prove ---------- */
+    .prove { padding: clamp(2rem, 6vh, 4.5rem) 0 clamp(1rem, 4vh, 2.5rem); }
+    .prova { padding: clamp(1.6rem, 4vh, 2.8rem) 0; border-top: 1px solid var(--riga); }
+    .prova:first-child { border-top: 0; }
+    .prova.destra { text-align: right; }
+    .numero { display: block; font-family: var(--font-display); font-style: italic; font-size: clamp(4rem, 10vw, 8rem); line-height: 1; letter-spacing: -.04em; color: var(--grigio-oro-testo); }
+    .numero.oro { color: var(--oro); }
+    .numero .stellina { font-style: normal; font-size: .38em; color: #C9A227; vertical-align: top; margin-left: .15em; }
+    .numero .stellona { font-style: normal; }
+    .prova-titolo { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.45rem, 2.8vw, 2.3rem); line-height: 1.25; margin: .4rem 0 .2rem; }
+    .chip { background: var(--inchiostro); color: var(--oro-sabbia); padding: .05em .3em; }
+    .prova-sotto { font-family: var(--font-serif); font-style: italic; font-size: clamp(1rem, 1.6vw, 1.25rem); margin: 0 0 .4rem; color: var(--testo-tenue); }
+    .prova a { font-size: 1.05rem; }
+
+    /* ---------- Galleria ---------- */
+    .galleria { padding: clamp(3rem, 7vh, 5rem) 0 clamp(2rem, 5vh, 3.5rem); background: linear-gradient(var(--crema), #fff); border-top: 1px solid var(--riga); }
+    .galleria-titolo { font-family: var(--font-display); text-align: center; font-size: clamp(1.6rem, 3vw, 2.2rem); letter-spacing: .45em; text-indent: .45em; text-transform: uppercase; margin: 0 0 1.2rem; }
+    .galleria-testa { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; padding: 0 clamp(1rem, 5vw, 5rem); }
+    .galleria-hint { font-family: var(--font-serif); font-style: italic; color: var(--testo-tenue); margin: 0 0 .3rem; }
+    .galleria-nav { display: none; gap: .5rem; }
+    .galleria-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--inchiostro); background: #fff; cursor: pointer; font-size: 1.2rem; transition: background .2s ease, transform .2s ease; }
+    .galleria-btn:hover { background: var(--oro-chiaro); transform: translateY(-2px); }
+    .galleria-scroll {
+      display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+      padding: 0 clamp(1rem, 5vw, 5rem) 1rem; scroll-padding-inline: clamp(1rem, 5vw, 5rem);
+    }
+    .galleria-scroll img { flex: 0 0 auto; height: 300px; width: auto; object-fit: cover; scroll-snap-align: start; background: var(--crema-chiara); }
+
+    /* ---------- Il piatto più ordinato ---------- */
+    .piatto { padding: clamp(3rem, 7vh, 5.5rem) 0; background: linear-gradient(#FFFFFFDE, #FFF2D792); overflow: hidden; overflow: clip; } /* the decorative blob must never widen the page */
+    .piatto-grid { display: grid; gap: 2rem; align-items: center; }
+    .piatto-visual { position: relative; width: min(100%, 300px); aspect-ratio: 1; margin: 0 auto; }
+    .piatto-cerchio { position: absolute; inset: -22% auto auto -28%; width: 150%; max-width: none; height: auto; z-index: 0; opacity: .9; pointer-events: none; }
+    .piatto-foto { position: relative; z-index: 1; width: 100%; height: auto; border-radius: 50%; box-shadow: 0 18px 40px #302B1F33; }
+    .piatto-occhiello { font-family: var(--font-serif); font-size: clamp(1.2rem, 2.4vw, 1.9rem); margin: 0 0 .4rem; }
+    .piatto-titolo { font-family: var(--font-display); font-size: clamp(2.2rem, 4.5vw, 3.6rem); line-height: 1.05; margin: 0 0 1.2rem; }
+    .piatto-titolo em { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+    .piatto-testo p { font-family: var(--font-testo); max-width: 62ch; }
+    .piatto-prezzo { font-family: var(--font-serif); font-size: 1.25rem; }
+    .piatto-prezzo strong { font-weight: 400; color: var(--oro-link); }
+    .piatto-chiusa { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.2rem, 2vw, 1.5rem); text-align: right; margin: 1.2rem 0 1.4rem; }
+    .piatto-cta { display: flex; justify-content: center; }
+    .piatto-cta .btn { width: min(100%, 460px); }
+
+    /* ---------- Formule (offer cards) + festa ---------- */
+    .offerte { padding: clamp(1.5rem, 5vh, 3.5rem) 0 clamp(2.5rem, 6vh, 4rem); }
+    .offerte-grid { display: grid; gap: 1.6rem; }
+    .card {
+      background: #fff; border: 2px solid var(--oro-sole); border-radius: 8px 8px 0 0; box-shadow: 0 4px 10px #302B1F22;
+      display: flex; flex-direction: column; transition: transform .2s ease, box-shadow .2s ease; font-family: var(--font-testo);
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 10px 22px #302B1F2E; }
+    .card-foto { height: 150px; overflow: hidden; position: relative; border-radius: 6px 6px 0 0; background: var(--crema-chiara); }
+    .card-foto img { width: 100%; height: 100%; object-fit: cover; }
+    .card-foto::after { content: ""; position: absolute; inset: 55% 0 0; background: linear-gradient(transparent, #ffffffcc); }
+    .card-corpo { padding: 1.1rem 1.3rem 1.4rem; display: flex; flex-direction: column; flex: 1; }
+    .card-titolo { display: flex; gap: .8rem; align-items: flex-start; font-family: var(--font-serif); font-size: 1.45rem; line-height: 1.15; }
+    .card-titolo .icona { width: 1.6rem; height: 1.6rem; margin-top: .15rem; }
+    .riga { display: flex; flex-wrap: nowrap; align-items: baseline; gap: .4rem .5rem; margin-top: .4rem; } /* nome, puntini e prezzo su una riga sola */
+    .riga-freccia { width: 2rem; height: auto; align-self: center; flex: none; }
+    .riga-nome { flex: 0 1 auto; font-family: var(--font-serif); font-size: clamp(1.25rem, 1.5vw, 1.9rem); line-height: 1; letter-spacing: -.02em; min-width: 0; }
+    .puntini { flex: 1 1 1rem; min-width: 1rem; border-bottom: 2px dotted var(--grigio-oro); transform: translateY(-.35em); }
+    .riga-prezzo { flex: none; font-size: 1.35rem; white-space: nowrap; }
+    .riga-desc { font-style: italic; margin: .2rem 0 .6rem; color: var(--testo-tenue); }
+    .card-nota { font-style: italic; text-decoration: underline; text-underline-offset: 3px; margin: 0 0 .6rem; }
+    .card-voce { display: flex; gap: .7rem; align-items: flex-start; margin: 0 0 .7rem; line-height: 1.4; }
+    .card-voce .icona { margin-top: .1rem; }
+    .card-voce a { font-family: var(--font-serif); color: var(--inchiostro); font-size: 1.05rem; }
+    .card-cta { margin-top: auto; display: grid; gap: .6rem; justify-items: center; padding-top: .4rem; }
+    .card-cta .btn-scuro { width: 100%; }
+    .card-cta .btn-scuro .icona { width: 1.4rem; height: 1.4rem; }
+    .card-disp { font-size: .88rem; color: var(--testo-tenue); margin: 0 0 .5rem; }
+    .festa-wrap { display: flex; justify-content: center; margin-top: 2.5rem; }
+    .festa {
+      background: var(--inchiostro); color: #fff; border-radius: 8px; box-shadow: 0 0 12px #242424; width: min(100%, 580px);
+      padding: 1.6rem clamp(1rem, 4vw, 2.2rem); text-align: center; font-family: var(--font-testo);
+    }
+    .festa-titolo { font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw, 2rem); color: var(--oro-sabbia); display: inline-flex; gap: .5rem; align-items: center; }
+    .festa-titolo .icona { width: 1.8rem; height: 1.8rem; }
+    .festa-testo { font-style: italic; font-size: 1.15rem; margin: .8rem 0 1.2rem; }
+    .festa-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-festa-wa { background: var(--oro-sabbia); color: var(--inchiostro); font-family: var(--font-serif); font-size: 1.15rem; border-radius: 6px; flex: 1 1 14rem; }
+    .btn-festa-wa .icona { width: 1.4rem; height: 1.4rem; }
+    .festa .btn-bianco { flex: 1 1 8rem; }
+
+    /* ---------- Storia ---------- */
+    .storia {
+      background: center / cover no-repeat; background-color: #FFF6E2A4; background-blend-mode: lighten;
+      padding: clamp(3rem, 8vh, 6rem) 0;
+    }
+    /* Le foto di sfondo non sono "lazy" per il browser: lo script aggiunge .is-near quando la sezione si avvicina. */
+    .storia.is-near { background-image: url("assets/photos/sala-vista-mare-1600.jpg"); }
+    .storia-inner { text-align: right; margin-left: auto; max-width: 960px; }
+    .storia-titolo { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.08; letter-spacing: -.02em; margin: 0 0 1.4rem; }
+    .storia-testo p { margin-left: auto; max-width: 70ch; }
+    .storia-testo .battuta { font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; }
+    .storia-chiusa { font-family: var(--font-serif); font-size: clamp(1.3rem, 2.2vw, 1.75rem); line-height: 1.3; margin: 1.6rem 0 1.4rem; }
+    .storia-cta { display: flex; justify-content: flex-end; }
+    .storia-cta .btn { width: min(100%, 460px); }
+
+    /* ---------- Recensione + invito ---------- */
+    .recensione {
+      background: center / cover no-repeat; background-color: #FFFFFFA4; background-blend-mode: lighten;
+      padding: clamp(3rem, 8vh, 6rem) 0; text-align: center;
+    }
+    .recensione.is-near { background-image: url("assets/photos/terrazza-interno-1200.jpg"); }
+    .recensione-grid { display: grid; gap: 2.5rem; align-items: center; justify-items: center; }
+    .invito-testo { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.25rem, 2.2vw, 1.8rem); line-height: 1.4; margin: 0 0 1.4rem; }
+    .invito .btn { width: min(100%, 460px); }
+
+    /* ---------- Recensioni Google (le schede le crea lo script da recensioni.json) ---------- */
+    .prova .prova-titolo { display: block; }
+    .recensioni { display: grid; gap: 1.2rem; padding-bottom: 1rem; }
+    .recensione-google {
+      margin: 0; display: flex; flex-direction: column; gap: .6rem; padding: 1.3rem 1.4rem;
+      background: linear-gradient(160deg, #fff, var(--crema-chiara)); box-shadow: #624F2322 0 4px 14px; transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .recensione-blocco1 { border-radius: 8px; }
+    .recensione-blocco1:hover { transform: translateY(-4px); box-shadow: 0 10px 22px #302B1F2E; }
+    .recensione-blocco2 { width: min(100%, 380px); margin-inline: auto; border-radius: 0 44px 0 44px; padding: 2rem 1.6rem 1.6rem; text-align: center; }
+    .recensione-testata { display: flex; justify-content: space-between; align-items: baseline; gap: .8rem; }
+    .recensione-blocco2 .recensione-testata { flex-direction: column; align-items: center; }
+    .recensione-testata cite { font-family: var(--font-serif); font-style: italic; font-size: 1.25rem; line-height: 1.2; min-width: 0; overflow-wrap: anywhere; }
+    .recensione-testata cite a { color: inherit; }
+    .recensione-testata [role="img"] { flex: none; white-space: nowrap; letter-spacing: .06em; color: var(--oro); }
+    .recensione-blocco2 [role="img"] { font-size: 2rem; color: var(--inchiostro); }
+    .contenuto-recensione, .contenuto-recensione2 {
+      margin: 0; line-height: 1.55; overflow-wrap: anywhere; overflow: hidden;
+      display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 6;
+    }
+    .recensione-google.aperta .contenuto-recensione, .recensione-google.aperta .contenuto-recensione2 { display: block; }
+    .mostra-tutto { align-self: flex-end; padding: 0; border: 0; background: none; color: var(--oro-link); font-size: .9rem; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+    .recensione-dettagli { margin: 0; font-size: .85rem; color: var(--testo-tenue); text-align: right; }
+    .recensione-blocco2 .mostra-tutto { align-self: center; }
+    .recensione-blocco2 .recensione-dettagli { text-align: center; }
+    .recensioni-info { display: grid; gap: .4rem; justify-items: center; padding-bottom: 1rem; font-size: .9rem; text-align: center; }
+    .attribuzione-google { margin: 0; font-size: .8rem; color: var(--testo-tenue); }
+    .attribuzione-evidenza { margin-top: .8rem; }
+    .nota-recensioni { max-width: 60ch; }
+    .nota-recensioni summary { color: var(--oro-link); cursor: pointer; }
+    .nota-recensioni p { margin: .5rem 0 0; text-align: left; line-height: 1.5; }
+
+    /* ---------- Domande ---------- */
+    .faq { padding: clamp(3rem, 8vh, 6rem) 0; text-align: center; }
+    .faq-titolo { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3rem); margin: 0 0 .8rem; }
+    .faq-sotto { font-family: var(--font-serif); font-size: 1.25rem; margin: 0 0 1.5rem; }
+    .faq-lista { max-width: 780px; margin: 0 auto; }
+    .domanda { display: flex; align-items: center; gap: 1.2rem; padding: 1.4rem 0; text-align: left; }
+    .domanda.destra { flex-direction: row-reverse; text-align: right; }
+    .numero-domanda { font-family: var(--font-display); font-size: clamp(4.5rem, 8vw, 7rem); line-height: 1; color: var(--grigio-oro); opacity: .5; flex: none; }
+    .domanda-q { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; letter-spacing: .06em; margin: 0 0 .3rem; color: var(--testo-tenue); }
+    .domanda-a { font-family: var(--font-serif); font-size: clamp(1.25rem, 2.6vw, 1.9rem); line-height: 1.3; letter-spacing: .01em; margin: 0; }
+    .onda-faq { width: min(60vw, 320px); margin: 0 auto; opacity: .9; }
+    .stelle-faq { font-size: clamp(3rem, 6vw, 4.5rem); letter-spacing: .15em; line-height: 1; opacity: .3; margin: 1.5rem 0 1rem; animation: lampeggio 3s ease-in-out infinite; }
+    .faq-chiusa { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.2rem, 2.2vw, 1.75rem); line-height: 1.4; margin: 0; }
+    .riga-corta { width: 120px; border-top: 1px solid var(--inchiostro); margin: 1.5rem auto; }
+
+    /* ---------- Citazione ---------- */
+    .citazione { padding: clamp(2rem, 6vh, 4rem) 0; }
+    .citazione-inner { display: flex; gap: .5rem 1rem; align-items: flex-start; max-width: 1000px; margin: 0 auto; }
+    .virgolette { font-family: var(--font-display); font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1; opacity: .25; flex: none; }
+    .virgolette:last-child { align-self: flex-end; }
+    .citazione-testo { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.1rem, 1.8vw, 1.45rem); line-height: 1.6; text-align: center; margin: .5rem 0 0; }
+
+    /* ---------- Orari e contatti ---------- */
+    .visita { background: #fff; padding: clamp(3rem, 8vh, 6rem) 0; border-top: 1px solid var(--riga); }
+    .visita-grid { display: grid; gap: 3rem; }
+    .visita-titolo { font-family: var(--font-serif); font-style: italic; font-size: clamp(2rem, 3.5vw, 2.8rem); margin: 0 0 1rem; }
+    .orari {
+      list-style: none; margin: 0; padding: 1rem 1.4rem; background: #fff; border: 2px solid var(--oro-chiaro); box-shadow: #302B1F24 0 3px 10px;
+      font-family: var(--font-serif); font-size: 1.15rem; transition: transform .2s ease;
+    }
+    .orari:hover { transform: translateY(-4px); }
+    .orari li { display: flex; justify-content: space-between; gap: 1rem; padding: .45rem 0; border-bottom: 1px solid #B5A98A33; }
+    .orari li:last-child { border-bottom: 0; }
+    .orari li > span:first-child { white-space: nowrap; }
+    .orari li span:last-child { text-align: right; }
+    .orari .range { white-space: nowrap; }
+    .orari li.today { background: var(--crema); margin: 0 -.7rem; padding-inline: .7rem; border-radius: 4px; }
+    .orari li.today > span:first-child::after { content: " · oggi"; font-family: var(--font-testo); font-size: .78rem; color: var(--oro-link); }
+    .orari li.closed span:last-child, .orari span.closed { font-style: italic; color: var(--testo-tenue); }
+    .orari li.exception span:first-child { color: var(--errore); }
+    .orari li.exception.opening span:first-child { color: var(--oro-link); }
+    .orari li.exception span:last-child { font-family: var(--font-testo); font-size: .95rem; color: var(--testo-tenue); }
+    .orari-nota { font-size: .88rem; color: var(--testo-tenue); margin: .9rem 0 0; }
+    .contatti { list-style: none; padding: 0; margin: 0 0 1.6rem; display: grid; gap: 1rem; font-size: 1.1rem; }
+    .contatti li { display: flex; gap: .9rem; align-items: flex-start; }
+    .contatti .icona { margin-top: .2rem; }
+    .contatti a { color: var(--inchiostro); }
+    .contatti a:hover { color: var(--oro-link); letter-spacing: 0; }
+
+    /* ---------- Prenota ---------- */
+    .prenota { background: var(--crema-chiarissima); border-top: 1px solid var(--riga); padding: clamp(3rem, 8vh, 6rem) 0; }
+    .prenota-grid { display: grid; gap: 2.5rem; align-items: start; }
+    .prenota-intro p + p { margin-top: .8rem; }
+    .prenota-col { display: grid; gap: 1.2rem; }
+    .form {
+      position: relative; background: #fff; border: 2px solid var(--oro-chiaro); border-radius: 8px; padding: 1.4rem;
+      box-shadow: #302B1F24 0 3px 10px; display: grid; grid-template-columns: 1fr; gap: 1rem;
+    }
+    .field { display: grid; gap: .35rem; align-content: start; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-tenue); }
+    .field label .opt { text-transform: none; letter-spacing: 0; }
+    .field input, .field select, .field textarea {
+      font: inherit; width: 100%; min-height: 46px; padding: .7rem .9rem; border-radius: 6px; border: 1px solid var(--grigio-oro);
+      background: var(--crema-chiarissima); color: var(--inchiostro); transition: border .2s ease, box-shadow .2s ease;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--oro); box-shadow: 0 0 0 3px var(--oro-chiaro); }
+    .field textarea { resize: vertical; min-height: 96px; }
+    .field-hint { font-size: .85rem; color: var(--testo-tenue); line-height: 1.45; }
+    .field-hint.is-error { color: var(--errore); }
+    .form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .form-note { grid-column: 1 / -1; font-size: .85rem; color: var(--testo-tenue); margin: 0; }
+    .consent { grid-column: 1 / -1; display: flex; gap: .6rem; align-items: flex-start; font-size: .9rem; color: var(--testo-tenue); cursor: pointer; }
+    .consent input { margin: .25rem 0 0; width: 1.1rem; height: 1.1rem; flex: none; accent-color: var(--oro-link); }
+    .consent.attn { color: var(--inchiostro); }
+    .consent-tutto { align-items: center; gap: .8rem; padding: .8rem 1rem; border: 2px solid var(--inchiostro); border-radius: 6px; background: var(--crema-chiarissima); color: var(--inchiostro); }
+    .consent-tutto input { width: 1.6rem; height: 1.6rem; margin: 0; }
+    .consent-tutto strong { display: block; font-family: var(--font-serif); font-weight: 400; font-size: 1.3rem; line-height: 1.2; }
+    .consent-tutto small { display: block; font-size: .85rem; color: var(--testo-tenue); }
+    .slot-notice { grid-column: 1 / -1; font-size: .9rem; line-height: 1.5; background: var(--crema); border: 1px solid var(--riga); border-left: 3px solid var(--oro); border-radius: 6px; padding: .7rem .9rem; }
+    .slot-notice p { margin: 0; }
+    .slot-notice p + p { margin-top: .5rem; }
+    .slot-notice .occhiello { margin-bottom: .4rem; }
+    .form .btn { grid-column: 1 / -1; }
+    .form-error { grid-column: 1 / -1; display: none; padding: .9rem 1.1rem; border-radius: 6px; background: #FBE9E6; border: 1px solid #B43C28; color: var(--errore); font-size: .95rem; }
+    .form-error.show { display: block; }
+    .form-success { grid-column: 1 / -1; display: none; padding: 1.4rem 1.2rem; border-radius: 6px; background: var(--crema); border: 1px solid var(--oro); text-align: center; }
+    .form-success.show { display: grid; gap: .8rem; justify-items: center; }
+    .form-success:focus { outline: none; }
+    .form-success p { margin: 0; }
+    .form-success strong { font-family: var(--font-serif); font-weight: 400; font-size: 1.2rem; letter-spacing: .04em; color: var(--oro-link); }
+    .form-success .save-code { display: block; margin-top: .3rem; font-size: .9rem; color: var(--testo-tenue); }
+    /* Prenotazione in tre passi */
+    .prenota-form { scroll-margin-top: calc(var(--header-h) + 8px); }
+    .prenota-form > * { grid-column: 1 / -1; }
+    .passi { list-style: none; margin: 0; padding: 0; display: flex; position: relative; }
+    .passi::before { content: ""; position: absolute; top: 1.2rem; left: 16.7%; right: 16.7%; border-top: 2px solid var(--oro-chiaro); }
+    .passi li { flex: 1; position: relative; display: grid; justify-items: center; gap: .35rem; }
+    .passi-n { width: 2.4rem; height: 2.4rem; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-size: 1.25rem; line-height: 1; background: var(--crema-chiarissima); border: 2px solid var(--grigio-oro); color: var(--testo-tenue); }
+    .passi-nome { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-tenue); text-align: center; }
+    .passi .fatto .passi-n, .passi [aria-current] .passi-n { background: var(--oro); border-color: var(--oro); color: #fff; }
+    .passi [aria-current] .passi-nome { color: var(--inchiostro); }
+    .passo { display: grid; gap: 1.1rem; min-width: 0; }
+    .passo > .indietro { grid-column: 1 / -1; }
+    .passo-titolo { font-family: var(--font-display); font-size: clamp(1.6rem, 3.4vw, 2.1rem); color: var(--oro); }
+    .passo-titolo:focus { outline: none; }
+    .contatore { display: grid; grid-template-columns: 3rem 1fr 3rem; gap: .4rem; max-width: 20rem; padding: .3rem; border: 1px solid var(--grigio-oro); border-radius: 6px; background: var(--crema-chiarissima); }
+    .contatore:focus-within { border-color: var(--oro); box-shadow: 0 0 0 3px var(--oro-chiaro); }
+    .field .contatore input { min-height: 44px; padding: 0; border: 0; background: none; box-shadow: none; text-align: center; font-size: 1.35rem; -moz-appearance: textfield; appearance: textfield; }
+    .contatore input::-webkit-inner-spin-button, .contatore input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    .contatore-btn { min-height: 44px; border: 0; border-radius: 4px; background: var(--oro-chiaro); font-size: 1.4rem; line-height: 1; cursor: pointer; transition: box-shadow .2s ease; }
+    .contatore-btn:hover { box-shadow: 0 0 10px var(--oro-chiaro); }
+    .scelte-gruppo { border: 0; margin: 0; padding: 0; min-width: 0; }
+    .scelte-gruppo legend { padding: 0; margin-bottom: .35rem; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-tenue); }
+    .scelte { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .field .scelta { position: relative; cursor: pointer; font-size: 1rem; letter-spacing: 0; text-transform: none; color: var(--inchiostro); }
+    .scelta input { position: absolute; inset: 0; margin: 0; opacity: 0; pointer-events: none; }
+    .scelta span { display: flex; align-items: center; justify-content: center; min-height: 44px; padding: .5rem 1rem; border: 1px solid var(--grigio-oro); border-radius: 6px; background: var(--crema-chiarissima); line-height: 1.25; text-align: center; transition: background .2s ease, color .2s ease, border-color .2s ease; }
+    .scelta:hover span { border-color: var(--inchiostro); background: #F5DCA454; }
+    .scelta input:checked + span { background: var(--inchiostro); border-color: var(--inchiostro); color: var(--oro-chiaro); }
+    .scelta input:focus-visible + span { outline: 3px solid var(--oro); outline-offset: 2px; }
+    .scelte-ore { display: grid; grid-template-columns: repeat(auto-fill, minmax(4.75rem, 1fr)); }
+    .scelte-ore span { padding-inline: .4rem; }
+    .fascia + .fascia { margin-top: .9rem; }
+    .fascia-nome { margin: 0 0 .4rem; font-family: var(--font-serif); font-size: 1.15rem; }
+    .sala-info { background: var(--crema); border: 1px solid var(--riga); border-left: 3px solid var(--oro); border-radius: 6px; padding: .9rem 1rem; font-size: .95rem; line-height: 1.55; }
+    .sala-info h4 { margin: 0 0 .4rem; font-family: var(--font-serif); font-size: 1.2rem; color: var(--oro-link); }
+    .sala-info p { margin: 0; }
+    .sala-info p + p { margin-top: .5rem; }
+    .riepilogo { display: grid; grid-template-columns: auto 1fr; gap: .5rem 1.2rem; margin: 0; padding: 1rem 1.1rem; background: var(--crema-chiarissima); border: 1px solid var(--riga); border-radius: 6px; }
+    .riepilogo dt { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-tenue); align-self: center; }
+    .riepilogo dd { margin: 0; overflow-wrap: anywhere; }
+    .riepilogo dd.forte { font-family: var(--font-serif); font-size: 1.2rem; }
+    .indietro { justify-self: center; min-height: 44px; padding: .4rem .8rem; border: 0; background: none; cursor: pointer; color: var(--oro-link); text-decoration: underline; text-underline-offset: 3px; }
+    .indietro::before { content: "‹ "; }
+    .lookup { background: #fff; border: 1px solid var(--oro-chiaro); border-radius: 8px; box-shadow: 0 4px 10px #302B1F14; }
+    .lookup-toggle {
+      width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem 1.4rem;
+      background: none; border: 0; cursor: pointer; text-align: left; color: var(--inchiostro); font-family: var(--font-serif); font-size: 1.3rem; line-height: 1.15;
+    }
+    .lookup-toggle small { display: block; margin-top: .25rem; font-family: var(--font-testo); font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--oro-link); }
+    .lookup-toggle .chev { flex: none; width: 10px; height: 10px; border-right: 2px solid var(--oro-link); border-bottom: 2px solid var(--oro-link); transform: rotate(45deg); transition: transform .2s ease; margin-right: .3rem; }
+    .lookup-toggle[aria-expanded="true"] .chev { transform: rotate(-135deg); }
+    .lookup-toggle:focus-visible { outline-offset: -4px; border-radius: 8px; }
+    .lookup-panel { padding: 0 1.4rem 1.4rem; display: grid; gap: 1rem; }
+    .lookup-form { display: grid; grid-template-columns: 1fr; gap: .8rem; align-items: end; }
+    .lookup-result { border-top: 1px dashed var(--grigio-oro); padding-top: 1rem; display: grid; gap: .9rem; }
+    .lookup-result dl { display: grid; grid-template-columns: auto 1fr; gap: .45rem 1.2rem; margin: 0; }
+    .lookup-result dt { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-tenue); align-self: center; }
+    .lookup-result dd { margin: 0; }
+    .lookup-result dd.code { font-family: var(--font-serif); font-size: 1.3rem; letter-spacing: .04em; color: var(--oro-link); }
+    .status-pill { display: inline-block; padding: .2rem .7rem; border-radius: 999px; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; background: var(--crema); color: var(--oro-link); border: 1px solid var(--oro-chiaro); }
+    .status-pill.is-closed { background: #F1EDE3; color: var(--testo-tenue); border-color: #B5A98A80; }
+    .lookup-actions { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; }
+    .btn-piccolo { min-height: 44px; padding: .5rem 1.1rem; font-size: .95rem; }
+    .btn-danger { border-color: #B43C28; color: var(--errore); background: #fff; }
+    .btn-danger:hover { background: #FBE9E6; }
+    .lookup-confirm { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; font-size: .92rem; width: 100%; padding: .75rem .9rem; border-radius: 6px; background: #FBE9E6; border: 1px solid #B43C2860; }
+    .lookup-confirm span { flex: 1 1 12rem; }
+    .lookup-error { padding: .8rem 1rem; border-radius: 6px; background: #FBE9E6; border: 1px solid #B43C28; color: var(--errore); font-size: .92rem; }
+    .lookup-status { font-size: .92rem; color: var(--oro-link); }
+    .lookup-status:empty { display: none; }
+
+    /* ---------- Footer ---------- */
+    .footer { background: var(--inchiostro); color: var(--crema); padding: 3rem 0 2rem; font-family: var(--font-testo); }
+    .footer a { color: var(--crema); }
+    .footer a:hover { color: var(--oro-sabbia); }
+    .footer :focus-visible { outline-color: var(--oro-sole); }
+    .footer-grid { display: grid; gap: 2rem; }
+    .footer-logo { display: inline-block; background: var(--crema); border-radius: 8px; padding: .6rem .9rem; }
+    .footer-logo img { width: 150px; height: auto; }
+    .footer-brand p { margin: .9rem 0 0; max-width: 36ch; color: #FFF2D7CC; font-size: .95rem; }
+    .footer-h { font-family: var(--font-serif); font-size: 1.25rem; color: var(--oro-sabbia); margin: 0 0 .7rem; }
+    .footer-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; font-size: .95rem; color: #FFF2D7E0; }
+    .footer-bottom { border-top: 1px solid #FFF2D733; margin-top: 2.5rem; padding-top: 1.2rem; font-size: .85rem; display: grid; gap: .5rem; color: #FFF2D7CC; }
+    .footer-legal a { margin-right: .2rem; }
+    .legal-line { margin: 0; line-height: 2; overflow-wrap: anywhere; }
+    .footer-copy { margin: 0; }
+
+    /* ---------- Cookie banner: fixed card at the bottom left ---------- */
+    .storage-notice {
+      position: fixed; left: 1rem; right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+      z-index: 55; max-width: 720px; display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem;
+      padding: .8rem 1.1rem; border-radius: 10px; background: var(--crema-chiara); border: 1px solid var(--oro-chiaro);
+      box-shadow: 0 8px 24px #302B1F33; font-size: .85rem; line-height: 1.45; color: var(--inchiostro);
+    }
+    .storage-notice p { margin: 0; flex: 1 1 12rem; padding-right: 1.25rem; }
+    .storage-notice-chiudi { position: absolute; top: .3rem; right: .45rem; border: 0; background: none; color: var(--inchiostro); font-size: 1.4rem; line-height: 1; padding: .2rem .4rem; cursor: pointer; }
+    .storage-notice .btn { flex: none; border-color: var(--oro-link); color: var(--oro-link); background: #fff; }
+    body.has-notice .footer { padding-bottom: calc(2rem + var(--notice-space, 0px)); }  /* the end of the page (legal line) can still scroll above the bar */
+    @media (max-width: 600px) {
+      .storage-notice { padding: .75rem .95rem; }
+      /* text on its own row, two equal buttons below: otherwise "Rifiuta" sat beside the text and "Accetta" alone underneath */
+      .storage-notice p { flex-basis: 100%; }
+      .storage-notice .btn { flex: 1 1 0; }
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (min-width: 720px) {
+      .form { grid-template-columns: 1fr 1fr; padding: 1.8rem; }
+      .form .btn { justify-self: start; min-width: 16rem; }
+      .passo-dati { grid-template-columns: 1fr 1fr; }
+      .passo-dati > .passo-titolo { grid-column: 1 / -1; }
+      .form-success .btn { justify-self: center; }
+      .lookup-form { grid-template-columns: 1fr 1fr auto; }
+      .footer-grid { grid-template-columns: 1.4fr 1fr 1fr .8fr; }
+    }
+    @media (min-width: 1024px) {
+      .galleria-scroll img { height: 360px; }
+      .galleria-scroll { scrollbar-width: none; }
+      .galleria-scroll::-webkit-scrollbar { display: none; }
+      .galleria-nav { display: flex; }
+      .piatto-grid { grid-template-columns: 1fr 1.5fr; gap: 3rem; }
+      .piatto-visual { width: min(100%, 420px); }
+      .piatto-cta { justify-content: flex-start; }
+      .offerte-grid { grid-template-columns: repeat(3, 1fr); align-items: start; }
+      .recensioni { grid-template-columns: repeat(3, 1fr); align-items: start; }
+      .recensione-grid { grid-template-columns: minmax(300px, 380px) 1fr; justify-items: stretch; }
+      .visita-grid { grid-template-columns: 1fr 1fr; }
+      .prenota-grid { grid-template-columns: .85fr 1.15fr; }
+    }
+    @media (max-width: 719px) {
+      .nav-links, .nav-cta .btn-nav { display: none; }
+      .nav-toggle { display: flex; }
+      .nav-links.open {
+        display: flex; position: absolute; top: var(--header-h); left: 0; right: 0; flex-direction: column; gap: 0;
+        background: var(--crema-chiarissima); border-bottom: 1px solid var(--riga); padding: .4rem 1rem 1rem; box-shadow: 0 12px 24px #302B1F22;
+      }
+      .nav-links.open li a { display: block; padding: .85rem 0; border-bottom: 1px solid var(--riga); font-size: 1.1rem; }
+      .nav-links.open li:last-child a { border-bottom: 0; }
+      .hero { background-image: url("assets/photos/sfondo-spiaggia-800.jpg"); }
+      .orari { font-size: 1.05rem; padding-inline: 1rem; }
+      .storia.is-near { background-image: url("assets/photos/sala-vista-mare-800.jpg"); }
+      .domanda { gap: .8rem; }
+    }
+    @media (max-width: 420px) {
+      .festa-cta { flex-direction: column; }
+      .festa-cta .btn { flex: 0 0 auto; width: 100%; }
+    }
+
+    /* ---------- Motion ---------- */
+    @keyframes apparsa { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes titolo-spacing { from { letter-spacing: .08em; } to { letter-spacing: 0; } }
+    @keyframes testo-orario { from { opacity: 0; letter-spacing: .2em; } to { opacity: 1; letter-spacing: .06em; } }
+    @keyframes onda { to { background-position-x: calc(var(--sh) * 4.8615); } }
+    @keyframes onda-indietro { from { background-position-x: calc(var(--sh) * 1.14 * 4.8615); } to { background-position-x: 0; } }
+    @keyframes rimbalzo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+    @keyframes lampeggio { 0%, 100% { opacity: .3; } 50% { opacity: .15; } }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .galleria-scroll { scroll-behavior: auto; }
+    }
+  </style>
+  <noscript><style>.storia { background-image: url("assets/photos/sala-vista-mare-1600.jpg"); } .recensione { background-image: url("assets/photos/terrazza-interno-1200.jpg"); }</style></noscript>
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="header">
+    <div class="wrap nav">
+      <a href="#top" class="brand" aria-label="Lido Pino d'Oro — torna all'inizio">
+        <img class="brand-logo" src="assets/logo.png" alt="" width="500" height="326">
+      </a>
+      <nav aria-label="Principale">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#offerte">Formule</a></li>
+          <li><a href="#gallery">Galleria</a></li>
+          <li><a href="#faq">Domande</a></li>
+          <li><a href="#visit">Dove siamo</a></li>
+          <li><a href="#reserve">Prenota</a></li>
+        </ul>
+      </nav>
+      <div class="nav-cta">
+        <a href="#reserve" class="btn btn-oro btn-nav">Prenota</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Apri o chiudi il menu di navigazione" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero" aria-label="Lido Pino d'Oro">
+      <img class="hero-logo" src="assets/logo.png" alt="Pino d'Oro — Ristorante sulla spiaggia" width="500" height="326" fetchpriority="high">
+
+      <!-- Orari di oggi: calcolati dal browser (fuso Europe/Rome) dagli orari live del sistema di prenotazione,
+           con gli orari settimanali di data/restaurant.json come riserva (STATIC_HOURS nello script). -->
+      <div class="striscia-bg">
+        <div class="striscia">
+          <img class="striscia-icona" src="assets/icons/ui/schedule.svg" alt="" aria-hidden="true" width="48" height="48">
+          <p class="striscia-testo"><span id="oggiData">oggi, aperti a pranzo</span><span class="striscia-ora" id="oggiOrario">tutti i giorni</span></p>
         </div>
+      </div>
+
+      <h1 class="hero-titolo">Il ristorante sulla spiaggia.<br>Sempre aperto.<br>Tutti i giorni dell'anno.</h1>
+      <div class="hero-cta">
+        <a href="#reserve" class="btn btn-oro">prenota ora il tuo pranzo! ›</a>
+        <a href="https://new-widget.spiagge.it/stabilimenti-balneari/prenotazione/it-ce-81034-lido-pino-doro/insertPeriod?yb_booking_license=it-ce-81034-lido-pino-doro" class="btn btn-linea">prenota la tua spiaggia! ›</a>
+      </div>
+      <a href="#prove" class="hero-freccia" aria-label="Scorri in basso"><img src="assets/icons/ui/arrow-down.svg" alt="" aria-hidden="true" width="118" height="112"></a>
     </section>
 
-    <section class="le4-prove" style="background-color: #FFF2D7; ">
-      <!--aperto sempre-->
-      <div class="prova1_365">
-        <div style="display: flex; align-items: center;">
-          <span style="color: #805900; opacity: 40%; font-size: 200%; letter-spacing: -12%;">365</span><b style="font-size: 3vw; color: #dab04e;">&nbsp&nbsp★</b><br>
-          <br><br><br>
+    <!-- ================= LE PROVE ================= -->
+    <section class="prove" id="prove" aria-label="Quattro cose da sapere">
+      <div class="wrap">
+        <div class="prova">
+          <span class="numero oro">365<span class="stellina" aria-hidden="true">★</span></span>
+          <h2 class="prova-titolo">Aperti a pranzo <span class="chip">Tutti i giorni.</span></h2>
+          <p class="prova-sotto">Ferragosto, Natale e Capodanno compresi. In estate anche tutti i giorni a cena.</p>
+          <a href="#visit">controlla gli orari ↓</a>
         </div>
-        <b style="font-size: 60%;">Aperti a pranzo <mark style="background-color: #2D291E; color:#F8D587; padding: 4px;">Tutti i giorni.</mark></b>
-        <br>
-        <i style="font-size: 40%;">Ferragosto, Natale e Capodanno compresi. In estate anche tutti i giorni a cena.</i>
-        <br>
-        <a href="#tabellaorario" style="font-size: 40%;">controlla gli orari ↓</a>
-      </div>
-      <hr>
-      <br>
-      <!--distanza-->
-      <div class="prova2_distanza">
-        <span style="color: #242424; opacity: 40%; font-size: 160%; letter-spacing: -12%;">300m</span>
-        <br><br>
-        <b style="font-size: 60%;">Distanti dalla Domiziana.</b>
-        <br>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro&amp;query_place_id=ChIJcV_Xya3fOhMRWT5u9UL0X08" target="_blank" rel="noopener" data-azione="portami-li" style="font-size: 40%;">portami lì →</a>
-      </div>
-      <hr>
-      <br>
-      <!--piatto ordinato-->
-      <div class="prova3_piatti">
-        <span style="color: #805900; opacity: 40%; font-size: 200%; letter-spacing: -12%;">1 su 3</span>
-        <br><br>
-        <b style="font-size: 60%;">Clienti ordinano lo stesso piatto.</b>
-        <br>
-        <i style="font-size: 40%;"></i>
-        <a href="#piatto-piuordinato" style="font-size: 40%;">scopri qual'è ↓</a>
-      </div>
-      <hr>
-      <br>
-      <!--recensioni-->
-      <div class="prova4_recensione" id="prova-recensioni">
-        <span id="dati-recensioni" hidden>
-          <b class="stelle-medie" id="stelle-medie">0.0★</b>
-          <br><br>
-          <b class="conteggio-recensioni" style="font-size: 60%;">Su <span id="conteggio-recensioni">0</span> recensioni di <span translate="no">Google&nbsp;Maps</span></b>
-          <br>
-        </span>
-        <a data-link="recensioni" id="link-recensioni" href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro" target="_blank" rel="noopener" style="font-size: 40%;">Leggi le recensioni su Google Maps →</a>
-      </div>
-      
-      <div class="blocco-recensioni" id="blocco-recensioni" hidden>
+        <div class="prova destra">
+          <span class="numero">300m</span>
+          <h2 class="prova-titolo">Distanti dalla Domiziana.</h2>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro&amp;query_place_id=ChIJcV_Xya3fOhMRWT5u9UL0X08" target="_blank" rel="noopener" data-azione="portami-li">portami lì →</a>
+        </div>
+        <div class="prova">
+          <span class="numero oro">1 su 3</span>
+          <h2 class="prova-titolo">Clienti ordinano lo stesso piatto.</h2>
+          <a href="#piatto">scopri qual è ↓</a>
+        </div>
+        <div class="prova destra" id="prova-recensioni">
+          <span id="dati-recensioni" hidden>
+            <span class="numero"><span id="stelle-medie">0,0</span><span class="stellona" aria-hidden="true">★</span></span>
+            <span class="prova-titolo">Su <span id="conteggio-recensioni">0</span> recensioni di <span translate="no">Google&nbsp;Maps</span></span>
+          </span>
+          <a data-link="recensioni" id="link-recensioni" href="https://www.google.com/maps/place/Ristorante+Pino+D%27Oro/data=!4m7!3m6!1s0x133adfadc9d75f71:0x4f5ff442f56e3e59!8m2!3d41.1130358!4d13.8773471!9m1!1b1" target="_blank" rel="noopener">Leggi le recensioni su Google Maps →</a>
+        </div>
+        <div id="blocco-recensioni" hidden>
           <div class="recensioni" id="recensioni"></div>
           <div class="recensioni-info">
             <p class="attribuzione-google">Voto e recensioni forniti da <span translate="no">Google Maps</span></p>
@@ -141,659 +662,1154 @@
               <p>Selezione automatica tra le recensioni che Google fornisce per la scheda <span id="nome-scheda">del ristorante</span> (le più pertinenti, in italiano e in inglese): mostriamo solo quelle con almeno 4 stelle, pubblicate da meno di due anni e senza le parole di critica di un nostro elenco fisso (come «deluso», «sporco», «da evitare»: il controllo è automatico e può lasciare fuori anche frasi positive come «non ci ha mai delusi»), e togliamo quelle i cui autori chiedono di non comparire. In riga mettiamo una recensione sul servizio, una sul viaggio e una sul cibo; più in basso, in evidenza, la più recente tra le altre con almeno 40 caratteri. I testi sono integrali, come li hanno scritti gli autori. Non le verifichiamo noi: autenticità e regole sono di Google. Il voto medio e il numero totale comprendono tutte le recensioni, anche quelle non mostrate. <a href="privacy.html">Privacy e diritti degli autori</a></p>
             </details>
           </div>
-      </div>
-    </section>
-      <hr>
-    <!-- galleria -->
-    <section class="galleria">
-      <h1 class="titolo">G A L L E R Y</h1>
-      <i style="opacity: 40%">scorri a destra...</i>
-      <div class="contenitore-immagini">
-        <div class="contenitore-pag1" style="grid-template-columns: 1fr 1fr; align-items: center; justify-content: center;">
-          <img loading="lazy" class="foto_galleria" src="foto/galleria/foto-1.jpg">
-          <img loading="lazy" class="foto_galleria" src="foto/galleria/foto-3.jpg">
-          <img loading="lazy" class="foto_galleria" src="foto/galleria/foto-2.jpg">
-          <img loading="lazy" class="foto_galleria" src="foto/galleria/foto-4.jpg">
-          <img loading="lazy" class="foto_galleria" src="foto/galleria/foto-5.jpg">
-          <br>
-          <img loading="lazy" class="foto_galleria" src="foto/galleria/foto-6.jpg">
-          <img loading="lazy" class="foto_galleria" src="foto/galleria/foto-7.jpg">
-          <img loading="lazy" class="foto_galleria" src="foto/galleria/foto-8.jpg">
-          <img loading="lazy" class="foto_galleria" src="foto/galleria/foto-9.jpg">
-          <img loading="lazy" class="foto_galleria" src="foto/galleria/foto-10.jpg">
         </div>
       </div>
-      <div class="contenitore-immagini-puntini">
+    </section>
 
+    <!-- ================= GALLERIA ================= -->
+    <section class="galleria" id="gallery">
+      <h2 class="galleria-titolo">Gallery</h2>
+      <div class="galleria-testa">
+        <p class="galleria-hint">scorri a destra…</p>
+        <div class="galleria-nav" aria-hidden="true">
+          <button type="button" class="galleria-btn" data-dir="-1" tabindex="-1">←</button>
+          <button type="button" class="galleria-btn" data-dir="1" tabindex="-1">→</button>
+        </div>
+      </div>
+      <div class="galleria-scroll" id="galleryScroll" tabindex="0" role="region" aria-label="Foto del lido: scorri in orizzontale con le frecce o il dito">
+        <img src="assets/photos/galleria/foto-01.jpg" alt="Piatto di pesce impiattato su ardesia con salse colorate" width="720" height="1080" loading="lazy">
+        <img src="assets/photos/galleria/foto-02.jpg" alt="Tavolo apparecchiato sulla spiaggia con una bottiglia di vino, il mare sullo sfondo" width="1080" height="720" loading="lazy">
+        <img src="assets/photos/galleria/foto-03.jpg" alt="Antipasto misto: alici marinate su insalatina, fagottino di pasta fillo e fritti con salse colorate" width="1080" height="720" loading="lazy">
+        <img src="assets/photos/galleria/foto-04.jpg" alt="La terrazza coperta con i tavoli bianchi apparecchiati" width="1080" height="720" loading="lazy">
+        <img src="assets/photos/galleria/foto-05.jpg" alt="La sala all'aperto con i tavoli bianchi e le piante sotto la pergola" width="1080" height="720" loading="lazy">
+        <img src="assets/photos/galleria/foto-06.jpg" alt="Sdraio gialla con la scritta Lido Pino d'Oro davanti alle cabine bianche" width="720" height="1080" loading="lazy">
+        <img src="assets/photos/galleria/foto-07.jpg" alt="Tavolo sotto la pergola sulla spiaggia al tramonto, con gli ombrelloni" width="720" height="1080" loading="lazy">
+        <img src="assets/photos/galleria/foto-08.jpg" alt="Silhouette di un ospite che beve un calice al tramonto in riva al mare" width="720" height="1080" loading="lazy">
+        <img src="assets/photos/galleria/foto-09.jpg" alt="Due ospiti brindano con calici di vino rosso a tavola" width="1080" height="719" loading="lazy">
+        <img src="assets/photos/galleria/foto-10.jpg" alt="Piatto di mezzi paccheri alla pescatora con gambero, cozze, lupini e calamari, tenuto davanti al mare" width="1080" height="720" loading="lazy">
       </div>
     </section>
-    <hr style="background: #fff;">
 
-    <!-- piatto più ordinato -->
-    <section id="piatto-piuordinato">
-      <img src="foto/cerchi.svg" style="position:absolute; z-index: -1; width: 60%;">
-      <h1 class="piatto-piuordinato-titolo">★ Il Piatto più ordinato del mese</h1>
-      <img loading="lazy" class="piatto-foto" src="foto/piatto.png" style="position: absolute; z-index: -1; overflow-x: hidden; right:30%;">
-      <h3 class="titolo-piatto"><u><i>Lo spaghetto del pino d'oro</i></u></h3>
-      <span class="desc-piatto" style="font-family: 'Century Gothic'">
-      Lupini pescati del nostro Tirreno. Il sapore di mare che le vongole d'allevamento non hanno più.<br><br>
-      Per anni abbiamo servito le vongole veraci. Poi sono diventate quasi tutte d'allevamento e il prezzo è salito a livelli che non avevano più senso: né per noi, né per te.<br><br>
-
-      Li facciamo su spaghetti di pasta fresca, 100% grano italiano del pastificio Maffei, con olio all'aglio e al prezzemolo e una sfumata di Falerno del Massico DOP: il vino che nasce a sei chilometri da questo tavolo.
-      </span>
-      <i style="display:flex; font-size: 2.5vh; text-align: right; margin-top: 2vh;">Ti dispiacerà arrivare all'ultima manciata di lupini.</i>
-      <br>
-      <a href="https://prenotazioni.cooperto.it/in/ca5abec6-9f55-4578-822e-2e7b3cba7998" class="prenota-tavolo">prenota il tuo tavolo!</a>
+    <!-- ================= IL PIATTO PIÙ ORDINATO ================= -->
+    <section class="piatto" id="piatto">
+      <div class="wrap piatto-grid">
+        <div class="piatto-visual">
+          <img class="piatto-cerchio" src="assets/icons/ui/cerchio-blu.svg" alt="" aria-hidden="true" width="501" height="613" loading="lazy">
+          <img class="piatto-foto" src="assets/photos/piatto-spaghetti-lupini.png" alt="Spaghetti ai lupini locali, visti dall'alto" width="465" height="465" loading="lazy">
+        </div>
+        <div class="piatto-testo">
+          <p class="piatto-occhiello">★ Il piatto più ordinato del mese</p>
+          <h2 class="piatto-titolo"><em>Lo spaghetto del Pino d'Oro</em></h2>
+          <p>Lupini pescati nel nostro Tirreno. Il sapore di mare che le vongole d'allevamento non hanno più.</p>
+          <p>Per anni abbiamo servito le vongole veraci. Poi sono diventate quasi tutte d'allevamento e il prezzo è salito a livelli che non avevano più senso: né per noi, né per te.</p>
+          <p>Li facciamo su spaghetti 100% grano italiano, macchiati di pomodorino rosso, con olio all'aglio e al prezzemolo e una sfumata di Falerno del Massico: il vino che nasce a pochi chilometri da questo tavolo.</p>
+          <p class="piatto-prezzo">Spaghetti ai Lupini Locali · <strong>€ 16,50</strong></p>
+          <p class="piatto-chiusa">Ti dispiacerà arrivare all'ultima manciata di lupini.</p>
+          <div class="piatto-cta"><a href="#reserve" class="btn btn-oro">prenota il tuo tavolo!</a></div>
+        </div>
+      </div>
     </section>
 
-    <!-- menùs -->
-    <section class="contenitore-menu">
-        <!--menu 1-->
-        <div class="menu1">
-          <div class="menu-immagine">
-            <div class="sfumaturafotomenu"></div>
-            <img loading="lazy" src="foto/terrazza-mare-720.jpg" style="object-fit: cover;">
+    <!-- ================= FORMULE + FESTA ================= -->
+    <section class="offerte" id="offerte" aria-labelledby="offerte-titolo">
+      <h2 class="sr-only" id="offerte-titolo">Le nostre formule</h2>
+      <div class="wrap offerte-grid">
+
+        <article class="card">
+          <div class="card-foto"><img src="assets/photos/tavolo-terrazza-720.jpg" srcset="assets/photos/tavolo-terrazza-720.jpg 720w, assets/photos/tavolo-terrazza-1200.jpg 1200w" sizes="(min-width: 1024px) 380px, 100vw" alt="Tavoli apparecchiati sulla terrazza coperta vista mare" width="720" height="540" loading="lazy"></div>
+          <div class="card-corpo">
+            <h3 class="card-titolo"><img class="icona icona-scura" src="assets/icons/ui/schedule.svg" alt="" aria-hidden="true" width="48" height="48" loading="lazy">Hai un'ora per pranzo? Usala bene.</h3>
+            <hr>
+            <div class="riga"><img class="riga-freccia" src="assets/icons/ui/arrow-right.svg" alt="" aria-hidden="true" width="65" height="37" loading="lazy"><span class="riga-nome">SMART</span><span class="puntini" aria-hidden="true"></span><span class="riga-prezzo">€ 16,70</span></div>
+            <p class="riga-desc">Un piatto a scelta, servito in 30 minuti.</p>
+            <div class="riga"><img class="riga-freccia" src="assets/icons/ui/arrow-right.svg" alt="" aria-hidden="true" width="65" height="37" loading="lazy"><span class="riga-nome">PLUS</span><span class="puntini" aria-hidden="true"></span><span class="riga-prezzo">€ 25,70</span></div>
+            <p class="riga-desc">Primo e secondo, serviti in 45 minuti.</p>
+            <p class="card-disp">Menu Smart dal lunedì al venerdì, escluso festivi. Acqua, caffè, pane e coperto inclusi.</p>
+            <hr>
+            <p class="card-nota">Con fattura al tavolo.</p>
+            <div class="card-voce"><img class="icona" src="assets/icons/ui/people.svg" alt="" aria-hidden="true" width="60" height="60" loading="lazy"><span>Porti un cliente? Ti diamo un tavolo tranquillo, dove si parla.</span></div>
+            <hr>
+            <div class="card-cta">
+              <a class="btn btn-scuro" href="https://wa.me/393887877008?text=DOMIZIANA%20LAVORO%20%E2%80%93%20arrivo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D" target="_blank" rel="noopener" data-azione="whatsapp-lavoro"><img class="icona" src="assets/icons/ui/message-yellow-btn.svg" alt="" aria-hidden="true" width="69" height="69" loading="lazy">Scrivi “arrivo” su WhatsApp</a>
+              <a class="link-oro" href="https://ristorantepinodoro.it/#formule">vedi le formule pranzo →</a>
+            </div>
           </div>
-          <div style="padding: 6%; padding-top: 0;">
-          <div class="menu-testo">
-            <div class="titolo-menu-container">
-              <img src="icons/schedule.svg" style="width: 8%; filter: brightness(0);">
-              </svg>
-              <h3 class="titolo-menu">
-              Hai un’ora per pranzo? <br> Usala bene.
-              </h3>
-            </div>
+        </article>
+
+        <article class="card">
+          <div class="card-foto"><img src="assets/photos/tavolo-sera-1080.jpg" alt="Tavolo apparecchiato sulla sabbia la sera, con le candele accese" width="720" height="1080" loading="lazy"></div>
+          <div class="card-corpo">
+            <h3 class="card-titolo"><img class="icona" src="assets/icons/ui/directions-car.svg" alt="" aria-hidden="true" width="74" height="74" loading="lazy">Sei in viaggio sulla Domiziana?</h3>
             <hr>
-              <div style="display: flex; align-items: center; justify-content: center;">
-                <img src="icons/arrow_right.svg" style="width: 10%;">
-                <span class="titolo-nome-menu">SMART</span><hr style="border-style: dashed; width:16vw"><span class="prezzo-menu">€16,70</span>
-              </div>
-              <i class="descrizione-menu">Un piatto a scelta, servito in 30 minuti.</i>
-              <div style="display: flex; align-items: center; justify-content: center;">
-                <img src="icons/arrow_right.svg" style="width: 10%;">
-                <br>
-                <span class="titolo-nome-menu">PLUS</span><hr style="border-style: dashed; width:20vw "><span class="prezzo-menu">€25,70</span>
-              </div>
-              <i class="descrizione-menu">Primo e Secondo, serviti in 45 minuti.</i>
+            <div class="card-voce"><img class="icona icona-scura" src="assets/icons/ui/schedule.svg" alt="" aria-hidden="true" width="48" height="48" loading="lazy"><span>1 minuto sulla deviazione e sei sulla sabbia.</span></div>
+            <div class="card-voce"><img class="icona" src="assets/icons/ui/supervisor-account.svg" alt="" aria-hidden="true" width="46" height="46" loading="lazy"><span>Con bambini?<br>C'è la cotoletta baby, e mentre aspettano si sgranchiscono in spiaggia.</span></div>
             <hr>
-            <u style="font-family: 'Century Gothic';"><i>Con fattura al tavolo.</i></u>
-            <br>
-            <div style="display: flex; align-items: center;">
-              <img src="icons/people.svg" style="width: 10%;">
-              <span style="font-family: 'Century Gothic'; padding: 4px;">Porti un cliente? Ti diamo un lavoro tranquillo, dove si parla.</span>
-            </div><hr>
-            <div style="display: flex; justify-content: center; align-items: center;">
-            <div style="display: flex; justify-content: center; align-items: center;">
-            <a href="https://wa.me/393887877008?text=DOMIZIANA%20LAVORO%20%E2%80%93%20arrivo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D" target="_blank" rel="noopener" class="btn-calltoaction-whatsapp" data-azione="whatsapp-lavoro">
-              <img src="icons/message_yellow_btn.svg" style="width: 10%; padding-right: 8px;">
-              <span>Scrivi “arrivo” su Whatsapp</span>
-            </a>
+            <div class="card-voce"><img class="icona" src="assets/icons/ui/directions-car.svg" alt="" aria-hidden="true" width="74" height="74" loading="lazy"><span>Passi una volta sola?<br><a href="https://ristorantepinodoro.it/#menu">Ecco i piatti da ordinare →</a></span></div>
+            <hr>
+            <div class="card-cta">
+              <a class="btn btn-scuro" href="https://wa.me/393887877008?text=DOMIZIANA%20SOSTA%20%E2%80%93%20arriviamo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D%20(bambini%3A%20%5B%20%5D)" target="_blank" rel="noopener" data-azione="whatsapp-sosta"><img class="icona" src="assets/icons/ui/message-yellow-btn.svg" alt="" aria-hidden="true" width="69" height="69" loading="lazy">Scrivi “arriviamo tra 10 minuti”</a>
+              <a class="link-oro" href="https://ristorantepinodoro.it/#menu">vedi il menù completo →</a>
             </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-foto"><img src="assets/photos/brindisi-1200.jpg" alt="Brindisi con calici di vino rosso a tavola" width="1082" height="720" loading="lazy"></div>
+          <div class="card-corpo">
+            <h3 class="card-titolo"><img class="icona" src="assets/icons/ui/posate.svg" alt="" aria-hidden="true" width="35" height="39" loading="lazy">Un pranzo per stare bene con qualcuno.</h3>
+            <hr>
+            <div class="riga"><img class="riga-freccia" src="assets/icons/ui/arrow-right.svg" alt="" aria-hidden="true" width="65" height="37" loading="lazy"><span class="riga-nome">Menù “Sapori Veri”</span><span class="puntini" aria-hidden="true"></span><span class="riga-prezzo">€ 45,00</span></div>
+            <p class="riga-desc">Tris di antipasti, primo, frittura, dolce e caffè. A persona, per tutto il tavolo.</p>
+            <hr>
+            <div class="card-voce"><img class="icona" src="assets/icons/ui/posate.svg" alt="" aria-hidden="true" width="35" height="39" loading="lazy"><span>Il tavolo sulla spiaggia, anche a febbraio.</span></div>
+            <div class="card-voce"><img class="icona" src="assets/icons/ui/calendar-schedule.svg" alt="" aria-hidden="true" width="39" height="41" loading="lazy"><span><u>La domenica si riempie!</u><br>Meglio scriverci prima.</span></div>
+            <hr>
+            <div class="card-cta">
+              <a class="btn btn-scuro" href="https://wa.me/393887877008" target="_blank" rel="noopener" data-azione="whatsapp-generico"><img class="icona" src="assets/icons/ui/message-yellow-btn.svg" alt="" aria-hidden="true" width="69" height="69" loading="lazy">Prenota il tavolo su WhatsApp</a>
+              <a class="link-oro" href="https://ristorantepinodoro.it/#menu">vedi il menù completo →</a>
             </div>
-            <a href="" style="display: flex; justify-content: center; align-items: center; padding: 4px;">vedi le formule pranzo →</a>
-            </div>
-            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="wrap festa-wrap">
+        <div class="festa">
+          <h3 class="festa-titolo">Un compleanno o una festa? <img class="icona" src="assets/icons/ui/celebration.svg" alt="" aria-hidden="true" width="54" height="54" loading="lazy"></h3>
+          <p class="festa-testo">Una festa sulla spiaggia, in qualsiasi mese dell'anno.</p>
+          <div class="festa-cta">
+            <a class="btn btn-festa-wa" href="https://wa.me/393887877008?text=Ciao!%20Vorrei%20informazioni%20per%20una%20festa%20al%20Lido%20Pino%20d%27Oro." target="_blank" rel="noopener"><img class="icona icona-scura" src="assets/icons/ui/message-yellow-btn.svg" alt="" aria-hidden="true" width="69" height="69" loading="lazy">Chiedi su WhatsApp</a>
+            <a class="btn btn-bianco" href="tel:+393887877008" data-azione="chiama">Chiama</a>
+          </div>
         </div>
-        <!--menu2-->
-        <div class="menu1">
-          <div class="menu-immagine">
-            <div class="sfumaturafotomenu"></div>
-            <img loading="lazy" src="foto/ANG2483.jpg" style="object-fit: cover;">
+      </div>
+    </section>
+
+    <!-- ================= STORIA ================= -->
+    <section class="storia" id="story">
+      <div class="wrap">
+        <div class="storia-inner">
+          <p class="occhiello-serif">Perché siamo qui?</p>
+          <h2 class="storia-titolo">Il problema non è trovare un ristorante.<br>È non sbagliare.</h2>
+          <div class="storia-testo">
+            <p>Se sei di qui, te lo sarai detto anche tu. Arriva un amico da fuori, un parente, un collega che vuoi trattare bene. Vuoi portarlo in un posto che gli resti. E l'unica cosa che ti viene in mente è:</p>
+            <p class="battuta">“E adesso dove lo porto?”</p>
+            <p>Se invece sei in vacanza, il problema è l'opposto: sei circondato da locali che non conosci e non hai voglia di sprecare uno dei pochi pranzi buoni che hai a disposizione.</p>
+            <p>E poi c'è la cosa che a Mondragone sanno tutti: fuori stagione metà dei locali è chiusa, e ad agosto quelli aperti non hanno un tavolo libero. Noi siamo aperti a pranzo tutti i giorni dell'anno. Non è uno slogan pubblicitario: è la scelta su cui abbiamo costruito il ristorante.</p>
           </div>
-          <div style="padding: 6%; padding-top: 0;">
-          <div class="menu-testo">
-            <div class="titolo-menu-container">
-              <img src="icons/directions_car.svg" style="width: 8%; filter: brightness(0);">
-              </svg>
-              <h3 class="titolo-menu">
-              Sei in viaggio sulla Domiziana?
-              </h3>
-            </div>
-            <hr>
-              <div style="display: flex; align-items: center; justify-content: center; align-items: center;">
-                <img src="icons/schedule.svg" class="menu-icona-desc">
-                <span class="descrizione-menu">1 Minuto sulla deviazione e sei sulla sabbia.</span>
-              </div><br>
-              <div style="display: flex; align-items: center; justify-content: center; align-items: center;">
-                <img src="icons/supervisor_account.svg" class="menu-icona-desc">
-                <span class="descrizione-menu">Con bambini?<br>C’è il menù baby, e mentre aspettano, si sgranchiscono in spiaggia.</span>
+          <p class="storia-chiusa">Se prenoti da noi, l'unica cosa che rischi è di doverci tornare.</p>
+          <div class="storia-cta"><a href="#reserve" class="btn btn-linea">prenota ora il tuo tavolo! ›</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= RECENSIONE + INVITO ================= -->
+    <section class="recensione" id="invito" aria-label="Una recensione e un invito">
+      <div class="wrap recensione-grid">
+        <div>
+          <blockquote class="recensione-blocco2" id="recensione-evidenza" hidden></blockquote>
+          <p class="attribuzione-google attribuzione-evidenza" id="attribuzione-evidenza" hidden>Recensione da <span translate="no">Google Maps</span> · <a href="#nota-recensioni" id="vai-nota-recensioni">come le scegliamo</a></p>
+        </div>
+        <div class="invito">
+          <p class="invito-testo">E se la prossima recensione fosse la tua?<br>Ogni ospite che ci sceglie è parte della nostra storia.<br>Vienici a trovare! Siamo pronti a farti vivere un'esperienza indimenticabile!</p>
+          <a href="#reserve" class="btn btn-oro">prenota ora il tuo pranzo! ›</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DOMANDE ================= -->
+    <section class="faq" id="faq">
+      <div class="wrap">
+        <h2 class="faq-titolo">Domande?</h2>
+        <p class="faq-sotto">Ecco tutto ciò che devi sapere!</p>
+        <div class="faq-lista">
+          <article class="domanda">
+            <span class="numero-domanda" aria-hidden="true">1</span>
+            <div><h3 class="domanda-q">Dove si trova il ristorante?</h3><p class="domanda-a">Siamo a Mondragone, in piazza Mario Liberato Conte 29: a 300 metri dalla Domiziana, direttamente sulla spiaggia.</p></div>
+          </article>
+          <img class="onda-faq" src="assets/icons/ui/wave.svg" alt="" aria-hidden="true" width="866" height="26" loading="lazy">
+          <article class="domanda destra">
+            <span class="numero-domanda" aria-hidden="true">2</span>
+            <div><h3 class="domanda-q">Il ristorante è specializzato in pesce?</h3><p class="domanda-a">La nostra specialità è la cucina di mare. Abbiamo comunque un menù vario con piatti di carne, pasta e altre specialità.</p></div>
+          </article>
+          <img class="onda-faq" src="assets/icons/ui/wave.svg" alt="" aria-hidden="true" width="866" height="26" loading="lazy">
+          <article class="domanda">
+            <span class="numero-domanda" aria-hidden="true">3</span>
+            <div><h3 class="domanda-q">Devo prenotare?</h3><p class="domanda-a">Non è obbligatorio, ma la domenica e d'estate il lido si riempie. Prenoti online in un minuto, senza pagare nulla in anticipo: ti confermiamo noi per telefono o e-mail.</p></div>
+          </article>
+          <img class="onda-faq" src="assets/icons/ui/wave.svg" alt="" aria-hidden="true" width="866" height="26" loading="lazy">
+          <article class="domanda destra">
+            <span class="numero-domanda" aria-hidden="true">4</span>
+            <div><h3 class="domanda-q">Devo per forza prenotare online per il dolce?</h3><p class="domanda-a">Sì, l'omaggio è valido solo per chi prenota direttamente da questa pagina!</p></div>
+          </article>
+          <img class="onda-faq" src="assets/icons/ui/wave.svg" alt="" aria-hidden="true" width="866" height="26" loading="lazy">
+          <article class="domanda">
+            <span class="numero-domanda" aria-hidden="true">5</span>
+            <div><h3 class="domanda-q">Allergie o intolleranze?</h3><p class="domanda-a">Scrivile nelle note quando prenoti e ripetile al tavolo prima di ordinare: la cucina è piccola e condivisa, e ti consigliamo con sincerità.</p></div>
+          </article>
+        </div>
+        <p class="stelle-faq" aria-hidden="true">★★★★★</p>
+        <p class="faq-chiusa">hai trovato le risposte che cercavi?<br>ora non ti resta che prenotare il tuo tavolo!</p>
+        <hr class="riga-corta">
+        <a href="#reserve" class="btn btn-linea">prenota ora il tuo tavolo!</a>
+      </div>
+    </section>
+
+    <!-- ================= CITAZIONE ================= -->
+    <section class="citazione" aria-label="Chi siamo">
+      <div class="wrap citazione-inner">
+        <span class="virgolette" aria-hidden="true">“</span>
+        <p class="citazione-testo">Al Lido Ristorante Pino d'Oro, la passione per la cucina mediterranea si unisce all'amore per il mare e la natura. Situato direttamente su un lido a Mondragone (CE), con una vista spettacolare sul mare, il nostro ristorante è il luogo ideale per godersi una pausa pranzo o una cena in totale relax. In estate puoi fare un bagno rigenerante nel nostro lido prima o dopo il pasto, mentre durante tutto l'anno ti offriamo piatti freschi e gustosi per ogni stagione.</p>
+        <span class="virgolette" aria-hidden="true">”</span>
+      </div>
+    </section>
+
+    <!-- ================= ORARI E CONTATTI ================= -->
+    <section class="visita" id="visit">
+      <div class="wrap visita-grid">
+        <div>
+          <h2 class="visita-titolo">I nostri orari</h2>
+          <!-- Orari di riserva da data/restaurant.json (hours.weekly); lo script li sostituisce con quelli live (?hours=1) -->
+          <ul class="orari" id="hoursList">
+            <li><span>Lunedì</span><span><span class="range">12:00 – 15:00</span> · <span class="range">19:30 – 22:30</span></span></li>
+            <li><span>Martedì</span><span><span class="range">12:00 – 15:00</span> · <span class="range">19:30 – 22:30</span></span></li>
+            <li><span>Mercoledì</span><span><span class="range">12:00 – 15:00</span> · <span class="range">19:30 – 22:30</span></span></li>
+            <li><span>Giovedì</span><span><span class="range">12:00 – 15:00</span> · <span class="range">19:30 – 22:30</span></span></li>
+            <li><span>Venerdì</span><span><span class="range">12:00 – 15:00</span> · <span class="range">19:30 – 22:30</span></span></li>
+            <li><span>Sabato</span><span><span class="range">12:00 – 15:15</span> · <span class="range">19:15 – 22:30</span></span></li>
+            <li><span>Domenica</span><span><span class="range">12:00 – 15:15</span></span></li>
+          </ul>
+          <p class="orari-nota">Gli orari possono cambiare con la stagione: quelli qui sopra arrivano dal nostro sistema di prenotazione. Per gruppi da 10 persone in su, chiamaci.</p>
+        </div>
+        <div>
+          <h2 class="visita-titolo">Info &amp; Contatti</h2>
+          <ul class="contatti">
+            <li><img class="icona" src="assets/icons/ui/location-on.svg" alt="" aria-hidden="true" width="80" height="100" loading="lazy"><span><a href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro&amp;query_place_id=ChIJcV_Xya3fOhMRWT5u9UL0X08" target="_blank" rel="noopener" data-azione="portami-li">Piazza Mario Liberato Conte, 29<br>81034 Mondragone (CE)</a><br><small>a 300 m dalla via Domiziana</small></span></li>
+            <li><img class="icona" src="assets/icons/ui/call.svg" alt="" aria-hidden="true" width="80" height="80" loading="lazy"><span><a href="tel:+393887877008" data-azione="chiama">+39 388 787 7008</a> · <a href="https://wa.me/393887877008?text=DOMIZIANA%20%E2%80%93%20arrivo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D" target="_blank" rel="noopener" data-azione="whatsapp-generico">WhatsApp</a></span></li>
+            <li><img class="icona" src="assets/icons/ui/mail.svg" alt="" aria-hidden="true" width="91" height="73" loading="lazy"><span><a href="mailto:infolidopinodoro@gmail.com">infolidopinodoro@gmail.com</a></span></li>
+          </ul>
+          <a class="btn btn-linea" href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro&amp;query_place_id=ChIJcV_Xya3fOhMRWT5u9UL0X08" target="_blank" rel="noopener" data-azione="portami-li">Portami lì →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PRENOTA ================= -->
+    <section class="prenota" id="reserve">
+      <div id="prenota"></div>
+      <div class="wrap prenota-grid">
+        <div class="prenota-intro">
+          <p class="occhiello">Prenota</p>
+          <h2 class="sezione-titolo">Prenota il tuo tavolo</h2>
+          <p class="lead">La richiesta arriva subito al nostro sistema di prenotazione e la confermiamo per telefono o e-mail. Nessun pagamento anticipato.</p>
+          <p class="lead">Per gruppi da 10 persone in su, o per una festa privata sulla spiaggia, chiamaci: <a href="tel:+393887877008">+39 388 787 7008</a>.</p>
+        </div>
+        <div class="prenota-col">
+        <form class="form prenota-form" id="reserveForm" novalidate data-endpoint="/api/prenota.php">
+          <ol class="passi" id="passi">
+            <li aria-current="step"><span class="passi-n">1</span><span class="passi-nome">Quando</span></li>
+            <li><span class="passi-n">2</span><span class="passi-nome">I tuoi dati</span></li>
+            <li><span class="passi-n">3</span><span class="passi-nome">Conferma</span></li>
+          </ol>
+
+          <div class="passo" id="passo1" role="group" aria-labelledby="passo1Titolo">
+            <h3 class="passo-titolo" id="passo1Titolo" tabindex="-1">1. Giorno, sala e orario</h3>
+            <div class="field"><label for="guests">Persone</label>
+              <div class="contatore">
+                <button type="button" class="contatore-btn" id="guestsMeno" aria-label="Una persona in meno" aria-controls="guests">−</button>
+                <input id="guests" name="guests" type="number" inputmode="numeric" min="1" max="9" value="2" required aria-describedby="guestsHint">
+                <button type="button" class="contatore-btn" id="guestsPiu" aria-label="Una persona in più" aria-controls="guests">+</button>
               </div>
-            <hr style="width: 20vw;">
-              <div style="display: flex; align-items: center; justify-content: start; align-items: start;">
-                <img src="icons/directions_car.svg" class="menu-icona-desc">
-                <div>
-                  <span class="descrizione-menu">Passi una volta sola?</span><br>
-                  <a href="" style="color:#2D291E"><b>Ecco i 3 piatti da ordinare →</b></a>
+              <div class="field-hint" id="guestsHint" aria-live="polite" hidden></div>
+            </div>
+            <div class="field"><label for="date">Data</label><input id="date" name="date" type="date" required aria-describedby="dateHint"><div class="field-hint is-error" id="dateHint" aria-live="polite" hidden></div></div>
+            <fieldset class="field scelte-gruppo" id="roomField" hidden><legend>Sala</legend>
+              <div class="scelte" id="roomChoices"></div>
+            </fieldset>
+            <fieldset class="field scelte-gruppo" id="seatingField"><legend>Dove preferisci sederti</legend>
+              <div class="scelte">
+                <label class="scelta"><input type="radio" name="seating" value="Terrazza Coperta"><span>Terrazza Coperta</span></label>
+                <label class="scelta"><input type="radio" name="seating" value="Terrazza Ombreggiata (zona bamboo)"><span>Terrazza Ombreggiata (zona bamboo)</span></label>
+                <label class="scelta"><input type="radio" name="seating" value="Gazebo sulla Sabbia"><span>Gazebo sulla Sabbia</span></label>
+                <label class="scelta"><input type="radio" name="seating" value="Nessuna preferenza" checked><span>Nessuna preferenza</span></label>
+              </div>
+            </fieldset>
+            <div class="sala-info" data-sala="Terrazza Coperta" hidden>
+              <h4>Terrazza Coperta</h4>
+              <p>La parte coperta della nostra terrazza vista mare.</p>
+              <p>È protetta con copertura fissa e tende richiudibili, quindi perfetta anche in caso di vento o pioggia.</p>
+              <p>Ideale se vuoi goderti il pranzo sulla spiaggia con la tranquillità di essere sempre al riparo, senza rinunciare alla vista mare.</p>
+            </div>
+            <div class="sala-info" data-sala="Terrazza Ombreggiata (zona bamboo)" hidden>
+              <h4>Terrazza Ombreggiata (zona bamboo)</h4>
+              <p>La parte più aperta della terrazza, ombreggiata con copertura in bamboo e più vicina alla sabbia. Qui vivi un’esperienza ancora più diretta con il mare, con luce naturale e atmosfera rilassata.</p>
+              <p>Nota importante: in caso di vento forte o pioggia questa zona non è riparata. Se disponibile, cercheremo di spostarti nella zona coperta o interna.</p>
+            </div>
+            <div class="sala-info" data-sala="Gazebo sulla Sabbia" hidden>
+              <h4>Gazebo sulla Sabbia</h4>
+              <p>Il nostro spazio più immersivo: tavoli posizionati direttamente sulla sabbia, sotto gazebo. Perfetto se vuoi vivere davvero il pranzo o la cena sulla spiaggia, con il mare davanti e i piedi nella sabbia.</p>
+              <p>Anche qui, in caso di vento o pioggia, non è possibile garantire copertura (eventuale spostamento solo se disponibile).</p>
+            </div>
+            <fieldset class="field scelte-gruppo" id="timeField" aria-describedby="timeHint"><legend id="timeLegend">Orario</legend>
+              <div id="timeChoices" data-orari="12:30 13:00 13:30 19:30 20:00 20:30 21:00 21:30"></div>
+              <div class="field-hint" id="timeHint" aria-live="polite" hidden></div>
+            </fieldset>
+            <label class="consent attn" id="waitlistWrap" hidden><input id="waitlist" name="waitlist" type="checkbox"> <span>Mettimi in lista d'attesa — ti contattiamo se si libera un tavolo all'orario che preferisci.</span></label>
+            <button type="button" class="btn btn-oro" data-avanti>Avanti</button>
+          </div>
+
+          <div class="passo passo-dati" id="passo2" role="group" aria-labelledby="passo2Titolo" hidden>
+            <h3 class="passo-titolo" id="passo2Titolo" tabindex="-1">2. I tuoi dati</h3>
+            <div class="field"><label for="firstName">Nome</label><input id="firstName" name="firstName" type="text" placeholder="Maria" required autocomplete="given-name"></div>
+            <div class="field"><label for="lastName">Cognome</label><input id="lastName" name="lastName" type="text" placeholder="Rossi" required autocomplete="family-name"></div>
+            <div class="field"><label for="phone">Telefono</label><input id="phone" name="phone" type="tel" placeholder="+39 …" required autocomplete="tel"></div>
+            <div class="field"><label for="email">E-mail <span class="opt">(facoltativa — per la conferma)</span></label><input id="email" name="email" type="email" placeholder="tu@esempio.it" autocomplete="email"></div>
+            <button type="button" class="btn btn-oro" data-avanti>Avanti</button>
+            <button type="button" class="indietro" data-indietro>Torna indietro</button>
+          </div>
+
+          <div class="passo" id="passo3" role="group" aria-labelledby="passo3Titolo" hidden>
+            <h3 class="passo-titolo" id="passo3Titolo" tabindex="-1">3. Controlla e invia</h3>
+            <dl class="riepilogo" id="riepilogo"></dl>
+            <div class="slot-notice" id="slotNotice" role="note" hidden></div>
+            <label class="consent attn" id="ackWrap" hidden><input id="ackNotice" name="ackNotice" type="checkbox" aria-describedby="slotNotice"> <span>Ho letto l'avviso qui sopra.</span></label>
+            <div class="field"><label for="notes">Note</label><textarea id="notes" name="notes" maxlength="488" placeholder="Allergie, ricorrenze, richieste particolari…" aria-describedby="notesHint"></textarea>
+              <p class="form-note" id="notesHint">Se qui indichi allergie o intolleranze, acconsenti espressamente a che usiamo queste informazioni per preparare il tuo tavolo (dati relativi alla salute, vedi l'<a href="privacy.html#prenotazioni" target="_blank" rel="noopener">informativa sulla privacy</a>). Confermale anche al nostro staff.</p></div>
+            <div class="field hp" aria-hidden="true"><label for="website">Sito web</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+            <label class="consent"><input id="privacy" name="privacy" type="checkbox" required> <span>Ho letto l'<a href="privacy.html#prenotazioni" target="_blank" rel="noopener">informativa sulla privacy</a>; i miei dati saranno usati solo per gestire questa prenotazione.</span></label>
+            <label class="consent"><input id="marketing" name="marketing" type="checkbox"> <span>Tienimi aggiornato su eventi e offerte (facoltativo, vedi l'<a href="privacy.html#marketing" target="_blank" rel="noopener">informativa sulla privacy</a>).</span></label>
+            <label class="consent consent-tutto"><input id="accettaTutto" type="checkbox"> <span><strong>Accetto tutto</strong><small>Spunta tutte le caselle qui sopra, compresi gli aggiornamenti su eventi e offerte.</small></span></label>
+            <button type="submit" class="btn btn-oro" id="submitBtn">Invia la richiesta</button>
+            <div class="form-error" id="formError" role="alert"></div>
+            <p class="form-note">È una richiesta, non una prenotazione confermata. Nessun pagamento richiesto.</p>
+            <p class="form-note">Le prenotazioni sono soggette ai nostri <a href="https://ristorantepinodoro.it/termini.html#prenotazioni" target="_blank" rel="noopener">termini</a>.</p>
+            <button type="button" class="indietro" data-indietro>Torna indietro</button>
+          </div>
+
+          <div class="form-success" id="formSuccess" role="status" tabindex="-1">
+            <h3 class="passo-titolo" id="successTitolo"></h3>
+            <p id="successTesto"></p>
+            <button type="button" class="btn btn-linea" id="nuovaPrenotazione">Prenota un altro tavolo</button>
+          </div>
+        </form>
+        <div class="lookup" id="lookup">
+          <button type="button" class="lookup-toggle" id="lookupToggle" aria-expanded="false" aria-controls="lookupPanel">
+            <span>Controlla la tua prenotazione<small>Stato e annullamento con il tuo codice</small></span>
+            <span class="chev" aria-hidden="true"></span>
+          </button>
+          <div class="lookup-panel" id="lookupPanel" hidden>
+            <form class="lookup-form" id="lookupForm" novalidate>
+              <div class="field"><label for="lookupCode">Codice prenotazione</label><input id="lookupCode" name="code" type="text" placeholder="es. 12345" required autocomplete="off"></div>
+              <div class="field"><label for="lookupPhone">Telefono usato per prenotare</label><input id="lookupPhone" name="phone" type="tel" placeholder="+39 …" required autocomplete="tel"></div>
+              <button type="submit" class="btn btn-linea btn-piccolo" id="lookupBtn">Cerca</button>
+            </form>
+            <div class="lookup-error" id="lookupError" role="alert" tabindex="-1" hidden></div>
+            <div class="lookup-result" id="lookupResult" hidden>
+              <dl>
+                <dt>Codice</dt><dd class="code" id="resCode"></dd>
+                <dt>Stato</dt><dd><span class="status-pill" id="resStatus"></span></dd>
+                <dt>Quando</dt><dd id="resWhen"></dd>
+                <dt>Persone</dt><dd id="resGuests"></dd>
+                <dt id="resRoomRow">Sala</dt><dd id="resRoom"></dd>
+              </dl>
+              <div class="lookup-actions">
+                <button type="button" class="btn btn-linea btn-piccolo btn-danger" id="cancelBtn" hidden>Annulla la prenotazione</button>
+                <div class="lookup-confirm" id="cancelConfirm" hidden>
+                  <span>Annullare questa prenotazione? L'operazione non si può annullare.</span>
+                  <button type="button" class="btn btn-linea btn-piccolo btn-danger" id="cancelYes">Sì, annulla</button>
+                  <button type="button" class="btn btn-linea btn-piccolo" id="cancelNo">No, tienila</button>
                 </div>
-              </div><hr>
-            <div style="display: flex; justify-content: center; align-items: center;">
-            <a href="https://wa.me/393887877008?text=DOMIZIANA%20SOSTA%20%E2%80%93%20arriviamo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D%20(bambini%3A%20%5B%20%5D)" target="_blank" rel="noopener" class="btn-calltoaction-whatsapp" data-azione="whatsapp-sosta">
-              <img src="icons/message_yellow_btn.svg" style="width: 10%; padding-right: 8px;">
-              <span style="letter-spacing: -1px;">Scrivi “arriviamo tra 10 minuti”</span>
-            </a>
-            </div>
-            <a href="" style="display: flex; justify-content: center; align-items: center; padding: 4px;">vedi le formule pranzo →</a>
-            </div>
-            </div>
-        </div>
-        <!--menu3-->
-        <div class="menu1">
-          <div class="menu-immagine">
-            <div class="sfumaturafotomenu"></div>
-            <img loading="lazy" src="foto/lidobrindisi.jpg" style="object-fit: cover;">
-          </div>
-          <div style="padding: 6%; padding-top: 0; height: 100%;">
-          <div class="menu-testo">
-            <div class="titolo-menu-container">
-              <img src="icons/schedule.svg" style="width: 8%; filter: brightness(0);">
-              </svg>
-              <h3 class="titolo-menu">
-              Un pranzo per stare bene con qualcuno.
-              </h3>
-            </div>
-            <hr>
-              <div style="display: flex; align-items: center; justify-content: start;">
-                <img src="icons/arrow_right.svg" style="width: 10%;">
-                <span class="titolo-nome-menu" style="letter-spacing: -4px;">Menù "Sapori Veri"</span><hr style="border-style: dashed;"><span class="prezzo-menu">€</span>
               </div>
-              <i class="descrizione-menu">antipasti, primo, frittura, dolce e caffè, per tutto il tavolo.</i>
-            <hr>
-            <div style="display: flex; align-items: center; justify-content: start; align-items: start;">
-                <img class="menu-icona-desc" src="icons/posate.svg">
-                <span class="descrizione-menu">Il tavolo sulla spiaggia, anche a febbraio.</span>
-            </div><br>
-            <div style="display: flex; align-items: center; justify-content: start; align-items: start;">
-              <img src="icons/calendar_schedule.svg" class="menu-icona-desc">
-              <span class="descrizione-menu" style="animation: blinking 2s infinite"><b><u>La domenica si riempie!</u></b><br>Meglio scriverci prima.</span>
-            </div><hr>
-            <a href="https://wa.me/393887877008" target="_blank" rel="noopener" class="btn-calltoaction-whatsapp">
-              <img src="icons/message_yellow_btn.svg" style="width: 10%; padding-right: 8px;">
-              <span>Prenota il tavolo su WhatsApp</span>
-            </a>
-            <a href="" style="display: flex; justify-content: center; align-items: center; padding: 4px;">vedi le formule pranzo →</a>
+              <div class="lookup-status" id="cancelStatus" role="status" tabindex="-1"></div>
             </div>
-            </div>
+          </div>
         </div>
-        <br>
-    </section>
-    <div style="width: 100%; display:flex; align-items: center; justify-content: center; padding-bottom: 4vh; padding-top: 0;">
-      <div class="compleanno_festa">
-        <div style="display: flex; justify-content: center; align-items: right;">
-           <h2 style="color:#F8D587; font-size: 7w; text-align: left; margin: 0 0;">Un compleanno o una festa?</h2>
-           <img src="icons/celebration.svg" style="width: 7%;">
-        </div><br>
-          <i style="color: #fff; font-size: 5vw; border-radius: 12px;">Una festa sulla spiaggia, in qualsiasi mese dell’anno.</i><br>
-        <div style="display: flex; gap: 2vw">
-           <a class="btn-whatsapp-festa" href="https://wa.me/393887877008" ><img src="icons/message_yellow_btn.svg" style="filter: brightness(0); width:15%; padding-right: 1vw;">Chiedi su Whatsapp</a>
-           <a class="btn-chiama-festa" data-azione="chiama" href="tel:+393887877008">Chiama</a>
         </div>
       </div>
-    </div>
-    <!-- storia -->
-    <section class="storia" style="padding-right: 6%; padding-left: 6%;">
-      <h2 style="text-align: right; font-family: 'Dm Serif Text'; margin-top: 2vh; margin-bottom: 2vh; letter-spacing: -4%;">Perché siamo qui?</h2>
-      <h1 class="storia-titolo" style="text-align: right; margin-top: 2vh; margin-bottom: 2vh; letter-spacing: -4%;">Il problema non è trovare un ristorante.<br>È non sbagliare.</h1>
-      <span class="descrizione-storia">
-        Se sei di qui, te lo sarai detto anche tu. Arriva un amico da fuori, un parente, un collega che vuoi trattare bene. Vuoi portarlo in un posto che gli resti. E l’unica cosa che ti viene in mente è:<br>
-        <br>“ e adesso dove lo porto? “
-        <br><br>Se invece sei in vacanza, il problema è l’opposto: sei circondato da locali che non conosci e non hai voglia di sprecare uno dei pochi pranzi buoni che hai a disposizione.<br>
-        E poi c’è la cosa che a Mondragone sanno tutti: fuori stagione metà dei locali è chiuso, e ad agosto quelli aperti non hanno un tavolo libero. Noi siamo aperti a pranzo tutti i giorni dell’anno. Non è uno slogan pubblicitario: è la scelta su cui abbiamo costruito il ristorante, e più sotto ti spiego perché l’abbiamo fatta.<br>
-      </span>
-      <h2 style="text-align: right;">Se prenoti da noi, l’unica cosa che rischi è di doverci tornare.</h2>
-      <a href="https://new-widget.spiagge.it/stabilimenti-balneari/prenotazione/it-ce-81034-lido-pino-doro/insertPeriod?yb_booking_license=it-ce-81034-lido-pino-doro" class="prenota-spiaggia" style="text-align: center;">
-        prenota ora la spiaggia!
-      </a>
     </section>
 
-    <!-- invito recensione -->
-    <section class="invito-recensione">
-      <div class="invito-recensione-container">
-      <div>
-        <blockquote class="recensione-blocco2" id="recensione-evidenza" hidden></blockquote>
-        <p class="attribuzione-google attribuzione-evidenza" id="attribuzione-evidenza" hidden>Recensione da <span translate="no">Google Maps</span> · <a href="#nota-recensioni" id="vai-nota-recensioni">come le scegliamo</a></p>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <span class="footer-logo"><img src="assets/logo.png" alt="Pino d'Oro — Ristorante sulla spiaggia" width="500" height="326" loading="lazy"></span>
+        <p>Ristorante sulla spiaggia a Mondragone (CE), a 300 metri dalla Domiziana. Pesce del Tirreno, aperti a pranzo tutti i giorni.</p>
       </div>
       <div>
-        <i class="recensione-domanda">E se la prossima recensione fosse la tua?<br>
-        Ogni ospite che ci sceglie è parte della nostra storia.<br>
-        Vienici a trovare! Siamo pronti a farti vivere un’esperienza indimenticabile!</i>
-        <br>
-        <a href="https://prenotazioni.cooperto.it/in/ca5abec6-9f55-4578-822e-2e7b3cba7998" class="prenota-tavolo">
-        prenota ora il tuo pranzo! >
-        </a>
+        <h2 class="footer-h">Orari</h2>
+        <ul class="footer-lista" id="footerHours">
+          <li>Lun – Ven 12:00 – 15:00 · 19:30 – 22:30</li>
+          <li>Sab 12:00 – 15:15 · 19:15 – 22:30</li>
+          <li>Dom 12:00 – 15:15</li>
+        </ul>
       </div>
+      <div>
+        <h2 class="footer-h">Contatti</h2>
+        <ul class="footer-lista">
+          <li>Piazza Mario Liberato Conte, 29<br>81034 Mondragone (CE)</li>
+          <li><a href="tel:+393887877008">+39 388 787 7008</a> · <a href="https://wa.me/393887877008" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="mailto:infolidopinodoro@gmail.com">infolidopinodoro@gmail.com</a></li>
+        </ul>
       </div>
-    </section>
-
-    <!-- domande -->
-    <section section="domande-faq">
-      <div class="domande-titolo">
-        <h1>Domande?</h1><br>
-        <span style="font-weight: 100;">Ecco tutto ciò che devi sapere!</span>
-      </div>
-      <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-      <div class="domanda">
-        <h1 class="numerodomanda_l">1</h1>
-        <div style="display: grid;">
-        <i>Dove si trova il ristorante?</i>
-        <span>Siamo a Mondragone, a 300 metri dalla Domiziana.</span>
-        </div><br>
-      </div>
-      <img class="waveimg-domande" src="icons/wave.svg">
-
-      <div class="domanda_r">
-        <div style="display: grid;">
-        <i>Il ristorante è specializzato in pesce?</i>
-        <span>La nostra specialità è sicuramente la cucina di mare.<br>Abbiamo comunque un menù vario con piatti di carne, pasta e altre specialità.</span>
-        </div><br>
-        <h1 class="numerodomanda_r">2</h1>
-      </div>
-      <img class="waveimg-domande" src="icons/wave.svg">
-
-      <div class="domanda" style="padding-bottom: 0;">
-        <h1 class="numerodomanda_l">3</h1>
-        <div style="display: grid;">
-        <i>Devo per forza prenotare online per il dolce?</i>
-        <span>Sì, l’omaggio è valido solo per chi prenota direttamente da questa pagina!</span>
-        </div><br>
-      </div><br>
-      <span class="stars-domande">★★★★★</span>
-      <i class="trovatorisposte-domanda">hai trovato le risposte che cercavi?<br>ora non ti resta che prenotare il tuo tavolo!</i>
-      <div style="width: 70vw; display: flex; justify-content: center; align-items: center; flex-direction: column;">
-        <hr style="width: 30%; border: 1px solid #000">
-        <a href="https://prenotazioni.cooperto.it/in/ca5abec6-9f55-4578-822e-2e7b3cba7998" class="prenota-tavolo3"  href="">prenota ora il tuo tavolo!</a>
-      </div>
-      </div>
-      </div>
-    </section>
-    <hr>
-
-    <!-- info e contatti -->
-    <section section="infoecontatti">
-      <div style="display: flex; max-height: 60vh; padding: 3%">
-      <b style="opacity: 20%; font-size: 3rem; text-align: center; font-family: 'Dm Serif Display Reg'; width: 10%">“</b><span class="descrizione-finale">
-        Al Lido Ristorante Pino d’Oro, la passione per la cucina mediterranea si unisce all’amore per il mare e la natura.<br>
-        Situato direttamente su un lido a Mondragone (CE), con una vista spettacolare sul mare, il nostro ristorante è il luogo ideale per godersi una pausa pranzo o una cena in totale relax.<br>
-        In estate, puoi fare un bagno rigenerante nel nostro lido prima o dopo il pasto, mentre durante tutto l’anno, ti offriamo piatti freschi e gustosi per ogni stagione.</span>
-        <b style="opacity: 20%; font-size: 3rem; text-align: center; font-family: 'Dm Serif Display Reg'; width: 10%; justify-self: end; flex-direction: column;">”</b>
-      </div>
-    <hr>
-    <div class="desktop-grid">
-    <div class="gmaps mappa" id="mappa" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.9830828280155!2d13.877461201852412!3d41.1130605330087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x133adfadc88b01b7%3A0x7efe8a696af45353!2sPiazza%20Mario%20Liberato%20Conte%2C%2029%2C%2081034%20Mondragone%20CE!5e0!3m2!1sit!2sit!4v1791296216033!5m2!1sit!2sit">
-      <p>La mappa è di Google Maps: si carica solo se la chiedi, e da quel momento Google riceve i dati della tua visita.</p>
-      <button type="button" class="pulsante-legale" id="mappa-mostra">Mostra la mappa</button>
-      <a href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro&amp;query_place_id=ChIJcV_Xya3fOhMRWT5u9UL0X08" target="_blank" rel="noopener">Apri in Google Maps →</a>
-    </div>
-
-    <div class="orari">
-    <h1 style="text-align: right;"><i>I nostri orari:</i></h1>
-    <table id="tabellaorario">
-      <tbody>
-        <tr>
-          <th style="text-align: left;">Lunedì-Giovedì</th>
-          <th style="text-align: right;"><b>12:00-15:00</b></th>
-        </tr>
-        <tr>
-          <th style="text-align: left; opacity: 80%">Venerdì</th>
-          <th style="text-align: right; opacity: 80%"><b>12:00-15:00<br>19:30-23:30</b></th>
-        </tr>
-        <tr>
-          <th style="text-align: left;">Sabato</th>
-          <th style="text-align: right;"><b>12:00-15:00<br>19:30-23:30</b></th>
-        </tr>
-        <tr>
-          <th style="text-align: left; opacity: 80%">Domenica</th>
-          <th style="text-align: right; opacity: 80%"><b>12:00-15:00</b></th>
-        </tr>
-      </tbody>
-    </table>
-    <h1 class="titoloinfocontatti"><i>Info & Contatti:</i></h1>
-    <div class="contatti-contenitore">
-        <a class="contatto" href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro&amp;query_place_id=ChIJcV_Xya3fOhMRWT5u9UL0X08" target="_blank" rel="noopener" data-azione="portami-li">
-          <img src="icons/location_on.svg" alt="">
-          <span>Piazza Mario Liberato Conte, 29<br>81034 Mondragone (CE)</span>
-        </a>
-        <a class="contatto" href="tel:+393887877008" data-azione="chiama">
-          <img src="icons/call.svg" alt="">
-          <span>+39 388 787 7008</span>
-        </a>
-        <a class="contatto contatto-whatsapp" href="https://wa.me/393887877008?text=DOMIZIANA%20%E2%80%93%20arrivo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D" target="_blank" rel="noopener" data-azione="whatsapp-generico">
-          <img src="icons/message_yellow_btn.svg" alt="">
-          <span>Scrivici su WhatsApp</span>
-        </a>
-        <a class="contatto" href="mailto:infolidopinodoro@gmail.com">
-          <img src="icons/mail.svg" alt="">
-          <span>infolidopinodoro@gmail.com</span>
-        </a>
-        </div>
+      <div>
+        <h2 class="footer-h">Esplora</h2>
+        <ul class="footer-lista">
+          <li><a href="#offerte">Formule</a></li>
+          <li><a href="#gallery">Galleria</a></li>
+          <li><a href="#visit">Dove siamo</a></li>
+          <li><a href="#reserve">Prenota</a></li>
+          <li><a href="https://ristorantepinodoro.it/">Il sito del Lido</a></li>
+        </ul>
       </div>
     </div>
-    </section>
-    <nav class="link-legali" aria-label="Note legali"><a href="privacy.html">Privacy</a> · <a href="cookie.html">Cookie policy</a> · <a href="#" id="preferenze-cookie">Preferenze cookie</a></nav>
-    <span style="text-align: center; font-size: 2vh; justify-content: center; align-items: center; display: grid;">Tutti i diritti riservati.</span>
-  <script>
-    (function () {
-      "use strict";
-
-      // =====================================================================
-      //  CONFIG - l'unico blocco da modificare per mettere online la pagina
-      // =====================================================================
-      var CONFIG = {
-        // Telefono del ristorante, con prefisso internazionale (pulsante "Chiama").
-        telefono: "+39 388 787 7008",
-        // Numero WhatsApp (lo stesso numero): solo cifre, con il prefisso 39 e senza "+".
-        whatsapp: "393887877008",
-        // Orario del pranzo mostrato nella riga sopra il titolo. DA CONFERMARE.
-        orarioPranzo: "12:00-15:30",
-        // Place ID della scheda Google del Lido (Google Maps > scheda del Lido > condividi, oppure
-        // https://developers.google.com/maps/documentation/places/web-service/place-id).
-        // Con il Place ID, "Portami li'" apre direttamente la scheda e "Leggi tutte le recensioni" apre le recensioni.
-        googlePlaceId: "ChIJcV_Xya3fOhMRWT5u9UL0X08",
-        // Google Ads: ID del tag (es. "AW-123456789") ed etichetta di conversione di ogni pulsante
-        // (Google Ads > Obiettivi > Conversioni: una conversione per pulsante). Vuoto = nessun tracciamento.
-        googleAdsId: "",
-        conversioni: {
-          "portami-li": "",
-          "chiama": "",
-          "whatsapp-lavoro": "",
-          "whatsapp-sosta": "",
-          "whatsapp-generico": ""
-        },
-        // Messaggi WhatsApp precompilati, diversi per pulsante: servono a capire da dove arriva il cliente.
-        // Le parole chiave DOMIZIANA LAVORO / DOMIZIANA SOSTA / DOMIZIANA vanno nel foglio 4-MARKETING.
-        messaggi: {
-          "whatsapp-lavoro": "DOMIZIANA LAVORO – arrivo tra 10 minuti, siamo in [ ]",
-          "whatsapp-sosta": "DOMIZIANA SOSTA – arriviamo tra 10 minuti, siamo in [ ] (bambini: [ ])",
-          "whatsapp-generico": "DOMIZIANA – arrivo tra 10 minuti, siamo in [ ]"
-        },
-        // Titolo in base al parametro ?g= dei gruppi di annunci.
-        titoli: {
-          lavoro: "Pranzo sulla spiaggia, a 1 minuto dalla Domiziana. In un'ora sei di nuovo in strada.",
-          sosta: "Pesce del Tirreno sulla spiaggia, a 1 minuto dalla Domiziana."
-        }
-      };
-      // =====================================================================
-
-      var gruppo = document.documentElement.getAttribute("data-g") || "nessuno";
-
-      // Titolo per gruppo di annunci (l'ordine delle schede e' gestito dal CSS tramite data-g).
-      if (CONFIG.titoli[gruppo]) document.getElementById("titolo").textContent = CONFIG.titoli[gruppo];
-
-      // Data di oggi, calcolata dal browser al momento della visita (fuso Europe/Rome) e ricontrollata
-      // ogni minuto: se la pagina resta aperta oltre la mezzanotte, la data cambia da sola.
-      // Riempie la striscia in alto ("Venerdì 25 settembre 2026") e la riga sopra il titolo
-      // ("Oggi, venerdì 25 settembre, siamo aperti a pranzo"). Nel file HTML c'e' solo la parola "Oggi".
-      var GIORNI = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"];
-      var MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
-      function dataOggi(conAnno) {
-        var adesso = new Date();
-        try {
-          var opzioni = { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Rome" };
-          if (conAnno) opzioni.year = "numeric";
-          return new Intl.DateTimeFormat("it-IT", opzioni).format(adesso);
-        } catch (e) { // browser senza Intl: stessa data, composta a mano (ora locale del dispositivo)
-          return GIORNI[adesso.getDay()] + " " + adesso.getDate() + " " + MESI[adesso.getMonth()] + (conAnno ? " " + adesso.getFullYear() : "");
-        }
-      }
-      var ultimaData = "";
-      function aggiornaData() {
-        var breve = dataOggi(false);
-        if (breve === ultimaData) return;
-        ultimaData = breve;
-        document.getElementById("data-oggi").textContent = "oggi, " + breve + ", aperti";
-        var completa = dataOggi(true);
-        //document.getElementById("data-striscia").textContent = completa.charAt(0).toUpperCase() + completa.slice(1);
-      }
-      aggiornaData();
-      setInterval(aggiornaData, 60000);
-      Array.prototype.forEach.call(document.querySelectorAll("[data-orario]"), function (el) { el.textContent = CONFIG.orarioPranzo; });
-
-      // Link dei pulsanti, costruiti da CONFIG.
-      var cifre = String(CONFIG.whatsapp).replace(/\D/g, "");
-      var nome = encodeURIComponent("Lido Pino d'Oro");
-      var urlMaps = "https://www.google.com/maps/search/?api=1&query=" + nome +
-        (CONFIG.googlePlaceId ? "&query_place_id=" + encodeURIComponent(CONFIG.googlePlaceId) : "");
-      var urlRecensioni = CONFIG.googlePlaceId
-        ? "https://search.google.com/local/reviews?placeid=" + encodeURIComponent(CONFIG.googlePlaceId)
-        : urlMaps;
-      function urlWhatsapp(testo) { return "https://wa.me/" + cifre + "?text=" + encodeURIComponent(testo); }
-      var link = {
-        "portami-li": urlMaps,
-        "chiama": "tel:" + String(CONFIG.telefono).replace(/[^\d+]/g, ""),
-        "whatsapp-lavoro": urlWhatsapp(CONFIG.messaggi["whatsapp-lavoro"]),
-        "whatsapp-sosta": urlWhatsapp(CONFIG.messaggi["whatsapp-sosta"]),
-        "whatsapp-generico": urlWhatsapp(CONFIG.messaggi["whatsapp-generico"])
-      };
-
-      // Google Ads: ogni pulsante e' una conversione separata (Portami li', Chiama, WhatsApp Lavoro,
-      // WhatsApp Sosta, WhatsApp generico) e porta con se' il gruppo di annunci (?g=). Il tag viene
-      // caricato in modo asincrono, solo se configurato, per restare sotto i 2 secondi.
-      window.dataLayer = window.dataLayer || [];
-      if (CONFIG.googleAdsId) {
-        window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
-        window.gtag("js", new Date());
-        window.gtag("config", CONFIG.googleAdsId);
-        var tag = document.createElement("script");
-        tag.async = true;
-        tag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(CONFIG.googleAdsId);
-        document.head.appendChild(tag);
-      }
-      function traccia(azione) {
-        window.dataLayer.push({ event: "clic_pulsante", azione: azione, gruppo: gruppo });
-        var etichetta = CONFIG.conversioni[azione];
-        if (CONFIG.googleAdsId && etichetta && typeof window.gtag === "function") {
-          window.gtag("event", "conversion", {
-            send_to: CONFIG.googleAdsId + "/" + etichetta,
-            gruppo: gruppo,
-            transport_type: "beacon"
-          });
-        }
-      }
-
-      Array.prototype.forEach.call(document.querySelectorAll("[data-azione]"), function (a) {
-        var azione = a.getAttribute("data-azione");
-        if (link[azione]) a.setAttribute("href", link[azione]);
-        a.addEventListener("click", function () { traccia(azione); });
-      });
-      Array.prototype.forEach.call(document.querySelectorAll("[data-link='recensioni']"), function (a) {
-        a.setAttribute("href", urlRecensioni);
-      });
-      // Se CONFIG.googlePlaceId e' vuoto ma recensioni.json contiene il Place ID della scheda, i link Google usano quello.
-      function impostaLinkGoogle(placeId) {
-        var maps = "https://www.google.com/maps/search/?api=1&query=" + nome + "&query_place_id=" + encodeURIComponent(placeId);
-        var rec = "https://search.google.com/local/reviews?placeid=" + encodeURIComponent(placeId);
-        Array.prototype.forEach.call(document.querySelectorAll("[data-azione='portami-li']"), function (a) { a.setAttribute("href", maps); });
-        Array.prototype.forEach.call(document.querySelectorAll("[data-link='recensioni']"), function (a) { a.setAttribute("href", rec); });
-      }
-
-      // Recensioni Google: recensioni.json viene rigenerato ogni giorno dalla scheda Google (Places API) con la chiave di
-      // Google Maps Platform, su GitHub dal workflow "Aggiorna le recensioni Google" e su Hostinger da recensioni.php.
-      // Senza dati i blocchi delle recensioni restano nascosti: mai recensioni o voti finti.
-      // I testi arrivano da Google: vengono inseriti come testo, mai come HTML.
-      var NOMI_LINGUE = { en: "in inglese", de: "in tedesco", fr: "in francese", es: "in spagnolo" };
-      function elemento(tag, classe, testo) {
-        var el = document.createElement(tag);
-        if (classe) el.className = classe;
-        if (testo !== undefined) el.textContent = testo;
-        return el;
-      }
-      function linkEsterno(href, classe, testo) {
-        var a = elemento("a", classe, testo);
-        a.href = href; a.target = "_blank"; a.rel = "noopener";
-        return a;
-      }
-      // Stessa recensione nelle due varianti del design: in riga (recensione-blocco1) e in evidenza (recensione-blocco2).
-      function schedaRecensione(r, variante) {
-        var due = variante === "recensione-blocco2";
-        var scheda = elemento("blockquote", variante + " recensione-google");
-        var testata = elemento("div", "recensione-testata");
-        var autore = elemento("cite", due ? "titolo-recensione2" : "nome-recensore");
-        autore.appendChild(r.autoreLink ? linkEsterno(r.autoreLink, "", r.autore) : document.createTextNode(r.autore));
-        var n = Math.max(1, Math.min(5, Math.round(Number(r.valutazione))));
-        var stelle = elemento("span", due ? "lestelle-recensione2" : "lestelle-recensione", "★★★★★".slice(0, n));
-        stelle.setAttribute("role", "img");
-        stelle.setAttribute("aria-label", n + " stelle su 5");
-        testata.appendChild(autore);
-        testata.appendChild(stelle);
-        var testo = elemento("p", due ? "contenuto-recensione2" : "contenuto-recensione", "“" + r.testo + "”");
-        var mostra = elemento("button", "mostra-tutto", "Mostra tutto");
-        mostra.type = "button";
-        mostra.hidden = true;
-        mostra.setAttribute("aria-expanded", "false");
-        mostra.addEventListener("click", function () {
-          var aperta = scheda.classList.toggle("aperta");
-          mostra.textContent = aperta ? "Riduci" : "Mostra tutto";
-          mostra.setAttribute("aria-expanded", aperta ? "true" : "false");
-        });
-        var dettagli = elemento("p", "recensione-dettagli");
-        var parti = [];
-        if (r.quando) parti.push(document.createTextNode(r.quando));
-        if (r.lingua && r.lingua !== "it") parti.push(document.createTextNode(NOMI_LINGUE[r.lingua] || "in " + r.lingua));
-        if (r.link) parti.push(linkEsterno(r.link, "", "Vedi su Google"));
-        if (r.segnala) {
-          var segnala = linkEsterno(r.segnala, "segnala", "Segnala");
-          segnala.setAttribute("aria-label", "Segnala questa recensione a Google");
-          parti.push(segnala);
-        }
-        parti.forEach(function (parte, i) {
-          if (i) dettagli.appendChild(document.createTextNode(" · "));
-          dettagli.appendChild(parte);
-        });
-        scheda.appendChild(testata);
-        scheda.appendChild(testo);
-        scheda.appendChild(mostra);
-        scheda.appendChild(dettagli);
-        return scheda;
-      }
-      // "Mostra tutto" compare solo sulle recensioni che il limite di righe del CSS ha davvero accorciato.
-      function aggiornaMostraTutto() {
-        Array.prototype.forEach.call(document.querySelectorAll(".recensione-google"), function (scheda) {
-          var testo = scheda.querySelector("p");
-          scheda.querySelector(".mostra-tutto").hidden = !scheda.classList.contains("aperta") && testo.scrollHeight <= testo.clientHeight + 1;
-        });
-      }
-      function mostraRecensioni(dati) {
-        if (!dati || !dati.scelte || !dati.scelte.length) return;
-        if (typeof dati.valutazione === "number" && dati.numeroRecensioni) {
-          document.getElementById("stelle-medie").textContent = dati.valutazione.toFixed(1).replace(".", ",") + "★";
-          document.getElementById("conteggio-recensioni").textContent = dati.numeroRecensioni;
-          document.getElementById("dati-recensioni").hidden = false;
-          document.getElementById("link-recensioni").textContent = "leggile tutte →";
-        }
-        if (dati.nome) document.getElementById("nome-scheda").textContent = "«" + dati.nome + "»";
-        var mostrate = dati.scelte.slice(0, 3);
-        var contenitore = document.getElementById("recensioni");
-        mostrate.forEach(function (r) { contenitore.appendChild(schedaRecensione(r, "recensione-blocco1")); });
-        document.getElementById("blocco-recensioni").hidden = false;
-        // In evidenza nella sezione "E se la prossima recensione fosse la tua?" va l'altra recensione del file, scelta da chi
-        // genera recensioni.json (la più recente tra le altre idonee con almeno 40 caratteri).
-        var chiavi = mostrate.map(function (r) { return r.autore + "|" + r.testo; });
-        var altra = (dati.tutte || []).filter(function (r) { return chiavi.indexOf(r.autore + "|" + r.testo) < 0; })[0];
-        if (altra) {
-          var evidenza = document.getElementById("recensione-evidenza");
-          var nuova = schedaRecensione(altra, "recensione-blocco2");
-          nuova.id = "recensione-evidenza";
-          evidenza.parentNode.replaceChild(nuova, evidenza);
-          document.getElementById("attribuzione-evidenza").hidden = false;
-        }
-        if (dati.googleMapsUri) {
-          Array.prototype.forEach.call(document.querySelectorAll("[data-link='recensioni']"), function (a) { a.setAttribute("href", dati.googleMapsUri); });
-        } else if (!CONFIG.googlePlaceId && dati.placeId) {
-          impostaLinkGoogle(dati.placeId);
-        }
-        aggiornaMostraTutto();
-        // Le schede usano un carattere che il browser scarica solo ora: quando arriva, le righe cambiano e va rifatta la misura.
-        if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(aggiornaMostraTutto);
-          if (typeof document.fonts.addEventListener === "function") document.fonts.addEventListener("loadingdone", aggiornaMostraTutto);
-        }
-      }
-      document.getElementById("vai-nota-recensioni").addEventListener("click", function () {
-        document.getElementById("nota-recensioni").open = true;
-      });
-      var ritardoMostra = null;
-      window.addEventListener("resize", function () { clearTimeout(ritardoMostra); ritardoMostra = setTimeout(aggiornaMostraTutto, 150); });
-      fetch("recensioni.json", { cache: "no-cache" })
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .then(mostraRecensioni);
-    })();
-  </script>
-
-  <div class="consenso" id="consenso" role="region" aria-label="Uso dei cookie" hidden>
-    <div class="consenso-scatola">
-      <button type="button" class="consenso-chiudi" data-consenso="rifiutati" aria-label="Chiudi e mantieni le impostazioni predefinite: nessun cookie di statistica o di marketing">&times;</button>
-      <p><strong>Cookie per statistiche e annunci.</strong> Se accetti, carichiamo Google Tag Manager, che attiva gli strumenti di Google per misurare le visite alla pagina e i risultati dei nostri annunci. Senza il tuo consenso non li carichiamo e non installiamo cookie di questo tipo: chiudendo il banner con la X resti con le impostazioni predefinite. Puoi cambiare idea da "Preferenze cookie" in fondo alla pagina. <a href="cookie.html">Cookie policy</a> · <a href="privacy.html">Privacy</a></p>
-      <div class="consenso-azioni">
-        <button type="button" class="pulsante-legale" data-consenso="rifiutati">Rifiuta</button>
-        <button type="button" class="pulsante-legale" data-consenso="accettati">Accetta</button>
-      </div>
+    <div class="wrap footer-bottom">
+      <nav class="footer-legal" aria-label="Note legali"><a href="privacy.html">Privacy</a> · <a href="cookie.html">Cookie</a> · <a href="https://ristorantepinodoro.it/termini.html">Termini</a> · <a href="#preferenze-cookie" id="preferenze-cookie">Preferenze cookie</a></nav>
+      <p class="legal-line">Lido Pino d'Oro SAS di Sorvillo Antonio · P.IVA IT03012490615 · Via Tommaso Maria Fusco, 29, 81034 Mondragone (CE) · PEC <a href="mailto:lidopinodorosas@pec.it">lidopinodorosas@pec.it</a></p>
+      <p class="footer-copy">© <span id="year"></span> Lido Pino d'Oro · Tutti i diritti riservati.</p>
     </div>
+  </footer>
+
+  <!-- Banner dei cookie: nascosto nel markup; lo script lo mostra finché in localStorage "cookie-consenso" non c'è una scelta valida. -->
+  <div class="storage-notice" id="storageNotice" role="region" aria-label="Uso dei cookie" hidden>
+    <button type="button" class="storage-notice-chiudi" data-consenso="rifiutati" aria-label="Chiudi e mantieni le impostazioni predefinite: nessun cookie di statistica o di marketing">&times;</button>
+    <p><strong>Cookie per statistiche e annunci.</strong> Se accetti, carichiamo Google Tag Manager, che attiva gli strumenti di Google per misurare le visite alla pagina e i risultati dei nostri annunci. Senza il tuo consenso non li carichiamo e non installiamo cookie di questo tipo: chiudendo con la X resti con le impostazioni predefinite. Puoi cambiare idea da «Preferenze cookie» in fondo alla pagina. <a href="cookie.html">Cookie policy</a> · <a href="privacy.html">Privacy</a></p>
+    <button type="button" class="btn btn-linea btn-piccolo" data-consenso="rifiutati">Rifiuta</button>
+    <button type="button" class="btn btn-linea btn-piccolo" data-consenso="accettati">Accetta</button>
   </div>
-  <script>
-    (function () {
-      "use strict";
-      // Banner dei cookie (Linee guida del Garante 10 giugno 2021): "Accetta" e "Rifiuta" identici, la X e il tasto Esc
-      // valgono come rifiuto, la scelta dura 6 mesi e si cambia da "Preferenze cookie".
-      var CHIAVE = "cookie-consenso", MESI = 6;
-      var banner = document.getElementById("consenso");
-      function sceltaSalvata() {
-        var salvato = null;
-        try { salvato = JSON.parse(localStorage.getItem(CHIAVE) || "null"); } catch (errore) { return ""; }
-        if (!salvato || (salvato.scelta !== "accettati" && salvato.scelta !== "rifiutati")) return "";
-        var scadenza = new Date(salvato.quando);
-        scadenza.setMonth(scadenza.getMonth() + MESI);
-        return Date.now() < scadenza.getTime() ? salvato.scelta : "";
-      }
-      function salva(scelta) {
-        try { localStorage.setItem(CHIAVE, JSON.stringify({ scelta: scelta, quando: Date.now() })); } catch (errore) { return false; }
-        return true;
-      }
-      // Revoca: cancella i cookie e la memoria che i tag di Google hanno impostato su questo dominio.
-      function cancellaCookieGoogle() {
-        var parti = location.hostname.split(".");
-        document.cookie.split(";").forEach(function (c) {
-          var nome = c.split("=")[0].trim();
-          if (!/^(_gcl_|_gac_|_ga|_gid|_gat)/.test(nome)) return;
-          document.cookie = nome + "=; Max-Age=0; path=/";
-          for (var i = 0; i < parti.length - 1; i++) document.cookie = nome + "=; Max-Age=0; path=/; domain=" + parti.slice(i).join(".");
-        });
-        try { localStorage.removeItem("_gcl_ls"); } catch (errore) { return; }
-      }
-      banner.querySelectorAll("[data-consenso]").forEach(function (pulsante) {
-        pulsante.addEventListener("click", function () {
-          var scelta = pulsante.getAttribute("data-consenso");
-          salva(scelta);
-          banner.hidden = true;
-          if (scelta === "accettati") { window.caricaTagManager(); return; }
-          if (window.tagManagerCaricato) {
-            window.gtag("consent", "update", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied", analytics_storage: "denied" });
-            cancellaCookieGoogle();
-            location.reload();
-          }
-        });
-      });
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape" && !banner.hidden) banner.querySelector(".consenso-chiudi").click();
-      });
-      document.getElementById("preferenze-cookie").addEventListener("click", function (e) {
-        e.preventDefault();
-        banner.hidden = false;
-      });
-      if (!sceltaSalvata()) banner.hidden = false;
 
-      // Mappa di Google: si carica solo al clic su "Mostra la mappa".
-      var mappa = document.getElementById("mappa");
-      document.getElementById("mappa-mostra").addEventListener("click", function () {
-        var iframe = document.createElement("iframe");
-        iframe.className = "gmaps";
-        iframe.src = mappa.getAttribute("data-src");
-        iframe.title = "Mappa: come raggiungere il Lido Pino d'Oro";
-        iframe.loading = "lazy";
-        iframe.referrerPolicy = "strict-origin-when-cross-origin";
-        iframe.allowFullscreen = true;
-        iframe.setAttribute("style", "border:0; padding:0%; display: flex; align-items: center; justify-content: center; width: 100vw; height: 70vh");
-        mappa.replaceWith(iframe);
+  <script>
+    // Menu di navigazione (telefono)
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+      if (open) links.querySelector('a').focus(); // il pulsante segue la lista nel DOM: senza questo Tab salterebbe il menu
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && links.classList.contains('open')) {
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
+      }
+    });
+
+    // Galleria: frecce (desktop) sullo scorrimento orizzontale
+    const galleryScroll = document.getElementById('galleryScroll');
+    document.querySelectorAll('.galleria-btn').forEach(b => b.addEventListener('click', () => {
+      galleryScroll.scrollBy({ left: Number(b.dataset.dir) * galleryScroll.clientWidth * .8, behavior: 'smooth' });
+    }));
+
+    // Foto di sfondo di storia e recensione: caricate solo quando la sezione si avvicina (sono 5-6 schermate più in basso)
+    (() => {
+      const sfondi = document.querySelectorAll('.storia, .recensione');
+      if (!('IntersectionObserver' in window)) { sfondi.forEach(s => s.classList.add('is-near')); return; }
+      const io = new IntersectionObserver(entries => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-near'); io.unobserve(e.target); }
+      }), { rootMargin: '600px' });
+      sfondi.forEach(s => io.observe(s));
+    })();
+
+    // ------------------------------------------------------------------
+    // Prenotazioni: orari, sale e fasce orarie live dal backend
+    // (api/prenota.php su Hostinger, /api/reserve altrove — vedi data-endpoint).
+    // Senza backend (anteprima statica) ogni richiesta fallisce in silenzio: gli orari
+    // restano quelli del markup, il modulo tiene gli orari fissi e l'invio mostra
+    // il messaggio con i contatti.
+    // ------------------------------------------------------------------
+    const $ = id => document.getElementById(id);
+    const form = $('reserveForm');
+    const formSuccess = $('formSuccess');
+    const formError = $('formError');
+    const reserveEndpoint = form.dataset.endpoint || '/api/reserve';
+    const dateInput = $('date'), dateHint = $('dateHint');
+    const guestsInput = $('guests'), guestsHint = $('guestsHint');
+    const roomField = $('roomField'), roomChoices = $('roomChoices');
+    const seatingField = $('seatingField');
+    const timeChoices = $('timeChoices'), timeLegend = $('timeLegend'), timeHint = $('timeHint'), slotNotice = $('slotNotice');
+    const ackWrap = $('ackWrap'), ackBox = $('ackNotice');
+    const waitlistWrap = $('waitlistWrap'), waitlistBox = $('waitlist');
+    const submitBtn = $('submitBtn');
+    const passi = [$('passo1'), $('passo2'), $('passo3')];
+    const fixedTimes = timeChoices.dataset.orari.split(' ');
+    const MAX_GUESTS = Number(guestsInput.max);
+    const DAYS = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'];
+    const DAYS_SHORT = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
+    const MONTHS = ['gen', 'feb', 'mar', 'apr', 'mag', 'giu', 'lug', 'ago', 'set', 'ott', 'nov', 'dic'];
+    const MONTHS_LONG = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
+    const STATUS_LABELS = { 1: 'Da confermare', 2: 'Confermata', 3: 'Cancellata', 4: 'Non accettata', 5: 'Cliente in', 6: 'Cliente out', 8: "Lista d'attesa", 9: 'Annullata da te', 10: 'No show' };
+    const CLOSED_STATES = [3, 4, 6, 9, 10];
+    // Orari settimanali di riserva (data/restaurant.json, hours.weekly): usati finché non arrivano quelli live.
+    const STATIC_HOURS = {
+      hours: [
+        { day: 1, ranges: [{ open: '12:00', close: '15:00' }, { open: '19:30', close: '22:30' }] },
+        { day: 2, ranges: [{ open: '12:00', close: '15:00' }, { open: '19:30', close: '22:30' }] },
+        { day: 3, ranges: [{ open: '12:00', close: '15:00' }, { open: '19:30', close: '22:30' }] },
+        { day: 4, ranges: [{ open: '12:00', close: '15:00' }, { open: '19:30', close: '22:30' }] },
+        { day: 5, ranges: [{ open: '12:00', close: '15:00' }, { open: '19:30', close: '22:30' }] },
+        { day: 6, ranges: [{ open: '12:00', close: '15:15' }, { open: '19:15', close: '22:30' }] },
+        { day: 7, ranges: [{ open: '12:00', close: '15:15' }] }
+      ],
+      exceptions: []
+    };
+
+    let hoursData = null;          // {hours, exceptions} dal backend; null → resta il markup statico
+    let roomChoiceRequired = false;
+    let roomNames = new Map();     // codice sala → nome, per riepilogo e descrizione
+    let liveSlots = [];            // fasce della data scelta quando la disponibilità live è attiva
+    let slotsRequest = 0;          // guardia contro risposte in ritardo
+    let passo = 0;                 // passo del modulo mostrato (0, 1, 2)
+    const pending = { time: null, room: null }; // dall'hash dell'URL, applicati appena arrivano i dati
+
+    const pad = n => String(n).padStart(2, '0');
+    // Oggi nel fuso del ristorante (Europe/Rome); senza Intl la data locale del dispositivo.
+    const todayISO = () => {
+      try { return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Rome', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()); }
+      catch { const d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+    };
+    const isISODate = s => /^\d{4}-\d{2}-\d{2}$/.test(s || '');
+    const isTime = s => /^([01]\d|2[0-3]):[0-5]\d$/.test(s || ''); // stessa regola del backend
+    const parseISO = iso => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d); };
+    const isoWeekday = iso => { const js = parseISO(iso).getDay(); return js === 0 ? 7 : js; }; // 1 = lunedì … 7 = domenica
+    const shortDate = iso => { const d = parseISO(iso); return d.getDate() + ' ' + MONTHS[d.getMonth()]; };
+    const longDate = iso => { const d = parseISO(iso); return DAYS_SHORT[isoWeekday(iso) - 1].toLowerCase() + ' ' + d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear(); };
+    const fullDate = iso => { const d = parseISO(iso); return DAYS[isoWeekday(iso) - 1].toLowerCase() + ' ' + d.getDate() + ' ' + MONTHS_LONG[d.getMonth()]; };
+
+    async function api(query, options) {
+      if (location.protocol === 'file:') throw new Error('no backend'); // anteprima statica: niente da chiamare
+      const r = await fetch(reserveEndpoint + query, Object.assign({ headers: { accept: 'application/json' }, cache: 'no-store' }, options || {}));
+      const json = await r.json().catch(() => null);
+      return { ok: r.ok, status: r.status, json };
+    }
+    const postJson = body => api('', { method: 'POST', headers: { 'content-type': 'application/json', accept: 'application/json' }, body: JSON.stringify(body) });
+    const show = (node, on) => { node.hidden = !on; };
+    const setHint = (node, text, error) => { node.textContent = text || ''; node.classList.toggle('is-error', !!error); node.hidden = !text; };
+    const scelto = name => { const i = form.querySelector('input[name="' + name + '"]:checked'); return i ? i.value : ''; };
+    const scegli = (name, value) => { const i = Array.from(form.querySelectorAll('input[name="' + name + '"]')).find(x => x.value === value); if (i) i.checked = true; return !!i; };
+    function scelta(name, value, text, required) {
+      const label = document.createElement('label'); label.className = 'scelta';
+      const input = document.createElement('input'); input.type = 'radio'; input.name = name; input.value = value; input.required = !!required;
+      const span = document.createElement('span'); span.textContent = text;
+      label.append(input, span);
+      return label;
+    }
+
+    // ---- Orari (GET ?hours=1) -------------------------------
+    const rangesText = ranges => ranges.map(r => r.open + ' – ' + r.close).join(' · ');
+    const covers = (ex, iso) => isISODate(ex.from) && ex.from <= iso && iso <= (isISODate(ex.to) ? ex.to : ex.from);
+    function exceptionLabel(ex) {
+      const to = isISODate(ex.to) ? ex.to : ex.from;
+      let when;
+      if (to === ex.from) when = shortDate(ex.from);
+      else if (parseISO(ex.from).getMonth() === parseISO(to).getMonth()) when = parseISO(ex.from).getDate() + '–' + parseISO(to).getDate() + ' ' + MONTHS[parseISO(to).getMonth()];
+      else when = shortDate(ex.from) + ' – ' + shortDate(to);
+      return (ex.type === 'opening' ? 'Aperto ' : 'Chiuso ') + when;
+    }
+    // Striscia nell'hero: "oggi, giovedì 8 ottobre, aperti" + fasce, oppure "oggi chiuso" (chiusure ed aperture straordinarie comprese).
+    function renderToday(data) {
+      const line = $('oggiData'), hours = $('oggiOrario');
+      if (!line || !hours) return;
+      const iso = todayISO();
+      let when;
+      try { when = new Intl.DateTimeFormat('it-IT', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'Europe/Rome' }).format(new Date()); }
+      catch { const d = parseISO(iso); when = DAYS[isoWeekday(iso) - 1].toLowerCase() + ' ' + d.getDate() + ' ' + MONTHS_LONG[d.getMonth()]; }
+      const closure = data.exceptions.find(e => e.type === 'closure' && covers(e, iso));
+      const extra = !closure && data.exceptions.find(e => e.type === 'opening' && covers(e, iso));
+      const h = data.hours.find(x => Number(x.day) === isoWeekday(iso));
+      const ranges = h && Array.isArray(h.ranges) ? h.ranges : [];
+      if (!closure && (ranges.length || extra)) {
+        line.textContent = 'oggi, ' + when + ', aperti';
+        hours.textContent = ranges.length ? rangesText(ranges) : (extra.message || 'apertura straordinaria');
+      } else {
+        line.textContent = 'oggi, ' + when;
+        hours.textContent = 'oggi chiuso' + (closure && closure.message ? ' — ' + closure.message : '');
+      }
+    }
+    function renderHours(data) {
+      const list = $('hoursList');
+      if (!list) return;
+      const byDay = new Map(data.hours.map(h => [Number(h.day), h]));
+      const todayDay = isoWeekday(todayISO());
+      const item = (left, right, cls) => {
+        const li = document.createElement('li');
+        const a = document.createElement('span'), b = document.createElement('span');
+        a.textContent = left;
+        if (Array.isArray(right)) right.forEach((range, i) => { // "12:00 – 15:00 · 19:30 – 22:30", mai spezzato dentro una fascia
+          if (i) b.append(' · ');
+          const span = document.createElement('span'); span.className = 'range'; span.textContent = range; b.append(span);
+        }); else b.textContent = right;
+        if (cls) li.className = cls; else if (!right) { li.className = 'closed'; b.textContent = 'Chiuso'; }
+        li.append(a, b);
+        return li;
+      };
+      const frag = document.createDocumentFragment();
+      const rows = []; // giorni consecutivi con lo stesso orario, per il riepilogo nel footer
+      for (let d = 1; d <= 7; d++) {
+        const h = byDay.get(d);
+        const text = h && Array.isArray(h.ranges) && h.ranges.length ? rangesText(h.ranges) : '';
+        const li = item(DAYS[d - 1], text ? text.split(' · ') : '');
+        if (d === todayDay) li.classList.add('today');
+        frag.appendChild(li);
+        const last = rows[rows.length - 1];
+        if (last && last.text === text) last.to = d; else rows.push({ from: d, to: null, text });
+      }
+      const today = todayISO();
+      data.exceptions
+        .filter(ex => isISODate(ex.from) && (isISODate(ex.to) ? ex.to : ex.from) >= today)
+        .slice(0, 4)
+        .forEach(ex => frag.appendChild(item(exceptionLabel(ex), ex.message || '', 'exception' + (ex.type === 'opening' ? ' opening' : ''))));
+      list.replaceChildren(frag);
+      // Riepilogo nel footer: "Lun – Ven 12:00 – 15:00 · 19:30 – 22:30", "Chiuso il lunedì".
+      const footer = $('footerHours');
+      if (footer) {
+        footer.replaceChildren(...rows.map(r => {
+          const li = document.createElement('li');
+          const span = r.to ? DAYS_SHORT[r.from - 1] + ' – ' + DAYS_SHORT[r.to - 1] : DAYS_SHORT[r.from - 1];
+          li.textContent = r.text ? span + ' ' + r.text : 'Chiuso ' + (r.to ? span : 'il ' + DAYS[r.from - 1].toLowerCase());
+          return li;
+        }));
+      }
+    }
+    async function loadHours() {
+      try {
+        const { json: j } = await api('?hours=1');
+        if (!j || !j.ok || !Array.isArray(j.hours) || !j.hours.length) return; // niente di usabile: resta il markup statico
+        hoursData = { hours: j.hours, exceptions: Array.isArray(j.exceptions) ? j.exceptions : [] };
+        renderHours(hoursData);
+        renderToday(hoursData);
+      } catch { /* restano gli orari statici */ }
+    }
+    // Perché una data non si può prenotare secondo gli orari live, o null se è aperta. Stesso ordine del backend:
+    // una chiusura straordinaria vince su un'apertura straordinaria, poi le fasce del giorno della settimana.
+    function closedReason(iso) {
+      if (!hoursData) return null;
+      const closure = hoursData.exceptions.find(e => e.type === 'closure' && covers(e, iso));
+      if (closure) return 'Siamo chiusi in questa data' + (closure.message ? ' — ' + closure.message : '') + '. Scegli un altro giorno.';
+      if (hoursData.exceptions.some(e => e.type === 'opening' && covers(e, iso))) return null;
+      const h = hoursData.hours.find(x => Number(x.day) === isoWeekday(iso));
+      if (h && (!Array.isArray(h.ranges) || !h.ranges.length)) return 'Siamo chiusi il ' + DAYS[isoWeekday(iso) - 1].toLowerCase() + ' — scegli un altro giorno.';
+      return null;
+    }
+    // Svuota una data chiusa e spiega perché. Restituisce true quando la data è utilizzabile.
+    function validateDate() {
+      setHint(dateHint, '');
+      const v = dateInput.value;
+      if (!isISODate(v)) return true;
+      const why = closedReason(v);
+      if (!why) return true;
+      dateInput.value = '';
+      setHint(dateHint, why, true);
+      dateInput.focus({ preventScroll: true }); // il campo è stato svuotato: l'ospite resta lì
+      return false;
+    }
+
+    // ---- Sale (GET ?rooms=1): sostituisce la preferenza di posto quando il modulo ha delle sale ----
+    async function loadRooms() {
+      try {
+        const { json: j } = await api('?rooms=1');
+        if (!j || !j.ok) return;
+        const rooms = Array.isArray(j.rooms) ? j.rooms.filter(r => r && r.code) : [];
+        roomChoiceRequired = !!j.roomChoiceRequired;
+        if (!roomChoiceRequired && !rooms.length) return;
+        roomNames = new Map(rooms.map(r => [r.code, r.name || r.code]));
+        const choices = rooms.map(r => scelta('room', r.code, r.name || r.code, roomChoiceRequired));
+        if (!roomChoiceRequired) {
+          const none = scelta('room', '', 'Nessuna preferenza');
+          none.firstChild.checked = none.firstChild.defaultChecked = true;
+          choices.unshift(none);
+        }
+        roomChoices.replaceChildren(...choices);
+        show(roomField, true);
+        show(seatingField, false);
+        applyPendingRoom();
+        updateSalaInfo();
+      } catch { /* resta la preferenza di posto */ }
+    }
+    function applyPendingRoom() {
+      if (!pending.room || roomField.hidden) return;
+      scegli('room', pending.room);
+      pending.room = null;
+    }
+    const salaScelta = () => roomField.hidden ? scelto('seating') : (roomNames.get(scelto('room')) || '');
+    // La descrizione della sala scelta, abbinata per nome a quelle del sistema di prenotazione.
+    function updateSalaInfo() {
+      const nome = salaScelta();
+      document.querySelectorAll('.sala-info').forEach(el => show(el, el.dataset.sala === nome));
+    }
+
+    // ---- Fasce orarie (GET ?slots=1&date&guests[&room]) ----------------------
+    // Orari come pulsanti raggruppati per fascia (Pranzo, Cena…); senza etichetta decide l'ora.
+    function setTimes(list, preferred) {
+      const current = scelto('time');
+      const groups = new Map();
+      list.forEach(s => {
+        const t = typeof s === 'string' ? s : s.time;
+        const name = (typeof s === 'string' ? '' : s.label) || (t < '17:00' ? 'Pranzo' : 'Cena');
+        if (!groups.has(name)) groups.set(name, []);
+        groups.get(name).push(t);
       });
+      timeChoices.replaceChildren(...Array.from(groups, ([name, times]) => {
+        const box = document.createElement('div'); box.className = 'fascia';
+        const title = document.createElement('p'); title.className = 'fascia-nome'; title.textContent = name;
+        const grid = document.createElement('div'); grid.className = 'scelte scelte-ore';
+        times.forEach(t => grid.append(scelta('time', t, t, true)));
+        box.append(title, grid);
+        return box;
+      }));
+      timeLegend.textContent = preferred ? 'Orario preferito' : 'Orario';
+      if (current) scegli('time', current);
+    }
+    function updateSubmitLabel() {
+      submitBtn.textContent = (!waitlistWrap.hidden && waitlistBox.checked) ? "Mettimi in lista d'attesa" : 'Invia la richiesta';
+    }
+    function resetSlotUi() {
+      liveSlots = [];
+      setHint(timeHint, '');
+      slotNotice.textContent = ''; show(slotNotice, false);
+      ackBox.checked = false; ackBox.required = false; show(ackWrap, false);
+      waitlistBox.checked = false; show(waitlistWrap, false);
+      updateSubmitLabel();
+    }
+    // L'avviso arriva come HTML dal sistema di prenotazione: se ne tengono solo i paragrafi, come testo.
+    function setNotice(html) {
+      const body = new DOMParser().parseFromString(html, 'text/html').body;
+      const parts = Array.from(body.querySelectorAll('p'), p => p.textContent.trim()).filter(Boolean);
+      if (!parts.length && body.textContent.trim()) parts.push(body.textContent.trim());
+      const p = text => { const el = document.createElement('p'); el.textContent = text; return el; };
+      const title = p('Nota sulla prenotazione'); title.className = 'occhiello';
+      slotNotice.replaceChildren(...(parts.length ? [title, ...parts.map(p)] : []));
+    }
+    // L'avviso della fascia scelta — o della prima — più la casella di presa visione.
+    function updateNotice() {
+      const meta = liveSlots.find(s => s.time === scelto('time')) || liveSlots[0];
+      const notice = meta && meta.notice ? String(meta.notice) : '';
+      setNotice(notice); show(slotNotice, !!notice);
+      const ack = !!(meta && meta.ackRequired);
+      show(ackWrap, ack); ackBox.required = ack;
+      if (!ack) ackBox.checked = false;
+    }
+    async function loadSlots() {
+      const date = dateInput.value, guests = guestsInput.value;
+      const req = ++slotsRequest;
+      pending.time = pending.time || scelto('time'); // l'orario scelto resta, se c'è ancora con i nuovi dati
+      resetSlotUi();
+      const room = roomField.hidden ? '' : scelto('room');
+      const missing = [!isISODate(date) && 'la data', roomChoiceRequired && !room && 'la sala'].filter(Boolean);
+      if (missing.length) { setTimes([]); setHint(timeHint, 'Scegli ' + missing.join(' e ') + ' per vedere gli orari.'); return; }
+      setTimes([]);
+      setHint(timeHint, 'Verifica della disponibilità…');
+      let j = null;
+      try {
+        j = (await api('?slots=1&date=' + encodeURIComponent(date) + '&guests=' + encodeURIComponent(guests) + (room ? '&room=' + encodeURIComponent(room) : ''))).json;
+      } catch { j = null; }
+      if (req !== slotsRequest) return; // è partita una richiesta più recente
+      setHint(timeHint, '');
+      const slots = j && j.ok && Array.isArray(j.slots) ? j.slots.filter(s => s && isTime(s.time)) : null;
+      if (slots && slots.length) {
+        liveSlots = slots;
+        setTimes(slots);
+        updateNotice();
+      } else if (slots || (j && j.ok === false && j.reason === 'closed')) {
+        // Niente di prenotabile online: resta un orario preferito per chiedere comunque — o mettersi in lista.
+        setTimes(fixedTimes, true);
+        const waitlist = !!(j && j.waitlist);
+        setHint(timeHint, 'Nessun tavolo disponibile online per questa data' + (waitlist ? " — mettiti in lista d'attesa o chiamaci." : ' — chiamaci o prova un altro giorno.'), true);
+        show(waitlistWrap, waitlist);
+      } else {
+        setTimes(fixedTimes); // nessun modulo di prenotazione / backend non raggiungibile: la lista fissa
+      }
+      applyPendingTime();
+    }
+    function applyPendingTime() {
+      if (!pending.time) return;
+      const t = pending.time;
+      pending.time = null;
+      if (scegli('time', t)) updateNotice();
+      else if (liveSlots.length) setHint(timeHint, t + ' non è disponibile in questa data — scegli un altro orario.', true);
+    }
+    function changeGuests(delta) {
+      const n = Number(guestsInput.value) + delta;
+      setHint(guestsHint, n > MAX_GUESTS ? 'Per ' + (MAX_GUESTS + 1) + ' persone o più chiamaci: +39 388 787 7008.' : '');
+      if (n < 1 || n > MAX_GUESTS) return;
+      guestsInput.value = n;
+      loadSlots();
+    }
+    $('guestsMeno').addEventListener('click', () => changeGuests(-1));
+    $('guestsPiu').addEventListener('click', () => changeGuests(1));
+    guestsInput.addEventListener('change', () => {
+      guestsInput.value = Math.min(MAX_GUESTS, Math.max(1, Math.round(Number(guestsInput.value)) || 1));
+      setHint(guestsHint, '');
+      loadSlots();
+    });
+    dateInput.addEventListener('change', () => { validateDate(); loadSlots(); });
+    roomField.addEventListener('change', () => { updateSalaInfo(); loadSlots(); });
+    seatingField.addEventListener('change', updateSalaInfo);
+    timeChoices.addEventListener('change', updateNotice);
+    waitlistBox.addEventListener('change', updateSubmitLabel);
+
+    // ---- Passi: 1 quando, 2 dati, 3 riepilogo e invio ----
+    // Primo campo non valido del passo (quelli nascosti non contano); senza orari mostrati resta il suggerimento.
+    function stepValid(n) {
+      for (const el of passi[n].querySelectorAll('input, textarea')) {
+        if (el.closest('[hidden]') || el.checkValidity()) continue;
+        el.reportValidity();
+        return false;
+      }
+      if (n === 0 && !scelto('time')) {
+        if (timeHint.hidden) setHint(timeHint, 'Scegli un orario.', true);
+        $('timeField').scrollIntoView({ block: 'center' });
+        return false;
+      }
+      return true;
+    }
+    function goTo(n) {
+      passi.forEach((p, i) => show(p, i === n));
+      $('passi').querySelectorAll('li').forEach((li, i) => {
+        li.classList.toggle('fatto', i < n);
+        if (i === n) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
+      });
+      passo = n;
+      if (n === 2) renderSummary();
+      form.scrollIntoView({ block: 'start' });
+      $('passo' + (n + 1) + 'Titolo').focus({ preventScroll: true });
+    }
+    form.addEventListener('click', e => {
+      if (e.target.closest('[data-avanti]')) { if (stepValid(passo)) goTo(passo + 1); }
+      else if (e.target.closest('[data-indietro]')) goTo(passo - 1);
+    });
+    function renderSummary() {
+      const v = id => $(id).value.trim();
+      const waitlisted = !waitlistWrap.hidden && waitlistBox.checked;
+      const rows = [
+        ['Nome', v('firstName') + ' ' + v('lastName')],
+        ['Telefono', v('phone')],
+        ['E-mail', v('email')],
+        ['Persone', guestsInput.value, true],
+        ['Data', fullDate(dateInput.value), true],
+        [waitlisted ? 'Orario preferito' : 'Ora', scelto('time') + (waitlisted ? " · lista d'attesa" : ''), true],
+        [roomField.hidden ? 'Dove' : 'Sala', salaScelta(), true]
+      ];
+      $('riepilogo').replaceChildren(...rows.filter(r => r[1]).flatMap(([k, val, strong]) => {
+        const dt = document.createElement('dt'); dt.textContent = k;
+        const dd = document.createElement('dd'); dd.textContent = val;
+        if (strong) dd.className = 'forte';
+        return [dt, dd];
+      }));
+      updateNotice();
+      tutto.checked = caselle().every(c => c.checked);
+    }
+    // "Accetto tutto" spunta o toglie le caselle mostrate nel passo 3 e segue quelle cambiate a mano.
+    const tutto = $('accettaTutto');
+    const caselle = () => [ackBox, $('privacy'), $('marketing')].filter(c => !c.closest('[hidden]'));
+    tutto.addEventListener('change', () => caselle().forEach(c => { c.checked = tutto.checked; }));
+    passi[2].addEventListener('change', e => { if (caselle().includes(e.target)) tutto.checked = caselle().every(c => c.checked); });
+
+    // ---- Invio (POST {"action":"create"}) -----------------------------------
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      if (passo < 2) { if (stepValid(passo)) goTo(passo + 1); return; } // Invio da tastiera nei primi passi = Avanti
+      formError.classList.remove('show');
+      if (!stepValid(2)) return;
+      const v = id => $(id).value.trim();
+      const payload = {
+        action: 'create',
+        firstName: v('firstName'), lastName: v('lastName'), phone: v('phone'),
+        date: dateInput.value, time: scelto('time'), guests: Number(guestsInput.value),
+        notes: 'DOMIZIANA' + (v('notes') ? ' – ' + v('notes') : ''), // la parola dice al locale che la prenotazione arriva da questa pagina (dolce in omaggio)
+        privacy: !!$('privacy').checked, marketing: !!$('marketing').checked,
+        website: $('website').value
+      };
+      if (v('email')) payload.email = v('email');
+      if (!roomField.hidden && scelto('room')) payload.room = scelto('room');
+      if (!seatingField.hidden) payload.seating = scelto('seating');
+      if (!waitlistWrap.hidden && waitlistBox.checked) payload.waitlist = true;
+      if (!ackWrap.hidden) payload.ackNotice = !!ackBox.checked;
+      submitBtn.disabled = true;
+      try {
+        const { ok, json: j } = await postJson(payload);
+        if (ok && j && j.ok) {
+          window.dataLayer.push({ event: 'prenotazione_inviata', gruppo });
+          showSuccess(j, !!payload.waitlist);
+        } else {
+          formError.textContent = (j && j.error && j.error.message) || 'Non siamo riusciti a inviare la richiesta. Chiamaci o scrivici.';
+          formError.classList.add('show');
+        }
+      } catch {
+        formError.textContent = 'Le prenotazioni online non sono disponibili in questo momento — chiamaci o scrivici e ti aiutiamo volentieri.';
+        formError.classList.add('show');
+      } finally { submitBtn.disabled = false; }
+    });
+    function showSuccess(j, waitlisted) {
+      const onList = waitlisted || Number(j.statusCode) === 8;
+      const code = j.code ? String(j.code) : '';
+      $('successTitolo').textContent = onList ? "Sei in lista d'attesa" : 'Richiesta inviata';
+      const text = $('successTesto');
+      text.replaceChildren(onList ? "Grazie! Sei in lista d'attesa" : 'Grazie! Abbiamo ricevuto la tua richiesta');
+      if (code) { const b = document.createElement('strong'); b.textContent = code; text.append(' (rif. ', b, ')'); }
+      text.append('. ' + (onList ? 'Ti contattiamo appena si libera un tavolo.' : 'Ti contattiamo a breve per confermare.'));
+      if (code) {
+        const note = document.createElement('span'); note.className = 'save-code';
+        note.textContent = 'Conserva questo codice per controllare o annullare la prenotazione.';
+        text.append(note);
+        $('lookupCode').value = code; $('lookupPhone').value = $('phone').value.trim(); // pronti per "Controlla la tua prenotazione"
+      }
+      form.reset(); resetSlotUi(); setHint(dateHint, ''); setHint(guestsHint, ''); updateSalaInfo(); loadSlots();
+      passi.forEach(p => show(p, false)); show($('passi'), false);
+      formSuccess.classList.add('show');
+      form.scrollIntoView({ block: 'start' });
+      formSuccess.focus({ preventScroll: true });
+    }
+    $('nuovaPrenotazione').addEventListener('click', () => {
+      formSuccess.classList.remove('show'); show($('passi'), true);
+      goTo(0);
+    });
+
+    // ---- Precompilazione da #reserve?date=YYYY-MM-DD&time=HH:MM&guests=N[&room=CODE] (link diretti al modulo) ----
+    function applyHash() {
+      const m = /^#reserve\?(.*)$/.exec(location.hash);
+      if (!m) return; // un semplice #reserve è l'ancora normale
+      const p = new URLSearchParams(m[1]);
+      const date = p.get('date'), time = p.get('time'), guests = Number(p.get('guests')), room = p.get('room');
+      formError.classList.remove('show'); formSuccess.classList.remove('show'); show($('passi'), true);
+      if (isISODate(date)) { dateInput.value = date; validateDate(); }
+      if (guests >= 1 && guests <= MAX_GUESTS) guestsInput.value = guests;
+      pending.time = isTime(time) ? time : null;
+      pending.room = room || null;
+      applyPendingRoom();
+      updateSalaInfo();
+      goTo(0);
+      loadSlots();
+    }
+    window.addEventListener('hashchange', applyHash);
+
+    // ---- Controlla / annulla una prenotazione (GET ?lookup=1, POST {"action":"cancel"}) ----
+    const lookupToggle = $('lookupToggle'), lookupPanel = $('lookupPanel'), lookupForm = $('lookupForm');
+    const lookupError = $('lookupError'), lookupResult = $('lookupResult');
+    const cancelBtn = $('cancelBtn'), cancelConfirm = $('cancelConfirm'), cancelYes = $('cancelYes'), cancelNo = $('cancelNo'), cancelStatus = $('cancelStatus');
+    let found = null; // { code, phone, reservation }
+    lookupToggle.addEventListener('click', () => {
+      const open = lookupPanel.hidden;
+      show(lookupPanel, open);
+      lookupToggle.setAttribute('aria-expanded', String(open));
+      if (open) $('lookupCode').focus({ preventScroll: true });
+    });
+    const lookupFail = text => { lookupError.textContent = text; show(lookupError, true); };
+    function renderReservation(r) {
+      $('resCode').textContent = r.code || found.code;
+      const pill = $('resStatus');
+      pill.textContent = STATUS_LABELS[Number(r.statusCode)] || r.status || '—';
+      pill.classList.toggle('is-closed', CLOSED_STATES.includes(Number(r.statusCode)));
+      $('resWhen').textContent = (isISODate(r.date) ? longDate(r.date) : (r.date || '—')) + (r.time ? ' · ' + r.time : '');
+      $('resGuests').textContent = r.guests ? r.guests + (Number(r.guests) === 1 ? ' persona' : ' persone') : '—';
+      $('resRoom').textContent = r.room || ''; show($('resRoomRow'), !!r.room); show($('resRoom'), !!r.room);
+      show(cancelBtn, !!r.cancellable); show(cancelConfirm, false);
+      cancelStatus.textContent = '';
+      show(lookupResult, true);
+    }
+    async function fetchReservation(code, phone) {
+      const { ok, status, json: j } = await api('?lookup=1&code=' + encodeURIComponent(code) + '&phone=' + encodeURIComponent(phone));
+      if (ok && j && j.ok && j.reservation) return j.reservation;
+      throw Object.assign(new Error('lookup'), { status, message: status === 404 ? 'Non troviamo una prenotazione con questo codice e numero di telefono.' : (j && j.error && j.error.message) || 'Non riusciamo a controllare la prenotazione in questo momento. Chiamaci o scrivici.' });
+    }
+    lookupForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      show(lookupError, false); show(lookupResult, false);
+      if (!lookupForm.checkValidity()) { lookupForm.reportValidity(); return; }
+      const code = $('lookupCode').value.trim(), phone = $('lookupPhone').value.trim();
+      const btn = $('lookupBtn'); btn.disabled = true;
+      try {
+        found = { code, phone, reservation: await fetchReservation(code, phone) };
+        renderReservation(found.reservation);
+      } catch (err) {
+        lookupFail(err && err.status ? err.message : 'La verifica della prenotazione non è disponibile in questo momento — chiamaci o scrivici.');
+      } finally { btn.disabled = false; }
+    });
+    cancelBtn.addEventListener('click', () => { show(cancelBtn, false); show(cancelConfirm, true); cancelYes.focus({ preventScroll: true }); });
+    cancelNo.addEventListener('click', () => { show(cancelConfirm, false); show(cancelBtn, true); cancelBtn.focus({ preventScroll: true }); });
+    cancelYes.addEventListener('click', async () => {
+      if (!found) return;
+      cancelYes.disabled = true; cancelNo.disabled = true; show(lookupError, false);
+      try {
+        const { ok, status, json: j } = await postJson({ action: 'cancel', code: found.code, phone: found.phone });
+        // I pulsanti di conferma spariscono in ogni caso: il focus segue l'esito, mai su <body>.
+        if (ok && j && j.ok) {
+          found.reservation = Object.assign({}, found.reservation, { status: j.status, statusCode: j.statusCode, cancellable: false });
+          renderReservation(found.reservation);
+          cancelStatus.textContent = "La tua prenotazione è stata annullata. Speriamo di vederti un'altra volta.";
+          cancelStatus.focus({ preventScroll: true });
+        } else {
+          show(cancelConfirm, false);
+          lookupFail((j && j.error && j.error.message) || 'Non riusciamo ad annullare la prenotazione in questo momento. Chiamaci o scrivici.');
+          if (status === 409) { // già annullata o chiusa: aggiorniamo quello che mostriamo
+            try { found.reservation = await fetchReservation(found.code, found.phone); renderReservation(found.reservation); } catch { show(cancelBtn, false); }
+            lookupError.focus({ preventScroll: true });
+          } else { show(cancelBtn, true); cancelBtn.focus({ preventScroll: true }); }
+        }
+      } catch {
+        show(cancelConfirm, false); show(cancelBtn, true);
+        lookupFail("L'annullamento non è disponibile in questo momento — chiamaci o scrivici.");
+        cancelBtn.focus({ preventScroll: true });
+      } finally { cancelYes.disabled = false; cancelNo.disabled = false; }
+    });
+
+    // ---- Avvio ----
+    dateInput.min = todayISO(); // niente date passate
+    renderHours(STATIC_HOURS);  // lista, riepilogo nel footer (con il giorno di oggi evidenziato)…
+    renderToday(STATIC_HOURS);  // …e striscia nell'hero partono dagli orari di riserva, poi passano a quelli live
+    let shownDay = todayISO();
+    setInterval(() => { if (todayISO() !== shownDay) { shownDay = todayISO(); renderToday(hoursData || STATIC_HOURS); renderHours(hoursData || STATIC_HOURS); } }, 60000); // pagina aperta oltre la mezzanotte
+    Promise.all([loadHours(), loadRooms()]).then(() => { loadSlots(); applyHash(); });
+
+    // Clic su chiamata, WhatsApp e indicazioni: un evento per Tag Manager, con il gruppo di annunci (?g=) da cui arriva la visita.
+    const gruppo = new URLSearchParams(location.search).get('g') || 'nessuno';
+    document.querySelectorAll('[data-azione]').forEach(a => a.addEventListener('click', () => {
+      window.dataLayer.push({ event: 'clic_pulsante', azione: a.dataset.azione, gruppo });
+    }));
+
+    // Recensioni Google: recensioni.json lo rinnova ogni giorno dalla scheda Google recensioni.php (su GitHub Pages il workflow).
+    // Senza dati i blocchi restano nascosti: mai recensioni o voti finti. I testi entrano come testo, mai come HTML.
+    const NOMI_LINGUE = { en: 'in inglese', de: 'in tedesco', fr: 'in francese', es: 'in spagnolo' };
+    const elemento = (tag, classe, testo) => {
+      const el = document.createElement(tag);
+      if (classe) el.className = classe;
+      if (testo !== undefined) el.textContent = testo;
+      return el;
+    };
+    const linkEsterno = (href, classe, testo) => Object.assign(elemento('a', classe, testo), { href, target: '_blank', rel: 'noopener' });
+    // La stessa recensione in riga (recensione-blocco1) o in evidenza (recensione-blocco2).
+    function schedaRecensione(r, variante) {
+      const scheda = elemento('blockquote', variante + ' recensione-google');
+      const testata = elemento('div', 'recensione-testata');
+      const autore = elemento('cite');
+      autore.append(r.autoreLink ? linkEsterno(r.autoreLink, '', r.autore) : r.autore);
+      const n = Math.max(1, Math.min(5, Math.round(Number(r.valutazione))));
+      const stelle = elemento('span', '', '★★★★★'.slice(0, n));
+      stelle.setAttribute('role', 'img');
+      stelle.setAttribute('aria-label', n + ' stelle su 5');
+      testata.append(autore, stelle);
+      const testo = elemento('p', variante === 'recensione-blocco2' ? 'contenuto-recensione2' : 'contenuto-recensione', '“' + r.testo + '”');
+      const mostra = elemento('button', 'mostra-tutto', 'Mostra tutto');
+      mostra.type = 'button';
+      mostra.hidden = true;
+      mostra.setAttribute('aria-expanded', 'false');
+      mostra.addEventListener('click', () => {
+        const aperta = scheda.classList.toggle('aperta');
+        mostra.textContent = aperta ? 'Riduci' : 'Mostra tutto';
+        mostra.setAttribute('aria-expanded', String(aperta));
+      });
+      const parti = [];
+      if (r.quando) parti.push(r.quando);
+      if (r.lingua && r.lingua !== 'it') parti.push(NOMI_LINGUE[r.lingua] || 'in ' + r.lingua);
+      if (r.link) parti.push(linkEsterno(r.link, '', 'Vedi su Google'));
+      if (r.segnala) {
+        const segnala = linkEsterno(r.segnala, 'segnala', 'Segnala');
+        segnala.setAttribute('aria-label', 'Segnala questa recensione a Google');
+        parti.push(segnala);
+      }
+      const dettagli = elemento('p', 'recensione-dettagli');
+      parti.forEach((parte, i) => { if (i) dettagli.append(' · '); dettagli.append(parte); });
+      scheda.append(testata, testo, mostra, dettagli);
+      return scheda;
+    }
+    // "Mostra tutto" compare solo sulle recensioni che il limite di righe del CSS ha davvero accorciato.
+    function aggiornaMostraTutto() {
+      document.querySelectorAll('.recensione-google').forEach(scheda => {
+        const testo = scheda.querySelector('p');
+        scheda.querySelector('.mostra-tutto').hidden = !scheda.classList.contains('aperta') && testo.scrollHeight <= testo.clientHeight + 1;
+      });
+    }
+    function mostraRecensioni(dati) {
+      if (!dati || !dati.scelte || !dati.scelte.length) return;
+      if (typeof dati.valutazione === 'number' && dati.numeroRecensioni) {
+        $('stelle-medie').textContent = dati.valutazione.toFixed(1).replace('.', ',');
+        $('conteggio-recensioni').textContent = dati.numeroRecensioni;
+        $('dati-recensioni').hidden = false;
+        $('link-recensioni').textContent = 'leggile tutte →';
+      }
+      if (dati.nome) $('nome-scheda').textContent = '«' + dati.nome + '»';
+      const mostrate = dati.scelte.slice(0, 3);
+      $('recensioni').append(...mostrate.map(r => schedaRecensione(r, 'recensione-blocco1')));
+      $('blocco-recensioni').hidden = false;
+      // In evidenza va l'altra recensione del file, scelta da chi genera recensioni.json (la più recente tra le altre idonee).
+      const chiavi = mostrate.map(r => r.autore + '|' + r.testo);
+      const altra = (dati.tutte || []).find(r => !chiavi.includes(r.autore + '|' + r.testo));
+      if (altra) {
+        const evidenza = schedaRecensione(altra, 'recensione-blocco2');
+        evidenza.id = 'recensione-evidenza';
+        $('recensione-evidenza').replaceWith(evidenza);
+        $('attribuzione-evidenza').hidden = false;
+      }
+      aggiornaMostraTutto();
+      document.fonts.ready.then(aggiornaMostraTutto); // con il carattere definitivo le righe cambiano: va rifatta la misura
+    }
+    $('vai-nota-recensioni').addEventListener('click', () => { $('nota-recensioni').open = true; });
+    let ritardoMostra = null;
+    window.addEventListener('resize', () => { clearTimeout(ritardoMostra); ritardoMostra = setTimeout(aggiornaMostraTutto, 150); });
+    fetch("recensioni.json", { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).then(mostraRecensioni);
+
+    // Anno nel footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Banner dei cookie (Linee guida del Garante 10 giugno 2021): "Accetta" e "Rifiuta" identici, la X e il tasto Esc
+    // valgono come rifiuto. La scelta dura 6 mesi in localStorage "cookie-consenso" (la stessa chiave della landing
+    // /domiziana/, stesso dominio) e si cambia da "Preferenze cookie" nel footer o con index.html#preferenze-cookie.
+    // "Accetta" carica Tag Manager con window.caricaTagManager (definita nel <head>).
+    (() => {
+      const bar = $('storageNotice');
+      if (!bar) return;
+      const KEY = 'cookie-consenso', MESI = 6;
+      const sceltaSalvata = () => {
+        let s = null;
+        try { s = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch { return ''; }
+        if (!s || (s.scelta !== 'accettati' && s.scelta !== 'rifiutati')) return '';
+        const scadenza = new Date(s.quando);
+        scadenza.setMonth(scadenza.getMonth() + MESI);
+        return Date.now() < scadenza.getTime() ? s.scelta : '';
+      };
+      // Revoca: cancella i cookie e la memoria che i tag di Google hanno impostato su questo dominio.
+      const cancellaCookieGoogle = () => {
+        const parti = location.hostname.split('.');
+        document.cookie.split(';').forEach(c => {
+          const nome = c.split('=')[0].trim();
+          if (!/^(_gcl_|_gac_|_ga|_gid|_gat)/.test(nome)) return;
+          document.cookie = nome + '=; Max-Age=0; path=/';
+          for (let i = 0; i < parti.length - 1; i++) document.cookie = nome + '=; Max-Age=0; path=/; domain=' + parti.slice(i).join('.');
+        });
+        try { localStorage.removeItem('_gcl_ls'); } catch { /* archiviazione non disponibile */ }
+      };
+      // Finché la barra è visibile: ciò che viene portato in vista (es. il pulsante di invio raggiunto con Tab)
+      // resta sopra di essa, e il footer riceve lo stesso spazio in più così la riga legale si può leggere.
+      const root = document.documentElement;
+      const pad = () => {
+        const space = bar.hidden ? 0 : Math.ceil(window.innerHeight - bar.getBoundingClientRect().top + 12);
+        root.style.scrollPaddingBottom = space ? space + 'px' : '';
+        root.style.setProperty('--notice-space', space + 'px');
+        document.body.classList.toggle('has-notice', !bar.hidden);
+      };
+      const mostra = () => { bar.hidden = false; pad(); window.addEventListener('resize', pad); };
+      bar.querySelectorAll('[data-consenso]').forEach(b => b.addEventListener('click', () => {
+        const scelta = b.dataset.consenso;
+        try { localStorage.setItem(KEY, JSON.stringify({ scelta, quando: Date.now() })); } catch { /* archiviazione non disponibile: la scelta vale per questa visita */ }
+        bar.hidden = true;
+        pad();
+        window.removeEventListener('resize', pad);
+        if (scelta === 'accettati') { window.caricaTagManager(); return; }
+        if (window.tagManagerCaricato) {
+          window.gtag('consent', 'update', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied' });
+          cancellaCookieGoogle();
+          location.reload();
+        }
+      }));
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && !bar.hidden) bar.querySelector('.storage-notice-chiudi').click(); });
+      $('preferenze-cookie').addEventListener('click', e => { e.preventDefault(); mostra(); });
+      if (location.hash === '#preferenze-cookie') { history.replaceState(null, '', location.pathname + location.search); mostra(); }
+      else if (!sceltaSalvata()) mostra();
     })();
   </script>
-    </body>
+</body>
 </html>
