@@ -2,12 +2,12 @@
   "nome": "Lido Pino d'Oro",
   "schedaGoogle": "Ristorante Pino D'Oro",
   "titolare": {
-    "ragioneSociale": null,
-    "partitaIva": null,
-    "rea": null,
+    "ragioneSociale": "Lido Pino d'Oro SAS di Sorvillo Antonio",
+    "partitaIva": "IT03012490615",
+    "rea": "",
     "registroImprese": null,
     "titoliAbilitativi": null,
-    "pec": null
+    "pec": "lidopinodorosas@pec.it"
   },
   "indirizzo": {
     "via": null,
