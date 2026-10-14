@@ -104,12 +104,13 @@ test("i dati del titolare mancanti compaiono come TODO(titolare) e quelli vuoti 
   assert.ok(!html.includes("[00000000000]"));
 });
 
-test("la cartella per Hostinger contiene i PHP e .htaccess ma mai config.php", () => {
+test("la cartella per Hostinger contiene i PHP e .htaccess (con il 301 da index.html) ma mai config.php", () => {
   const file = tutti(uscita).map((f) => f.slice(uscita.length + 1).replaceAll("\\", "/"));
   for (const atteso of ["recensioni.php", "recensioni-lib.php", "aggiorna-recensioni.php", "config.example.php", ".htaccess", "recensioni-escluse.txt", ".nojekyll", "favicon.ico", "assets/stile.css", "assets/pagina.js", "assets/legale.css", "assets/caratteri/OFL.txt"]) {
     assert.ok(file.includes(atteso), atteso);
   }
   assert.ok(!file.includes("config.php"));
+  assert.match(readFileSync(join(uscita, ".htaccess"), "utf8"), /RewriteRule \^index\\\.html\$ \/domiziana\/ \[R=301,L\]/);
   assert.ok(!file.some((f) => f.endsWith(".jpg") || f.endsWith(".png") && f.startsWith("assets/")), "immagini non WebP tra gli asset");
 });
 
