@@ -88,7 +88,7 @@
     .misura { max-width: 70ch; }
     section { scroll-margin-top: calc(var(--header-h) + 8px); }
     .sezione { padding: clamp(3.5rem, 8vh, 6.5rem) 0; }
-    .occhiello { font-family: var(--font-testo); font-size: .8rem; letter-spacing: .28em; text-transform: uppercase; color: var(--oro-link); margin: 0 0 .5rem; }
+    .occhiello { font-family: var(--font-testo); font-size: .875rem; letter-spacing: .28em; text-transform: uppercase; color: var(--oro-link); margin: 0 0 .5rem; }
     .occhiello-serif { font-family: var(--font-serif); font-size: clamp(1.2rem, 2vw, 1.6rem); margin: 0 0 .6rem; }
     .sezione-titolo { font-family: var(--font-display); font-size: clamp(2.2rem, 4.5vw, 3.4rem); margin: 0 0 1rem; letter-spacing: -.01em; }
     .lead { font-size: 1.1rem; color: var(--testo-tenue); }
@@ -105,20 +105,9 @@
       transition: transform .25s ease, box-shadow .25s ease, letter-spacing .25s ease, background .25s ease;
     }
     .btn:hover { transform: translateY(-4px); letter-spacing: .04em; }
-    .btn-oro { background: var(--oro-chiaro); }
-    .btn-oro:hover { box-shadow: 0 0 20px var(--oro-chiaro); }
     .btn-linea { background: #F5DCA454; border-color: var(--inchiostro); }
     .btn-linea:hover { box-shadow: 0 0 10px #FFFBF1B6; background: #F5DCA48A; }
-    .btn-scuro {
-      background: var(--inchiostro); color: var(--oro-chiaro); border-radius: 6px; font-family: var(--font-serif);
-      font-size: 1.1rem; box-shadow: var(--ombra); padding-inline: 1.3rem;
-    }
-    .btn-scuro:hover { letter-spacing: .02em; }
-    .btn-scuro:focus-visible { outline-color: var(--oro-sole); }
-    .btn-bianco { border: 2px solid #fff; color: #fff; border-radius: 6px; }
-    .btn-bianco:hover { background: #ffffff1a; }
-    .btn-bianco:focus-visible { outline-color: var(--oro-sole); }
-    .btn[disabled] { opacity: .6; cursor: wait; transform: none; }
+    .btn[disabled], .pdo-btn[disabled] { opacity: .6; cursor: wait; transform: none; }
     .link-oro { font-family: var(--font-testo); font-size: 1rem; }
     .link-btn { background: none; border: 0; padding: 0; color: var(--oro-link); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; font-size: inherit; }
 
@@ -135,8 +124,7 @@
     .nav-links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--oro); transform: scaleX(0); transition: transform .25s ease; transform-origin: left; }
     .nav-links a:hover::after, .nav-links a:focus-visible::after { transform: scaleX(1); }
     .nav-links a:hover { letter-spacing: 0; }
-    .nav-cta { display: flex; align-items: center; gap: .8rem; }
-    .btn-nav { min-height: 44px; padding: .5rem 1.3rem; }
+    .nav-cta { display: flex; align-items: center; }
     .nav-toggle {
       display: none; width: 44px; height: 44px; border: 1px solid var(--riga); border-radius: 8px; background: none; cursor: pointer;
       flex-direction: column; gap: 5px; align-items: center; justify-content: center;
@@ -151,8 +139,7 @@
     }
     .hero::after { content: ""; position: absolute; inset: auto 0 0; height: 18%; background: linear-gradient(to bottom, transparent, var(--crema)); pointer-events: none; }
     .hero > * { position: relative; }
-    .hero-logo { width: clamp(11rem, 44vw, 18rem); height: auto; margin: 0 auto .8rem; animation: apparsa 1s ease both; }
-    .striscia-bg { --sh: clamp(92px, 12vh, 130px); position: relative; width: 100%; margin: .5rem 0 1.2rem; isolation: isolate; animation: apparsa 1s ease both; }
+    .striscia-bg { --sh: clamp(92px, 12vh, 130px); position: relative; width: 100%; margin: .5rem 0 1.2rem; isolation: isolate; }
     .striscia-bg::before {
       content: ""; position: absolute; left: 0; right: 0; top: -7%; bottom: -7%; z-index: -2; opacity: .7;
       background: url("assets/icons/ui/wave2.png") repeat-x 0 0 / calc(var(--sh) * 1.14 * 4.8615) calc(var(--sh) * 1.14);
@@ -168,15 +155,12 @@
       filter: brightness(.78); animation: onda 13s linear infinite;
     }
     .striscia-icona { width: clamp(1.7rem, 2.3vw, 2.4rem); height: auto; flex: none; }
-    .striscia-testo { margin: 0; display: grid; font-family: var(--font-serif); letter-spacing: .06em; line-height: 1.25; text-shadow: 0 1px 2px #302B1F66; animation: testo-orario 1.5s cubic-bezier(.79, .37, .28, .9) both; }
-    .striscia-testo > span:first-child { font-size: clamp(1.15rem, 2.2vw, 2rem); }
-    .striscia-ora { font-size: clamp(1.05rem, 2vw, 1.6rem); }
+    .striscia-testo { margin: 0; display: grid; line-height: 1.35; text-shadow: 0 1px 2px #302B1F66; }
+    .striscia-testo, .striscia-ora { font-size: clamp(1rem, 1.6vw, 1.3rem); white-space: nowrap; }
     .hero-titolo {
-      font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4.6rem); line-height: 1.05; max-width: 26ch; margin: 0 auto; padding: 0 .5rem;
-      animation: titolo-spacing 1.5s ease-out both, apparsa 1.7s ease both;
+      font-family: var(--font-display); max-width: 26ch; margin: 0 auto; padding: 0 1rem;
     }
-    .hero-cta { display: grid; gap: .9rem; justify-items: center; width: min(100%, 460px); margin: 1.3rem auto 0; padding: 0 1rem; animation: apparsa 2.2s ease both; }
-    .hero-cta .btn { width: 100%; }
+    .hero-cta { display: grid; gap: .9rem; justify-items: center; width: min(100%, 460px); margin: 0 auto; padding: 0 1rem; }
     .hero-freccia { display: inline-block; margin-top: .8rem; animation: rimbalzo 1.8s ease-in-out infinite; border-radius: 50%; }
     .hero-freccia img { width: 52px; height: auto; }
 
@@ -186,7 +170,6 @@
     .prova:first-child { border-top: 0; }
     .prova.destra { text-align: right; }
     .numero { display: block; font-family: var(--font-display); font-style: italic; font-size: clamp(4rem, 10vw, 8rem); line-height: 1; letter-spacing: -.04em; color: var(--grigio-oro-testo); }
-    .numero.oro { color: var(--oro); }
     .numero .stellina { font-style: normal; font-size: .38em; color: #C9A227; vertical-align: top; margin-left: .15em; }
     .numero .stellona { font-style: normal; }
     .prova-titolo { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.45rem, 2.8vw, 2.3rem); line-height: 1.25; margin: .4rem 0 .2rem; }
@@ -249,9 +232,10 @@
     .card-voce .icona { margin-top: .1rem; }
     .card-voce a { font-family: var(--font-serif); color: var(--inchiostro); font-size: 1.05rem; }
     .card-cta { margin-top: auto; display: grid; gap: .6rem; justify-items: center; padding-top: .4rem; }
-    .card-cta .btn-scuro { width: 100%; }
-    .card-cta .btn-scuro .icona { width: 1.4rem; height: 1.4rem; }
-    .card-disp { font-size: .88rem; color: var(--testo-tenue); margin: 0 0 .5rem; }
+    .card-cta { width: 100%; }
+    .card-cta .pdo-btn, .card-cta .pdo-btn-secondario { width: 100%; }
+    .card-cta .icona { width: 1.4rem; height: 1.4rem; }
+    .card .pdo-scheda-condizioni { margin: .2rem 0 .6rem; }
     .festa-wrap { display: flex; justify-content: center; margin-top: 2.5rem; }
     .festa {
       background: var(--inchiostro); color: #fff; border-radius: 8px; box-shadow: 0 0 12px #242424; width: min(100%, 580px);
@@ -261,34 +245,30 @@
     .festa-titolo .icona { width: 1.8rem; height: 1.8rem; }
     .festa-testo { font-style: italic; font-size: 1.15rem; margin: .8rem 0 1.2rem; }
     .festa-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .btn-festa-wa { background: var(--oro-sabbia); color: var(--inchiostro); font-family: var(--font-serif); font-size: 1.15rem; border-radius: 6px; flex: 1 1 14rem; }
-    .btn-festa-wa .icona { width: 1.4rem; height: 1.4rem; }
-    .festa .btn-bianco { flex: 1 1 8rem; }
+    .festa .pdo-btn-secondario { flex: 1 1 8rem; color: var(--crema); border-color: var(--crema); }
+    .festa .pdo-btn-secondario:hover, .festa .pdo-btn-secondario:focus-visible { background: #FFF2D71A; }
+    .festa .pdo-btn-secondario .icona { width: 1.4rem; height: 1.4rem; }
 
     /* ---------- Storia ---------- */
-    .storia {
-      background: center / cover no-repeat; background-color: #FFF6E2A4; background-blend-mode: lighten;
-      padding: clamp(3rem, 8vh, 6rem) 0;
-    }
-    /* Le foto di sfondo non sono "lazy" per il browser: lo script aggiunge .is-near quando la sezione si avvicina. */
-    .storia.is-near { background-image: url("assets/photos/sala-vista-mare-1600.jpg"); }
-    .storia-inner { text-align: right; margin-left: auto; max-width: 960px; }
+    .storia { padding: clamp(3rem, 8vh, 6rem) 0; }
+    .storia-inner { max-width: 960px; }
+    .storia-foto { width: 100%; border-radius: 12px; margin: 0 0 2rem; }
     .storia-titolo { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.08; letter-spacing: -.02em; margin: 0 0 1.4rem; }
-    .storia-testo p { margin-left: auto; max-width: 70ch; }
+    .storia-testo p { max-width: 70ch; }
     .storia-testo .battuta { font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; }
     .storia-chiusa { font-family: var(--font-serif); font-size: clamp(1.3rem, 2.2vw, 1.75rem); line-height: 1.3; margin: 1.6rem 0 1.4rem; }
-    .storia-cta { display: flex; justify-content: flex-end; }
-    .storia-cta .btn { width: min(100%, 460px); }
+    .storia-cta { display: flex; }
 
     /* ---------- Recensione + invito ---------- */
     .recensione {
       background: center / cover no-repeat; background-color: #FFFFFFA4; background-blend-mode: lighten;
       padding: clamp(3rem, 8vh, 6rem) 0; text-align: center;
     }
+    /* La foto di sfondo non è "lazy" per il browser: lo script aggiunge .is-near quando la sezione si avvicina. */
     .recensione.is-near { background-image: url("assets/photos/terrazza-interno-1200.jpg"); }
     .recensione-grid { display: grid; gap: 2.5rem; align-items: center; justify-items: center; }
     .invito-testo { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.25rem, 2.2vw, 1.8rem); line-height: 1.4; margin: 0 0 1.4rem; }
-    .invito .btn { width: min(100%, 460px); }
+    .invito { display: grid; justify-items: center; }
 
     /* ---------- Recensioni Google (le schede le crea lo script da recensioni.json) ---------- */
     .prova .prova-titolo { display: block; }
@@ -312,11 +292,11 @@
     }
     .recensione-google.aperta .contenuto-recensione, .recensione-google.aperta .contenuto-recensione2 { display: block; }
     .mostra-tutto { align-self: flex-end; padding: 0; border: 0; background: none; color: var(--oro-link); font-size: .9rem; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-    .recensione-dettagli { margin: 0; font-size: .85rem; color: var(--testo-tenue); text-align: right; }
+    .recensione-dettagli { margin: 0; font-size: .875rem; color: var(--testo-tenue); text-align: right; }
     .recensione-blocco2 .mostra-tutto { align-self: center; }
     .recensione-blocco2 .recensione-dettagli { text-align: center; }
     .recensioni-info { display: grid; gap: .4rem; justify-items: center; padding-bottom: 1rem; font-size: .9rem; text-align: center; }
-    .attribuzione-google { margin: 0; font-size: .8rem; color: var(--testo-tenue); }
+    .attribuzione-google { margin: 0; font-size: .875rem; color: var(--testo-tenue); }
     .attribuzione-evidenza { margin-top: .8rem; }
     .nota-recensioni { max-width: 60ch; }
     .nota-recensioni summary { color: var(--oro-link); cursor: pointer; }
@@ -328,7 +308,6 @@
     .faq-sotto { font-family: var(--font-serif); font-size: 1.25rem; margin: 0 0 1.5rem; }
     .faq-lista { max-width: 780px; margin: 0 auto; }
     .domanda { display: flex; align-items: center; gap: 1.2rem; padding: 1.4rem 0; text-align: left; }
-    .domanda.destra { flex-direction: row-reverse; text-align: right; }
     .numero-domanda { font-family: var(--font-display); font-size: clamp(4.5rem, 8vw, 7rem); line-height: 1; color: var(--grigio-oro); opacity: .5; flex: none; }
     .domanda-q { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; letter-spacing: .06em; margin: 0 0 .3rem; color: var(--testo-tenue); }
     .domanda-a { font-family: var(--font-serif); font-size: clamp(1.25rem, 2.6vw, 1.9rem); line-height: 1.3; letter-spacing: .01em; margin: 0; }
@@ -359,12 +338,12 @@
     .orari li span:last-child { text-align: right; }
     .orari .range { white-space: nowrap; }
     .orari li.today { background: var(--crema); margin: 0 -.7rem; padding-inline: .7rem; border-radius: 4px; }
-    .orari li.today > span:first-child::after { content: " · oggi"; font-family: var(--font-testo); font-size: .78rem; color: var(--oro-link); }
+    .orari li.today > span:first-child::after { content: " · oggi"; font-family: var(--font-testo); font-size: .875rem; color: var(--oro-link); }
     .orari li.closed span:last-child, .orari span.closed { font-style: italic; color: var(--testo-tenue); }
     .orari li.exception span:first-child { color: var(--errore); }
     .orari li.exception.opening span:first-child { color: var(--oro-link); }
     .orari li.exception span:last-child { font-family: var(--font-testo); font-size: .95rem; color: var(--testo-tenue); }
-    .orari-nota { font-size: .88rem; color: var(--testo-tenue); margin: .9rem 0 0; }
+    .orari-nota { font-size: .875rem; color: var(--testo-tenue); margin: .9rem 0 0; }
     .contatti { list-style: none; padding: 0; margin: 0 0 1.6rem; display: grid; gap: 1rem; font-size: 1.1rem; }
     .contatti li { display: flex; gap: .9rem; align-items: flex-start; }
     .contatti .icona { margin-top: .2rem; }
@@ -382,7 +361,7 @@
     }
     .field { display: grid; gap: .35rem; align-content: start; }
     .field.full { grid-column: 1 / -1; }
-    .field label { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-tenue); }
+    .field label { font-size: .875rem; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-tenue); }
     .field label .opt { text-transform: none; letter-spacing: 0; }
     .field input, .field select, .field textarea {
       font: inherit; width: 100%; min-height: 46px; padding: .7rem .9rem; border-radius: 6px; border: 1px solid var(--grigio-oro);
@@ -390,22 +369,22 @@
     }
     .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--oro); box-shadow: 0 0 0 3px var(--oro-chiaro); }
     .field textarea { resize: vertical; min-height: 96px; }
-    .field-hint { font-size: .85rem; color: var(--testo-tenue); line-height: 1.45; }
+    .field-hint { font-size: .875rem; color: var(--testo-tenue); line-height: 1.45; }
     .field-hint.is-error { color: var(--errore); }
     .form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-    .form-note { grid-column: 1 / -1; font-size: .85rem; color: var(--testo-tenue); margin: 0; }
+    .form-note { grid-column: 1 / -1; font-size: .875rem; color: var(--testo-tenue); margin: 0; }
     .consent { grid-column: 1 / -1; display: flex; gap: .6rem; align-items: flex-start; font-size: .9rem; color: var(--testo-tenue); cursor: pointer; }
     .consent input { margin: .25rem 0 0; width: 1.1rem; height: 1.1rem; flex: none; accent-color: var(--oro-link); }
     .consent.attn { color: var(--inchiostro); }
     .consent-tutto { align-items: center; gap: .8rem; padding: .8rem 1rem; border: 2px solid var(--inchiostro); border-radius: 6px; background: var(--crema-chiarissima); color: var(--inchiostro); }
     .consent-tutto input { width: 1.6rem; height: 1.6rem; margin: 0; }
     .consent-tutto strong { display: block; font-family: var(--font-serif); font-weight: 400; font-size: 1.3rem; line-height: 1.2; }
-    .consent-tutto small { display: block; font-size: .85rem; color: var(--testo-tenue); }
+    .consent-tutto small { display: block; font-size: .875rem; color: var(--testo-tenue); }
     .slot-notice { grid-column: 1 / -1; font-size: .9rem; line-height: 1.5; background: var(--crema); border: 1px solid var(--riga); border-left: 3px solid var(--oro); border-radius: 6px; padding: .7rem .9rem; }
     .slot-notice p { margin: 0; }
     .slot-notice p + p { margin-top: .5rem; }
     .slot-notice .occhiello { margin-bottom: .4rem; }
-    .form .btn { grid-column: 1 / -1; }
+    .form .btn, .form .pdo-btn { grid-column: 1 / -1; }
     .form-error { grid-column: 1 / -1; display: none; padding: .9rem 1.1rem; border-radius: 6px; background: #FBE9E6; border: 1px solid #B43C28; color: var(--errore); font-size: .95rem; }
     .form-error.show { display: block; }
     .form-success { grid-column: 1 / -1; display: none; padding: 1.4rem 1.2rem; border-radius: 6px; background: var(--crema); border: 1px solid var(--oro); text-align: center; }
@@ -421,7 +400,7 @@
     .passi::before { content: ""; position: absolute; top: 1.2rem; left: 16.7%; right: 16.7%; border-top: 2px solid var(--oro-chiaro); }
     .passi li { flex: 1; position: relative; display: grid; justify-items: center; gap: .35rem; }
     .passi-n { width: 2.4rem; height: 2.4rem; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-size: 1.25rem; line-height: 1; background: var(--crema-chiarissima); border: 2px solid var(--grigio-oro); color: var(--testo-tenue); }
-    .passi-nome { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-tenue); text-align: center; }
+    .passi-nome { font-size: .875rem; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-tenue); text-align: center; }
     .passi .fatto .passi-n, .passi [aria-current] .passi-n { background: var(--oro); border-color: var(--oro); color: #fff; }
     .passi [aria-current] .passi-nome { color: var(--inchiostro); }
     .passo { display: grid; gap: 1.1rem; min-width: 0; }
@@ -435,7 +414,7 @@
     .contatore-btn { min-height: 44px; border: 0; border-radius: 4px; background: var(--oro-chiaro); font-size: 1.4rem; line-height: 1; cursor: pointer; transition: box-shadow .2s ease; }
     .contatore-btn:hover { box-shadow: 0 0 10px var(--oro-chiaro); }
     .scelte-gruppo { border: 0; margin: 0; padding: 0; min-width: 0; }
-    .scelte-gruppo legend { padding: 0; margin-bottom: .35rem; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-tenue); }
+    .scelte-gruppo legend { padding: 0; margin-bottom: .35rem; font-size: .875rem; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-tenue); }
     .scelte { display: flex; flex-wrap: wrap; gap: .5rem; }
     .field .scelta { position: relative; cursor: pointer; font-size: 1rem; letter-spacing: 0; text-transform: none; color: var(--inchiostro); }
     .scelta input { position: absolute; inset: 0; margin: 0; opacity: 0; pointer-events: none; }
@@ -452,7 +431,7 @@
     .sala-info p { margin: 0; }
     .sala-info p + p { margin-top: .5rem; }
     .riepilogo { display: grid; grid-template-columns: auto 1fr; gap: .5rem 1.2rem; margin: 0; padding: 1rem 1.1rem; background: var(--crema-chiarissima); border: 1px solid var(--riga); border-radius: 6px; }
-    .riepilogo dt { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-tenue); align-self: center; }
+    .riepilogo dt { font-size: .875rem; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-tenue); align-self: center; }
     .riepilogo dd { margin: 0; overflow-wrap: anywhere; }
     .riepilogo dd.forte { font-family: var(--font-serif); font-size: 1.2rem; }
     .indietro { justify-self: center; min-height: 44px; padding: .4rem .8rem; border: 0; background: none; cursor: pointer; color: var(--oro-link); text-decoration: underline; text-underline-offset: 3px; }
@@ -462,7 +441,7 @@
       width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem 1.4rem;
       background: none; border: 0; cursor: pointer; text-align: left; color: var(--inchiostro); font-family: var(--font-serif); font-size: 1.3rem; line-height: 1.15;
     }
-    .lookup-toggle small { display: block; margin-top: .25rem; font-family: var(--font-testo); font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--oro-link); }
+    .lookup-toggle small { display: block; margin-top: .25rem; font-family: var(--font-testo); font-size: .875rem; letter-spacing: .1em; text-transform: uppercase; color: var(--oro-link); }
     .lookup-toggle .chev { flex: none; width: 10px; height: 10px; border-right: 2px solid var(--oro-link); border-bottom: 2px solid var(--oro-link); transform: rotate(45deg); transition: transform .2s ease; margin-right: .3rem; }
     .lookup-toggle[aria-expanded="true"] .chev { transform: rotate(-135deg); }
     .lookup-toggle:focus-visible { outline-offset: -4px; border-radius: 8px; }
@@ -470,10 +449,10 @@
     .lookup-form { display: grid; grid-template-columns: 1fr; gap: .8rem; align-items: end; }
     .lookup-result { border-top: 1px dashed var(--grigio-oro); padding-top: 1rem; display: grid; gap: .9rem; }
     .lookup-result dl { display: grid; grid-template-columns: auto 1fr; gap: .45rem 1.2rem; margin: 0; }
-    .lookup-result dt { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-tenue); align-self: center; }
+    .lookup-result dt { font-size: .875rem; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-tenue); align-self: center; }
     .lookup-result dd { margin: 0; }
     .lookup-result dd.code { font-family: var(--font-serif); font-size: 1.3rem; letter-spacing: .04em; color: var(--oro-link); }
-    .status-pill { display: inline-block; padding: .2rem .7rem; border-radius: 999px; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; background: var(--crema); color: var(--oro-link); border: 1px solid var(--oro-chiaro); }
+    .status-pill { display: inline-block; padding: .2rem .7rem; border-radius: 999px; font-size: .875rem; letter-spacing: .08em; text-transform: uppercase; background: var(--crema); color: var(--oro-link); border: 1px solid var(--oro-chiaro); }
     .status-pill.is-closed { background: #F1EDE3; color: var(--testo-tenue); border-color: #B5A98A80; }
     .lookup-actions { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; }
     .btn-piccolo { min-height: 44px; padding: .5rem 1.1rem; font-size: .95rem; }
@@ -496,7 +475,7 @@
     .footer-brand p { margin: .9rem 0 0; max-width: 36ch; color: #FFF2D7CC; font-size: .95rem; }
     .footer-h { font-family: var(--font-serif); font-size: 1.25rem; color: var(--oro-sabbia); margin: 0 0 .7rem; }
     .footer-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; font-size: .95rem; color: #FFF2D7E0; }
-    .footer-bottom { border-top: 1px solid #FFF2D733; margin-top: 2.5rem; padding-top: 1.2rem; font-size: .85rem; display: grid; gap: .5rem; color: #FFF2D7CC; }
+    .footer-bottom { border-top: 1px solid #FFF2D733; margin-top: 2.5rem; padding-top: 1.2rem; font-size: .875rem; display: grid; gap: .5rem; color: #FFF2D7CC; }
     .footer-legal a { margin-right: .2rem; }
     .legal-line { margin: 0; line-height: 2; overflow-wrap: anywhere; }
     .footer-copy { margin: 0; }
@@ -506,11 +485,12 @@
       position: fixed; left: 1rem; right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
       z-index: 55; max-width: 720px; display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem;
       padding: .8rem 1.1rem; border-radius: 10px; background: var(--crema-chiara); border: 1px solid var(--oro-chiaro);
-      box-shadow: 0 8px 24px #302B1F33; font-size: .85rem; line-height: 1.45; color: var(--inchiostro);
+      box-shadow: 0 8px 24px #302B1F33; font-size: .875rem; line-height: 1.45; color: var(--inchiostro);
     }
     .storage-notice p { margin: 0; flex: 1 1 12rem; padding-right: 1.25rem; }
     .storage-notice-chiudi { position: absolute; top: .3rem; right: .45rem; border: 0; background: none; color: var(--inchiostro); font-size: 1.4rem; line-height: 1; padding: .2rem .4rem; cursor: pointer; }
     .storage-notice .btn { flex: none; border-color: var(--oro-link); color: var(--oro-link); background: #fff; }
+    body.has-notice .pdo-barra { display: none; }
     body.has-notice .footer { padding-bottom: calc(2rem + var(--notice-space, 0px)); }  /* the end of the page (legal line) can still scroll above the bar */
     @media (max-width: 600px) {
       .storage-notice { padding: .75rem .95rem; }
@@ -522,7 +502,7 @@
     /* ---------- Responsive ---------- */
     @media (min-width: 720px) {
       .form { grid-template-columns: 1fr 1fr; padding: 1.8rem; }
-      .form .btn { justify-self: start; min-width: 16rem; }
+      .form .btn, .form .pdo-btn { justify-self: start; min-width: 16rem; }
       .passo-dati { grid-template-columns: 1fr 1fr; }
       .passo-dati > .passo-titolo { grid-column: 1 / -1; }
       .form-success .btn { justify-self: center; }
@@ -544,7 +524,7 @@
       .prenota-grid { grid-template-columns: .85fr 1.15fr; }
     }
     @media (max-width: 719px) {
-      .nav-links, .nav-cta .btn-nav { display: none; }
+      .nav-links { display: none; }
       .nav-toggle { display: flex; }
       .nav-links.open {
         display: flex; position: absolute; top: var(--header-h); left: 0; right: 0; flex-direction: column; gap: 0;
@@ -554,7 +534,6 @@
       .nav-links.open li:last-child a { border-bottom: 0; }
       .hero { background-image: url("assets/photos/sfondo-spiaggia-800.jpg"); }
       .orari { font-size: 1.05rem; padding-inline: 1rem; }
-      .storia.is-near { background-image: url("assets/photos/sala-vista-mare-800.jpg"); }
       .domanda { gap: .8rem; }
     }
     @media (max-width: 420px) {
@@ -564,8 +543,6 @@
 
     /* ---------- Motion ---------- */
     @keyframes apparsa { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes titolo-spacing { from { letter-spacing: .08em; } to { letter-spacing: 0; } }
-    @keyframes testo-orario { from { opacity: 0; letter-spacing: .2em; } to { opacity: 1; letter-spacing: .06em; } }
     @keyframes onda { to { background-position-x: calc(var(--sh) * 4.8615); } }
     @keyframes onda-indietro { from { background-position-x: calc(var(--sh) * 1.14 * 4.8615); } to { background-position-x: 0; } }
     @keyframes rimbalzo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
@@ -576,7 +553,8 @@
       .galleria-scroll { scroll-behavior: auto; }
     }
   </style>
-  <noscript><style>.storia { background-image: url("assets/photos/sala-vista-mare-1600.jpg"); } .recensione { background-image: url("assets/photos/terrazza-interno-1200.jpg"); }</style></noscript>
+  <link rel="stylesheet" href="assets/pinodoro-sistema.css">
+  <noscript><style>.recensione { background-image: url("assets/photos/terrazza-interno-1200.jpg"); }</style></noscript>
 </head>
 <body>
 
@@ -591,12 +569,13 @@
           <li><a href="#offerte">Formule</a></li>
           <li><a href="#gallery">Galleria</a></li>
           <li><a href="#faq">Domande</a></li>
+          <li><a href="https://new-widget.spiagge.it/stabilimenti-balneari/prenotazione/it-ce-81034-lido-pino-doro/insertPeriod?yb_booking_license=it-ce-81034-lido-pino-doro">Spiaggia</a></li>
           <li><a href="#visit">Dove siamo</a></li>
           <li><a href="#reserve">Prenota</a></li>
         </ul>
       </nav>
       <div class="nav-cta">
-        <a href="#reserve" class="btn btn-oro btn-nav">Prenota</a>
+        <a href="#reserve" class="pdo-header-prenota">Prenota</a>
         <button class="nav-toggle" id="navToggle" aria-label="Apri o chiudi il menu di navigazione" aria-expanded="false" aria-controls="navLinks">
           <span></span><span></span><span></span>
         </button>
@@ -607,9 +586,7 @@
   <main id="top">
 
     <!-- ================= HERO ================= -->
-    <section class="hero" aria-label="Lido Pino d'Oro">
-      <img class="hero-logo" src="assets/logo.png" alt="Pino d'Oro — Ristorante sulla spiaggia" width="500" height="326" fetchpriority="high">
-
+    <section class="hero pdo-hero" aria-label="Lido Pino d'Oro">
       <!-- Orari di oggi: calcolati dal browser (fuso Europe/Rome) dagli orari live del sistema di prenotazione,
            con gli orari settimanali di data/restaurant.json come riserva (STATIC_HOURS nello script). -->
       <div class="striscia-bg">
@@ -621,8 +598,7 @@
 
       <h1 class="hero-titolo">Il ristorante sulla spiaggia.<br>Sempre aperto.<br>Tutti i giorni dell'anno.</h1>
       <div class="hero-cta">
-        <a href="#reserve" class="btn btn-oro">prenota ora il tuo pranzo! ›</a>
-        <a href="https://new-widget.spiagge.it/stabilimenti-balneari/prenotazione/it-ce-81034-lido-pino-doro/insertPeriod?yb_booking_license=it-ce-81034-lido-pino-doro" class="btn btn-linea">prenota la tua spiaggia! ›</a>
+        <a href="#reserve" class="pdo-btn" id="pdo-hero-cta">Prenota un tavolo</a>
       </div>
       <a href="#prove" class="hero-freccia" aria-label="Scorri in basso"><img src="assets/icons/ui/arrow-down.svg" alt="" aria-hidden="true" width="118" height="112"></a>
     </section>
@@ -631,24 +607,24 @@
     <section class="prove" id="prove" aria-label="Quattro cose da sapere">
       <div class="wrap">
         <div class="prova">
-          <span class="numero oro">365<span class="stellina" aria-hidden="true">★</span></span>
+          <span class="numero pdo-numero">365<span class="stellina" aria-hidden="true">★</span></span>
           <h2 class="prova-titolo">Aperti a pranzo <span class="chip">Tutti i giorni.</span></h2>
-          <p class="prova-sotto">Ferragosto, Natale e Capodanno compresi. In estate anche tutti i giorni a cena.</p>
+          <p class="prova-sotto pdo-numero-testo">Ferragosto, Natale e Capodanno compresi. In estate anche tutti i giorni a cena.</p>
           <a href="#visit">controlla gli orari ↓</a>
         </div>
         <div class="prova destra">
-          <span class="numero">300m</span>
+          <span class="numero pdo-numero">300m</span>
           <h2 class="prova-titolo">Distanti dalla Domiziana.</h2>
           <a href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro&amp;query_place_id=ChIJcV_Xya3fOhMRWT5u9UL0X08" target="_blank" rel="noopener" data-azione="portami-li">portami lì →</a>
         </div>
         <div class="prova">
-          <span class="numero oro">1 su 3</span>
+          <span class="numero pdo-numero">1 su 3</span>
           <h2 class="prova-titolo">Clienti ordinano lo stesso piatto.</h2>
           <a href="#piatto">scopri qual è ↓</a>
         </div>
         <div class="prova destra" id="prova-recensioni">
           <span id="dati-recensioni" hidden>
-            <span class="numero"><span id="stelle-medie">0,0</span><span class="stellona" aria-hidden="true">★</span></span>
+            <span class="numero pdo-numero"><span id="stelle-medie">0,0</span><span class="stellona" aria-hidden="true">★</span></span>
             <span class="prova-titolo">Su <span id="conteggio-recensioni">0</span> recensioni di <span translate="no">Google&nbsp;Maps</span></span>
           </span>
           <a data-link="recensioni" id="link-recensioni" href="https://www.google.com/maps/place/Ristorante+Pino+D%27Oro/data=!4m7!3m6!1s0x133adfadc9d75f71:0x4f5ff442f56e3e59!8m2!3d41.1130358!4d13.8773471!9m1!1b1" target="_blank" rel="noopener">Leggi le recensioni su Google Maps →</a>
@@ -705,7 +681,7 @@
           <p>Li facciamo su spaghetti 100% grano italiano, macchiati di pomodorino rosso, con olio all'aglio e al prezzemolo e una sfumata di Falerno del Massico: il vino che nasce a pochi chilometri da questo tavolo.</p>
           <p class="piatto-prezzo">Spaghetti ai Lupini Locali · <strong>€ 16,50</strong></p>
           <p class="piatto-chiusa">Ti dispiacerà arrivare all'ultima manciata di lupini.</p>
-          <div class="piatto-cta"><a href="#reserve" class="btn btn-oro">prenota il tuo tavolo!</a></div>
+          <div class="piatto-cta"><a href="#reserve" class="pdo-btn">Prenota un tavolo</a></div>
         </div>
       </div>
     </section>
@@ -715,7 +691,7 @@
       <h2 class="sr-only" id="offerte-titolo">Le nostre formule</h2>
       <div class="wrap offerte-grid">
 
-        <article class="card">
+        <article class="card pdo-scheda">
           <div class="card-foto"><img src="assets/photos/tavolo-terrazza-720.jpg" srcset="assets/photos/tavolo-terrazza-720.jpg 720w, assets/photos/tavolo-terrazza-1200.jpg 1200w" sizes="(min-width: 1024px) 380px, 100vw" alt="Tavoli apparecchiati sulla terrazza coperta vista mare" width="720" height="540" loading="lazy"></div>
           <div class="card-corpo">
             <h3 class="card-titolo"><img class="icona icona-scura" src="assets/icons/ui/schedule.svg" alt="" aria-hidden="true" width="48" height="48" loading="lazy">Hai un'ora per pranzo? Usala bene.</h3>
@@ -724,19 +700,20 @@
             <p class="riga-desc">Un piatto a scelta, servito in 30 minuti.</p>
             <div class="riga"><img class="riga-freccia" src="assets/icons/ui/arrow-right.svg" alt="" aria-hidden="true" width="65" height="37" loading="lazy"><span class="riga-nome">PLUS</span><span class="puntini" aria-hidden="true"></span><span class="riga-prezzo">€ 25,70</span></div>
             <p class="riga-desc">Primo e secondo, serviti in 45 minuti.</p>
-            <p class="card-disp">Menu Smart dal lunedì al venerdì, escluso festivi. Acqua, caffè, pane e coperto inclusi.</p>
+            <p class="pdo-scheda-condizioni">Menu Smart dal lunedì al venerdì, escluso festivi. Acqua, caffè, pane e coperto inclusi.</p>
             <hr>
             <p class="card-nota">Con fattura al tavolo.</p>
             <div class="card-voce"><img class="icona" src="assets/icons/ui/people.svg" alt="" aria-hidden="true" width="60" height="60" loading="lazy"><span>Porti un cliente? Ti diamo un tavolo tranquillo, dove si parla.</span></div>
             <hr>
             <div class="card-cta">
-              <a class="btn btn-scuro" href="https://wa.me/393887877008?text=DOMIZIANA%20LAVORO%20%E2%80%93%20arrivo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D" target="_blank" rel="noopener" data-azione="whatsapp-lavoro"><img class="icona" src="assets/icons/ui/message-yellow-btn.svg" alt="" aria-hidden="true" width="69" height="69" loading="lazy">Scrivi “arrivo” su WhatsApp</a>
+              <a class="pdo-btn" href="#reserve">Prenota un tavolo</a>
+              <a class="pdo-btn-secondario" href="https://wa.me/393887877008?text=DOMIZIANA%20LAVORO%20%E2%80%93%20arrivo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D" target="_blank" rel="noopener" data-azione="whatsapp-lavoro"><img class="icona icona-scura" src="assets/icons/ui/message-yellow-btn.svg" alt="" aria-hidden="true" width="69" height="69" loading="lazy">Scrivi “arrivo” su WhatsApp</a>
               <a class="link-oro" href="https://ristorantepinodoro.it/#formule">vedi le formule pranzo →</a>
             </div>
           </div>
         </article>
 
-        <article class="card">
+        <article class="card pdo-scheda">
           <div class="card-foto"><img src="assets/photos/tavolo-sera-1080.jpg" alt="Tavolo apparecchiato sulla sabbia la sera, con le candele accese" width="720" height="1080" loading="lazy"></div>
           <div class="card-corpo">
             <h3 class="card-titolo"><img class="icona" src="assets/icons/ui/directions-car.svg" alt="" aria-hidden="true" width="74" height="74" loading="lazy">Sei in viaggio sulla Domiziana?</h3>
@@ -747,13 +724,14 @@
             <div class="card-voce"><img class="icona" src="assets/icons/ui/directions-car.svg" alt="" aria-hidden="true" width="74" height="74" loading="lazy"><span>Passi una volta sola?<br><a href="https://ristorantepinodoro.it/#menu">Ecco i piatti da ordinare →</a></span></div>
             <hr>
             <div class="card-cta">
-              <a class="btn btn-scuro" href="https://wa.me/393887877008?text=DOMIZIANA%20SOSTA%20%E2%80%93%20arriviamo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D%20(bambini%3A%20%5B%20%5D)" target="_blank" rel="noopener" data-azione="whatsapp-sosta"><img class="icona" src="assets/icons/ui/message-yellow-btn.svg" alt="" aria-hidden="true" width="69" height="69" loading="lazy">Scrivi “arriviamo tra 10 minuti”</a>
+              <a class="pdo-btn" href="#reserve">Prenota un tavolo</a>
+              <a class="pdo-btn-secondario" href="https://wa.me/393887877008?text=DOMIZIANA%20SOSTA%20%E2%80%93%20arriviamo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D%20(bambini%3A%20%5B%20%5D)" target="_blank" rel="noopener" data-azione="whatsapp-sosta"><img class="icona icona-scura" src="assets/icons/ui/message-yellow-btn.svg" alt="" aria-hidden="true" width="69" height="69" loading="lazy">Scrivi “arriviamo tra 10 minuti”</a>
               <a class="link-oro" href="https://ristorantepinodoro.it/#menu">vedi il menù completo →</a>
             </div>
           </div>
         </article>
 
-        <article class="card">
+        <article class="card pdo-scheda">
           <div class="card-foto"><img src="assets/photos/brindisi-1200.jpg" alt="Brindisi con calici di vino rosso a tavola" width="1082" height="720" loading="lazy"></div>
           <div class="card-corpo">
             <h3 class="card-titolo"><img class="icona" src="assets/icons/ui/posate.svg" alt="" aria-hidden="true" width="35" height="39" loading="lazy">Un pranzo per stare bene con qualcuno.</h3>
@@ -765,7 +743,8 @@
             <div class="card-voce"><img class="icona" src="assets/icons/ui/calendar-schedule.svg" alt="" aria-hidden="true" width="39" height="41" loading="lazy"><span><u>La domenica si riempie!</u><br>Meglio scriverci prima.</span></div>
             <hr>
             <div class="card-cta">
-              <a class="btn btn-scuro" href="https://wa.me/393887877008" target="_blank" rel="noopener" data-azione="whatsapp-generico"><img class="icona" src="assets/icons/ui/message-yellow-btn.svg" alt="" aria-hidden="true" width="69" height="69" loading="lazy">Prenota il tavolo su WhatsApp</a>
+              <a class="pdo-btn" href="#reserve">Prenota un tavolo</a>
+              <a class="pdo-btn-secondario" href="https://wa.me/393887877008" target="_blank" rel="noopener" data-azione="whatsapp-generico"><img class="icona icona-scura" src="assets/icons/ui/message-yellow-btn.svg" alt="" aria-hidden="true" width="69" height="69" loading="lazy">Prenota il tavolo su WhatsApp</a>
               <a class="link-oro" href="https://ristorantepinodoro.it/#menu">vedi il menù completo →</a>
             </div>
           </div>
@@ -778,8 +757,8 @@
           <h3 class="festa-titolo">Un compleanno o una festa? <img class="icona" src="assets/icons/ui/celebration.svg" alt="" aria-hidden="true" width="54" height="54" loading="lazy"></h3>
           <p class="festa-testo">Una festa sulla spiaggia, in qualsiasi mese dell'anno.</p>
           <div class="festa-cta">
-            <a class="btn btn-festa-wa" href="https://wa.me/393887877008?text=Ciao!%20Vorrei%20informazioni%20per%20una%20festa%20al%20Lido%20Pino%20d%27Oro." target="_blank" rel="noopener"><img class="icona icona-scura" src="assets/icons/ui/message-yellow-btn.svg" alt="" aria-hidden="true" width="69" height="69" loading="lazy">Chiedi su WhatsApp</a>
-            <a class="btn btn-bianco" href="tel:+393887877008" data-azione="chiama">Chiama</a>
+            <a class="pdo-btn-secondario" href="https://wa.me/393887877008?text=Ciao!%20Vorrei%20informazioni%20per%20una%20festa%20al%20Lido%20Pino%20d%27Oro." target="_blank" rel="noopener"><img class="icona icona-chiara" src="assets/icons/ui/message-yellow-btn.svg" alt="" aria-hidden="true" width="69" height="69" loading="lazy">Chiedi su WhatsApp</a>
+            <a class="pdo-btn-secondario" href="tel:+393887877008" data-azione="chiama">Chiama</a>
           </div>
         </div>
       </div>
@@ -789,6 +768,7 @@
     <section class="storia" id="story">
       <div class="wrap">
         <div class="storia-inner">
+          <img class="storia-foto" src="assets/photos/sala-vista-mare-800.jpg" srcset="assets/photos/sala-vista-mare-800.jpg 800w, assets/photos/sala-vista-mare-1600.jpg 1600w" sizes="(min-width: 1024px) 960px, 100vw" alt="Tavoli apparecchiati sulla sabbia, con le lampade accese e le tende di corda" width="800" height="533" loading="lazy">
           <p class="occhiello-serif">Perché siamo qui?</p>
           <h2 class="storia-titolo">Il problema non è trovare un ristorante.<br>È non sbagliare.</h2>
           <div class="storia-testo">
@@ -798,7 +778,7 @@
             <p>E poi c'è la cosa che a Mondragone sanno tutti: fuori stagione metà dei locali è chiusa, e ad agosto quelli aperti non hanno un tavolo libero. Noi siamo aperti a pranzo tutti i giorni dell'anno. Non è uno slogan pubblicitario: è la scelta su cui abbiamo costruito il ristorante.</p>
           </div>
           <p class="storia-chiusa">Se prenoti da noi, l'unica cosa che rischi è di doverci tornare.</p>
-          <div class="storia-cta"><a href="#reserve" class="btn btn-linea">prenota ora il tuo tavolo! ›</a></div>
+          <div class="storia-cta"><a href="#reserve" class="pdo-btn">Prenota un tavolo</a></div>
         </div>
       </div>
     </section>
@@ -812,7 +792,7 @@
         </div>
         <div class="invito">
           <p class="invito-testo">E se la prossima recensione fosse la tua?<br>Ogni ospite che ci sceglie è parte della nostra storia.<br>Vienici a trovare! Siamo pronti a farti vivere un'esperienza indimenticabile!</p>
-          <a href="#reserve" class="btn btn-oro">prenota ora il tuo pranzo! ›</a>
+          <a href="#reserve" class="pdo-btn">Prenota un tavolo</a>
         </div>
       </div>
     </section>
@@ -828,7 +808,7 @@
             <div><h3 class="domanda-q">Dove si trova il ristorante?</h3><p class="domanda-a">Siamo a Mondragone, in piazza Mario Liberato Conte 29: a 300 metri dalla Domiziana, direttamente sulla spiaggia.</p></div>
           </article>
           <img class="onda-faq" src="assets/icons/ui/wave.svg" alt="" aria-hidden="true" width="866" height="26" loading="lazy">
-          <article class="domanda destra">
+          <article class="domanda">
             <span class="numero-domanda" aria-hidden="true">2</span>
             <div><h3 class="domanda-q">Il ristorante è specializzato in pesce?</h3><p class="domanda-a">La nostra specialità è la cucina di mare. Abbiamo comunque un menù vario con piatti di carne, pasta e altre specialità.</p></div>
           </article>
@@ -838,7 +818,7 @@
             <div><h3 class="domanda-q">Devo prenotare?</h3><p class="domanda-a">Non è obbligatorio, ma la domenica e d'estate il lido si riempie. Prenoti online in un minuto, senza pagare nulla in anticipo: ti confermiamo noi per telefono o e-mail.</p></div>
           </article>
           <img class="onda-faq" src="assets/icons/ui/wave.svg" alt="" aria-hidden="true" width="866" height="26" loading="lazy">
-          <article class="domanda destra">
+          <article class="domanda">
             <span class="numero-domanda" aria-hidden="true">4</span>
             <div><h3 class="domanda-q">Devo per forza prenotare online per il dolce?</h3><p class="domanda-a">Sì, l'omaggio è valido solo per chi prenota direttamente da questa pagina!</p></div>
           </article>
@@ -851,7 +831,7 @@
         <p class="stelle-faq" aria-hidden="true">★★★★★</p>
         <p class="faq-chiusa">hai trovato le risposte che cercavi?<br>ora non ti resta che prenotare il tuo tavolo!</p>
         <hr class="riga-corta">
-        <a href="#reserve" class="btn btn-linea">prenota ora il tuo tavolo!</a>
+        <a href="#reserve" class="pdo-btn">Prenota un tavolo</a>
       </div>
     </section>
 
@@ -888,7 +868,7 @@
             <li><img class="icona" src="assets/icons/ui/call.svg" alt="" aria-hidden="true" width="80" height="80" loading="lazy"><span><a href="tel:+393887877008" data-azione="chiama">+39 388 787 7008</a> · <a href="https://wa.me/393887877008?text=DOMIZIANA%20%E2%80%93%20arrivo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D" target="_blank" rel="noopener" data-azione="whatsapp-generico">WhatsApp</a></span></li>
             <li><img class="icona" src="assets/icons/ui/mail.svg" alt="" aria-hidden="true" width="91" height="73" loading="lazy"><span><a href="mailto:infolidopinodoro@gmail.com">infolidopinodoro@gmail.com</a></span></li>
           </ul>
-          <a class="btn btn-linea" href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro&amp;query_place_id=ChIJcV_Xya3fOhMRWT5u9UL0X08" target="_blank" rel="noopener" data-azione="portami-li">Portami lì →</a>
+          <a class="pdo-btn-secondario" href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro&amp;query_place_id=ChIJcV_Xya3fOhMRWT5u9UL0X08" target="_blank" rel="noopener" data-azione="portami-li">Portami lì →</a>
         </div>
       </div>
     </section>
@@ -954,7 +934,7 @@
               <div class="field-hint" id="timeHint" aria-live="polite" hidden></div>
             </fieldset>
             <label class="consent attn" id="waitlistWrap" hidden><input id="waitlist" name="waitlist" type="checkbox"> <span>Mettimi in lista d'attesa — ti contattiamo se si libera un tavolo all'orario che preferisci.</span></label>
-            <button type="button" class="btn btn-oro" data-avanti>Avanti</button>
+            <button type="button" class="pdo-btn" data-avanti>Avanti</button>
           </div>
 
           <div class="passo passo-dati" id="passo2" role="group" aria-labelledby="passo2Titolo" hidden>
@@ -963,7 +943,7 @@
             <div class="field"><label for="lastName">Cognome</label><input id="lastName" name="lastName" type="text" placeholder="Rossi" required autocomplete="family-name"></div>
             <div class="field"><label for="phone">Telefono</label><input id="phone" name="phone" type="tel" placeholder="+39 …" required autocomplete="tel"></div>
             <div class="field"><label for="email">E-mail <span class="opt">(facoltativa — per la conferma)</span></label><input id="email" name="email" type="email" placeholder="tu@esempio.it" autocomplete="email"></div>
-            <button type="button" class="btn btn-oro" data-avanti>Avanti</button>
+            <button type="button" class="pdo-btn" data-avanti>Avanti</button>
             <button type="button" class="indietro" data-indietro>Torna indietro</button>
           </div>
 
@@ -978,7 +958,7 @@
             <label class="consent"><input id="privacy" name="privacy" type="checkbox" required> <span>Ho letto l'<a href="privacy.html#prenotazioni" target="_blank" rel="noopener">informativa sulla privacy</a>; i miei dati saranno usati solo per gestire questa prenotazione.</span></label>
             <label class="consent"><input id="marketing" name="marketing" type="checkbox"> <span>Tienimi aggiornato su eventi e offerte (facoltativo, vedi l'<a href="privacy.html#marketing" target="_blank" rel="noopener">informativa sulla privacy</a>).</span></label>
             <label class="consent consent-tutto"><input id="accettaTutto" type="checkbox"> <span><strong>Accetto tutto</strong><small>Spunta tutte le caselle qui sopra, compresi gli aggiornamenti su eventi e offerte.</small></span></label>
-            <button type="submit" class="btn btn-oro" id="submitBtn">Invia la richiesta</button>
+            <button type="submit" class="pdo-btn" id="submitBtn">Invia la richiesta</button>
             <div class="form-error" id="formError" role="alert"></div>
             <p class="form-note">È una richiesta, non una prenotazione confermata. Nessun pagamento richiesto.</p>
             <p class="form-note">Le prenotazioni sono soggette ai nostri <a href="https://ristorantepinodoro.it/termini.html#prenotazioni" target="_blank" rel="noopener">termini</a>.</p>
@@ -1078,6 +1058,12 @@
     <button type="button" class="btn btn-linea btn-piccolo" data-consenso="accettati">Accetta</button>
   </div>
 
+  <nav class="pdo-barra" id="pdo-barra" aria-label="Azioni rapide">
+    <a href="tel:+393887877008" class="pdo-btn-secondario" data-azione="chiama" data-posizione="barra">Chiama</a>
+    <a href="https://wa.me/393887877008?text=DOMIZIANA%20%E2%80%93%20arrivo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D" class="pdo-btn-secondario" target="_blank" rel="noopener" data-azione="whatsapp-generico" data-posizione="barra">WhatsApp</a>
+    <a href="#reserve" class="pdo-btn" data-posizione="barra">Prenota un tavolo</a>
+  </nav>
+
   <script>
     // Menu di navigazione (telefono)
     const toggle = document.getElementById('navToggle');
@@ -1105,9 +1091,19 @@
       galleryScroll.scrollBy({ left: Number(b.dataset.dir) * galleryScroll.clientWidth * .8, behavior: 'smooth' });
     }));
 
-    // Foto di sfondo di storia e recensione: caricate solo quando la sezione si avvicina (sono 5-6 schermate più in basso)
+    // Barra in basso (telefono): compare quando il pulsante della prima schermata esce dallo schermo, sparisce sopra il modulo
     (() => {
-      const sfondi = document.querySelectorAll('.storia, .recensione');
+      const barra = document.getElementById('pdo-barra');
+      let heroVisibile = true, moduloVisibile = false;
+      const aggiorna = () => barra.classList.toggle('is-visibile', !heroVisibile && !moduloVisibile);
+      document.body.classList.add('pdo-con-barra');
+      new IntersectionObserver(e => { heroVisibile = e[0].isIntersecting; aggiorna(); }).observe(document.getElementById('pdo-hero-cta'));
+      new IntersectionObserver(e => { moduloVisibile = e[0].isIntersecting; aggiorna(); }, { threshold: 0.15 }).observe(document.getElementById('reserveForm'));
+    })();
+
+    // Foto di sfondo della recensione: caricata solo quando la sezione si avvicina (è 5-6 schermate più in basso)
+    (() => {
+      const sfondi = document.querySelectorAll('.recensione');
       if (!('IntersectionObserver' in window)) { sfondi.forEach(s => s.classList.add('is-near')); return; }
       const io = new IntersectionObserver(entries => entries.forEach(e => {
         if (e.isIntersecting) { e.target.classList.add('is-near'); io.unobserve(e.target); }

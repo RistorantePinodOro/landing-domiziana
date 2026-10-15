@@ -1,0 +1,213 @@
+/* Pino d'Oro: colori, caratteri e componenti comuni a sito e landing.
+   Si carica dopo il foglio di stile della pagina. */
+
+/* ---------- 1. VARIABILI ---------- */
+:root {
+  /* Colori fissi: non cambiano mai, nemmeno nei temi */
+  --pdo-crema: #FFF2DA;
+  --pdo-crema-chiaro: #FFFCF5;
+  --pdo-linea: #EAD9B4;
+  --pdo-inchiostro: #302B1F;
+  --pdo-inchiostro-2: #4A4030;      /* testi secondari */
+  --pdo-oro-chiaro: #F5DCA4;
+  --pdo-oro-logo: #C59940;
+  --pdo-oro-numeri: #8A6A22;        /* numeri grandi e corsivi: contrasto ok su crema */
+  --pdo-rosso: #8A2F1F;
+
+  /* Colore del tema: cambia solo nei temi stagionali */
+  --pdo-onda: #6B5B3E;
+
+  /* Caratteri */
+  --pdo-font-titoli: "DM Serif Display", Georgia, serif;
+  --pdo-font-corsivo: "DM Serif Text", Georgia, serif;
+  --pdo-font-testo: "Questrial", "Helvetica Neue", sans-serif;
+
+  /* Grandezze (smartphone; da 768 px in su vedi in fondo) */
+  --pdo-fs-h1: 32px;
+  --pdo-fs-h2: 26px;
+  --pdo-fs-h3: 22px;
+  --pdo-fs-numeri: 56px;
+  --pdo-fs-testo: 17px;
+  --pdo-fs-nota: 14px;             /* minimo assoluto per qualsiasi testo */
+
+  /* Forme e spazi */
+  --pdo-raggio-scheda: 12px;
+  --pdo-raggio-pulsante: 10px;
+  --pdo-margine: 20px;
+  --pdo-spazio-sezioni: 72px;
+  --pdo-altezza-barra: 76px;
+}
+
+/* ---------- 2. BASE ---------- */
+body {
+  background: var(--pdo-crema);
+  color: var(--pdo-inchiostro);
+  font-family: var(--pdo-font-testo);
+  font-size: var(--pdo-fs-testo);
+  line-height: 1.5;
+}
+
+h1, .pdo-h1 { font-family: var(--pdo-font-titoli); font-weight: 400; font-size: var(--pdo-fs-h1); line-height: 1.12; }
+h2, .pdo-h2 { font-family: var(--pdo-font-titoli); font-weight: 400; font-size: var(--pdo-fs-h2); line-height: 1.15; }
+h3, .pdo-h3 { font-family: var(--pdo-font-titoli); font-weight: 400; font-size: var(--pdo-fs-h3); line-height: 1.2; }
+
+/* Nessun testo sotto i 14 px */
+small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-inchiostro-2); }
+
+/* Testi lunghi sempre allineati a sinistra */
+.pdo-testo-lungo,
+.pdo-testo-lungo p,
+.pdo-faq, .pdo-faq h3, .pdo-faq p { text-align: left !important; }
+
+/* Numeri grandi (365, 300 m, 1 su 3, 4,6) */
+.pdo-numero {
+  font-family: var(--pdo-font-corsivo);
+  font-style: italic;
+  font-size: var(--pdo-fs-numeri);
+  line-height: 1;
+  color: var(--pdo-oro-numeri);
+}
+/* Le frasi sotto i numeri: niente corsivo piccolo */
+.pdo-numero-testo { font-family: var(--pdo-font-testo); font-style: normal; font-size: var(--pdo-fs-testo); }
+
+/* ---------- 3. PULSANTI: solo tre tipi ---------- */
+.pdo-btn,
+.pdo-btn-secondario {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 20px;
+  border-radius: var(--pdo-raggio-pulsante);
+  font-family: var(--pdo-font-testo);
+  font-size: 17px;
+  text-decoration: none;
+  text-transform: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* Principale: SOLO "Prenota". Uno per schermata. */
+.pdo-btn {
+  background: var(--pdo-inchiostro);
+  color: var(--pdo-oro-chiaro);
+  border: 0;
+}
+.pdo-btn:hover, .pdo-btn:focus-visible { background: #000; color: var(--pdo-oro-chiaro); }
+
+/* Secondario: WhatsApp, Chiama, Portami lì */
+.pdo-btn-secondario {
+  background: transparent;
+  color: var(--pdo-inchiostro);
+  border: 1.5px solid var(--pdo-inchiostro);
+  font-size: 16px;
+}
+.pdo-btn-secondario:hover, .pdo-btn-secondario:focus-visible { background: var(--pdo-crema-chiaro); }
+
+/* Link: approfondimenti, mai per prenotare */
+.pdo-link { color: var(--pdo-inchiostro); text-decoration: underline; text-underline-offset: 3px; font-size: 16px; }
+
+/* Su smartphone i pulsanti nelle sezioni occupano tutta la larghezza */
+@media (max-width: 767px) {
+  .pdo-btn, .pdo-btn-secondario { width: 100%; }
+}
+
+/* Fuoco visibile da tastiera */
+.pdo-btn:focus-visible,
+.pdo-btn-secondario:focus-visible,
+.pdo-link:focus-visible { outline: 2px solid var(--pdo-oro-logo); outline-offset: 3px; }
+
+/* ---------- 4. BARRA IN ALTO: pulsante Prenota sempre visibile ---------- */
+.pdo-header-prenota {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  margin-right: 8px;
+  background: var(--pdo-inchiostro);
+  color: var(--pdo-oro-chiaro);
+  border-radius: var(--pdo-raggio-pulsante);
+  font-size: 15px;
+  text-decoration: none;
+}
+
+/* ---------- 5. PRIMA SCHERMATA ---------- */
+/* Fascia oraria: una riga, carattere del testo */
+.pdo-fascia-oraria {
+  background: var(--pdo-onda);
+  color: var(--pdo-crema);
+  font-family: var(--pdo-font-testo);
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+/* Titolo: massimo 3-4 righe su smartphone */
+.pdo-hero h1 { font-size: var(--pdo-fs-h1); margin: 0 0 20px; }
+
+/* ---------- 6. SCHEDE (formule e offerte) ---------- */
+.pdo-scheda {
+  background: var(--pdo-crema-chiaro);
+  border: 1px solid #E3C987;
+  border-radius: var(--pdo-raggio-scheda);
+  overflow: hidden;
+}
+.pdo-scheda-condizioni {
+  font-size: var(--pdo-fs-nota);
+  line-height: 1.45;
+  color: var(--pdo-inchiostro-2);
+  background: var(--pdo-crema);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+/* ---------- 7. BARRA FISSA IN BASSO (solo smartphone) ---------- */
+.pdo-barra {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 45;                        /* sotto la barra in alto e il banner dei cookie */
+  display: none;
+  grid-template-columns: 1fr 1fr 1.6fr;
+  gap: 8px;
+  height: var(--pdo-altezza-barra);
+  box-sizing: border-box;
+  padding: 10px 12px calc(14px + env(safe-area-inset-bottom));
+  background: #FFF8EA;
+  border-top: 1px solid var(--pdo-linea);
+  transform: translateY(100%);
+  transition: transform .2s ease;
+}
+.pdo-barra a { min-height: 0; height: 100%; padding: 0 8px; font-size: 15px; line-height: 1.2; text-align: center; width: auto; }
+.pdo-barra .pdo-btn { font-size: 16px; }
+.pdo-barra.is-visibile { transform: translateY(0); }
+
+@media (max-width: 767px) {
+  .pdo-barra { display: grid; }
+  /* spazio in fondo alla pagina perché la barra non copra il piè di pagina */
+  body.pdo-con-barra { padding-bottom: var(--pdo-altezza-barra); }
+}
+
+/* ---------- 8. MOVIMENTO ---------- */
+/* Chi ha "riduci movimento" attivo nel telefono non vede animazioni */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- 9. DA 768 PX IN SU (tablet e computer) ---------- */
+@media (min-width: 768px) {
+  :root {
+    --pdo-fs-h1: 52px;
+    --pdo-fs-h2: 36px;
+    --pdo-fs-h3: 26px;
+    --pdo-fs-numeri: 72px;
+    --pdo-fs-testo: 18px;
+    --pdo-margine: 40px;
+    --pdo-spazio-sezioni: 112px;
+  }
+  .pdo-btn, .pdo-btn-secondario { display: inline-flex; width: auto; }
+}
