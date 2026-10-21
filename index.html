@@ -1530,6 +1530,12 @@
         const { ok, json: j } = await postJson(payload);
         if (ok && j && j.ok) {
           window.dataLayer.push({ event: 'prenotazione_inviata', gruppo });
+          if (!payload.waitlist && Number(j.statusCode) !== 8) {
+            // Conversione Google Ads: la invia il tag Google caricato da Tag Manager, quindi solo dopo il consenso.
+            const conversione = { send_to: 'AW-16777142003/NuUyCJTD26QdEPO9-78-' };
+            if (j.code) conversione.transaction_id = String(j.code);
+            gtag('event', 'conversion', conversione);
+          }
           showSuccess(j, !!payload.waitlist);
         } else {
           formError.textContent = (j && j.error && j.error.message) || 'Non siamo riusciti a inviare la richiesta. Chiamaci o scrivici.';
