@@ -90,3 +90,25 @@ test("le icone hanno le misure giuste e quella per iPhone non è trasparente", (
   assert.deepEqual(ios.lato, [180, 180]);
   assert.ok([0, 2].includes(ios.colore), "apple-touch-icon.png con canale alfa: iOS riempirebbe di nero");
 });
+
+test("il modulo riprova le letture dal backend, mai l'invio della prenotazione", async () => {
+  const inizio = pagina.indexOf("    async function api(query, options) {");
+  const sorgente = pagina.slice(inizio, inizio + pagina.slice(inizio).search(/\r?\n    }\r?\n/)) + "\n    }";
+  const prova = async (risposte, options) => {
+    let chiamate = 0;
+    const fetch = async () => {
+      const r = risposte[chiamate++];
+      if (r === "rete") throw new TypeError("Load failed");
+      return { ok: r < 400, status: r, json: async () => ({ ok: r < 400 }) };
+    };
+    const api = new Function("fetch", "location", "reserveEndpoint", "setTimeout", `${sorgente}; return api;`)(
+      fetch, { protocol: "https:" }, "/api/prenota.php", (fatto) => fatto());
+    const esito = await api("?slots=1", options).catch((err) => err);
+    return { chiamate, esito };
+  };
+  assert.deepEqual(await prova(["rete", 503, 200]), { chiamate: 3, esito: { ok: true, status: 200, json: { ok: true } } });
+  assert.equal((await prova([429])).chiamate, 1, "un limite di richieste non si aggira riprovando");
+  assert.equal((await prova(["rete", "rete", "rete"])).esito.message, "Load failed");
+  assert.equal((await prova([503], { method: "POST" })).chiamate, 1);
+  assert.equal((await prova(["rete"], { method: "POST" })).chiamate, 1);
+});
