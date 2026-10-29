@@ -1168,6 +1168,8 @@
       try { return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Rome', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()); }
       catch { const d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
     };
+    const oraRoma = () => new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Rome', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date());
+    const passato = (iso, t) => iso < todayISO() || (iso === todayISO() && t <= oraRoma());
     const isISODate = s => /^\d{4}-\d{2}-\d{2}$/.test(s || '');
     const isTime = s => /^([01]\d|2[0-3]):[0-5]\d$/.test(s || ''); // stessa regola del backend
     const parseISO = iso => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d); };
@@ -1176,11 +1178,19 @@
     const longDate = iso => { const d = parseISO(iso); return DAYS_SHORT[isoWeekday(iso) - 1].toLowerCase() + ' ' + d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear(); };
     const fullDate = iso => { const d = parseISO(iso); return DAYS[isoWeekday(iso) - 1].toLowerCase() + ' ' + d.getDate() + ' ' + MONTHS_LONG[d.getMonth()]; };
 
+    // Le letture si riprovano due volte (sui telefoni una richiesta può cadere); l'invio mai, o la prenotazione si doppia.
     async function api(query, options) {
       if (location.protocol === 'file:') throw new Error('no backend'); // anteprima statica: niente da chiamare
-      const r = await fetch(reserveEndpoint + query, Object.assign({ headers: { accept: 'application/json' }, cache: 'no-store' }, options || {}));
-      const json = await r.json().catch(() => null);
-      return { ok: r.ok, status: r.status, json };
+      for (let tentativo = 1; ; tentativo++) {
+        try {
+          const r = await fetch(reserveEndpoint + query, Object.assign({ headers: { accept: 'application/json' }, cache: 'no-store' }, options || {}));
+          const json = await r.json().catch(() => null);
+          if (options || tentativo === 3 || (r.status < 500 && json)) return { ok: r.ok, status: r.status, json };
+        } catch (err) {
+          if (options || tentativo === 3) throw err;
+        }
+        await new Promise(fatto => setTimeout(fatto, 1000 * tentativo));
+      }
     }
     const postJson = body => api('', { method: 'POST', headers: { 'content-type': 'application/json', accept: 'application/json' }, body: JSON.stringify(body) });
     const show = (node, on) => { node.hidden = !on; };
@@ -1291,6 +1301,12 @@
       if (h && (!Array.isArray(h.ranges) || !h.ranges.length)) return 'Siamo chiusi il ' + DAYS[isoWeekday(iso) - 1].toLowerCase() + ' — scegli un altro giorno.';
       return null;
     }
+    // Un orario di riserva vale solo dentro le fasce del giorno; con un'apertura o chiusura straordinaria decide il backend.
+    function aperto(iso, t) {
+      if (!hoursData || hoursData.exceptions.some(e => covers(e, iso))) return true;
+      const h = hoursData.hours.find(x => Number(x.day) === isoWeekday(iso));
+      return !h || !Array.isArray(h.ranges) || h.ranges.some(r => r.open <= t && t < r.close);
+    }
     // Svuota una data chiusa e spiega perché. Restituisce true quando la data è utilizzabile.
     function validateDate() {
       setHint(dateHint, '');
@@ -1389,8 +1405,10 @@
       show(ackWrap, ack); ackBox.required = ack;
       if (!ack) ackBox.checked = false;
     }
+    let dataCaricata = ''; // la data a cui si riferiscono gli orari mostrati
     async function loadSlots() {
       const date = dateInput.value, guests = guestsInput.value;
+      dataCaricata = date;
       const req = ++slotsRequest;
       pending.time = pending.time || scelto('time'); // l'orario scelto resta, se c'è ancora con i nuovi dati
       resetSlotUi();
@@ -1405,19 +1423,22 @@
       } catch { j = null; }
       if (req !== slotsRequest) return; // è partita una richiesta più recente
       setHint(timeHint, '');
-      const slots = j && j.ok && Array.isArray(j.slots) ? j.slots.filter(s => s && isTime(s.time)) : null;
+      const slots = j && j.ok && Array.isArray(j.slots) ? j.slots.filter(s => s && isTime(s.time) && !passato(date, s.time)) : null;
+      const riserva = fixedTimes.filter(t => !passato(date, t) && aperto(date, t));
       if (slots && slots.length) {
         liveSlots = slots;
         setTimes(slots);
         updateNotice();
+      } else if (!riserva.length) {
+        setHint(timeHint, 'Per questa data non ci sono più orari prenotabili online — scegli un altro giorno o chiamaci.', true);
       } else if (slots || (j && j.ok === false && j.reason === 'closed')) {
         // Niente di prenotabile online: resta un orario preferito per chiedere comunque — o mettersi in lista.
-        setTimes(fixedTimes, true);
+        setTimes(riserva, true);
         const waitlist = !!(j && j.waitlist);
         setHint(timeHint, 'Nessun tavolo disponibile online per questa data' + (waitlist ? " — mettiti in lista d'attesa o chiamaci." : ' — chiamaci o prova un altro giorno.'), true);
         show(waitlistWrap, waitlist);
       } else {
-        setTimes(fixedTimes); // nessun modulo di prenotazione / backend non raggiungibile: la lista fissa
+        setTimes(riserva); // nessun modulo di prenotazione / backend non raggiungibile: la lista fissa
       }
       applyPendingTime();
     }
@@ -1442,7 +1463,10 @@
       setHint(guestsHint, '');
       loadSlots();
     });
-    dateInput.addEventListener('change', () => { validateDate(); loadSlots(); });
+    // Safari su iPhone può cambiare la data senza "change": si ricontrolla anche all'uscita dal campo e prima di "Avanti".
+    const cambiaData = () => { if (dateInput.value !== dataCaricata) { validateDate(); loadSlots(); } };
+    dateInput.addEventListener('change', cambiaData);
+    dateInput.addEventListener('blur', cambiaData);
     roomField.addEventListener('change', () => { updateSalaInfo(); loadSlots(); });
     seatingField.addEventListener('change', updateSalaInfo);
     timeChoices.addEventListener('change', updateNotice);
@@ -1456,6 +1480,7 @@
         el.reportValidity();
         return false;
       }
+      if (n === 0 && dateInput.value !== dataCaricata) { cambiaData(); return false; }
       if (n === 0 && !scelto('time')) {
         if (timeHint.hidden) setHint(timeHint, 'Scegli un orario.', true);
         $('timeField').scrollIntoView({ block: 'center' });
@@ -1511,6 +1536,7 @@
       if (passo < 2) { if (stepValid(passo)) goTo(passo + 1); return; } // Invio da tastiera nei primi passi = Avanti
       formError.classList.remove('show');
       if (!stepValid(2)) return;
+      if (passato(dateInput.value, scelto('time'))) { goTo(0); loadSlots(); return; } // l'orario è passato mentre si compilava il modulo
       const v = id => $(id).value.trim();
       const payload = {
         action: 'create',
@@ -1664,7 +1690,7 @@
     renderHours(STATIC_HOURS);  // lista, riepilogo nel footer (con il giorno di oggi evidenziato)…
     renderToday(STATIC_HOURS);  // …e striscia nell'hero partono dagli orari di riserva, poi passano a quelli live
     let shownDay = todayISO();
-    setInterval(() => { if (todayISO() !== shownDay) { shownDay = todayISO(); renderToday(hoursData || STATIC_HOURS); renderHours(hoursData || STATIC_HOURS); } }, 60000); // pagina aperta oltre la mezzanotte
+    setInterval(() => { if (todayISO() !== shownDay) { shownDay = todayISO(); dateInput.min = shownDay; renderToday(hoursData || STATIC_HOURS); renderHours(hoursData || STATIC_HOURS); } }, 60000); // pagina aperta oltre la mezzanotte
     Promise.all([loadHours(), loadRooms()]).then(() => { loadSlots(); applyHash(); });
 
     // Clic su chiamata, WhatsApp e indicazioni: un evento per Tag Manager, con il gruppo di annunci (?g=) da cui arriva la visita.
