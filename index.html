@@ -1164,7 +1164,9 @@
       catch { const d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
     };
     const oraRoma = () => new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Rome', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date());
-    const passato = (iso, t) => iso < todayISO() || (iso === todayISO() && t <= oraRoma());
+    const ANTICIPO = 30; // minuti minimi tra la richiesta e l'orario, per prenotare in giornata
+    const minuti = t => Number(t.slice(0, 2)) * 60 + Number(t.slice(3, 5));
+    const troppoTardi = (iso, t) => iso < todayISO() || (iso === todayISO() && minuti(t) < minuti(oraRoma()) + ANTICIPO);
     const isISODate = s => /^\d{4}-\d{2}-\d{2}$/.test(s || '');
     const isTime = s => /^([01]\d|2[0-3]):[0-5]\d$/.test(s || ''); // stessa regola del backend
     const parseISO = iso => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d); };
@@ -1418,8 +1420,8 @@
       } catch { j = null; }
       if (req !== slotsRequest) return; // è partita una richiesta più recente
       setHint(timeHint, '');
-      const slots = j && j.ok && Array.isArray(j.slots) ? j.slots.filter(s => s && isTime(s.time) && !passato(date, s.time)) : null;
-      const riserva = fixedTimes.filter(t => !passato(date, t) && aperto(date, t));
+      const slots = j && j.ok && Array.isArray(j.slots) ? j.slots.filter(s => s && isTime(s.time) && !troppoTardi(date, s.time)) : null;
+      const riserva = fixedTimes.filter(t => !troppoTardi(date, t) && aperto(date, t));
       if (slots && slots.length) {
         liveSlots = slots;
         setTimes(slots);
@@ -1526,7 +1528,7 @@
       if (passo < 2) { if (stepValid(passo)) goTo(passo + 1); return; } // Invio da tastiera nei primi passi = Avanti
       formError.classList.remove('show');
       if (!stepValid(2)) return;
-      if (passato(dateInput.value, scelto('time'))) { goTo(0); loadSlots(); return; } // l'orario è passato mentre si compilava il modulo
+      if (troppoTardi(dateInput.value, scelto('time'))) { goTo(0); loadSlots(); return; } // l'orario si è avvicinato troppo mentre si compilava il modulo
       const v = id => $(id).value.trim();
       const payload = {
         action: 'create',
