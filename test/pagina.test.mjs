@@ -112,3 +112,13 @@ test("il modulo riprova le letture dal backend, mai l'invio della prenotazione",
   assert.equal((await prova([503], { method: "POST" })).chiamate, 1);
   assert.equal((await prova(["rete"], { method: "POST" })).chiamate, 1);
 });
+
+test("per oggi il modulo offre solo orari ad almeno 30 minuti da adesso", () => {
+  const riga = (inizio) => pagina.split(/\r?\n/).find((r) => r.trimStart().startsWith(inizio));
+  const sorgente = ["const ANTICIPO", "const minuti", "const troppoTardi"].map(riga).join("\n");
+  const troppoTardi = new Function("todayISO", "oraRoma", `${sorgente}; return troppoTardi;`)(() => "2026-10-30", () => "12:40");
+  assert.equal(troppoTardi("2026-10-30", "13:09"), true);
+  assert.equal(troppoTardi("2026-10-30", "13:10"), false);
+  assert.equal(troppoTardi("2026-10-29", "20:00"), true, "data passata");
+  assert.equal(troppoTardi("2026-10-31", "12:00"), false, "un altro giorno non ha margini");
+});
