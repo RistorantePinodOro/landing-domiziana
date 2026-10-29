@@ -376,10 +376,6 @@
     .consent { grid-column: 1 / -1; display: flex; gap: .6rem; align-items: flex-start; font-size: .9rem; color: var(--testo-tenue); cursor: pointer; }
     .consent input { margin: .25rem 0 0; width: 1.1rem; height: 1.1rem; flex: none; accent-color: var(--oro-link); }
     .consent.attn { color: var(--inchiostro); }
-    .consent-tutto { align-items: center; gap: .8rem; padding: .8rem 1rem; border: 2px solid var(--inchiostro); border-radius: 6px; background: var(--crema-chiarissima); color: var(--inchiostro); }
-    .consent-tutto input { width: 1.6rem; height: 1.6rem; margin: 0; }
-    .consent-tutto strong { display: block; font-family: var(--font-serif); font-weight: 400; font-size: 1.3rem; line-height: 1.2; }
-    .consent-tutto small { display: block; font-size: .875rem; color: var(--testo-tenue); }
     .slot-notice { grid-column: 1 / -1; font-size: .9rem; line-height: 1.5; background: var(--crema); border: 1px solid var(--riga); border-left: 3px solid var(--oro); border-radius: 6px; padding: .7rem .9rem; }
     .slot-notice p { margin: 0; }
     .slot-notice p + p { margin-top: .5rem; }
@@ -815,7 +811,7 @@
           <img class="onda-faq" src="assets/icons/ui/wave.svg" alt="" aria-hidden="true" width="866" height="26" loading="lazy">
           <article class="domanda">
             <span class="numero-domanda" aria-hidden="true">3</span>
-            <div><h3 class="domanda-q">Devo prenotare?</h3><p class="domanda-a">Non è obbligatorio, ma la domenica e d'estate il lido si riempie. Prenoti online in un minuto, senza pagare nulla in anticipo: ti confermiamo noi per telefono o e-mail.</p></div>
+            <div><h3 class="domanda-q">Devo prenotare?</h3><p class="domanda-a">Non è obbligatorio, ma la domenica e d'estate il lido si riempie. Prenoti online in un minuto, senza pagare nulla in anticipo: poi te la confermiamo noi.</p></div>
           </article>
           <img class="onda-faq" src="assets/icons/ui/wave.svg" alt="" aria-hidden="true" width="866" height="26" loading="lazy">
           <article class="domanda">
@@ -859,7 +855,7 @@
             <li><span>Sabato</span><span><span class="range">12:00 – 15:15</span> · <span class="range">19:15 – 22:30</span></span></li>
             <li><span>Domenica</span><span><span class="range">12:00 – 15:15</span></span></li>
           </ul>
-          <p class="orari-nota">Gli orari possono cambiare con la stagione: quelli qui sopra arrivano dal nostro sistema di prenotazione. Per gruppi da 10 persone in su, chiamaci.</p>
+          <p class="orari-nota">Gli orari possono cambiare con la stagione: quelli qui sopra arrivano dal nostro sistema di prenotazione. Per gruppi da 8 persone in su, chiamaci.</p>
         </div>
         <div>
           <h2 class="visita-titolo">Info &amp; Contatti</h2>
@@ -880,8 +876,8 @@
         <div class="prenota-intro">
           <p class="occhiello">Prenota</p>
           <h2 class="sezione-titolo">Prenota il tuo tavolo</h2>
-          <p class="lead">La richiesta arriva subito al nostro sistema di prenotazione e la confermiamo per telefono o e-mail. Nessun pagamento anticipato.</p>
-          <p class="lead">Per gruppi da 10 persone in su, o per una festa privata sulla spiaggia, chiamaci: <a href="tel:+393887877008">+39 388 787 7008</a>.</p>
+          <p class="lead">La richiesta arriva subito al nostro sistema di prenotazione e te la confermiamo noi. Nessun pagamento anticipato.</p>
+          <p class="lead">Per gruppi da 8 persone in su, o per una festa privata sulla spiaggia, chiamaci: <a href="tel:+393887877008">+39 388 787 7008</a>.</p>
         </div>
         <div class="prenota-col">
         <form class="form prenota-form" id="reserveForm" novalidate data-endpoint="/api/prenota.php">
@@ -896,7 +892,7 @@
             <div class="field"><label for="guests">Persone</label>
               <div class="contatore">
                 <button type="button" class="contatore-btn" id="guestsMeno" aria-label="Una persona in meno" aria-controls="guests">−</button>
-                <input id="guests" name="guests" type="number" inputmode="numeric" min="1" max="9" value="2" required aria-describedby="guestsHint">
+                <input id="guests" name="guests" type="number" inputmode="numeric" min="1" max="7" value="2" required aria-describedby="guestsHint">
                 <button type="button" class="contatore-btn" id="guestsPiu" aria-label="Una persona in più" aria-controls="guests">+</button>
               </div>
               <div class="field-hint" id="guestsHint" aria-live="polite" hidden></div>
@@ -942,7 +938,8 @@
             <div class="field"><label for="firstName">Nome</label><input id="firstName" name="firstName" type="text" placeholder="Maria" required autocomplete="given-name"></div>
             <div class="field"><label for="lastName">Cognome</label><input id="lastName" name="lastName" type="text" placeholder="Rossi" required autocomplete="family-name"></div>
             <div class="field"><label for="phone">Telefono</label><input id="phone" name="phone" type="tel" placeholder="+39 …" required autocomplete="tel"></div>
-            <div class="field"><label for="email">E-mail <span class="opt">(facoltativa — per la conferma)</span></label><input id="email" name="email" type="email" placeholder="tu@esempio.it" autocomplete="email"></div>
+            <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" placeholder="tu@esempio.it" required autocomplete="email"></div>
+            <div class="field"><label for="cap">CAP <span class="opt">(facoltativo)</span></label><input id="cap" name="cap" type="text" inputmode="numeric" maxlength="10" pattern="[0-9A-Za-z][0-9A-Za-z \-]{1,9}" placeholder="81034" autocomplete="postal-code"></div>
             <button type="button" class="pdo-btn" data-avanti>Avanti</button>
             <button type="button" class="indietro" data-indietro>Torna indietro</button>
           </div>
@@ -956,9 +953,7 @@
               <p class="form-note" id="notesHint">Se qui indichi allergie o intolleranze, acconsenti espressamente a che usiamo queste informazioni per preparare il tuo tavolo (dati relativi alla salute, vedi l'<a href="privacy.html#prenotazioni" target="_blank" rel="noopener">informativa sulla privacy</a>). Confermale anche al nostro staff.</p></div>
             <div class="field hp" aria-hidden="true"><label for="website">Sito web</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
             <label class="consent"><input id="privacy" name="privacy" type="checkbox" required> <span>Ho letto l'<a href="privacy.html#prenotazioni" target="_blank" rel="noopener">informativa sulla privacy</a>; i miei dati saranno usati solo per gestire questa prenotazione.</span></label>
-            <label class="consent"><input id="marketing" name="marketing" type="checkbox"> <span>Tienimi aggiornato su eventi e offerte (facoltativo, vedi l'<a href="privacy.html#marketing" target="_blank" rel="noopener">informativa sulla privacy</a>).</span></label>
-            <label class="consent consent-tutto"><input id="accettaTutto" type="checkbox"> <span><strong>Accetto tutto</strong><small>Spunta tutte le caselle qui sopra, compresi gli aggiornamenti su eventi e offerte.</small></span></label>
-            <button type="submit" class="pdo-btn" id="submitBtn">Invia la richiesta</button>
+            <label class="consent"><input id="marketing" name="marketing" type="checkbox"> <span>Tienimi aggiornato su eventi e offerte (facoltativo, vedi l'<a href="privacy.html#marketing" target="_blank" rel="noopener">informativa sulla privacy</a>).</span></label>            <button type="submit" class="pdo-btn" id="submitBtn">Invia la richiesta</button>
             <div class="form-error" id="formError" role="alert"></div>
             <p class="form-note">È una richiesta, non una prenotazione confermata. Nessun pagamento richiesto.</p>
             <p class="form-note">Le prenotazioni sono soggette ai nostri <a href="https://ristorantepinodoro.it/termini.html#prenotazioni" target="_blank" rel="noopener">termini</a>.</p>
@@ -1451,7 +1446,7 @@
     }
     function changeGuests(delta) {
       const n = Number(guestsInput.value) + delta;
-      setHint(guestsHint, n > MAX_GUESTS ? 'Per ' + (MAX_GUESTS + 1) + ' persone o più chiamaci: +39 388 787 7008.' : '');
+      setHint(guestsHint, n > MAX_GUESTS ? 'Da ' + (MAX_GUESTS + 1) + ' persone in su chiamaci: +39 388 787 7008.' : '');
       if (n < 1 || n > MAX_GUESTS) return;
       guestsInput.value = n;
       loadSlots();
@@ -1510,6 +1505,7 @@
         ['Nome', v('firstName') + ' ' + v('lastName')],
         ['Telefono', v('phone')],
         ['E-mail', v('email')],
+        ['CAP', v('cap')],
         ['Persone', guestsInput.value, true],
         ['Data', fullDate(dateInput.value), true],
         [waitlisted ? 'Orario preferito' : 'Ora', scelto('time') + (waitlisted ? " · lista d'attesa" : ''), true],
@@ -1522,13 +1518,7 @@
         return [dt, dd];
       }));
       updateNotice();
-      tutto.checked = caselle().every(c => c.checked);
     }
-    // "Accetto tutto" spunta o toglie le caselle mostrate nel passo 3 e segue quelle cambiate a mano.
-    const tutto = $('accettaTutto');
-    const caselle = () => [ackBox, $('privacy'), $('marketing')].filter(c => !c.closest('[hidden]'));
-    tutto.addEventListener('change', () => caselle().forEach(c => { c.checked = tutto.checked; }));
-    passi[2].addEventListener('change', e => { if (caselle().includes(e.target)) tutto.checked = caselle().every(c => c.checked); });
 
     // ---- Invio (POST {"action":"create"}) -----------------------------------
     form.addEventListener('submit', async e => {
@@ -1540,13 +1530,13 @@
       const v = id => $(id).value.trim();
       const payload = {
         action: 'create',
-        firstName: v('firstName'), lastName: v('lastName'), phone: v('phone'),
+        firstName: v('firstName'), lastName: v('lastName'), phone: v('phone'), email: v('email'),
         date: dateInput.value, time: scelto('time'), guests: Number(guestsInput.value),
         notes: 'DOMIZIANA' + (v('notes') ? ' – ' + v('notes') : ''), // la parola dice al locale che la prenotazione arriva da questa pagina (dolce in omaggio)
         privacy: !!$('privacy').checked, marketing: !!$('marketing').checked,
         website: $('website').value
       };
-      if (v('email')) payload.email = v('email');
+      if (v('cap')) payload.cap = v('cap');
       if (!roomField.hidden && scelto('room')) payload.room = scelto('room');
       if (!seatingField.hidden) payload.seating = scelto('seating');
       if (!waitlistWrap.hidden && waitlistBox.checked) payload.waitlist = true;
