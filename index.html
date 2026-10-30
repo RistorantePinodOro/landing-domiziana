@@ -168,7 +168,7 @@
     .prova:first-child { border-top: 0; }
     .prova.destra { text-align: right; }
     .numero { display: block; font-family: var(--font-display); font-style: italic; font-size: clamp(4rem, 10vw, 8rem); line-height: 1; letter-spacing: -.04em; color: var(--oro-scuro); }
-    .numero .stellina { font-style: normal; font-size: .38em; color: var(--oro); vertical-align: top; margin-left: .15em; }
+    .numero .stellina { font-style: normal; font-size: .38em; color: var(--oro-scuro); vertical-align: top; margin-left: .15em; }
     .numero .stellona { font-style: normal; }
     .prova-titolo { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.45rem, 2.8vw, 2.3rem); line-height: 1.25; margin: .4rem 0 .2rem; }
     .chip { background: var(--mare); color: var(--bianco); padding: .05em .3em; }
@@ -200,7 +200,7 @@
     .piatto-titolo em { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
     .piatto-testo p { font-family: var(--font-testo); max-width: 62ch; }
     .piatto-prezzo { font-family: var(--font-serif); font-size: 1.25rem; }
-    .piatto-prezzo strong { font-weight: 400; color: var(--oro-scuro); }
+    .piatto-prezzo strong { font-weight: 400; color: var(--mare); }
     .piatto-chiusa { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.2rem, 2vw, 1.5rem); text-align: right; margin: 1.2rem 0 1.4rem; }
     .piatto-cta { display: flex; justify-content: center; }
     .piatto-cta .btn { width: min(100%, 460px); }
@@ -282,7 +282,7 @@
     .recensione-blocco2 .recensione-testata { flex-direction: column; align-items: center; }
     .recensione-testata cite { font-family: var(--font-serif); font-style: italic; font-size: 1.25rem; line-height: 1.2; min-width: 0; overflow-wrap: anywhere; }
     .recensione-testata cite a { color: inherit; }
-    .recensione-testata [role="img"] { flex: none; white-space: nowrap; letter-spacing: .06em; color: var(--oro); }
+    .recensione-testata [role="img"] { flex: none; white-space: nowrap; letter-spacing: .06em; color: var(--oro-scuro); }
     .recensione-blocco2 [role="img"] { font-size: 2rem; color: var(--nero); }
     .contenuto-recensione, .contenuto-recensione2 {
       margin: 0; line-height: 1.55; overflow-wrap: anywhere; overflow: hidden;
@@ -306,7 +306,7 @@
     .faq-sotto { font-family: var(--font-serif); font-size: 1.25rem; margin: 0 0 1.5rem; }
     .faq-lista { max-width: 780px; margin: 0 auto; }
     .domanda { display: flex; align-items: center; gap: 1.2rem; padding: 1.4rem 0; text-align: left; }
-    .numero-domanda { font-family: var(--font-display); font-size: clamp(4.5rem, 8vw, 7rem); line-height: 1; color: var(--oro); opacity: .5; flex: none; }
+    .numero-domanda { font-family: var(--font-display); font-size: clamp(4.5rem, 8vw, 7rem); line-height: 1; color: var(--oro); flex: none; }
     .domanda-q { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; letter-spacing: .06em; margin: 0 0 .3rem; color: var(--grigio); }
     .domanda-a { font-family: var(--font-serif); font-size: clamp(1.25rem, 2.6vw, 1.9rem); line-height: 1.3; letter-spacing: .01em; margin: 0; }
     .onda-faq { width: min(60vw, 320px); margin: 0 auto; opacity: .9; }
@@ -386,7 +386,7 @@
     .form-success.show { display: grid; gap: .8rem; justify-items: center; }
     .form-success:focus { outline: none; }
     .form-success p { margin: 0; }
-    .form-success strong { font-family: var(--font-serif); font-weight: 400; font-size: 1.2rem; letter-spacing: .04em; color: var(--oro-scuro); }
+    .form-success strong { font-family: var(--font-serif); font-weight: 400; font-size: 1.2rem; letter-spacing: .04em; color: var(--mare); }
     .form-success .save-code { display: block; margin-top: .3rem; font-size: .9rem; color: var(--grigio); }
     /* Prenotazione in tre passi */
     .prenota-form { scroll-margin-top: calc(var(--header-h) + 8px); }
@@ -422,7 +422,7 @@
     .fascia + .fascia { margin-top: .9rem; }
     .fascia-nome { margin: 0 0 .4rem; font-family: var(--font-serif); font-size: 1.15rem; }
     .sala-info { background: var(--spuma); border: 1px solid var(--riga); border-left: 3px solid var(--oro); border-radius: 6px; padding: .9rem 1rem; font-size: .95rem; line-height: 1.55; }
-    .sala-info h4 { margin: 0 0 .4rem; font-family: var(--font-serif); font-size: 1.2rem; color: var(--oro-scuro); }
+    .sala-info h4 { margin: 0 0 .4rem; font-family: var(--font-serif); font-size: 1.2rem; color: var(--mare); }
     .sala-info p { margin: 0; }
     .sala-info p + p { margin-top: .5rem; }
     .riepilogo { display: grid; grid-template-columns: auto 1fr; gap: .5rem 1.2rem; margin: 0; padding: 1rem 1.1rem; background: var(--spuma); border: 1px solid var(--riga); border-radius: 6px; }
@@ -548,7 +548,7 @@
       .galleria-scroll { scroll-behavior: auto; }
     }
   </style>
-  <link rel="stylesheet" href="assets/pinodoro-sistema.css?v=a28e0ddb28">
+  <link rel="stylesheet" href="assets/pinodoro-sistema.css?v=c594291480">
   <noscript><style>.recensione { background-image: url("assets/photos/terrazza-interno-1200.jpg"); }</style></noscript>
 </head>
 <body>

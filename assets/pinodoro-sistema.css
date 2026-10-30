@@ -182,7 +182,7 @@ small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-grigio); }
   transition: transform .2s ease;
 }
 .pdo-barra a { min-height: 0; height: 100%; padding: 0 8px; font-size: 15px; line-height: 1.2; text-align: center; width: auto; }
-.pdo-barra .pdo-btn { font-size: 16px; background: var(--pdo-oro); color: var(--pdo-nero); }
+.pdo-barra .pdo-btn { font-size: 16px; background: var(--pdo-bianco); color: var(--pdo-mare); }
 .pdo-barra .pdo-btn-secondario { color: var(--pdo-bianco); border-color: var(--pdo-bianco); }
 .pdo-barra .pdo-btn-secondario:hover, .pdo-barra .pdo-btn-secondario:focus-visible { background: #FFFFFF1A; }
 .pdo-barra :focus-visible { outline-color: var(--pdo-bianco); }
