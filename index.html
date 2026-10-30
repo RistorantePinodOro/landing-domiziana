@@ -375,6 +375,10 @@
     .consent { grid-column: 1 / -1; display: flex; gap: .6rem; align-items: flex-start; font-size: .9rem; color: var(--grigio); cursor: pointer; }
     .consent input { margin: .25rem 0 0; width: 1.1rem; height: 1.1rem; flex: none; accent-color: var(--mare); }
     .consent.attn { color: var(--nero); }
+    .consent-tutto { align-items: center; gap: .8rem; padding: .8rem 1rem; border: 2px solid var(--mare); border-radius: 6px; background: var(--celeste); color: var(--nero); }
+    .consent-tutto input { width: 1.6rem; height: 1.6rem; margin: 0; }
+    .consent-tutto strong { display: block; font-family: var(--font-serif); font-weight: 400; font-size: 1.3rem; line-height: 1.2; }
+    .consent-tutto small { display: block; font-size: .875rem; color: var(--grigio); }
     .slot-notice { grid-column: 1 / -1; font-size: .9rem; line-height: 1.5; background: var(--spuma); border: 1px solid var(--riga); border-left: 3px solid var(--oro); border-radius: 6px; padding: .7rem .9rem; }
     .slot-notice p { margin: 0; }
     .slot-notice p + p { margin-top: .5rem; }
@@ -952,7 +956,9 @@
               <p class="form-note" id="notesHint">Se qui indichi allergie o intolleranze, acconsenti espressamente a che usiamo queste informazioni per preparare il tuo tavolo (dati relativi alla salute, vedi l'<a href="privacy.html#prenotazioni" target="_blank" rel="noopener">informativa sulla privacy</a>). Confermale anche al nostro staff.</p></div>
             <div class="field hp" aria-hidden="true"><label for="website">Sito web</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
             <label class="consent"><input id="privacy" name="privacy" type="checkbox" required> <span>Ho letto l'<a href="privacy.html#prenotazioni" target="_blank" rel="noopener">informativa sulla privacy</a>; i miei dati saranno usati solo per gestire questa prenotazione.</span></label>
-            <label class="consent"><input id="marketing" name="marketing" type="checkbox"> <span>Tienimi aggiornato su eventi e offerte (facoltativo, vedi l'<a href="privacy.html#marketing" target="_blank" rel="noopener">informativa sulla privacy</a>).</span></label>            <button type="submit" class="pdo-btn" id="submitBtn">Invia la richiesta</button>
+            <label class="consent"><input id="marketing" name="marketing" type="checkbox"> <span>Tienimi aggiornato su eventi e offerte (facoltativo, vedi l'<a href="privacy.html#marketing" target="_blank" rel="noopener">informativa sulla privacy</a>).</span></label>
+            <label class="consent consent-tutto"><input id="accettaTutto" type="checkbox"> <span><strong>Accetto tutto</strong><small>Spunta tutte le caselle qui sopra, compresi gli aggiornamenti su eventi e offerte.</small></span></label>
+            <button type="submit" class="pdo-btn" id="submitBtn">Invia la richiesta</button>
             <div class="form-error" id="formError" role="alert"></div>
             <p class="form-note">È una richiesta, non una prenotazione confermata. Nessun pagamento richiesto.</p>
             <p class="form-note">Le prenotazioni sono soggette ai nostri <a href="https://ristorantepinodoro.it/termini.html#prenotazioni" target="_blank" rel="noopener">termini</a>.</p>
@@ -1519,7 +1525,13 @@
         return [dt, dd];
       }));
       updateNotice();
+      tutto.checked = caselle().every(c => c.checked);
     }
+    // "Accetto tutto" spunta o toglie le caselle mostrate nel passo 3 e segue quelle cambiate a mano.
+    const tutto = $('accettaTutto');
+    const caselle = () => [ackBox, $('privacy'), $('marketing')].filter(c => !c.closest('[hidden]'));
+    tutto.addEventListener('change', () => caselle().forEach(c => { c.checked = tutto.checked; }));
+    passi[2].addEventListener('change', e => { if (caselle().includes(e.target)) tutto.checked = caselle().every(c => c.checked); });
 
     // ---- Invio (POST {"action":"create"}) -----------------------------------
     form.addEventListener('submit', async e => {
