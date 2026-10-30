@@ -3,19 +3,22 @@
 
 /* ---------- 1. VARIABILI ---------- */
 :root {
-  /* Colori fissi: non cambiano mai, nemmeno nei temi */
-  --pdo-crema: #FFF2DA;
-  --pdo-crema-chiaro: #FFFCF5;
-  --pdo-linea: #EAD9B4;
-  --pdo-inchiostro: #302B1F;
-  --pdo-inchiostro-2: #4A4030;      /* testi secondari */
-  --pdo-oro-chiaro: #F5DCA4;
-  --pdo-oro-logo: #C59940;
-  --pdo-oro-numeri: #8A6A22;        /* numeri grandi e corsivi: contrasto ok su crema */
+  /* Colori fissi (palette "Sotto la sabbia"): non cambiano mai, nemmeno nei temi */
+  --pdo-nero: #0E0D0B;
+  --pdo-oro: #C4993F;               /* onde, filetti, bottone alternativo: mai testo su fondo chiaro */
+  --pdo-oro-scuro: #8A6717;         /* testo oro: solo da 18 px o grassetto da 14 px */
+  --pdo-celeste: #E1F2FA;
+  --pdo-acquerello: #D3ECE8;
+  --pdo-spuma: #F3EBD9;
+  --pdo-marroncino: #8C6A43;        /* fasce piene, sempre con testo bianco */
+  --pdo-mare: #35597A;              /* bottone principale e link, testo bianco sopra */
+  --pdo-grigio: #5B564D;            /* testi secondari */
+  --pdo-bianco: #FFFFFF;
+  --pdo-linea: #C4993F66;           /* oro al 40% */
   --pdo-rosso: #8A2F1F;
 
   /* Colore del tema: cambia solo nei temi stagionali */
-  --pdo-onda: #6B5B3E;
+  --pdo-onda: #8C6A43;
 
   /* Caratteri */
   --pdo-font-titoli: "DM Serif Display", Georgia, serif;
@@ -40,8 +43,8 @@
 
 /* ---------- 2. BASE ---------- */
 body {
-  background: var(--pdo-crema);
-  color: var(--pdo-inchiostro);
+  background: var(--pdo-spuma);
+  color: var(--pdo-nero);
   font-family: var(--pdo-font-testo);
   font-size: var(--pdo-fs-testo);
   line-height: 1.5;
@@ -52,7 +55,7 @@ h2, .pdo-h2 { font-family: var(--pdo-font-titoli); font-weight: 400; font-size: 
 h3, .pdo-h3 { font-family: var(--pdo-font-titoli); font-weight: 400; font-size: var(--pdo-fs-h3); line-height: 1.2; }
 
 /* Nessun testo sotto i 14 px */
-small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-inchiostro-2); }
+small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-grigio); }
 
 /* Testi lunghi sempre allineati a sinistra */
 .pdo-testo-lungo,
@@ -65,7 +68,7 @@ small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-inchiostro-2)
   font-style: italic;
   font-size: var(--pdo-fs-numeri);
   line-height: 1;
-  color: var(--pdo-oro-numeri);
+  color: var(--pdo-oro-scuro);
 }
 /* Le frasi sotto i numeri: niente corsivo piccolo */
 .pdo-numero-testo { font-family: var(--pdo-font-testo); font-style: normal; font-size: var(--pdo-fs-testo); }
@@ -90,23 +93,23 @@ small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-inchiostro-2)
 
 /* Principale: SOLO "Prenota". Uno per schermata. */
 .pdo-btn {
-  background: var(--pdo-inchiostro);
-  color: var(--pdo-oro-chiaro);
+  background: var(--pdo-mare);
+  color: var(--pdo-bianco);
   border: 0;
 }
-.pdo-btn:hover, .pdo-btn:focus-visible { background: #000; color: var(--pdo-oro-chiaro); }
+.pdo-btn:hover, .pdo-btn:focus-visible { background: var(--pdo-nero); color: var(--pdo-bianco); }
 
 /* Secondario: WhatsApp, Chiama, Portami lì */
 .pdo-btn-secondario {
   background: transparent;
-  color: var(--pdo-inchiostro);
-  border: 1.5px solid var(--pdo-inchiostro);
+  color: var(--pdo-mare);
+  border: 1.5px solid var(--pdo-mare);
   font-size: 16px;
 }
-.pdo-btn-secondario:hover, .pdo-btn-secondario:focus-visible { background: var(--pdo-crema-chiaro); }
+.pdo-btn-secondario:hover, .pdo-btn-secondario:focus-visible { background: var(--pdo-celeste); }
 
 /* Link: approfondimenti, mai per prenotare */
-.pdo-link { color: var(--pdo-inchiostro); text-decoration: underline; text-underline-offset: 3px; font-size: 16px; }
+.pdo-link { color: var(--pdo-mare); text-decoration: underline; text-underline-offset: 3px; font-size: 16px; }
 
 /* Su smartphone i pulsanti nelle sezioni occupano tutta la larghezza */
 @media (max-width: 767px) {
@@ -116,7 +119,7 @@ small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-inchiostro-2)
 /* Fuoco visibile da tastiera */
 .pdo-btn:focus-visible,
 .pdo-btn-secondario:focus-visible,
-.pdo-link:focus-visible { outline: 2px solid var(--pdo-oro-logo); outline-offset: 3px; }
+.pdo-link:focus-visible { outline: 2px solid var(--pdo-mare); outline-offset: 3px; }
 
 /* ---------- 4. BARRA IN ALTO: pulsante Prenota sempre visibile ---------- */
 .pdo-header-prenota {
@@ -125,8 +128,8 @@ small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-inchiostro-2)
   height: 40px;
   padding: 0 16px;
   margin-right: 8px;
-  background: var(--pdo-inchiostro);
-  color: var(--pdo-oro-chiaro);
+  background: var(--pdo-mare);
+  color: var(--pdo-bianco);
   border-radius: var(--pdo-raggio-pulsante);
   font-size: 15px;
   text-decoration: none;
@@ -136,7 +139,7 @@ small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-inchiostro-2)
 /* Fascia oraria: una riga, carattere del testo */
 .pdo-fascia-oraria {
   background: var(--pdo-onda);
-  color: var(--pdo-crema);
+  color: var(--pdo-bianco);
   font-family: var(--pdo-font-testo);
   font-size: 15px;
   font-weight: 400;
@@ -148,16 +151,16 @@ small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-inchiostro-2)
 
 /* ---------- 6. SCHEDE (formule e offerte) ---------- */
 .pdo-scheda {
-  background: var(--pdo-crema-chiaro);
-  border: 1px solid #E3C987;
+  background: var(--pdo-bianco);
+  border: 1px solid var(--pdo-linea);
   border-radius: var(--pdo-raggio-scheda);
   overflow: hidden;
 }
 .pdo-scheda-condizioni {
   font-size: var(--pdo-fs-nota);
   line-height: 1.45;
-  color: var(--pdo-inchiostro-2);
-  background: var(--pdo-crema);
+  color: var(--pdo-grigio);
+  background: var(--pdo-spuma);
   border-radius: 8px;
   padding: 10px 12px;
 }
@@ -173,13 +176,16 @@ small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-inchiostro-2)
   height: var(--pdo-altezza-barra);
   box-sizing: border-box;
   padding: 10px 12px calc(14px + env(safe-area-inset-bottom));
-  background: #FFF8EA;
-  border-top: 1px solid var(--pdo-linea);
+  background: var(--pdo-marroncino);
+  border-top: 1px solid var(--pdo-oro);
   transform: translateY(100%);
   transition: transform .2s ease;
 }
 .pdo-barra a { min-height: 0; height: 100%; padding: 0 8px; font-size: 15px; line-height: 1.2; text-align: center; width: auto; }
-.pdo-barra .pdo-btn { font-size: 16px; }
+.pdo-barra .pdo-btn { font-size: 16px; background: var(--pdo-oro); color: var(--pdo-nero); }
+.pdo-barra .pdo-btn-secondario { color: var(--pdo-bianco); border-color: var(--pdo-bianco); }
+.pdo-barra .pdo-btn-secondario:hover, .pdo-barra .pdo-btn-secondario:focus-visible { background: #FFFFFF1A; }
+.pdo-barra :focus-visible { outline-color: var(--pdo-bianco); }
 .pdo-barra.is-visibile { transform: translateY(0); }
 
 @media (max-width: 767px) {
