@@ -814,7 +814,7 @@
           <img class="onda-faq" src="assets/icons/ui/wave.svg?v=1d495bc9c5" alt="" aria-hidden="true" width="866" height="26" loading="lazy">
           <article class="domanda">
             <span class="numero-domanda" aria-hidden="true">3</span>
-            <div><h3 class="domanda-q">Devo prenotare?</h3><p class="domanda-a">Non è obbligatorio, ma la domenica e d'estate il lido si riempie. Prenoti online in un minuto, senza pagare nulla in anticipo: poi te la confermiamo noi.</p></div>
+            <div><h3 class="domanda-q">Devo prenotare?</h3><p class="domanda-a">Non è obbligatorio, ma la domenica e d'estate il lido si riempie. Prenoti online in un minuto, senza pagare nulla in anticipo: se l'orario ha posto, la conferma ti arriva subito su WhatsApp.</p></div>
           </article>
           <img class="onda-faq" src="assets/icons/ui/wave.svg?v=1d495bc9c5" alt="" aria-hidden="true" width="866" height="26" loading="lazy">
           <article class="domanda">
@@ -879,7 +879,7 @@
         <div class="prenota-intro">
           <p class="occhiello">Prenota</p>
           <h2 class="sezione-titolo">Prenota il tuo tavolo</h2>
-          <p class="lead">La richiesta arriva subito al nostro sistema di prenotazione e te la confermiamo noi. Nessun pagamento anticipato.</p>
+          <p class="lead">Se l'orario che scegli ha posto, il tavolo è confermato subito e ti arriva un messaggio su WhatsApp. Nessun pagamento anticipato.</p>
           <p class="lead">Per gruppi da 8 persone in su, o per una festa privata sulla spiaggia, chiamaci: <a href="tel:+393887877008">+39 388 787 7008</a>.</p>
         </div>
         <div class="prenota-col">
@@ -960,7 +960,7 @@
             <label class="consent consent-tutto"><input id="accettaTutto" type="checkbox"> <span><strong>Accetto tutto</strong><small>Spunta tutte le caselle qui sopra, compresi gli aggiornamenti su eventi e offerte.</small></span></label>
             <button type="submit" class="pdo-btn" id="submitBtn">Invia la richiesta</button>
             <div class="form-error" id="formError" role="alert"></div>
-            <p class="form-note">È una richiesta, non una prenotazione confermata. Nessun pagamento richiesto.</p>
+            <p class="form-note">Se l'orario ha posto, il tavolo è confermato subito; altrimenti ti confermiamo noi su WhatsApp. Nessun pagamento richiesto.</p>
             <p class="form-note">Le prenotazioni sono soggette ai nostri <a href="https://ristorantepinodoro.it/termini.html#prenotazioni" target="_blank" rel="noopener">termini</a>.</p>
             <button type="button" class="indietro" data-indietro>Torna indietro</button>
           </div>
@@ -1576,13 +1576,17 @@
       } finally { submitBtn.disabled = false; }
     });
     function showSuccess(j, waitlisted) {
-      const onList = waitlisted || Number(j.statusCode) === 8;
+      // Il testo segue lo stato con cui Cooperto ha creato la prenotazione: 2 confermata, 8 lista d'attesa, altrimenti richiesta.
+      const stato = waitlisted || Number(j.statusCode) === 8 ? 'attesa' : Number(j.statusCode) === 2 ? 'confermata' : 'richiesta';
       const code = j.code ? String(j.code) : '';
-      $('successTitolo').textContent = onList ? "Sei in lista d'attesa" : 'Richiesta inviata';
+      $('successTitolo').textContent = { confermata: 'Tavolo confermato', richiesta: 'Richiesta ricevuta', attesa: "Sei in lista d'attesa" }[stato];
       const text = $('successTesto');
-      text.replaceChildren(onList ? "Grazie! Sei in lista d'attesa" : 'Grazie! Abbiamo ricevuto la tua richiesta');
-      if (code) { const b = document.createElement('strong'); b.textContent = code; text.append(' (rif. ', b, ')'); }
-      text.append('. ' + (onList ? 'Ti contattiamo appena si libera un tavolo.' : 'Ti contattiamo a breve per confermare.'));
+      text.replaceChildren({
+        confermata: 'Fatto: il tuo tavolo è confermato. Tra poco ti arriva il messaggio su WhatsApp. Ci vediamo sulla spiaggia.',
+        richiesta: 'Abbiamo ricevuto la tua richiesta. Ti confermiamo il tavolo su WhatsApp il prima possibile.',
+        attesa: "Sei in lista d'attesa. Se si libera un tavolo, ti scriviamo noi su WhatsApp."
+      }[stato]);
+      if (code) { const b = document.createElement('strong'); b.textContent = code; text.append(' Codice: ', b, '.'); }
       if (code) {
         const note = document.createElement('span'); note.className = 'save-code';
         note.textContent = 'Conserva questo codice per controllare o annullare la prenotazione.';
