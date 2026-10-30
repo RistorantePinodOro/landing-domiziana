@@ -2,7 +2,7 @@
 <circle opacity="0.47" cx="306.5" cy="306.5" r="306.5" fill="url(#paint0_linear_62_101)"/>
 <defs>
 <linearGradient id="paint0_linear_62_101" x1="306.5" y1="0" x2="306.5" y2="613" gradientUnits="userSpaceOnUse">
-<stop stop-color="#F8D587"/>
+<stop stop-color="#C4993F"/>
 <stop offset="1" stop-color="white" stop-opacity="0"/>
 </linearGradient>
 </defs>
