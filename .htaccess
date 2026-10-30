@@ -6,6 +6,9 @@ DirectoryIndex index.html
 Options -Indexes
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  # Il vecchio dominio va sul dominio nuovo anche qui: la regola della radice non vale dentro questa cartella.
+  RewriteCond %{HTTP_HOST} ^(www\.)?ristorantelidopinodoro\.com$ [NC]
+  RewriteRule ^(.*)$ https://ristorantepinodoro.it/domiziana/$1 [R=301,L]
   # recensioni.json passa da recensioni.php, che lo rinnova dalla scheda Google quando ha più di un giorno.
   RewriteRule ^recensioni\.json$ recensioni.php [L]
   # /domiziana/index.html → /domiziana/: nella barra resta l'indirizzo pulito, anche per i vecchi link.

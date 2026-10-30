@@ -46,6 +46,8 @@ test(".htaccess fa passare recensioni.json da recensioni.php, toglie index.html 
   const htaccess = leggi(".htaccess");
   assert.match(htaccess, /RewriteRule \^recensioni\\\.json\$ recensioni\.php \[L\]/);
   assert.match(htaccess, /RewriteRule \^index\\\.html\$ \/domiziana\/ \[R=301,L\]/);
+  assert.ok(htaccess.includes("RewriteCond %{HTTP_HOST} ^(www\\.)?ristorantelidopinodoro\\.com$ [NC]"), "il vecchio dominio va sul dominio nuovo");
+  assert.ok(htaccess.includes("RewriteRule ^(.*)$ https://ristorantepinodoro.it/domiziana/$1 [R=301,L]"));
   for (const protetto of ["config\\.php", "recensioni-lib\\.php", "recensioni-escluse\\.txt", "recensioni\\.lock"]) {
     assert.ok(htaccess.includes(protetto), protetto);
   }

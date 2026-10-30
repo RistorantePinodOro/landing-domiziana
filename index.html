@@ -1618,7 +1618,7 @@
     }
     window.addEventListener('hashchange', applyHash);
 
-    // ---- Controlla / annulla una prenotazione (GET ?lookup=1, POST {"action":"cancel"}) ----
+    // ---- Controlla / annulla una prenotazione (POST {"action":"lookup"} e {"action":"cancel"}) ----
     const lookupToggle = $('lookupToggle'), lookupPanel = $('lookupPanel'), lookupForm = $('lookupForm');
     const lookupError = $('lookupError'), lookupResult = $('lookupResult');
     const cancelBtn = $('cancelBtn'), cancelConfirm = $('cancelConfirm'), cancelYes = $('cancelYes'), cancelNo = $('cancelNo'), cancelStatus = $('cancelStatus');
@@ -1643,7 +1643,7 @@
       show(lookupResult, true);
     }
     async function fetchReservation(code, phone) {
-      const { ok, status, json: j } = await api('?lookup=1&code=' + encodeURIComponent(code) + '&phone=' + encodeURIComponent(phone));
+      const { ok, status, json: j } = await postJson({ action: 'lookup', code, phone });
       if (ok && j && j.ok && j.reservation) return j.reservation;
       throw Object.assign(new Error('lookup'), { status, message: status === 404 ? 'Non troviamo una prenotazione con questo codice e numero di telefono.' : (j && j.error && j.error.message) || 'Non riusciamo a controllare la prenotazione in questo momento. Chiamaci o scrivici.' });
     }
