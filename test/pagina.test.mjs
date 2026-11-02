@@ -1,9 +1,11 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 
 const leggi = (file) => readFileSync(new URL(`../${file}`, import.meta.url), "utf8");
-const pagina = leggi("index.html");
+// Il markup sta in index.html, il codice in assets/pagina.js.
+const pagina = leggi("index.html") + "\n" + leggi("assets/pagina.js");
 
 test("la pagina pubblicata non contiene recensioni scritte a mano o segnaposto", () => {
   for (const finto of ["NomeC.", "contenuto della recensione", "Pasquale T."]) {
@@ -59,6 +61,24 @@ test(".htaccess lascia caricare Tag Manager e i tag di Google, e nessun servizio
     assert.match(csp, new RegExp(`${direttiva} [^;]*https://www\\.googletagmanager\\.com`), direttiva);
   }
   assert.doesNotMatch(csp, /facebook|iubenda/);
+  const scriptSrc = csp.split(";").find((d) => d.trim().startsWith("script-src"));
+  assert.ok(!scriptSrc.includes("'unsafe-inline'"), "nessuno script scritto nella pagina: il markup iniettato non può eseguire codice");
+});
+
+test("le pagine non hanno script, gestori di eventi o link javascript: scritti dentro, e ogni ?v= è l'impronta del file", () => {
+  let controllati = 0;
+  for (const file of ["index.html", "privacy.html", "cookie.html"]) {
+    const html = leggi(file);
+    for (const m of html.matchAll(/<script(?![^>]*\bsrc=)([^>]*)>/g)) assert.match(m[1], /application\/ld\+json/, `${file}: <script> scritto nella pagina`);
+    assert.doesNotMatch(html, /<[^>]+\son[a-z]+\s*=\s*["']/i, `${file}: gestore di eventi`);
+    assert.doesNotMatch(html, /(href|src)\s*=\s*["']\s*javascript:/i, `${file}: URL javascript:`);
+    for (const [, percorso, v] of html.matchAll(/src="(assets\/[^"?]+\.js)\?v=([0-9a-f]+)"/g)) {
+      const testo = leggi(percorso).replace(/\r\n/g, "\n");
+      assert.equal(v, createHash("sha256").update(testo).digest("hex").slice(0, 10), `${file}: ${percorso}`);
+      controllati++;
+    }
+  }
+  assert.ok(controllati >= 2, "index.html carica i suoi script con ?v=");
 });
 
 test("index, privacy e cookie richiamano nell'intestazione le stesse icone, con percorsi relativi", () => {
