@@ -351,4 +351,4 @@ small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-grigio); }
 /* Prenota */
 .form { border: 1px solid var(--pdo-linea); border-radius: var(--pdo-raggio-grande); box-shadow: var(--pdo-ombra-alta); }
 .lookup { border-radius: var(--pdo-raggio-grande); box-shadow: var(--pdo-ombra); }
-.field input, .field select, .field textarea, .contatore, .scelta span, .riepilogo, .sala-info, .slot-notice { border-radius: 10px; }
+.field input, .field select, .field textarea, .contatore, .scelta span, .riepilogo, .slot-notice { border-radius: 10px; }

@@ -59,7 +59,6 @@
     const dateInput = $('date'), dateHint = $('dateHint');
     const guestsInput = $('guests'), guestsHint = $('guestsHint');
     const roomField = $('roomField'), roomChoices = $('roomChoices');
-    const seatingField = $('seatingField');
     const timeChoices = $('timeChoices'), timeLegend = $('timeLegend'), timeHint = $('timeHint'), slotNotice = $('slotNotice');
     const ackWrap = $('ackWrap'), ackBox = $('ackNotice');
     const waitlistWrap = $('waitlistWrap'), waitlistBox = $('waitlist');
@@ -255,7 +254,7 @@
       return false;
     }
 
-    // ---- Sale (GET ?rooms=1): sostituisce la preferenza di posto quando il modulo ha delle sale ----
+    // ---- Sale (GET ?rooms=1): compaiono solo se il sistema di prenotazione ne ha ----
     async function loadRooms() {
       try {
         const { json: j } = await api('?rooms=1');
@@ -272,22 +271,15 @@
         }
         roomChoices.replaceChildren(...choices);
         show(roomField, true);
-        show(seatingField, false);
         applyPendingRoom();
-        updateSalaInfo();
-      } catch { /* resta la preferenza di posto */ }
+      } catch { /* senza sale il modulo resta senza scelta della sala */ }
     }
     function applyPendingRoom() {
       if (!pending.room || roomField.hidden) return;
       scegli('room', pending.room);
       pending.room = null;
     }
-    const salaScelta = () => roomField.hidden ? scelto('seating') : (roomNames.get(scelto('room')) || '');
-    // La descrizione della sala scelta, abbinata per nome a quelle del sistema di prenotazione.
-    function updateSalaInfo() {
-      const nome = salaScelta();
-      document.querySelectorAll('.sala-info').forEach(el => show(el, el.dataset.sala === nome));
-    }
+    const salaScelta = () => roomField.hidden ? '' : (roomNames.get(scelto('room')) || '');
 
     // ---- Fasce orarie (GET ?slots=1&date&guests[&room]) ----------------------
     // Orari come pulsanti raggruppati per fascia (Pranzo, Cena…); senza etichetta decide l'ora.
@@ -402,8 +394,7 @@
     const cambiaData = () => { if (dateInput.value !== dataCaricata) { validateDate(); loadSlots(); } };
     dateInput.addEventListener('change', cambiaData);
     dateInput.addEventListener('blur', cambiaData);
-    roomField.addEventListener('change', () => { updateSalaInfo(); loadSlots(); });
-    seatingField.addEventListener('change', updateSalaInfo);
+    roomField.addEventListener('change', loadSlots);
     timeChoices.addEventListener('change', updateNotice);
     waitlistBox.addEventListener('change', updateSubmitLabel);
 
@@ -449,7 +440,7 @@
         ['Persone', guestsInput.value, true],
         ['Data', fullDate(dateInput.value), true],
         [waitlisted ? 'Orario preferito' : 'Ora', scelto('time') + (waitlisted ? " · lista d'attesa" : ''), true],
-        [roomField.hidden ? 'Dove' : 'Sala', salaScelta(), true]
+        ['Sala', salaScelta(), true]
       ];
       $('riepilogo').replaceChildren(...rows.filter(r => r[1]).flatMap(([k, val, strong]) => {
         const dt = document.createElement('dt'); dt.textContent = k;
@@ -484,7 +475,6 @@
       };
       if (v('cap')) payload.cap = v('cap');
       if (!roomField.hidden && scelto('room')) payload.room = scelto('room');
-      if (!seatingField.hidden) payload.seating = scelto('seating');
       if (!waitlistWrap.hidden && waitlistBox.checked) payload.waitlist = true;
       if (!ackWrap.hidden) payload.ackNotice = !!ackBox.checked;
       submitBtn.disabled = true;
@@ -526,7 +516,7 @@
         text.append(note);
         $('lookupCode').value = code; $('lookupPhone').value = $('phone').value.trim(); // pronti per "Controlla la tua prenotazione"
       }
-      form.reset(); resetSlotUi(); setHint(dateHint, ''); setHint(guestsHint, ''); updateSalaInfo(); loadSlots();
+      form.reset(); resetSlotUi(); setHint(dateHint, ''); setHint(guestsHint, ''); loadSlots();
       passi.forEach(p => show(p, false)); show($('passi'), false);
       formSuccess.classList.add('show');
       form.scrollIntoView({ block: 'start' });
@@ -549,7 +539,6 @@
       pending.time = isTime(time) ? time : null;
       pending.room = room || null;
       applyPendingRoom();
-      updateSalaInfo();
       goTo(0);
       loadSlots();
     }
