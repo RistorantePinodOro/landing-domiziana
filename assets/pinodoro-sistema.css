@@ -252,16 +252,27 @@ small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-grigio); }
 }
 .storia, .citazione { --pdo-colore-onda: var(--pdo-spuma); }
 .footer { --pdo-colore-onda: var(--pdo-marroncino); }
-.galleria, .prenota { border-top: 0; }
+.galleria, .visita, .prenota { border-top: 0; }
 
-/* Le tre onde sotto i titoli di sezione */
-.sezione-titolo::after, .faq-titolo::after, .galleria-titolo::after,
-.formule-titolo::after, .visita-titolo::after {
-  content: ""; display: block; width: 60px; height: 18px; margin: .8rem auto 0;
-  background: var(--pdo-onde) no-repeat center / contain;
+/* Le ondine del logo: un solo disegno (--pdo-onde) usato come maschera, così il colore viene da `color`:
+   oro sui fondi chiari, spuma su marroncino e mare. Proporzioni fisse 60 × 18, mai sotto i 24 px. */
+.ondine, .occhiello::before, .occhiello::after {
+  display: inline-block; flex-shrink: 0; width: 60px; height: auto; aspect-ratio: 60 / 18;
+  color: var(--pdo-oro); background-color: currentColor;
+  -webkit-mask: var(--pdo-onde) center / contain no-repeat;
+  mask: var(--pdo-onde) center / contain no-repeat;
 }
-.sezione-titolo::after, .visita-titolo::after { margin-left: 0; }
-.menu-testa .sezione-titolo::after { margin-inline: auto; }
+.su-scuro .ondine { color: var(--pdo-spuma); }
+/* Posti fissi: sotto il titolo della prima schermata, in cima a ogni sezione, ai lati degli occhielli, nel footer */
+.ondine-hero { display: block; width: 76px; margin: 1rem auto 1.2rem; }
+.ondine-sep { display: block; margin: 0 auto clamp(2rem, 6vh, 3.5rem); }
+/* Tra due sezioni con lo stesso fondo l'ondina sta a metà dello spazio, non attaccata alla seconda */
+.citazione + .visita, .offerte + .storia { padding-top: 0; }
+.occhiello { display: inline-flex; align-items: center; gap: .7rem; }
+.occhiello::before, .occhiello::after { content: ""; width: 28px; }
+.slot-notice .occhiello { display: block; }
+.slot-notice .occhiello::before, .slot-notice .occhiello::after { content: none; }
+.ondine-footer { display: block; margin-bottom: 1.1rem; }
 
 /* Prima schermata: la "o" tra i due pulsanti */
 .hero-o { font-family: var(--pdo-font-corsivo); font-style: italic; color: var(--pdo-grigio); }
@@ -276,10 +287,6 @@ small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-grigio); }
   border-radius: var(--pdo-raggio-grande);
   box-shadow: var(--pdo-ombra);
   text-align: left;
-}
-.prove .prova::after {
-  content: ""; position: absolute; top: 1.3rem; right: 1.3rem; width: 60px; height: 18px;
-  background: var(--pdo-onde) no-repeat center / contain;
 }
 .prove #blocco-recensioni { grid-column: 1 / -1; margin-top: 1rem; }
 .chip { border-radius: 6px; padding: .02em .35em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
