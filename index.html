@@ -135,6 +135,9 @@
     .hero-titolo {
       font-family: var(--font-display); max-width: 26ch; margin: 0 auto; padding: 0 1rem;
     }
+    /* The hero title, a bit bigger than the other titles: 34px keeps it on 4 lines on most phones */
+    .pdo-hero .hero-titolo { font-size: 34px; }
+    @media (min-width: 768px) { .pdo-hero .hero-titolo { font-size: 58px; } }
     .hero-cta { display: grid; gap: .9rem; justify-items: center; width: min(100%, 460px); margin: 0 auto; padding: 0 1rem; }
 
     /* ---------- Le prove ---------- */
