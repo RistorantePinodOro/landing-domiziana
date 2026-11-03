@@ -359,3 +359,12 @@ small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-grigio); }
 .form { border: 1px solid var(--pdo-linea); border-radius: var(--pdo-raggio-grande); box-shadow: var(--pdo-ombra-alta); }
 .lookup { border-radius: var(--pdo-raggio-grande); box-shadow: var(--pdo-ombra); }
 .field input, .field select, .field textarea, .contatore, .scelta span, .riepilogo, .slot-notice { border-radius: 10px; }
+
+/* Salta al contenuto: compare solo quando ci si arriva con la tastiera */
+.skip {
+  position: absolute; left: 1rem; top: -4rem; z-index: 100;
+  padding: .6rem 1rem; border-radius: 999px;
+  background: var(--pdo-mare); color: var(--pdo-bianco); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; text-decoration: none;
+  transition: top .15s ease;
+}
+.skip:focus { top: 1rem; }
