@@ -136,8 +136,6 @@
       font-family: var(--font-display); max-width: 26ch; margin: 0 auto; padding: 0 1rem;
     }
     .hero-cta { display: grid; gap: .9rem; justify-items: center; width: min(100%, 460px); margin: 0 auto; padding: 0 1rem; }
-    .hero-freccia { display: inline-block; margin-top: .8rem; animation: rimbalzo 1.8s ease-in-out infinite; border-radius: 50%; }
-    .hero-freccia img { width: 52px; height: auto; }
 
     /* ---------- Le prove ---------- */
     .prove { padding: clamp(2rem, 6vh, 4.5rem) 0 clamp(1rem, 4vh, 2.5rem); }
@@ -517,7 +515,6 @@
     @keyframes apparsa { from { opacity: 0; } to { opacity: 1; } }
     @keyframes onda { to { background-position-x: calc(var(--sh) * 4.8615); } }
     @keyframes onda-indietro { from { background-position-x: calc(var(--sh) * 1.14 * 4.8615); } to { background-position-x: 0; } }
-    @keyframes rimbalzo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
     @keyframes lampeggio { 0%, 100% { opacity: .3; } 50% { opacity: .15; } }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -574,7 +571,6 @@
       <div class="hero-cta">
         <a href="#reserve" class="pdo-btn" id="pdo-hero-cta">Prenota un tavolo</a>
       </div>
-      <a href="#prove" class="hero-freccia" aria-label="Scorri in basso"><img src="assets/icons/ui/arrow-down.svg?v=b5943242de" alt="" aria-hidden="true" width="118" height="112"></a>
     </section>
 
     <!-- ================= LE PROVE ================= -->
