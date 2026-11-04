@@ -13,6 +13,10 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
   <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=2">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
+  <link rel="preload" href="assets/photos/sfondo-spiaggia-800.webp" as="image" media="(max-width: 719px)" fetchpriority="high">
+  <link rel="preload" href="assets/photos/sfondo-spiaggia-1600.webp" as="image" media="(min-width: 720px)" fetchpriority="high">
+  <link rel="preload" href="assets/fonts/dm-serif-display-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/questrial-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/fonts/fonts.css">
   <style>
     /* ==========================================================================
@@ -88,8 +92,7 @@
 
     /* ---------- Header ---------- */
     .header {
-      position: sticky; top: 0; z-index: 50; background: #E1F2FAF0;
-      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid var(--riga);
+      position: sticky; top: 0; z-index: 50; background: #E1F2FAF0; border-bottom: 1px solid var(--riga);
     }
     .nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: var(--header-h); }
     .brand { display: inline-flex; align-items: center; border-radius: 4px; }
@@ -109,15 +112,15 @@
     /* ---------- Hero ---------- */
     .hero {
       position: relative; overflow: hidden; min-height: calc(100svh - var(--header-h));
-      background: url("assets/photos/sfondo-spiaggia-1600.jpg") center top / cover no-repeat, var(--sfumatura-spiaggia);
+      background: url("assets/photos/sfondo-spiaggia-1600.webp") center top / cover no-repeat, var(--sfumatura-spiaggia);
       display: flex; flex-direction: column; align-items: center; text-align: center; padding: 1.5rem 0 1rem;
     }
     .hero::after { content: ""; position: absolute; inset: auto 0 0; height: 18%; background: linear-gradient(to bottom, transparent, var(--spuma)); pointer-events: none; }
     .hero > * { position: relative; }
-    .striscia-bg { --sh: clamp(92px, 12vh, 130px); position: relative; width: 100%; margin: .5rem 0 1.2rem; isolation: isolate; }
+    .striscia-bg { --sh: clamp(92px, 12vh, 130px); position: relative; width: 100%; margin: .5rem 0 1.2rem; isolation: isolate; overflow-x: clip; }
     .striscia-bg::before {
-      content: ""; position: absolute; left: 0; right: 0; top: -7%; bottom: -7%; z-index: -2; opacity: .7;
-      background: url("assets/icons/ui/wave2.png?v=e602bc65c2") repeat-x 0 0 / calc(var(--sh) * 1.14 * 4.8615) calc(var(--sh) * 1.14);
+      content: ""; position: absolute; left: 0; right: calc(var(--sh) * -1.14 * 4.8615); top: -7%; bottom: -7%; z-index: -2; opacity: .7;
+      background: url("assets/icons/ui/wave2.webp?v=c290f64829") repeat-x 0 0 / calc(var(--sh) * 1.14 * 4.8615) calc(var(--sh) * 1.14);
       animation: onda-indietro 32s linear infinite;
     }
     .striscia {
@@ -125,8 +128,8 @@
       color: var(--bianco); padding: 0 1rem; isolation: isolate;
     }
     .striscia::before {
-      content: ""; position: absolute; inset: 0; z-index: -1;
-      background: url("assets/icons/ui/wave.png?v=370c4909dc") repeat-x 0 0 / calc(var(--sh) * 4.8615) var(--sh);
+      content: ""; position: absolute; top: 0; bottom: 0; left: calc(var(--sh) * -4.8615); right: 0; z-index: -1;
+      background: url("assets/icons/ui/wave.png?v=8fa8e5029a") repeat-x 0 0 / calc(var(--sh) * 4.8615) var(--sh);
       animation: onda 13s linear infinite;
     }
     .striscia-icona { width: clamp(1.7rem, 2.3vw, 2.4rem); height: auto; flex: none; }
@@ -241,7 +244,7 @@
       padding: clamp(3rem, 8vh, 6rem) 0; text-align: center;
     }
     /* La foto di sfondo non è "lazy" per il browser: lo script aggiunge .is-near quando la sezione si avvicina. */
-    .recensione.is-near { background-image: url("assets/photos/terrazza-interno-1200.jpg"); }
+    .recensione.is-near { background-image: url("assets/photos/terrazza-interno-1200.webp"); }
     .recensione-grid { display: grid; gap: 2.5rem; align-items: center; justify-items: center; }
     .invito-testo { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.25rem, 2.2vw, 1.8rem); line-height: 1.4; margin: 0 0 1.4rem; }
     .invito { display: grid; justify-items: center; }
@@ -505,7 +508,7 @@
       }
       .nav-links.open li a { display: block; padding: .85rem 0; border-bottom: 1px solid var(--riga); font-size: 1.1rem; }
       .nav-links.open li:last-child a { border-bottom: 0; }
-      .hero { background-image: url("assets/photos/sfondo-spiaggia-800.jpg"); }
+      .hero { background-image: url("assets/photos/sfondo-spiaggia-800.webp"); }
       .orari { font-size: 1.05rem; padding-inline: 1rem; }
       .domanda { gap: .8rem; }
     }
@@ -516,9 +519,10 @@
 
     /* ---------- Motion ---------- */
     @keyframes apparsa { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes onda { to { background-position-x: calc(var(--sh) * 4.8615); } }
-    @keyframes onda-indietro { from { background-position-x: calc(var(--sh) * 1.14 * 4.8615); } to { background-position-x: 0; } }
+    @keyframes onda { to { transform: translateX(calc(var(--sh) * 4.8615)); } }
+    @keyframes onda-indietro { to { transform: translateX(calc(var(--sh) * -1.14 * 4.8615)); } }
     @keyframes lampeggio { 0%, 100% { opacity: .3; } 50% { opacity: .15; } }
+    .striscia-bg.is-ferma::before, .striscia-bg.is-ferma .striscia::before, .stelle-faq.is-ferma { animation: none; }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
@@ -526,7 +530,7 @@
     }
   </style>
   <link rel="stylesheet" href="assets/pinodoro-sistema.css?v=bf4d56dd85">
-  <noscript><style>.recensione { background-image: url("assets/photos/terrazza-interno-1200.jpg"); }</style></noscript>
+  <noscript><style>.recensione { background-image: url("assets/photos/terrazza-interno-1200.webp"); }</style></noscript>
 </head>
 <body>
   <a class="skip" href="#top">Salta al contenuto</a>
@@ -535,7 +539,7 @@
   <header class="header">
     <div class="wrap nav">
       <a href="#top" class="brand" aria-label="Lido Pino d'Oro — torna all'inizio">
-        <img class="brand-logo" src="assets/logo.png" alt="" width="500" height="326">
+        <img class="brand-logo" src="assets/logo-220.webp" alt="" width="220" height="144">
       </a>
       <nav aria-label="Principale">
         <ul class="nav-links" id="navLinks">
@@ -659,7 +663,7 @@
       <div class="wrap piatto-grid">
         <div class="piatto-visual">
           <img class="piatto-cerchio" src="assets/icons/ui/cerchio-blu.svg?v=72f340a0e8" alt="" aria-hidden="true" width="501" height="613" loading="lazy">
-          <img class="piatto-foto" src="assets/photos/piatto-spaghetti-lupini.png" alt="Spaghetti ai lupini locali, visti dall'alto" width="465" height="465" loading="lazy">
+          <img class="piatto-foto" src="assets/photos/piatto-spaghetti-lupini.webp" alt="Spaghetti ai lupini locali, visti dall'alto" width="465" height="465" loading="lazy">
         </div>
         <div class="piatto-testo">
           <p class="piatto-occhiello">★ Il piatto più ordinato del mese</p>
@@ -681,7 +685,7 @@
       <div class="wrap offerte-grid">
 
         <article class="card pdo-scheda">
-          <div class="card-foto"><img src="assets/photos/tavolo-terrazza-720.jpg" srcset="assets/photos/tavolo-terrazza-720.jpg 720w, assets/photos/tavolo-terrazza-1200.jpg 1200w" sizes="(min-width: 1024px) 380px, 100vw" alt="Tavoli apparecchiati sulla terrazza coperta vista mare" width="720" height="540" loading="lazy"></div>
+          <div class="card-foto"><img src="assets/photos/tavolo-terrazza-720.webp" srcset="assets/photos/tavolo-terrazza-720.webp 720w, assets/photos/tavolo-terrazza-1200.webp 1200w" sizes="(min-width: 1024px) 380px, 100vw" alt="Tavoli apparecchiati sulla terrazza coperta vista mare" width="720" height="540" loading="lazy"></div>
           <div class="card-corpo">
             <h3 class="card-titolo"><img class="icona icona-scura" src="assets/icons/ui/schedule.svg" alt="" aria-hidden="true" width="48" height="48" loading="lazy">Hai un'ora per pranzo? Usala bene.</h3>
             <hr>
@@ -703,7 +707,7 @@
         </article>
 
         <article class="card pdo-scheda">
-          <div class="card-foto"><img src="assets/photos/tavolo-sera-1080.jpg" alt="Tavolo apparecchiato sulla sabbia la sera, con le candele accese" width="720" height="1080" loading="lazy"></div>
+          <div class="card-foto"><img src="assets/photos/tavolo-sera-1080.webp" alt="Tavolo apparecchiato sulla sabbia la sera, con le candele accese" width="720" height="1080" loading="lazy"></div>
           <div class="card-corpo">
             <h3 class="card-titolo"><img class="icona" src="assets/icons/ui/directions-car.svg" alt="" aria-hidden="true" width="74" height="74" loading="lazy">Sei in viaggio sulla Domiziana?</h3>
             <hr>
@@ -721,7 +725,7 @@
         </article>
 
         <article class="card pdo-scheda">
-          <div class="card-foto"><img src="assets/photos/brindisi-1200.jpg" alt="Brindisi con calici di vino rosso a tavola" width="1082" height="720" loading="lazy"></div>
+          <div class="card-foto"><img src="assets/photos/brindisi-1200.webp" alt="Brindisi con calici di vino rosso a tavola" width="1082" height="720" loading="lazy"></div>
           <div class="card-corpo">
             <h3 class="card-titolo"><img class="icona" src="assets/icons/ui/posate.svg" alt="" aria-hidden="true" width="35" height="39" loading="lazy">Un pranzo per stare bene con qualcuno.</h3>
             <hr>
@@ -758,7 +762,7 @@
       <span class="ondine ondine-sep" aria-hidden="true"></span>
       <div class="wrap">
         <div class="storia-inner">
-          <img class="storia-foto" src="assets/photos/sala-vista-mare-800.jpg" srcset="assets/photos/sala-vista-mare-800.jpg 800w, assets/photos/sala-vista-mare-1600.jpg 1600w" sizes="(min-width: 1024px) 960px, 100vw" alt="Tavoli apparecchiati sulla sabbia, con le lampade accese e le tende di corda" width="800" height="533" loading="lazy">
+          <img class="storia-foto" src="assets/photos/sala-vista-mare-800.webp" srcset="assets/photos/sala-vista-mare-800.webp 800w, assets/photos/sala-vista-mare-1200.webp 1200w, assets/photos/sala-vista-mare-1600.webp 1600w" sizes="(min-width: 1024px) 960px, 100vw" alt="Tavoli apparecchiati sulla sabbia, con le lampade accese e le tende di corda" width="800" height="533" loading="lazy">
           <p class="occhiello-serif">Perché siamo qui?</p>
           <h2 class="storia-titolo">Il problema non è trovare un ristorante.<br>È non sbagliare.</h2>
           <div class="storia-testo">
@@ -1037,6 +1041,6 @@
     <a href="#reserve" class="pdo-btn" data-posizione="barra">Prenota un tavolo</a>
   </nav>
 
-  <script src="assets/pagina.js?v=b4e3327378"></script>
+  <script src="assets/pagina.js?v=bcebad8b5e"></script>
 </body>
 </html>

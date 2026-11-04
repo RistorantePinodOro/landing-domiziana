@@ -44,6 +44,13 @@
       sfondi.forEach(s => io.observe(s));
     })();
 
+    // Onde della data e stelle delle domande si fermano fuori dallo schermo: anche se le muove la scheda grafica,
+    // mentre si scorre ogni animazione in corso costa lavoro al processore del telefono.
+    (() => {
+      const io = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('is-ferma', !e.isIntersecting)));
+      document.querySelectorAll('.striscia-bg, .stelle-faq').forEach(el => io.observe(el));
+    })();
+
     // ------------------------------------------------------------------
     // Prenotazioni: orari, sale e fasce orarie live dal backend
     // (api/prenota.php su Hostinger, /api/reserve altrove — vedi data-endpoint).
