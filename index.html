@@ -132,12 +132,10 @@
       background: url("assets/icons/ui/wave.png?v=8fa8e5029a") repeat-x 0 0 / calc(var(--sh) * 4.8615) var(--sh);
       animation: onda 13s linear infinite;
     }
-    .striscia-icona, .striscia::after { width: clamp(1.4rem, 1rem + 1.2vw, 2.2rem); flex: none; }
-    .striscia-icona { height: auto; }
-    .striscia::after { content: ""; }  /* as wide as the clock on the left, so the date sits in the middle */
     .striscia-testo { margin: 0; display: grid; line-height: 1.3; text-shadow: 0 1px 2px #0E0D0B66; }
-    .striscia-testo, .striscia-ora { font-size: clamp(.9rem, .8rem + .4vw, 1.15rem); text-wrap: balance; }  /* the date stays inside the part of the wave that is always covered (16–84% of its height) */
-    @media (max-width: 340px) { .striscia-icona, .striscia::after { display: none; } }  /* the date keeps to one line on the smallest phones */
+    /* The date stays inside the part of the wave that is always covered (16–84% of its height): two lines of 1.3 leave 7px each side,
+       and the longest date ("oggi, mercoledì 30 settembre, aperti", 16em) stays on one line */
+    .striscia-testo, .striscia-ora { font-size: min(calc(var(--sh) * .26 - 5.4px), calc((100vw - 2.5rem) / 16.5)); text-wrap: balance; }
     .hero-titolo {
       font-family: var(--font-display); max-width: 26ch; margin: 0 auto; padding: 0 1rem;
     }
@@ -574,7 +572,6 @@
            con gli orari settimanali di data/restaurant.json come riserva (STATIC_HOURS nello script). -->
       <div class="striscia-bg">
         <div class="striscia">
-          <img class="striscia-icona" src="assets/icons/ui/schedule.svg" alt="" aria-hidden="true" width="48" height="48">
           <p class="striscia-testo"><span id="oggiData">oggi, aperti a pranzo</span><span class="striscia-ora" id="oggiOrario">tutti i giorni</span></p>
         </div>
       </div>
