@@ -24,14 +24,19 @@
       galleryScroll.scrollBy({ left: Number(b.dataset.dir) * galleryScroll.clientWidth * .8, behavior: 'smooth' });
     }));
 
-    // Barra in basso (telefono): compare quando il pulsante della prima schermata esce dallo schermo, sparisce sopra il modulo
+    // iPhone con iOS 26: dopo che la tastiera si chiude l'area visibile può restare più corta o spostata rispetto alla pagina
+    // e la barra agganciata al fondo della pagina esce dallo schermo: la si riallinea al fondo dell'area visibile.
+    // Con la tastiera aperta (scarto grande) o con lo zoom resta dov'è; dove le due aree coincidono non cambia nulla.
     (() => {
-      const barra = document.getElementById('pdo-barra');
-      let heroVisibile = true, moduloVisibile = false;
-      const aggiorna = () => barra.classList.toggle('is-visibile', !heroVisibile && !moduloVisibile);
-      document.body.classList.add('pdo-con-barra');
-      new IntersectionObserver(e => { heroVisibile = e[0].isIntersecting; aggiorna(); }).observe(document.getElementById('pdo-hero-cta'));
-      new IntersectionObserver(e => { moduloVisibile = e[0].isIntersecting; aggiorna(); }, { threshold: 0.15 }).observe(document.getElementById('reserveForm'));
+      const barra = document.getElementById('pdo-barra'), vv = window.visualViewport;
+      if (!barra || !vv) return;
+      const segui = () => {
+        const scarto = window.innerHeight - vv.height - vv.offsetTop;
+        barra.style.setProperty('--scarto', Math.abs(vv.scale - 1) < .01 && Math.abs(scarto) > .5 && Math.abs(scarto) < 150 ? `${-scarto}px` : '');
+      };
+      vv.addEventListener('resize', segui);
+      vv.addEventListener('scroll', segui);
+      window.addEventListener('resize', segui);
     })();
 
     // Foto di sfondo della recensione: caricata solo quando la sezione si avvicina (è 5-6 schermate più in basso)
@@ -44,11 +49,11 @@
       sfondi.forEach(s => io.observe(s));
     })();
 
-    // Onde della data e stelle delle domande si fermano fuori dallo schermo: anche se le muove la scheda grafica,
+    // Onde della data, freccia verso "Portami lì" e stelle delle domande si fermano fuori dallo schermo: anche se le muove la scheda grafica,
     // mentre si scorre ogni animazione in corso costa lavoro al processore del telefono.
     (() => {
       const io = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('is-ferma', !e.isIntersecting)));
-      document.querySelectorAll('.striscia-bg, .stelle-faq').forEach(el => io.observe(el));
+      document.querySelectorAll('.striscia-bg, .stelle-faq, .hero-freccia').forEach(el => io.observe(el));
     })();
 
     // ------------------------------------------------------------------
