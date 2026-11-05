@@ -159,7 +159,8 @@
     }
     @media (max-width: 767px) {
       /* the bar at the bottom covers the end of the first screen; on short phones the first screen tightens */
-      .pdo-hero { justify-content: space-between; padding-top: clamp(.5rem, 2svh, 1.5rem); padding-bottom: calc(var(--pdo-altezza-barra) + 10px); }  /* the free space is shared between the blocks */
+      .pdo-hero { justify-content: space-between; min-height: calc(100svh - var(--header-h) - var(--pdo-altezza-barra)); padding-top: clamp(.5rem, 2svh, 1.5rem); padding-bottom: 10px; }  /* ends where the bar begins, so no empty band shows under the arrow when scrolling; the free space is shared between the blocks */
+      .pdo-hero + .prove { padding-top: .5rem; }
       .pdo-hero .striscia-bg { margin: 0 0 clamp(.5rem, 1.6svh, 1.2rem); }
       .pdo-hero .ondine-hero { margin: clamp(.5rem, 1.4svh, 1rem) auto clamp(.6rem, 1.6svh, 1.2rem); }
       .pdo-hero .hero-cta { gap: clamp(.6rem, 1.8svh, 1rem); }
