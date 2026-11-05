@@ -65,7 +65,7 @@
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
     .wrap { width: min(1200px, 100% - 2rem); margin-inline: auto; }
     .misura { max-width: 70ch; }
-    section { scroll-margin-top: calc(var(--header-h) + 8px); }
+    section, #formule { scroll-margin-top: calc(var(--header-h) + 8px); }
     .sezione { padding: clamp(3.5rem, 8vh, 6.5rem) 0; }
     .occhiello { font-family: var(--font-testo); font-size: .875rem; letter-spacing: .28em; text-transform: uppercase; color: var(--nero); margin: 0 0 .5rem; }
     .occhiello-serif { font-family: var(--font-serif); font-size: clamp(1.2rem, 2vw, 1.6rem); margin: 0 0 .6rem; }
@@ -126,24 +126,32 @@
     }
     .striscia {
       position: relative; height: var(--sh); display: flex; align-items: center; justify-content: center; gap: clamp(.4rem, 1.5vw, 1rem);
-      color: var(--bianco); padding: 0 clamp(.5rem, 2vw, 1rem); isolation: isolate;
+      color: var(--nero); padding: 0 clamp(.5rem, 2vw, 1rem); isolation: isolate;
     }
-    .striscia::before {
-      content: ""; position: absolute; top: 0; bottom: 0; left: calc(var(--sh) * -4.8615); right: 0; z-index: -1;
-      background: url("assets/icons/ui/wave.png?v=8fa8e5029a") repeat-x 0 0 / calc(var(--sh) * 4.8615) var(--sh);
+    .striscia::before {  /* wave.png gives only the shape; the color is the palette's light sand */
+      content: ""; position: absolute; top: 0; bottom: 0; left: calc(var(--sh) * -4.8615); right: 0; z-index: -1; background-color: var(--spuma);
+      -webkit-mask: url("assets/icons/ui/wave.png?v=8fa8e5029a") repeat-x 0 0 / calc(var(--sh) * 4.8615) var(--sh);
+      mask: url("assets/icons/ui/wave.png?v=8fa8e5029a") repeat-x 0 0 / calc(var(--sh) * 4.8615) var(--sh);
       animation: onda 13s linear infinite;
     }
-    .striscia-testo { margin: 0; display: grid; line-height: 1.3; text-shadow: 0 1px 2px #0E0D0B66; }
+    .striscia-testo { margin: 0; display: grid; line-height: 1.3; }
     /* The date stays inside the part of the wave that is always covered (16–84% of its height): two lines of 1.3 leave 7px each side,
        and the longest date ("oggi, mercoledì 30 settembre, aperti", 16em) stays on one line */
     .striscia-testo, .striscia-ora { font-size: min(calc(var(--sh) * .26 - 5.4px), calc((100vw - 2.5rem) / 16.5)); text-wrap: balance; }
     .hero-titolo {
       font-family: var(--font-display); max-width: 26ch; margin: 0 auto; padding: 0 1rem;
     }
-    /* The hero title, a bit bigger than the other titles: 34px keeps it on 4 lines on most phones */
-    .pdo-hero .hero-titolo { font-size: 34px; }
-    @media (min-width: 768px) { .pdo-hero .hero-titolo { font-size: 60px; } }
-    .hero-cta { display: grid; gap: .9rem; justify-items: center; width: min(100%, 460px); margin: 0 auto; padding: 0 1rem; }
+    .hero-titolo-oro { color: var(--oro-scuro); }  /* the palette's gold for text */
+    /* The payoff, big: the width is capped so it wraps as "Il pranzo sulla / spiaggia, / tutti i giorni / dell'anno." */
+    .pdo-hero .hero-titolo { font-size: clamp(36px, min(12vw, 5.6vh), 52px); font-size: clamp(32px, min(12vw, 5.4svh), 52px); max-width: 8.6em; line-height: 1.05; margin-bottom: 12px; }
+    @media (min-width: 768px) {
+      /* four lines on computers too: the size follows the screen height, so Prenota and the invite line stay above the bar */
+      .pdo-hero .hero-titolo { font-size: clamp(46px, 7.4vh, 84px); line-height: 1.02; }
+      .pdo-hero .hero-sotto { max-width: none; }  /* one line */
+      .pdo-hero .ondine-hero { margin: .7rem auto .9rem; }
+    }
+    .hero-sotto { margin: .7rem auto 0; padding: 0 1rem; max-width: 36ch; font-size: clamp(1.05rem, 1.8vw, 1.3rem); line-height: 1.4; color: var(--nero); }
+    .hero-cta { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: min(100%, 520px); margin: 0 auto; padding: 0 1rem; }
     /* Same look as the payoff: display serif, dark gold, on light sand so it stands out on the photo */
     .hero-oppure {
       margin: 0; width: max-content; max-width: min(36em, 100vw - 2rem); padding: .3rem .9rem; border-radius: 14px; background: #F3EBD9D9;
@@ -180,6 +188,59 @@
     .chip { background: var(--mare); color: var(--bianco); padding: .05em .3em; }
     .prova-sotto { font-family: var(--font-serif); font-style: italic; font-size: clamp(1rem, 1.6vw, 1.25rem); margin: 0 0 .4rem; color: var(--grigio); }
     .prova a { font-size: 1.05rem; }
+
+    .menu { padding: clamp(3.5rem, 8vh, 6.5rem) 0; background: var(--celeste); }
+    .menu-testa { text-align: center; }
+    .menu-testa .lead { margin-inline: auto; }
+    .formule { margin-top: 2.5rem; }
+    .formule-titolo { font-family: var(--font-serif); font-size: clamp(1.6rem, 2.8vw, 2.2rem); text-align: center; margin: 0 0 .3rem; }
+    .formule-sotto { text-align: center; color: var(--grigio); margin: 0 0 1.6rem; }
+    .formule-grid { display: grid; gap: 1.4rem; }
+    .formula {
+      background: var(--spuma); border: 2px solid var(--oro); border-radius: 8px; padding: 1.3rem 1.4rem 1.2rem;
+      box-shadow: 0 4px 10px #0E0D0B1A; display: flex; flex-direction: column; gap: .5rem;
+    }
+    .formula header { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding-bottom: .6rem; border-bottom: 1px solid var(--riga); }
+    .formula h4 { font-family: var(--font-serif); font-size: 1.5rem; }
+    .formula-prezzo { font-family: var(--font-testo); font-size: 1.35rem; white-space: nowrap; }
+    .formula-quando { font-size: .875rem; letter-spacing: .14em; text-transform: uppercase; color: var(--mare); margin: 0; }
+    .formula-label { font-size: .95rem; margin: .3rem 0 0; }
+    .formula ul, .formula ol { list-style: none; margin: 0; padding: 0; display: grid; gap: .2rem; font-family: var(--font-serif); font-size: 1.05rem; }
+    .formula ul li { padding-left: 1.1rem; position: relative; }
+    .formula ul li::before { content: ""; position: absolute; left: 0; top: .72em; width: .55rem; height: 1px; background: var(--oro); }
+    .formula-quote { font-family: var(--font-serif); font-style: italic; color: var(--grigio); margin: 0; }
+    .formula-seq { counter-reset: portata; margin-top: .2rem; }
+    .formula-seq li { counter-increment: portata; display: flex; gap: .7rem; align-items: baseline; }
+    .formula-seq li::before { content: counter(portata); font-family: var(--font-testo); font-size: .9rem; color: var(--mare); min-width: 1rem; }
+    .formula-seq small { display: block; font-family: var(--font-testo); font-size: .875rem; color: var(--grigio); }
+    .formula-incl { margin: auto 0 0; padding-top: .7rem; border-top: 1px dashed var(--riga); font-size: .875rem; color: var(--grigio); }
+    .tabs { display: flex; justify-content: center; flex-wrap: wrap; gap: .6rem; margin: 3rem 0 2rem; }
+    .tab {
+      min-height: 46px; padding: .5rem 1.25rem; border: 1px solid var(--mare); border-radius: 999px; background: transparent; cursor: pointer;
+      font-family: var(--font-testo); font-size: .95rem; color: var(--mare); transition: background .2s ease, color .2s ease, transform .2s ease;
+    }
+    .tab:hover { background: var(--acquerello); transform: translateY(-2px); }
+    .tab[aria-selected="true"] { background: var(--mare); color: var(--bianco); }
+    .panel { display: none; }
+    .panel.active { display: grid; gap: 0 3rem; animation: apparsa .35s ease; }
+    .menu-sub { grid-column: 1 / -1; font-family: var(--font-serif); font-style: italic; font-size: 1.25rem; color: var(--mare); margin: 1.4rem 0 .2rem; }
+    .menu-sub:first-child { margin-top: 0; }
+    .voce { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; column-gap: .6rem; padding: .7rem 0; border-bottom: 1px solid #0E0D0B1F; }
+    .voce-nome { font-family: var(--font-serif); font-size: 1.2rem; line-height: 1.2; min-width: 0; }
+    .voce .puntini { transform: translateY(-.3em); min-width: 1.5rem; }
+    .voce-prezzo { font-family: var(--font-testo); font-size: 1.05rem; white-space: nowrap; }
+    .voce p { grid-column: 1 / -1; margin: .3rem 0 0; font-size: .95rem; line-height: 1.5; color: var(--grigio); }
+    .voce-tag { display: inline-block; font-family: var(--font-testo); font-size: .875rem; letter-spacing: .14em; text-transform: uppercase; color: var(--mare); margin-left: .5rem; vertical-align: middle; }
+    .wines { grid-column: 1 / -1; }
+    .wines .voce { padding: .45rem 0; break-inside: avoid; }
+    .wines .voce-nome { font-size: 1.05rem; }
+    .menu-nota { text-align: center; margin: 2.2rem auto 0; max-width: 72ch; font-size: .92rem; color: var(--grigio); }
+    .menu-nota + .menu-nota { margin-top: .6rem; }
+    @media (min-width: 1024px) {
+      .formule-grid { grid-template-columns: repeat(3, 1fr); }
+      .panel.active { grid-template-columns: 1fr 1fr; }
+      .wines { columns: 2; column-gap: 3rem; }
+    }
 
     /* ---------- Galleria ---------- */
     .galleria { padding: clamp(3rem, 7vh, 5rem) 0 clamp(2rem, 5vh, 3.5rem); background: var(--celeste); border-top: 1px solid var(--riga); }
@@ -582,10 +643,10 @@
       </a>
       <nav aria-label="Principale">
         <ul class="nav-links" id="navLinks">
-          <li><a href="#offerte">Formule</a></li>
+          <li><a href="#story">Storia</a></li>
+          <li><a href="#menu">Menù</a></li>
           <li><a href="#gallery">Galleria</a></li>
-          <li><a href="#faq">Domande</a></li>
-          <li><a href="https://new-widget.spiagge.it/stabilimenti-balneari/prenotazione/it-ce-81034-lido-pino-doro/insertPeriod?yb_booking_license=it-ce-81034-lido-pino-doro">Spiaggia</a></li>
+          <li><a href="https://ristorantepinodoro.it/spiaggia.html">Spiaggia</a></li>
           <li><a href="#visit">Dove siamo</a></li>
           <li><a href="#reserve">Prenota</a></li>
         </ul>
@@ -611,7 +672,8 @@
         </div>
       </div>
 
-      <h1 class="hero-titolo">Il ristorante sulla spiaggia.<br>Sempre aperto.<br>Tutti i giorni dell'anno.</h1>
+      <h1 class="hero-titolo">Il pranzo sulla spiaggia,<br><span class="hero-titolo-oro">tutti i giorni dell'anno.</span></h1>
+      <p class="hero-sotto">Sul lungomare di Mondragone, a 300&nbsp;metri dalla Domiziana</p>
       <span class="ondine ondine-hero" aria-hidden="true"></span>
       <div class="hero-cta">
         <a href="#reserve" class="pdo-btn" id="pdo-hero-cta">Prenota un tavolo</a>
@@ -741,7 +803,7 @@
             <div class="card-cta">
               <a class="pdo-btn" href="#reserve">Prenota un tavolo</a>
               <a class="pdo-btn-secondario" href="https://wa.me/393887877008?text=DOMIZIANA%20LAVORO%20%E2%80%93%20arrivo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D" target="_blank" rel="noopener" data-azione="whatsapp-lavoro"><img class="icona icona-scura" src="assets/icons/ui/message-yellow-btn.svg?v=946a66d3d0" alt="" aria-hidden="true" width="69" height="69" loading="lazy">Scrivi “arrivo” su WhatsApp</a>
-              <a class="link-oro" href="https://ristorantepinodoro.it/#formule">vedi le formule pranzo →</a>
+              <a class="link-oro" href="#formule">vedi le formule pranzo →</a>
             </div>
           </div>
         </article>
@@ -754,12 +816,12 @@
             <div class="card-voce"><img class="icona icona-scura" src="assets/icons/ui/schedule.svg" alt="" aria-hidden="true" width="48" height="48" loading="lazy"><span>1 minuto sulla deviazione e sei sulla sabbia.</span></div>
             <div class="card-voce"><img class="icona" src="assets/icons/ui/supervisor-account.svg" alt="" aria-hidden="true" width="46" height="46" loading="lazy"><span>Con bambini?<br>C'è la cotoletta baby, e mentre aspettano si sgranchiscono in spiaggia.</span></div>
             <hr>
-            <div class="card-voce"><img class="icona" src="assets/icons/ui/directions-car.svg" alt="" aria-hidden="true" width="74" height="74" loading="lazy"><span>Passi una volta sola?<br><a href="https://ristorantepinodoro.it/#menu">Ecco i piatti da ordinare →</a></span></div>
+            <div class="card-voce"><img class="icona" src="assets/icons/ui/directions-car.svg" alt="" aria-hidden="true" width="74" height="74" loading="lazy"><span>Passi una volta sola?<br><a href="#menu">Ecco i piatti da ordinare →</a></span></div>
             <hr>
             <div class="card-cta">
               <a class="pdo-btn" href="#reserve">Prenota un tavolo</a>
               <a class="pdo-btn-secondario" href="https://wa.me/393887877008?text=DOMIZIANA%20SOSTA%20%E2%80%93%20arriviamo%20tra%2010%20minuti%2C%20siamo%20in%20%5B%20%5D%20(bambini%3A%20%5B%20%5D)" target="_blank" rel="noopener" data-azione="whatsapp-sosta"><img class="icona icona-scura" src="assets/icons/ui/message-yellow-btn.svg?v=946a66d3d0" alt="" aria-hidden="true" width="69" height="69" loading="lazy">Scrivi “arriviamo tra 10 minuti”</a>
-              <a class="link-oro" href="https://ristorantepinodoro.it/#menu">vedi il menù completo →</a>
+              <a class="link-oro" href="#menu">vedi il menù completo →</a>
             </div>
           </div>
         </article>
@@ -778,7 +840,7 @@
             <div class="card-cta">
               <a class="pdo-btn" href="#reserve">Prenota un tavolo</a>
               <a class="pdo-btn-secondario" href="https://wa.me/393887877008" target="_blank" rel="noopener" data-azione="whatsapp-generico"><img class="icona icona-scura" src="assets/icons/ui/message-yellow-btn.svg?v=946a66d3d0" alt="" aria-hidden="true" width="69" height="69" loading="lazy">Prenota il tavolo su WhatsApp</a>
-              <a class="link-oro" href="https://ristorantepinodoro.it/#menu">vedi il menù completo →</a>
+              <a class="link-oro" href="#menu">vedi il menù completo →</a>
             </div>
           </div>
         </article>
@@ -798,6 +860,161 @@
     </section>
 
     <!-- ================= STORIA ================= -->
+    <section class="menu" id="menu">
+      <span class="ondine ondine-sep" aria-hidden="true"></span>
+      <div class="wrap">
+        <header class="menu-testa">
+          <p class="occhiello">La carta</p>
+          <h2 class="sezione-titolo">Il menù</h2>
+          <p class="lead misura">Pesce del Tirreno e prezzi scritti qui, prima di entrare. Lupini della nostra costa, frittura del giorno, pasta di Gragnano, alici di Cetara e i vini del Falerno del Massico. Prima le formule pranzo, poi tutta la carta.</p>
+        </header>
+
+        <div class="formule" id="formule">
+          <h3 class="formule-titolo">Le formule pranzo</h3>
+          <p class="formule-sotto">Prezzo a persona. Pane, coperto e servizio sono già inclusi.</p>
+          <div class="formule-grid">
+            <article class="formula">
+              <header><h4>Menu Smart</h4><span class="formula-prezzo">€ 16,70</span></header>
+              <p class="formula-quando">Lunedì – venerdì · escluso festivi</p>
+              <p class="formula-label">Una portata a scelta tra:</p>
+              <ul>
+                <li>Tagliolini Sciuè Sciuè</li>
+                <li>Spaghetti ai Lupini locali</li>
+                <li>Mezzi Paccheri Pesce Spada, Melanzane e Pomodorini</li>
+                <li>Strozzapreti al Ragù</li>
+                <li>Salmone in Crosta</li>
+                <li>Alici Fritte</li>
+              </ul>
+              <p class="formula-incl">Acqua, caffè, servizio, pane e coperto inclusi</p>
+            </article>
+            <article class="formula">
+              <header><h4>Menu Plus</h4><span class="formula-prezzo">€ 25,70</span></header>
+              <p class="formula-label">Un primo a scelta tra:</p>
+              <ul>
+                <li>Spaghetti ai Lupini locali</li>
+                <li>Tagliolini Sciuè Sciuè</li>
+                <li>Mezzi Paccheri Pesce Spada, Melanzane e Pomodorini</li>
+                <li>Strozzapreti al Ragù</li>
+              </ul>
+              <p class="formula-label">Un secondo a scelta tra:</p>
+              <ul>
+                <li>Frittura di Calamari e Gamberi</li>
+                <li>Salmone in Crosta</li>
+                <li>Alici Fritte</li>
+                <li>Cotolettona di Manzo con Patatine</li>
+              </ul>
+              <p class="formula-incl">Acqua, caffè, servizio, coperto e pane inclusi</p>
+            </article>
+            <article class="formula">
+              <header><h4>Menù “Sapori Veri”</h4><span class="formula-prezzo">€ 45,00</span></header>
+              <p class="formula-quote">Un percorso nella nostra idea di cucina: tradizione, semplicità e sapori autentici.</p>
+              <ol class="formula-seq">
+                <li><span>Tris di antipasti<small>Una selezione dei nostri antipasti</small></span></li>
+                <li><span>Spaghetti ai lupini locali</span></li>
+                <li><span>Frittura di calamari e gamberi</span></li>
+                <li><span>Dolce croccante amarena o cioccolato</span></li>
+                <li><span>Caffè</span></li>
+              </ol>
+              <p class="formula-incl">Servizio, acqua, pane e coperto inclusi · N.B. Il menù è valido solo se scelto da tutto il tavolo.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Sezioni del menù">
+          <button class="tab" role="tab" id="tab-antipasti" aria-selected="true" aria-controls="antipasti" data-tab="antipasti">Antipasti</button>
+          <button class="tab" role="tab" id="tab-primi" aria-selected="false" aria-controls="primi" data-tab="primi" tabindex="-1">Primi</button>
+          <button class="tab" role="tab" id="tab-secondi" aria-selected="false" aria-controls="secondi" data-tab="secondi" tabindex="-1">Secondi</button>
+          <button class="tab" role="tab" id="tab-contorni" aria-selected="false" aria-controls="contorni" data-tab="contorni" tabindex="-1">Contorni</button>
+          <button class="tab" role="tab" id="tab-dolci" aria-selected="false" aria-controls="dolci" data-tab="dolci" tabindex="-1">Dolci</button>
+          <button class="tab" role="tab" id="tab-bevande" aria-selected="false" aria-controls="bevande" data-tab="bevande" tabindex="-1">Bevande &amp; Vini</button>
+        </div>
+
+        <div class="panel active" id="antipasti" role="tabpanel" aria-labelledby="tab-antipasti">
+          <h4 class="menu-sub">Di mare</h4>
+          <div class="voce"><span class="voce-nome">Vapore di Mare</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 18,00</span><p>Polpo, seppia, gamberone e lupini, cotti al vapore e conditi con olio EVO al prezzemolo e limone.</p></div>
+          <div class="voce"><span class="voce-nome">Alici zona FAO 37.1.3</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 13,00</span></div>
+          <div class="voce"><span class="voce-nome">Rocher di Baccalà</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 15,00</span><p>Morbide sfere di baccalà impanate con granella di nocciole, su crema di pistacchio.</p></div>
+          <div class="voce"><span class="voce-nome">Sautè di Lupini Locali</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 16,50</span></div>
+          <div class="voce"><span class="voce-nome">Double Polpo</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 15,00</span><p>Polpo in doppia cottura, al vapore e grigliato, su crema di patate alla paprika dolce affumicata.</p></div>
+          <div class="voce"><span class="voce-nome">Paccheri Fritti al Gambero</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 14,00</span><p>Mezzi paccheri di Gragnano, impanati e fritti, con ripieno di gamberi profumati agli agrumi, su spuma di ricotta di bufala.</p></div>
+          <h4 class="menu-sub">Di terra</h4>
+          <div class="voce"><span class="voce-nome">Caprese "Pino d'Oro"</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 13,00</span><p>Stracciatella di bufala, pomodorino rosso, pesto di basilico e mandorle tostate, origano.</p></div>
+          <div class="voce"><span class="voce-nome">Parmigiana di Melanzane</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 13,00</span><p>Quella della Nonna!</p></div>
+          <div class="voce"><span class="voce-nome">Antipasto di terra</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 13,50</span><p>Arancino, crocchè, mozzarella in carrozza, tutto home made.</p></div>
+        </div>
+        <div class="panel" id="primi" role="tabpanel" aria-labelledby="tab-primi" hidden>
+          <h4 class="menu-sub">Di mare</h4>
+          <div class="voce"><span class="voce-nome">Spaghetti ai Lupini Locali</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 16,50</span><p>Spaghetti 100% grano italiano con lupini del Mediterraneo macchiati al pomodorino rosso.</p></div>
+          <div class="voce"><span class="voce-nome">Mezzi Paccheri alla Pescatora</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 18,00</span><p>Mezzi paccheri 100% grano italiano con calamaro, lupini, gamberone e salsa di pomodorini.</p></div>
+          <div class="voce"><span class="voce-nome">Risotto all'Astice<span class="voce-tag">Min. 2 porzioni</span></span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 27,50</span><p>Riso Carnaroli Acquerello invecchiato, polpa di astice cotta a bassa temperatura e la sua bisque.</p></div>
+          <div class="voce"><span class="voce-nome">Raviolone di Ricciola ai Profumi della Costiera</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 22,00</span><p>Ravioloni di nostra produzione con ripieno di ricciola, fondo leggero di mare e salsa agli agrumi.</p></div>
+          <div class="voce"><span class="voce-nome">Sciuè Sciuè</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 15,50</span><p>Tagliolini di pasta fresca con alici di Cetara, la loro colatura, aglio e olio EVO.</p></div>
+          <h4 class="menu-sub">Di terra</h4>
+          <div class="voce"><span class="voce-nome">Strozzapreti al Ragù</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 16,50</span><p>Strozzapreti 100% grano italiano al ragù di manzo e stracciata di bufala.</p></div>
+          <div class="voce"><span class="voce-nome">Scialatielli alla Nerano</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 16,00</span><p>L'originale ricetta di "Maria Grazia", con zucchine, Provolone del Monaco e basilico.</p></div>
+        </div>
+        <div class="panel" id="secondi" role="tabpanel" aria-labelledby="tab-secondi" hidden>
+          <h4 class="menu-sub">Di mare</h4>
+          <div class="voce"><span class="voce-nome">Frittura di Calamari</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 18,00</span></div>
+          <div class="voce"><span class="voce-nome">Frittura di Calamari e Gamberi</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 18,00</span></div>
+          <div class="voce"><span class="voce-nome">Frittura di Calamari XL<span class="voce-tag">Da condividere</span></span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 24,00</span><p>Ideale da condividere o per chi vuole una porzione più abbondante.</p></div>
+          <div class="voce"><span class="voce-nome">Salmone al Falerno</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 18,00</span><p>Filetto in crosta di panko su crema di zucchine al Falerno del Massico bianco DOC e zucchine alla scapece leggera.</p></div>
+          <h4 class="menu-sub">Di terra</h4>
+          <div class="voce"><span class="voce-nome">Cotolettona</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 16,50</span><p>Cotoletta di manzo servita con patatine fritte.</p></div>
+          <div class="voce"><span class="voce-nome">Cotoletta Baby</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 12,00</span><p>Cotoletta di pollo panata.</p></div>
+          <div class="voce"><span class="voce-nome">Entrecote Tricolore</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 20,00</span><p>Entrecote di scottona alla griglia con rucola, pomodorini e scaglie di parmigiano.</p></div>
+        </div>
+        <div class="panel" id="contorni" role="tabpanel" aria-labelledby="tab-contorni" hidden>
+          <div class="voce"><span class="voce-nome">Bruschette 4 pz</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 3,00</span></div>
+          <div class="voce"><span class="voce-nome">Insalata Mista</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 5,00</span></div>
+          <div class="voce"><span class="voce-nome">Insalata Verde</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 4,50</span></div>
+          <div class="voce"><span class="voce-nome">Melanzane a Funghetto</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 5,00</span></div>
+          <div class="voce"><span class="voce-nome">Patate Fritte</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 5,00</span></div>
+          <div class="voce"><span class="voce-nome">Peperoni in Padella</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 5,00</span></div>
+        </div>
+        <div class="panel" id="dolci" role="tabpanel" aria-labelledby="tab-dolci" hidden>
+          <div class="voce"><span class="voce-nome">Cheesecake Frutti di Bosco</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 6,00</span></div>
+          <div class="voce"><span class="voce-nome">Cheesecake Pistacchio</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 6,00</span></div>
+          <div class="voce"><span class="voce-nome">San Pietrino Amarena o Nocciola</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 6,00</span></div>
+          <div class="voce"><span class="voce-nome">Sorbetto al Limone</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 6,00</span></div>
+          <div class="voce"><span class="voce-nome">Tiramisù</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 6,00</span></div>
+        </div>
+        <div class="panel" id="bevande" role="tabpanel" aria-labelledby="tab-bevande" hidden>
+          <h4 class="menu-sub">Bevande</h4>
+          <div class="voce"><span class="voce-nome">Acqua</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 2,50</span></div>
+          <div class="voce"><span class="voce-nome">Bibite Analcoliche</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 3,50</span></div>
+          <div class="voce"><span class="voce-nome">Birre</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 4,00</span></div>
+          <div class="voce"><span class="voce-nome">Caffè</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 1,50</span></div>
+          <div class="voce"><span class="voce-nome">Amari e Grappe</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 3,50</span></div>
+          <h4 class="menu-sub">Calici</h4>
+          <div class="voce"><span class="voce-nome">Calice Bianco</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 4,00</span></div>
+          <div class="voce"><span class="voce-nome">Calice Rosso</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 4,00</span></div>
+          <div class="voce"><span class="voce-nome">Calice Prosecco</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 4,00</span></div>
+          <h4 class="menu-sub">Vini — bottiglie</h4>
+          <div class="wines">
+            <div class="voce"><span class="voce-nome">16 Marzo Trabucco</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 26,00</span></div>
+            <div class="voce"><span class="voce-nome">4A Falernia Bianco</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 23,00</span></div>
+            <div class="voce"><span class="voce-nome">4A Falernia Rosso</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 26,00</span></div>
+            <div class="voce"><span class="voce-nome">Aglianico Pagano</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 15,00</span></div>
+            <div class="voce"><span class="voce-nome">Agnese Falanghina</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 26,00</span></div>
+            <div class="voce"><span class="voce-nome">Fabula Pagano</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 26,00</span></div>
+            <div class="voce"><span class="voce-nome">Falanghina Bio Pagano</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 23,00</span></div>
+            <div class="voce"><span class="voce-nome">Falanghina Pagano</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 15,00</span></div>
+            <div class="voce"><span class="voce-nome">Falerno Bianco AD Maiora Trabucco</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 38,00</span></div>
+            <div class="voce"><span class="voce-nome">Falerno del Massico Erre Trabucco</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 22,00</span></div>
+            <div class="voce"><span class="voce-nome">Falerno Rosso Villa Matilde</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 38,00</span></div>
+            <div class="voce"><span class="voce-nome">Fiano di Avellino Mastroberardino</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 26,00</span></div>
+            <div class="voce"><span class="voce-nome">Franciacorta Berlucchi</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 35,00</span></div>
+            <div class="voce"><span class="voce-nome">Greco di Tufo Mastroberardino</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 26,00</span></div>
+            <div class="voce"><span class="voce-nome">Roccamonfina Rosato Pagano</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 24,00</span></div>
+            <div class="voce"><span class="voce-nome">Prosecco Astoria Millesimato</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 20,00</span></div>
+            <div class="voce"><span class="voce-nome">Trebus – Vino Frizzante</span><span class="puntini" aria-hidden="true"></span><span class="voce-prezzo">€ 24,00</span></div>
+          </div>
+        </div>
+        <p class="menu-nota">Pane, coperto e servizio € 2,00 a persona (già inclusi nelle tre formule). Segnalaci allergie o intolleranze.</p>
+        <p class="menu-nota allergen-note">Allergeni: i piatti possono contenere gli allergeni elencati nel Regolamento (UE) 1169/2011; chiedi al nostro staff le informazioni sugli allergeni.</p>
+      </div>
+    </section>
     <section class="storia" id="story">
       <span class="ondine ondine-sep" aria-hidden="true"></span>
       <div class="wrap">
@@ -1052,7 +1269,8 @@
       <div>
         <h2 class="footer-h">Esplora</h2>
         <ul class="footer-lista">
-          <li><a href="#offerte">Formule</a></li>
+          <li><a href="#story">Storia</a></li>
+          <li><a href="#menu">Menù</a></li>
           <li><a href="#gallery">Galleria</a></li>
           <li><a href="#visit">Dove siamo</a></li>
           <li><a href="#reserve">Prenota</a></li>
@@ -1079,6 +1297,6 @@
     <a id="portami" href="https://www.google.com/maps/search/?api=1&amp;query=Lido%20Pino%20d%27Oro&amp;query_place_id=ChIJcV_Xya3fOhMRWT5u9UL0X08" target="_blank" rel="noopener" data-azione="portami-li" data-posizione="barra"><svg class="disco" viewBox="0 0 80 100" aria-hidden="true" focusable="false"><path d="M47.0625 47.0625C49.0208 45.1042 50 42.75 50 40C50 37.25 49.0208 34.8958 47.0625 32.9375C45.1042 30.9792 42.75 30 40 30C37.25 30 34.8958 30.9792 32.9375 32.9375C30.9792 34.8958 30 37.25 30 40C30 42.75 30.9792 45.1042 32.9375 47.0625C34.8958 49.0208 37.25 50 40 50C42.75 50 45.1042 49.0208 47.0625 47.0625ZM40 100C26.5833 88.5833 16.5625 77.9792 9.9375 68.1875C3.3125 58.3958 0 49.3333 0 41C0 28.5 4.02083 18.5417 12.0625 11.125C20.1042 3.70833 29.4167 0 40 0C50.5833 0 59.8958 3.70833 67.9375 11.125C75.9792 18.5417 80 28.5 80 41C80 49.3333 76.6875 58.3958 70.0625 68.1875C63.4375 77.9792 53.4167 88.5833 40 100Z"/></svg>Portami lì</a>
   </nav>
 
-  <script src="assets/pagina.js?v=66654f5551"></script>
+  <script src="assets/pagina.js?v=be5e0e93a1"></script>
 </body>
 </html>

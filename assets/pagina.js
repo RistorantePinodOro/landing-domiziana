@@ -18,6 +18,27 @@
       }
     });
 
+    // Schede del menù
+    const tabs = Array.from(document.querySelectorAll('.tab'));
+    const panels = document.querySelectorAll('.panel');
+    function selectTab(tab) {
+      tabs.forEach(t => { t.setAttribute('aria-selected', 'false'); t.tabIndex = -1; });
+      panels.forEach(p => { p.classList.remove('active'); p.hidden = true; });
+      tab.setAttribute('aria-selected', 'true'); tab.tabIndex = 0;
+      const panel = document.getElementById(tab.dataset.tab);
+      panel.classList.add('active'); panel.hidden = false;
+    }
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => selectTab(tab));
+      tab.addEventListener('keydown', e => { // frecce tra le schede
+        const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        const next = tabs[(i + d + tabs.length) % tabs.length];
+        selectTab(next); next.focus();
+      });
+    });
+
     // Galleria: frecce (desktop) sullo scorrimento orizzontale
     const galleryScroll = document.getElementById('galleryScroll');
     document.querySelectorAll('.galleria-btn').forEach(b => b.addEventListener('click', () => {
