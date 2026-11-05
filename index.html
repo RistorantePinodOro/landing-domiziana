@@ -159,17 +159,17 @@
     }
     @media (max-width: 767px) {
       /* the bar at the bottom covers the end of the first screen; on short phones the first screen tightens */
-      .pdo-hero { padding-top: clamp(.5rem, 2svh, 1.5rem); padding-bottom: calc(var(--pdo-altezza-barra) + 6px); }
+      .pdo-hero { justify-content: space-between; padding-top: clamp(.5rem, 2svh, 1.5rem); padding-bottom: calc(var(--pdo-altezza-barra) + 10px); }  /* the free space is shared between the blocks */
       .pdo-hero .striscia-bg { margin: 0 0 clamp(.5rem, 1.6svh, 1.2rem); }
       .pdo-hero .ondine-hero { margin: clamp(.5rem, 1.4svh, 1rem) auto clamp(.6rem, 1.6svh, 1.2rem); }
-      .pdo-hero .hero-cta { gap: clamp(.6rem, 1.8svh, 1rem); margin-bottom: 4px; }  /* keeps the arrow below off the divider text */
+      .pdo-hero .hero-cta { gap: clamp(.6rem, 1.8svh, 1rem); }
       /* the line is a divider between the booking button and "Portami lì" in the bar */
       .hero-oppure { display: flex; align-items: center; gap: .9rem; width: 100%; max-width: none; padding: 0; border-radius: 0; background: none; font-size: 1.15rem; text-shadow: 0 0 8px #F3EBD9, 0 0 2px #F3EBD9; }
       .hero-oppure::before, .hero-oppure::after { content: ""; flex: 1 1 1.5rem; height: 1px; background: var(--oro); }
       .hero-oppure span { max-width: 15em; }
-      /* in the empty space under the divider an arrow points at the button in the bar, centred between the two */
+      /* right under the divider an arrow points at the button in the bar */
       .hero-freccia {
-        display: block; z-index: 1; width: clamp(20px, 7svh - 22px, 44px); aspect-ratio: 118 / 112; margin: auto;
+        display: block; z-index: 1; width: clamp(20px, 7svh - 22px, 44px); aspect-ratio: 118 / 112; margin: -.35rem 0 0;
         background-color: var(--oro-scuro); -webkit-mask: url("assets/icons/ui/arrow-down.svg?v=b5943242de") center / contain no-repeat; mask: url("assets/icons/ui/arrow-down.svg?v=b5943242de") center / contain no-repeat; animation: freccia 1.8s ease-in-out infinite;
       }
     }
@@ -678,8 +678,8 @@
       <div class="hero-cta">
         <a href="#reserve" class="pdo-btn" id="pdo-hero-cta">Prenota un tavolo</a>
         <p class="hero-oppure"><span>Oppure vieni da noi, ti&nbsp;aspettiamo sulla&nbsp;spiaggia</span></p>
+        <span class="hero-freccia" aria-hidden="true"></span>
       </div>
-      <span class="hero-freccia" aria-hidden="true"></span>
     </section>
 
     <!-- ================= LE PROVE ================= -->
