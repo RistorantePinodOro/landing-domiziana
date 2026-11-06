@@ -45,6 +45,22 @@
       galleryScroll.scrollBy({ left: Number(b.dataset.dir) * galleryScroll.clientWidth * .8, behavior: 'smooth' });
     }));
 
+    // "Portami lì" è un solo tasto: sta sotto "Prenota un tavolo" e, quando quel posto esce dallo schermo,
+    // scende nella barra in basso e ti segue per tutta la pagina.
+    (() => {
+      const tasto = document.getElementById('portami'), posto = document.getElementById('portamiPosto'), barra = document.getElementById('pdo-barra');
+      const sposta = inBarra => {
+        const fuoco = document.activeElement === tasto;
+        (inBarra ? barra : posto).append(tasto);
+        barra.classList.toggle('is-visibile', inBarra);
+        if (fuoco) tasto.focus({ preventScroll: true });
+      };
+      // Nella barra quando il posto è sparito sotto l'intestazione, e anche quando in fondo allo schermo non si vede ancora tutto (schermi bassi)
+      const altoHeader = document.querySelector('.header').offsetHeight;
+      new IntersectionObserver(([e]) => sposta(e.intersectionRatio < 1 && !(e.isIntersecting && e.boundingClientRect.top < e.rootBounds.top)),
+        { rootMargin: `-${altoHeader}px 0px 0px 0px`, threshold: [0, 1] }).observe(posto);
+    })();
+
     // iPhone con iOS 26: dopo che la tastiera si chiude l'area visibile può restare più corta o spostata rispetto alla pagina
     // e la barra agganciata al fondo della pagina esce dallo schermo: la si riallinea al fondo dell'area visibile.
     // Con la tastiera aperta (scarto grande) o con lo zoom resta dov'è; dove le due aree coincidono non cambia nulla.
