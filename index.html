@@ -149,19 +149,23 @@
       .pdo-hero .hero-titolo { font-size: clamp(46px, 7.4vh, 84px); line-height: 1.02; }
       .pdo-hero .hero-sotto { max-width: none; }  /* one line */
       .pdo-hero .ondine-hero { margin: .7rem auto .9rem; }
+      .pdo-hero .hero-cta { flex-grow: 1; }  /* with the band's margin-top: auto, the band goes down to the end of the first screen */
     }
+    .pdo-hero { padding-bottom: 0; }  /* the first screen ends with the brown band of "Portami lì" */
     .hero-sotto { margin: .7rem auto 0; padding: 0 1rem; max-width: 36ch; font-size: clamp(1.05rem, 1.8vw, 1.3rem); line-height: 1.4; color: var(--nero); }
     .hero-cta { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: min(100%, 520px); margin: 0 auto; padding: 0 1rem; }
-    .portami-posto { z-index: 1; display: flex; justify-content: center; width: 100%; min-height: 52px; }  /* above the hero's bottom fade; keeps its height while the button is in the bar */
-    @media (max-width: 767px) { .portami-posto #portami { width: 100%; } }
+    /* Under "Prenota un tavolo" the button sits on the same brown band as the bar at the bottom, as wide as the screen and above the hero's bottom fade;
+       the band keeps its size while the button is in the bar */
+    .portami-posto { z-index: 1; display: grid; grid-template-columns: min(100%, 440px); justify-content: center; width: 100vw; height: var(--pdo-altezza-barra); margin-top: auto;
+      padding: 10px 12px 14px; background: var(--marroncino); border-top: 1px solid var(--oro); }
     /* Same look as the payoff: display serif, dark gold, on light sand so it stands out on the photo */
     .hero-oppure {
       margin: 0; width: max-content; max-width: min(36em, 100vw - 2rem); padding: .3rem .9rem; border-radius: 14px; background: #F3EBD9D9;
       font-family: var(--font-display); font-size: clamp(1.05rem, 1.4vw, 1.2rem); line-height: 1.3; color: var(--oro-scuro); text-align: center; text-wrap: balance;
     }
     @media (max-width: 767px) {
-      /* the first screen fills the visible height down to "Portami lì", and tightens on short phones */
-      .pdo-hero { justify-content: space-between; min-height: calc(100svh - var(--header-h)); padding-top: clamp(.5rem, 2svh, 1.5rem); padding-bottom: 10px; }  /* the free space is shared between the blocks */
+      /* the first screen fills the visible height, and tightens on short phones */
+      .pdo-hero { justify-content: space-between; min-height: calc(100svh - var(--header-h)); padding-top: clamp(.5rem, 2svh, 1.5rem); }  /* the free space is shared between the blocks */
       .pdo-hero + .prove { padding-top: .5rem; }
       .pdo-hero .striscia-bg { margin: 0 0 clamp(.5rem, 1.6svh, 1.2rem); }
       .pdo-hero .ondine-hero { margin: clamp(.5rem, 1.4svh, 1rem) auto clamp(.6rem, 1.6svh, 1.2rem); }
@@ -343,6 +347,8 @@
 
     /* ---------- Recensioni Google (le schede le crea lo script da recensioni.json) ---------- */
     .prova .prova-titolo { display: block; }
+    /* Right after the gallery, on its same light blue: the little waves sit in the gap between the two */
+    .recensioni-sezione { padding: 0 0 clamp(2rem, 5vh, 3.5rem); background: var(--celeste); }
     .recensioni { display: grid; gap: 1.2rem; padding-bottom: 1rem; }
     .recensione-google {
       margin: 0; display: flex; flex-direction: column; gap: .6rem; padding: 1.3rem 1.4rem;
@@ -618,16 +624,13 @@
        White, gold border, the map pin in a blue disc, a gold ring every few seconds */
     #pdo-barra { display: grid; transform: translateY(calc(100% + 4px)); transition: transform .25s ease; grid-template-columns: min(100%, 440px); justify-content: center; }
     #pdo-barra.is-visibile { transform: translateY(var(--scarto, 0px)); }  /* --scarto: iOS viewport fix in pagina.js */
-    body:not(:has(#pdo-barra.is-visibile)) .storage-notice { bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); }  /* no bar yet: the banner goes down and leaves the hero buttons free */
-    .storage-notice { transition: bottom .25s ease; }
     body { padding-bottom: var(--pdo-altezza-barra); }
-    #portami { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .6rem; min-height: 52px; padding: 0 1.4rem; border: 2px solid var(--oro); border-radius: 999px;
+    #portami { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .6rem; height: 100%; padding: 0 1.4rem; border: 2px solid var(--oro); border-radius: 999px;
       background: var(--bianco); color: var(--mare); font-family: var(--font-display); font-size: 20px; line-height: 1.2; text-decoration: none; -webkit-tap-highlight-color: transparent; transition: background .2s ease, transform .15s ease; }
     #portami::after { content: ""; position: absolute; inset: -2px; border: 3px solid var(--oro); border-radius: inherit; opacity: 0; pointer-events: none; animation: richiamo 7s ease-out 2s infinite; }
     #portami .disco { flex: none; width: 36px; height: 36px; padding: 7px; border-radius: 50%; background: var(--mare); fill: var(--bianco); animation: saluto 7s ease-in-out 2s infinite; }
     #portami:hover { background: var(--spuma); }
-    #portami:focus-visible { outline: 2px solid var(--mare); outline-offset: 3px; }
-    #pdo-barra #portami:focus-visible { outline-color: var(--bianco); }
+    #portami:focus-visible { outline: 2px solid var(--bianco); outline-offset: 3px; }
     #portami:active { transform: scale(.97); }
     #pdo-barra #portami::after, #pdo-barra #portami .disco { animation-delay: -4.8s; }  /* moving the button restarts its animations: in the bar the ring and the wave come after about a second */
     @keyframes richiamo { 0%, 80% { opacity: 0; transform: none; } 82% { opacity: .85; transform: none; } 98%, 100% { opacity: 0; transform: scale(1.06, 1.45); } }
@@ -719,16 +722,6 @@
           </span>
           <a data-link="recensioni" id="link-recensioni" href="https://www.google.com/maps/place/Ristorante+Pino+D%27Oro/data=!4m7!3m6!1s0x133adfadc9d75f71:0x4f5ff442f56e3e59!8m2!3d41.1130358!4d13.8773471!9m1!1b1" target="_blank" rel="noopener">Leggi le recensioni su Google Maps →</a>
         </div>
-        <div id="blocco-recensioni" hidden>
-          <div class="recensioni" id="recensioni"></div>
-          <div class="recensioni-info">
-            <p class="attribuzione-google">Voto e recensioni forniti da <span translate="no">Google Maps</span></p>
-            <details class="nota-recensioni" id="nota-recensioni">
-              <summary>Come le scegliamo</summary>
-              <p>Selezione automatica tra le recensioni che Google fornisce per la scheda <span id="nome-scheda">del ristorante</span> (le più pertinenti, in italiano e in inglese): mostriamo solo quelle con almeno 4 stelle, pubblicate da meno di due anni e senza le parole di critica di un nostro elenco fisso (come «deluso», «sporco», «da evitare»: il controllo è automatico e può lasciare fuori anche frasi positive come «non ci ha mai delusi»), e togliamo quelle i cui autori chiedono di non comparire. In riga mettiamo una recensione sul servizio, una sul viaggio e una sul cibo; più in basso, in evidenza, la più recente tra le altre con almeno 40 caratteri. I testi sono integrali, come li hanno scritti gli autori. Non le verifichiamo noi: autenticità e regole sono di Google. Il voto medio e il numero totale comprendono tutte le recensioni, anche quelle non mostrate. <a href="privacy.html">Privacy e diritti degli autori</a></p>
-            </details>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -766,6 +759,21 @@
         <img src="assets/photos/galleria/20-cucina-pescato-del-giorno.webp" alt="In cucina, un vassoio di pesce fresco mostrato da un cuoco" width="480" height="720" loading="lazy">
         <img src="assets/photos/galleria/21-cucina-al-lavoro.webp" alt="Una padella alla fiamma sui fornelli della cucina" width="480" height="720" loading="lazy">
         <img src="assets/photos/galleria/22-sala-frittura-servita.webp" alt="Due piatti di frittura portati in sala" width="480" height="720" loading="lazy">
+      </div>
+    </section>
+
+    <!-- ================= RECENSIONI GOOGLE ================= -->
+    <section class="recensioni-sezione" id="blocco-recensioni" aria-label="Recensioni da Google Maps" hidden>
+      <span class="ondine ondine-sep" aria-hidden="true"></span>
+      <div class="wrap">
+        <div class="recensioni" id="recensioni"></div>
+        <div class="recensioni-info">
+          <p class="attribuzione-google">Voto e recensioni forniti da <span translate="no">Google Maps</span></p>
+          <details class="nota-recensioni" id="nota-recensioni">
+            <summary>Come le scegliamo</summary>
+            <p>Selezione automatica tra le recensioni che Google fornisce per la scheda <span id="nome-scheda">del ristorante</span> (le più pertinenti, in italiano e in inglese): mostriamo solo quelle con almeno 4 stelle, pubblicate da meno di due anni e senza le parole di critica di un nostro elenco fisso (come «deluso», «sporco», «da evitare»: il controllo è automatico e può lasciare fuori anche frasi positive come «non ci ha mai delusi»), e togliamo quelle i cui autori chiedono di non comparire. In riga mettiamo una recensione sul servizio, una sul viaggio e una sul cibo; più in basso, in evidenza, la più recente tra le altre con almeno 40 caratteri. I testi sono integrali, come li hanno scritti gli autori. Non le verifichiamo noi: autenticità e regole sono di Google. Il voto medio e il numero totale comprendono tutte le recensioni, anche quelle non mostrate. <a href="privacy.html">Privacy e diritti degli autori</a></p>
+          </details>
+        </div>
       </div>
     </section>
 
@@ -1286,6 +1294,6 @@
 
   <nav class="pdo-barra" id="pdo-barra" aria-label="Portami lì"></nav>
 
-  <script src="assets/pagina.js?v=869a4acdbd"></script>
+  <script src="assets/pagina.js?v=b2b725958f"></script>
 </body>
 </html>

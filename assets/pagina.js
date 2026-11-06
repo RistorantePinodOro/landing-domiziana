@@ -55,10 +55,11 @@
         barra.classList.toggle('is-visibile', inBarra);
         if (fuoco) tasto.focus({ preventScroll: true });
       };
-      // Nella barra quando il posto è sparito sotto l'intestazione, e anche quando in fondo allo schermo non si vede ancora tutto (schermi bassi)
+      // Nella barra quando il posto è sparito sotto l'intestazione, e anche quando in fondo allo schermo se ne vede meno del 90% (schermi bassi).
+      // Non il 100%: il posto chiude la prima schermata, che può superare lo schermo di qualche pixel, e Safari ne arrotonda il bordo.
       const altoHeader = document.querySelector('.header').offsetHeight;
-      new IntersectionObserver(([e]) => sposta(e.intersectionRatio < 1 && !(e.isIntersecting && e.boundingClientRect.top < e.rootBounds.top)),
-        { rootMargin: `-${altoHeader}px 0px 0px 0px`, threshold: [0, 1] }).observe(posto);
+      new IntersectionObserver(([e]) => sposta(e.intersectionRatio < .9 && !(e.isIntersecting && e.boundingClientRect.top < e.rootBounds.top)),
+        { rootMargin: `-${altoHeader}px 0px 0px 0px`, threshold: [0, .9] }).observe(posto);
     })();
 
     // iPhone con iOS 26: dopo che la tastiera si chiude l'area visibile può restare più corta o spostata rispetto alla pagina
