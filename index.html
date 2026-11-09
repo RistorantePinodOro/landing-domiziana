@@ -68,7 +68,6 @@
     section, #formule { scroll-margin-top: calc(var(--header-h) + 8px); }
     .sezione { padding: clamp(3.5rem, 8vh, 6.5rem) 0; }
     .occhiello { font-family: var(--font-testo); font-size: .875rem; letter-spacing: .28em; text-transform: uppercase; color: var(--nero); margin: 0 0 .5rem; }
-    .occhiello-serif { font-family: var(--font-serif); font-size: clamp(1.2rem, 2vw, 1.6rem); margin: 0 0 .6rem; }
     .sezione-titolo { font-family: var(--font-display); font-size: clamp(2.2rem, 4.5vw, 3.4rem); margin: 0 0 1rem; letter-spacing: -.01em; }
     .lead { font-size: 1.1rem; color: var(--grigio); }
     .icona { width: 1.5rem; height: 1.5rem; flex: none; object-fit: contain; }
@@ -147,8 +146,7 @@
     @media (min-width: 768px) {
       /* four lines on computers too: the size follows the screen height, so Prenota and the invite line stay above the bar */
       .pdo-hero .hero-titolo { font-size: clamp(46px, 7.4vh, 84px); line-height: 1.02; }
-      .pdo-hero .hero-sotto { max-width: none; }  /* one line */
-      .pdo-hero .ondine-hero { margin: .7rem auto .9rem; }
+      .pdo-hero .hero-sotto { max-width: none; margin-bottom: 3rem; }  /* one line, with room above the booking button */
       .pdo-hero .hero-cta { flex-grow: 1; }  /* with the band's margin-top: auto, the band goes down to the end of the first screen */
     }
     .pdo-hero { padding-bottom: 0; }  /* the first screen ends with the brown band of "Portami lì" */
@@ -167,8 +165,8 @@
       /* the first screen fills the visible height, and tightens on short phones */
       .pdo-hero { justify-content: space-between; min-height: calc(100svh - var(--header-h)); padding-top: clamp(.5rem, 2svh, 1.5rem); }  /* the free space is shared between the blocks */
       .pdo-hero .striscia-bg { margin: 0 0 clamp(.5rem, 1.6svh, 1.2rem); }
-      .pdo-hero .ondine-hero { margin: clamp(.5rem, 1.4svh, 1rem) auto clamp(.6rem, 1.6svh, 1.2rem); }
       .pdo-hero .hero-cta { gap: clamp(.6rem, 1.8svh, 1rem); }
+      .pdo-hero .hero-sotto { margin-bottom: clamp(2.4rem, 5.6svh, 3.3rem); }  /* room above the booking button, less on short phones */
       /* the line is a divider between the booking button and "Portami lì" */
       .hero-oppure { display: flex; align-items: center; gap: .9rem; width: 100%; max-width: none; padding: 0; border-radius: 0; background: none; font-size: 1.15rem; text-shadow: 0 0 8px #F3EBD9, 0 0 2px #F3EBD9; }
       .hero-oppure::before, .hero-oppure::after { content: ""; flex: 1 1 1.5rem; height: 1px; background: var(--oro); }
@@ -191,7 +189,7 @@
     .numero .stellina { font-style: normal; font-size: .38em; color: var(--oro-scuro); vertical-align: top; margin-left: .15em; }
     .numero .stellona { font-style: normal; }
     .prova-titolo { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.45rem, 2.8vw, 2.3rem); line-height: 1.25; margin: .4rem 0 .2rem; }
-    .chip { background: var(--mare); color: var(--bianco); padding: .05em .3em; }
+    .chip { background: var(--mare); color: var(--bianco); padding: .05em .3em; white-space: nowrap; }  /* one pill, never split over two lines */
     .prova-sotto { font-family: var(--font-serif); font-style: italic; font-size: clamp(1rem, 1.6vw, 1.25rem); margin: 0 0 .4rem; color: var(--grigio); }
     .prova a { font-size: 1.05rem; }
 
@@ -263,7 +261,8 @@
     .galleria-scroll img { flex: 0 0 auto; height: 300px; width: auto; object-fit: cover; scroll-snap-align: start; background: var(--spuma); }
 
     /* ---------- Il piatto più ordinato ---------- */
-    .piatto { padding: clamp(3rem, 7vh, 5.5rem) 0; background: var(--sfumatura-spiaggia); overflow: hidden; overflow: clip; } /* the decorative blob must never widen the page */
+    .piatto { padding: clamp(6rem, 13vh, 8.5rem) 0 clamp(3rem, 7vh, 5.5rem); background: var(--sfumatura-spiaggia); overflow: hidden; overflow: clip; } /* the decorative blob must never widen the page */
+    /* the extra room on top keeps the round shape above the photo whole: it starts 22% higher than the photo */
     .piatto-grid { display: grid; gap: 2rem; align-items: center; }
     .piatto-visual { position: relative; width: min(100%, 300px); aspect-ratio: 4 / 5; margin: 0 auto; }
     .piatto-cerchio { position: absolute; inset: -22% auto auto -28%; width: 150%; max-width: none; height: auto; z-index: 0; opacity: .9; pointer-events: none; }
@@ -271,7 +270,6 @@
     .piatto-titolo { font-family: var(--font-display); font-size: clamp(2.2rem, 4.5vw, 3.6rem); line-height: 1.05; margin: 0 0 1.2rem; }
     .piatto-titolo em { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
     .piatto-testo p { font-family: var(--font-testo); max-width: 62ch; }
-    .piatto-prezzo { font-family: var(--font-serif); font-size: 1.25rem; }
     .piatto-chiusa { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.2rem, 2vw, 1.5rem); text-align: right; margin: 1.2rem 0 1.4rem; }
     .piatto-cta { display: flex; justify-content: center; }
     .piatto-cta .btn { width: min(100%, 460px); }
@@ -322,9 +320,11 @@
     .storia { padding: clamp(3rem, 8vh, 6rem) 0; }
     .storia-inner { max-width: 960px; }
     .storia-foto { width: 100%; border-radius: 12px; margin: 0 0 2rem; }
-    .storia-titolo { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.08; letter-spacing: -.02em; margin: 0 0 1.4rem; }
+    .storia-titolo { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.08; letter-spacing: -.02em; margin: 0 0 1.4rem; text-wrap: balance; }
     .storia-testo p { max-width: 70ch; }
     .storia-testo .battuta { font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; }
+    .storia-firma { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.3rem, 2.2vw, 1.6rem); margin: 1.4rem 0 0; }
+    .storia-motto { font-family: var(--font-serif); font-size: clamp(1.2rem, 2vw, 1.6rem); margin: 2.2rem 0 0; }
     .storia-chiusa { font-family: var(--font-serif); font-size: clamp(1.3rem, 2.2vw, 1.75rem); line-height: 1.3; margin: 1.6rem 0 1.4rem; }
     .storia-cta { display: flex; }
 
@@ -384,7 +384,6 @@
     .numero-domanda { font-family: var(--font-display); font-size: clamp(4.5rem, 8vw, 7rem); line-height: 1; color: var(--oro); flex: none; width: .6em; text-align: center; }  /* same width for every digit: all answers start at the same point */
     .domanda-q { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; letter-spacing: .06em; margin: 0 0 .3rem; color: var(--grigio); }
     .domanda-a { font-family: var(--font-serif); font-size: clamp(1.25rem, 2.6vw, 1.9rem); line-height: 1.3; letter-spacing: .01em; margin: 0; }
-    .onda-faq { width: min(60vw, 320px); margin: 0 auto; opacity: .9; }
     .stelle-faq { font-size: clamp(3rem, 6vw, 4.5rem); letter-spacing: .15em; line-height: 1; opacity: .3; margin: 1.5rem 0 1rem; animation: lampeggio 3s ease-in-out infinite; }
     .faq-chiusa { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.2rem, 2.2vw, 1.75rem); line-height: 1.4; margin: 0; }
     .riga-corta { width: 120px; border-top: 1px solid var(--oro); margin: 1.5rem auto; }
@@ -636,8 +635,10 @@
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
       .galleria-scroll { scroll-behavior: auto; }
     }
+    /* Tutti i titoli con il carattere del titolo "Gallery", dritto: con :root questa regola vince su quelle dei singoli titoli */
+    :root :is(h1, h2, h3, h4), :root .prova-titolo, :root :is(h1, h2, h3, h4) em { font-family: var(--font-display); font-style: normal; }
   </style>
-  <link rel="stylesheet" href="assets/pinodoro-sistema.css?v=9c997a3e66">
+  <link rel="stylesheet" href="assets/pinodoro-sistema.css?v=9c2d786808">
   <noscript><style>.recensione { background-image: url("assets/photos/terrazza-interno-1200.jpg"); }</style></noscript>
 </head>
 <body>
@@ -682,7 +683,6 @@
 
       <h1 class="hero-titolo">Il pranzo sulla spiaggia,<br><span class="hero-titolo-oro">tutti i giorni dell'anno.</span></h1>
       <p class="hero-sotto">Sul lungomare di Mondragone, a 300&nbsp;metri dalla Domiziana</p>
-      <span class="ondine ondine-hero" aria-hidden="true"></span>
       <div class="hero-cta">
         <a href="#reserve" class="pdo-btn" id="pdo-hero-cta">Prenota un tavolo</a>
         <p class="hero-oppure"><span>Oppure vieni da noi, ti&nbsp;aspettiamo sulla&nbsp;spiaggia</span></p>
@@ -693,7 +693,6 @@
 
     <!-- ================= LE PROVE ================= -->
     <section class="prove" id="prove" aria-label="Quattro cose da sapere">
-      <span class="ondine ondine-sep" aria-hidden="true"></span>
       <div class="wrap">
         <div class="prova">
           <span class="numero pdo-numero">365<span class="stellina" aria-hidden="true">★</span></span>
@@ -723,7 +722,6 @@
 
     <!-- ================= GALLERIA ================= -->
     <section class="galleria" id="gallery">
-      <span class="ondine ondine-sep" aria-hidden="true"></span>
       <h2 class="galleria-titolo">Gallery</h2>
       <div class="galleria-testa">
         <p class="galleria-hint">scorri a destra…</p>
@@ -760,7 +758,6 @@
 
     <!-- ================= IL PIATTO PIÙ ORDINATO ================= -->
     <section class="piatto" id="piatto">
-      <span class="ondine ondine-sep" aria-hidden="true"></span>
       <div class="wrap piatto-grid">
         <div class="piatto-visual">
           <img class="piatto-cerchio" src="assets/icons/ui/cerchio-blu.svg?v=72f340a0e8" alt="" aria-hidden="true" width="501" height="613" loading="lazy">
@@ -771,8 +768,7 @@
           <p>Lupini pescati nel nostro Tirreno. Il sapore di mare che le vongole d’allevamento non hanno più.</p>
           <p>Per anni abbiamo servito le vongole veraci. Poi sono diventate quasi tutte d’allevamento, e il sapore non era più quello.</p>
           <p>Così abbiamo guardato davanti a noi. I lupini li pescano qui, anche le barche di Mondragone. Quando il Tirreno non li dà, arrivano dall’Adriatico. D’allevamento, mai.</p>
-          <p>Li cuciniamo nel loro guscio con spaghetti 100% grano italiano, macchiati di pomodorino rosso, con olio all’aglio e prezzemolo e una sfumata di Falerno del Massico: il vino che nasce a pochi chilometri da questo tavolo.</p>
-          <p class="piatto-prezzo">Spaghetti ai Lupini Locali</p>
+          <p>Li cuciniamo nel loro guscio con spaghetti 100% grano italiano, macchiati di pomodorino rosso, con olio all’aglio e prezzemolo.</p>
           <p class="piatto-chiusa">Ti dispiacerà arrivare all’ultimo lupino.</p>
           <div class="piatto-cta"><a href="#reserve" class="pdo-btn">Prenota un tavolo</a></div>
         </div>
@@ -781,7 +777,6 @@
 
     <!-- ================= RECENSIONI GOOGLE ================= -->
     <section class="recensioni-sezione" id="blocco-recensioni" aria-labelledby="recensioni-titolo" hidden>
-      <span class="ondine ondine-sep" aria-hidden="true"></span>
       <div class="wrap">
         <h2 class="sezione-titolo" id="recensioni-titolo">Quello che dicono di noi</h2>
         <div class="recensioni" id="recensioni"></div>
@@ -797,7 +792,6 @@
 
     <!-- ================= FORMULE + FESTA ================= -->
     <section class="offerte" id="offerte" aria-labelledby="offerte-titolo">
-      <span class="ondine ondine-sep" aria-hidden="true"></span>
       <h2 class="sr-only" id="offerte-titolo">Le nostre formule</h2>
       <div class="wrap offerte-grid">
 
@@ -876,7 +870,6 @@
 
     <!-- ================= STORIA ================= -->
     <section class="menu" id="menu">
-      <span class="ondine ondine-sep" aria-hidden="true"></span>
       <div class="wrap">
         <header class="menu-testa">
           <p class="occhiello">La carta</p>
@@ -1012,19 +1005,21 @@
       </div>
     </section>
     <section class="storia" id="story">
-      <span class="ondine ondine-sep" aria-hidden="true"></span>
       <div class="wrap">
         <div class="storia-inner">
           <picture><source media="(min-width: 720px)" srcset="assets/photos/sala-vista-mare-800.webp 800w, assets/photos/sala-vista-mare-1200.webp 1200w, assets/photos/sala-vista-mare-1600.webp 1600w" sizes="(min-width: 1024px) 960px, 100vw"><img class="storia-foto" src="assets/photos/sala-vista-mare-800.jpg" srcset="assets/photos/sala-vista-mare-800.jpg 800w, assets/photos/sala-vista-mare-1600.jpg 1600w" sizes="(min-width: 1024px) 960px, 100vw" alt="Tavoli apparecchiati sulla sabbia, con le lampade accese e le tende di corda" width="800" height="533" loading="lazy"></picture>
-          <p class="occhiello-serif">Perché siamo qui?</p>
-          <h2 class="storia-titolo">Il problema non è trovare un ristorante.<br>È non sbagliare.</h2>
+          <h2 class="storia-titolo">Perché siamo qui tutti i giorni</h2>
           <div class="storia-testo">
-            <p>Se sei di qui, te lo sarai detto anche tu. Arriva un amico da fuori, un parente, un collega che vuoi trattare bene. Vuoi portarlo in un posto che gli resti. E l'unica cosa che ti viene in mente è:</p>
-            <p class="battuta">“E adesso dove lo porto?”</p>
-            <p>Se invece sei in vacanza, il problema è l'opposto: sei circondato da locali che non conosci e non hai voglia di sprecare uno dei pochi pranzi buoni che hai a disposizione.</p>
-            <p>E poi c'è la cosa che a Mondragone sanno tutti: fuori stagione metà dei locali è chiusa, e ad agosto quelli aperti non hanno un tavolo libero. Noi siamo aperti a pranzo tutti i giorni dell'anno. Non è uno slogan pubblicitario: è la scelta su cui abbiamo costruito il ristorante.</p>
+            <p class="battuta">«E adesso dove lo porto?»</p>
+            <p>Me l’hanno chiesto per anni. Amici, clienti, gente di Mondragone: arriva qualcuno da fuori, un parente o un collega, e d’inverno sulla costa sembra tutto chiuso.</p>
+            <p>La risposta ce l’avevamo davanti. Chi vive qui lo sa: a Mondragone l’inverno è gentile. Basta un po’ di sole e anche a dodici gradi, sotto la veranda, si pranza benissimo. Chi è venuto a provarlo l’ha scritto meglio di noi: «Il mare d’inverno, una scoperta fantastica».</p>
+            <p>Così abbiamo deciso di esserci sempre. Non solo tutto l’anno: tutti i giorni. Il lunedì, a Natale, a Capodanno, in un martedì qualunque di febbraio. Niente giorno di riposo, perché la voglia di mare non aspetta il fine settimana.</p>
+            <p>E c’è un motivo che per me conta ancora di più: chi lavora con noi non è più stagionale. Non riparte da zero ogni marzo, e nemmeno la cucina. Le persone che ti servono a gennaio le ritrovi ad agosto. Conoscono il mare, i piatti e, dopo un paio di volte, anche te.</p>
+            <p>Dalla Domiziana sono trecento metri. Il resto lo fa la spiaggia.</p>
+            <p class="storia-firma">Tony</p>
           </div>
-          <p class="storia-chiusa">Se prenoti da noi, l'unica cosa che rischi è di doverci tornare.</p>
+          <p class="storia-motto">Il pranzo sulla spiaggia, tutti i giorni dell’anno</p>
+          <p class="storia-chiusa">Se prenoti da noi, l’unica cosa che rischi è di doverci tornare.</p>
           <div class="storia-cta"><a href="#reserve" class="pdo-btn">Prenota un tavolo</a></div>
         </div>
       </div>
@@ -1032,7 +1027,6 @@
 
     <!-- ================= RECENSIONE + INVITO ================= -->
     <section class="recensione" id="invito" aria-label="Una recensione e un invito">
-      <span class="ondine ondine-sep" aria-hidden="true"></span>
       <div class="wrap recensione-grid">
         <div>
           <blockquote class="recensione-blocco2" id="recensione-evidenza" hidden></blockquote>
@@ -1047,7 +1041,6 @@
 
     <!-- ================= DOMANDE ================= -->
     <section class="faq" id="faq">
-      <span class="ondine ondine-sep" aria-hidden="true"></span>
       <div class="wrap">
         <h2 class="faq-titolo">Domande?</h2>
         <p class="faq-sotto">Ecco tutto ciò che devi sapere!</p>
@@ -1056,22 +1049,18 @@
             <span class="numero-domanda" aria-hidden="true">1</span>
             <div><h3 class="domanda-q">Dove si trova il ristorante?</h3><p class="domanda-a">Siamo a Mondragone, in piazza Mario Liberato Conte 29: a 300 metri dalla Domiziana, direttamente sulla spiaggia.</p></div>
           </article>
-          <img class="onda-faq" src="assets/icons/ui/wave.svg?v=1d495bc9c5" alt="" aria-hidden="true" width="866" height="26" loading="lazy">
           <article class="domanda">
             <span class="numero-domanda" aria-hidden="true">2</span>
             <div><h3 class="domanda-q">Il ristorante è specializzato in pesce?</h3><p class="domanda-a">La nostra specialità è la cucina di mare. Abbiamo comunque un menù vario con piatti di carne, pasta e altre specialità.</p></div>
           </article>
-          <img class="onda-faq" src="assets/icons/ui/wave.svg?v=1d495bc9c5" alt="" aria-hidden="true" width="866" height="26" loading="lazy">
           <article class="domanda">
             <span class="numero-domanda" aria-hidden="true">3</span>
             <div><h3 class="domanda-q">Devo prenotare?</h3><p class="domanda-a">Non è obbligatorio, ma la domenica e d'estate il lido si riempie. Prenoti online in un minuto, senza pagare nulla in anticipo: se l'orario ha posto, la conferma ti arriva subito su WhatsApp.</p></div>
           </article>
-          <img class="onda-faq" src="assets/icons/ui/wave.svg?v=1d495bc9c5" alt="" aria-hidden="true" width="866" height="26" loading="lazy">
           <article class="domanda">
             <span class="numero-domanda" aria-hidden="true">4</span>
             <div><h3 class="domanda-q">Devo per forza prenotare online per il dolce?</h3><p class="domanda-a">Sì, l'omaggio è valido solo per chi prenota direttamente da questa pagina!</p></div>
           </article>
-          <img class="onda-faq" src="assets/icons/ui/wave.svg?v=1d495bc9c5" alt="" aria-hidden="true" width="866" height="26" loading="lazy">
           <article class="domanda">
             <span class="numero-domanda" aria-hidden="true">5</span>
             <div><h3 class="domanda-q">Allergie o intolleranze?</h3><p class="domanda-a">Scrivile nelle note quando prenoti e ripetile al tavolo prima di ordinare: la cucina è piccola e condivisa, e ti consigliamo con sincerità.</p></div>
@@ -1086,7 +1075,6 @@
 
     <!-- ================= CITAZIONE ================= -->
     <section class="citazione" aria-label="Chi siamo">
-      <span class="ondine ondine-sep" aria-hidden="true"></span>
       <div class="wrap citazione-inner">
         <span class="virgolette" aria-hidden="true">“</span>
         <p class="citazione-testo">Al Lido Ristorante Pino d'Oro, la passione per la cucina mediterranea si unisce all'amore per il mare e la natura. Situato direttamente su un lido a Mondragone (CE), con una vista spettacolare sul mare, il nostro ristorante è il luogo ideale per godersi una pausa pranzo o una cena in totale relax. In estate puoi fare un bagno rigenerante nel nostro lido prima o dopo il pasto, mentre durante tutto l'anno ti offriamo piatti freschi e gustosi per ogni stagione.</p>
@@ -1096,7 +1084,6 @@
 
     <!-- ================= ORARI E CONTATTI ================= -->
     <section class="visita" id="visit">
-      <span class="ondine ondine-sep" aria-hidden="true"></span>
       <div class="wrap visita-grid">
         <div>
           <h2 class="visita-titolo">I nostri orari</h2>
@@ -1126,7 +1113,6 @@
 
     <!-- ================= PRENOTA ================= -->
     <section class="prenota" id="reserve">
-      <span class="ondine ondine-sep" aria-hidden="true"></span>
       <div id="prenota"></div>
       <div class="wrap prenota-grid">
         <div class="prenota-intro">
@@ -1239,10 +1225,9 @@
   </main>
 
   <!-- ================= FOOTER ================= -->
-  <footer class="footer su-scuro">
+  <footer class="footer">
     <div class="wrap footer-grid">
       <div class="footer-brand">
-        <span class="ondine ondine-footer" aria-hidden="true"></span>
         <span class="footer-logo"><img src="assets/logo.png" alt="Pino d'Oro — Ristorante sulla spiaggia" width="500" height="326" loading="lazy"></span>
         <p>Ristorante sulla spiaggia a Mondragone (CE), a 300 metri dalla Domiziana. Pesce del Tirreno, aperti a pranzo tutti i giorni.</p>
       </div>

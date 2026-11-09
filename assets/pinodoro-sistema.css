@@ -222,8 +222,6 @@ small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-grigio); }
    Solo aspetto: testi, struttura e colori della palette restano quelli di prima.
    Vale per sito e landing (stesse classi). */
 :root {
-  /* Le tre onde del logo (scheda palette, punto 6) */
-  --pdo-onde: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='18' viewBox='0 0 60 18'%3E%3Cg fill='none' stroke='%23C4993F' stroke-width='2.2'%3E%3Cpath stroke-opacity='.2' d='M0 4Q7.5 0 15 4T30 4T45 4T60 4'/%3E%3Cpath stroke-opacity='.4' d='M0 9Q7.5 5 15 9T30 9T45 9T60 9'/%3E%3Cpath d='M0 14Q7.5 10 15 14T30 14T45 14T60 14'/%3E%3C/g%3E%3C/svg%3E");
   /* Forma piena per il bordo a onda delle sezioni (si colora con background) */
   --pdo-bordo-onda: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 24' preserveAspectRatio='none'%3E%3Cpath d='M0 24V12Q30 2 60 12T120 12T180 12T240 12V24Z'/%3E%3C/svg%3E");
   /* Ombre calde (marroncino), al posto di quelle grigie */
@@ -254,29 +252,10 @@ small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-grigio); }
 .footer { --pdo-colore-onda: var(--pdo-marroncino); }
 .galleria, .visita, .prenota { border-top: 0; }
 
-/* Le ondine del logo: un solo disegno (--pdo-onde) usato come maschera, così il colore viene da `color`:
-   oro sui fondi chiari, spuma su marroncino e mare. Proporzioni fisse 60 × 18, mai sotto i 24 px. */
-.ondine, .occhiello::before, .occhiello::after {
-  display: inline-block; flex-shrink: 0; width: 60px; height: auto; aspect-ratio: 60 / 18;
-  color: var(--pdo-oro); background-color: currentColor;
-  -webkit-mask: var(--pdo-onde) center / contain no-repeat;
-  mask: var(--pdo-onde) center / contain no-repeat;
-}
-.su-scuro .ondine { color: var(--pdo-spuma); }
-/* Posti fissi: sotto il titolo della prima schermata, in cima a ogni sezione, ai lati degli occhielli, nel footer */
-.ondine-hero { display: block; width: 76px; margin: 1rem auto 1.2rem; }
-.ondine-sep { display: block; margin: 0 auto var(--pdo-spazio-ondina); }
-/* L'ondina tra due sezioni sta a metà dello spazio vuoto: la sezione prima lascia in fondo solo il posto del bordo a onda (2rem),
-   la sezione con l'ondina mette sopra il resto dello spazio e sotto lo stesso spazio */
-:root { --pdo-spazio-ondina: clamp(2.5rem, 8vh, 4.5rem); }
-section:has(+ section > .ondine-sep):not(.pdo-hero) { padding-bottom: 2rem; }
-section:has(> .ondine-sep) { padding-top: calc(var(--pdo-spazio-ondina) - 2rem); }
-.pdo-hero + section { padding-top: var(--pdo-spazio-ondina); }  /* la prima schermata finisce con la fascia del tasto, senza margine */
+/* La prima schermata finisce con la fascia del tasto, senza margine: lo spazio lo mette la sezione dopo */
+.pdo-hero + section { padding-top: clamp(2.5rem, 8vh, 4.5rem); }
 .occhiello { display: inline-flex; align-items: center; gap: .7rem; }
-.occhiello::before, .occhiello::after { content: ""; width: 28px; }
 .slot-notice .occhiello { display: block; }
-.slot-notice .occhiello::before, .slot-notice .occhiello::after { content: none; }
-.ondine-footer { display: block; margin-bottom: 1.1rem; }
 
 /* Prima schermata: la "o" tra i due pulsanti */
 .hero-o { font-family: var(--pdo-font-corsivo); font-style: italic; color: var(--pdo-grigio); }
