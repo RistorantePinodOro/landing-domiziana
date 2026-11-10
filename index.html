@@ -68,7 +68,9 @@
     section, #formule { scroll-margin-top: calc(var(--header-h) + 8px); }
     .sezione { padding: clamp(3.5rem, 8vh, 6.5rem) 0; }
     .occhiello { font-family: var(--font-testo); font-size: .875rem; letter-spacing: .28em; text-transform: uppercase; color: var(--nero); margin: 0 0 .5rem; }
-    .sezione-titolo { font-family: var(--font-display); font-size: clamp(2.2rem, 4.5vw, 3.4rem); margin: 0 0 1rem; letter-spacing: -.01em; }
+    /* Every section title has the same look; :root beats the shared stylesheet loaded after this one */
+    :root :is(.sezione-titolo, .galleria-titolo, .piatto-titolo, .storia-titolo, .faq-titolo, .visita-titolo) { font-family: var(--font-display); font-style: normal; font-size: clamp(2.2rem, 4.5vw, 3.4rem); line-height: 1.1; letter-spacing: -.01em; }
+    .sezione-titolo { margin: 0 0 1rem; }
     .lead { font-size: 1.1rem; color: var(--grigio); }
     .icona { width: 1.5rem; height: 1.5rem; flex: none; object-fit: contain; }
     .icona-scura { filter: brightness(0); }
@@ -247,7 +249,7 @@
 
     /* ---------- Galleria ---------- */
     .galleria { padding: clamp(3rem, 7vh, 5rem) 0 clamp(2rem, 5vh, 3.5rem); background: var(--celeste); border-top: 1px solid var(--riga); }
-    .galleria-titolo { font-family: var(--font-display); text-align: center; font-size: clamp(1.6rem, 3vw, 2.2rem); letter-spacing: .45em; text-indent: .45em; text-transform: uppercase; margin: 0 0 1.2rem; }
+    .galleria-titolo { text-align: center; margin: 0 0 1.2rem; }
     .galleria-testa { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; padding: 0 clamp(1rem, 5vw, 5rem); }
     .galleria-hint { font-family: var(--font-serif); font-style: italic; color: var(--grigio); margin: 0 0 .3rem; }
     .galleria-nav { display: none; gap: .5rem; }
@@ -266,8 +268,7 @@
     .piatto-visual { position: relative; width: min(100%, 300px); aspect-ratio: 4 / 5; margin: 0 auto; }
     .piatto-cerchio { position: absolute; inset: -22% auto auto -28%; width: 150%; max-width: none; height: auto; z-index: 0; opacity: .9; pointer-events: none; }
     .piatto-foto { position: relative; z-index: 1; width: 100%; height: auto; border-radius: var(--pdo-raggio-grande); box-shadow: 0 18px 40px #0E0D0B33; }
-    .piatto-titolo { font-family: var(--font-display); font-size: clamp(2.2rem, 4.5vw, 3.6rem); line-height: 1.05; margin: 0 0 1.2rem; }
-    .piatto-titolo em { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+    .piatto-titolo { margin: 0 0 1.2rem; }
     .piatto-testo p { font-family: var(--font-testo); max-width: 62ch; }
     .piatto-chiusa { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.2rem, 2vw, 1.5rem); text-align: right; margin: 1.2rem 0 1.4rem; }
     .piatto-cta { display: flex; justify-content: center; }
@@ -319,7 +320,7 @@
     .storia { padding: clamp(3rem, 8vh, 6rem) 0; }
     .storia-inner { max-width: 960px; }
     .storia-foto { width: 100%; border-radius: 12px; margin: 0 0 2rem; }
-    .storia-titolo { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.08; letter-spacing: -.02em; margin: 0 0 1.4rem; text-wrap: balance; }
+    .storia-titolo { margin: 0 0 1.4rem; text-wrap: balance; }
     .storia-testo p { max-width: 70ch; }
     .storia-testo .battuta { font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; }
     .storia-firma { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.3rem, 2.2vw, 1.6rem); margin: 1.4rem 0 0; }
@@ -376,7 +377,7 @@
 
     /* ---------- Domande ---------- */
     .faq { padding: clamp(3rem, 8vh, 6rem) 0; background: var(--celeste); text-align: center; }
-    .faq-titolo { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3rem); margin: 0 0 .8rem; }
+    .faq-titolo { margin: 0 0 .8rem; }
     .faq-sotto { font-family: var(--font-serif); font-size: 1.25rem; margin: 0 0 1.5rem; }
     .faq-lista { max-width: 780px; margin: 0 auto; }
     .domanda { display: flex; align-items: center; gap: 1.2rem; padding: 1.4rem 0; text-align: left; }
@@ -397,7 +398,7 @@
     /* ---------- Orari e contatti ---------- */
     .visita { background: var(--spuma); padding: clamp(3rem, 8vh, 6rem) 0; border-top: 1px solid var(--riga); }
     .visita-grid { display: grid; gap: 3rem; }
-    .visita-titolo { font-family: var(--font-serif); font-style: italic; font-size: clamp(2rem, 3.5vw, 2.8rem); margin: 0 0 1rem; }
+    .visita-titolo { margin: 0 0 1rem; }
     .orari {
       list-style: none; margin: 0; padding: 1rem 1.4rem; background: var(--bianco); border: 2px solid var(--riga); box-shadow: #0E0D0B24 0 3px 10px;
       font-family: var(--font-serif); font-size: 1.15rem; transition: transform .2s ease;
@@ -763,7 +764,7 @@
           <picture><source media="(min-width: 720px)" srcset="assets/photos/piatto-spaghetti-lupini-840.webp"><img class="piatto-foto" src="assets/photos/piatto-spaghetti-lupini-840.jpg" alt="Un piatto di spaghetti ai lupini in primo piano, con un calice di vino e la spiaggia sullo sfondo" width="840" height="1050" loading="lazy"></picture>
         </div>
         <div class="piatto-testo">
-          <h2 class="piatto-titolo"><em>Lo spaghetto ai lupini del Pino d’Oro</em></h2>
+          <h2 class="piatto-titolo">Lo spaghetto ai lupini del Pino d’Oro</h2>
           <p>Lupini pescati nel nostro Tirreno. Il sapore di mare che le vongole d’allevamento non hanno più.</p>
           <p>Per anni abbiamo servito le vongole veraci. Poi sono diventate quasi tutte d’allevamento, e il sapore non era più quello.</p>
           <p>Così abbiamo guardato davanti a noi. I lupini li pescano qui, anche le barche di Mondragone. Quando il Tirreno non li dà, arrivano dall’Adriatico. D’allevamento, mai.</p>
