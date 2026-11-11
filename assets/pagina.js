@@ -676,6 +676,7 @@
     const gruppo = new URLSearchParams(location.search).get('g') || 'nessuno';
     document.querySelectorAll('[data-azione]').forEach(a => a.addEventListener('click', () => {
       window.dataLayer.push({ event: 'clic_pulsante', azione: a.dataset.azione, gruppo });
+      if (window.fbq && /^whatsapp(?!-lavoro)/.test(a.dataset.azione)) window.fbq('track', 'Contact');
     }));
 
     // Recensioni Google: recensioni.json lo rinnova ogni giorno dalla scheda Google recensioni.php (su GitHub Pages il workflow).
@@ -778,12 +779,12 @@
         scadenza.setMonth(scadenza.getMonth() + MESI);
         return Date.now() < scadenza.getTime() ? s.scelta : '';
       };
-      // Revoca: cancella i cookie e la memoria che i tag di Google hanno impostato su questo dominio.
+      // Revoca: cancella i cookie e la memoria che i tag di Google e il pixel di Meta hanno impostato su questo dominio.
       const cancellaCookieGoogle = () => {
         const parti = location.hostname.split('.');
         document.cookie.split(';').forEach(c => {
           const nome = c.split('=')[0].trim();
-          if (!/^(_gcl_|_gac_|_ga|_gid|_gat)/.test(nome)) return;
+          if (!/^(_gcl_|_gac_|_ga|_gid|_gat|_fbp|_fbc)/.test(nome)) return;
           document.cookie = nome + '=; Max-Age=0; path=/';
           for (let i = 0; i < parti.length - 1; i++) document.cookie = nome + '=; Max-Age=0; path=/; domain=' + parti.slice(i).join('.');
         });
