@@ -775,6 +775,7 @@
         let s = null;
         try { s = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch { return ''; }
         if (!s || (s.scelta !== 'accettati' && s.scelta !== 'rifiutati')) return '';
+        if (s.scelta === 'accettati' && s.quando < Date.parse('2026-11-12T10:15:00Z')) return ''; // accettato prima che il banner nominasse Meta
         const scadenza = new Date(s.quando);
         scadenza.setMonth(scadenza.getMonth() + MESI);
         return Date.now() < scadenza.getTime() ? s.scelta : '';

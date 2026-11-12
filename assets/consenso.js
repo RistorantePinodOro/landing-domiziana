@@ -25,7 +25,8 @@
       var salvato = null;
       // localStorage lancia un'eccezione se il browser blocca la memoria del sito: in quel caso si chiede di nuovo il consenso.
       try { salvato = JSON.parse(localStorage.getItem("cookie-consenso") || "null"); } catch (errore) { salvato = null; }
-      if (!salvato || salvato.scelta !== "accettati") return;
+      // Un «Accetta» dato prima che il banner nominasse il pixel di Meta non vale più: il banner ricompare.
+      if (!salvato || salvato.scelta !== "accettati" || salvato.quando < Date.parse("2026-11-12T10:15:00Z")) return;
       var scadenza = new Date(salvato.quando);
       scadenza.setMonth(scadenza.getMonth() + 6);
       if (Date.now() < scadenza.getTime()) window.caricaTagManager();
