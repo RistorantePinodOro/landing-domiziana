@@ -60,7 +60,8 @@ test(".htaccess lascia caricare Tag Manager e i tag di Google, e nessun servizio
   for (const direttiva of ["script-src", "connect-src", "img-src", "frame-src"]) {
     assert.match(csp, new RegExp(`${direttiva} [^;]*https://www\\.googletagmanager\\.com`), direttiva);
   }
-  assert.doesNotMatch(csp, /facebook|iubenda/);
+  assert.doesNotMatch(csp, /iubenda/);
+  if (/facebook/.test(csp)) assert.match(leggi("cookie.html"), /Pixel di Meta/, "il pixel di Meta va dichiarato in cookie.html");
   const scriptSrc = csp.split(";").find((d) => d.trim().startsWith("script-src"));
   assert.ok(!scriptSrc.includes("'unsafe-inline'"), "nessuno script scritto nella pagina: il markup iniettato non può eseguire codice");
 });
