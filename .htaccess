@@ -6,6 +6,9 @@ DirectoryIndex index.html
 Options -Indexes
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  # Killswitch: finche' esiste public_html/.killswitch anche questa cartella risponde 503 (la regola della radice non vale qui).
+  RewriteCond %{DOCUMENT_ROOT}/.killswitch -f
+  RewriteRule ^ - [R=503,L]
   # Il vecchio dominio va sul dominio nuovo anche qui: la regola della radice non vale dentro questa cartella.
   RewriteCond %{HTTP_HOST} ^(www\.)?ristorantelidopinodoro\.com$ [NC]
   RewriteRule ^(.*)$ https://ristorantepinodoro.it/domiziana/$1 [R=301,L]
