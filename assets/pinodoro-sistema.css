@@ -351,3 +351,16 @@ small, .pdo-nota { font-size: var(--pdo-fs-nota); color: var(--pdo-grigio); }
   transition: top .15s ease;
 }
 .skip:focus { top: 1rem; }
+
+/* ---------- LINGUETTA SUL BORDO DESTRO ---------- */
+/* Testo in verticale, letto dal basso verso l'alto; sta sopra la barra fissa. */
+.pdo-linguetta {
+  position: fixed; right: 0; bottom: calc(var(--pdo-altezza-barra) + 1rem + env(safe-area-inset-bottom, 0px)); z-index: 45;
+  padding: .8rem .4rem; border-radius: 0 10px 10px 0;
+  background: #D9A936; color: var(--pdo-nero); box-shadow: 0 0 0 1.5px var(--pdo-spuma), 0 4px 12px #0E0D0B40;
+  font-family: var(--pdo-font-titoli); font-size: var(--pdo-fs-nota); line-height: 1.1; white-space: nowrap; text-decoration: none;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+}
+.pdo-linguetta:hover { background: #E3B94F; }
+.pdo-linguetta:focus-visible { outline: 2px solid var(--pdo-nero); outline-offset: 2px; }
+@media print { .pdo-linguetta { display: none; } }
